@@ -1,0 +1,49 @@
+{% load static %}
+{% load compress %}
+{% load static tailwind_tags %}
+
+<!DOCTYPE HTML>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="pragma" content="no-cache" />
+    <meta http-equiv="cache-control" content="max-age=604800" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <title>Supermecado Riba Smith</title>
+    <script></script>
+  
+    <script src="{% static 'src/js/glider.min.js' %}"></script>
+    <link rel="stylesheet" href="{% static 'src/css/glider.min.css' %}">
+    {% compress css %}
+    <link rel="stylesheet" href="{% static 'src/output.css' %}">
+
+    
+  
+    {% endcompress %}
+    
+</head>
+
+<body>
+
+
+    {% include 'includes/navbar.html' %}
+  
+
+    {% block content %}
+
+    {%endblock%}
+
+
+
+    {% include 'includes/footer.html' %}
+
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/1.8.1/flowbite.min.js"></script>
+
+   
+    
+</body>
+
+</html>
