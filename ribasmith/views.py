@@ -1,14 +1,15 @@
 from django.shortcuts import render
 
-from store.models import Banner, Product
+from store.models import Banner, Product,categorias
 
 
 def home(request):
     banner=Banner.objects.all()
     product=Product.objects.filter(categoria_id=1)[:10] 
-  
+    cat=categorias.objects.all()
     context={
         'banner':banner,
-        'product':product
+        'product':product,
+        'categoria':cat
     }
     return render(request,'home.html',context)

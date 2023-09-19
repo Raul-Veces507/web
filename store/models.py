@@ -47,11 +47,6 @@ class categorias(models.Model):
     def __str__(self):
         return self.name
 
-
-
-
-
-
 class Banner(models.Model):
     
     nombre=models.CharField(max_length=50)
