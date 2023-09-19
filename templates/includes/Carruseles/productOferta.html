@@ -1,0 +1,238 @@
+<style>
+    .p-slider {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        margin: 50px auto;
+        width: 75%;
+    }
+
+    .product-slider-heading {
+        font-size: 28px;
+        text-transform: uppercase;
+        columns: #313131;
+        text-align: center;
+        margin: 0px;
+    }
+
+    .product-box {
+        display: flex;
+        flex-direction: column;
+        width: 300px;
+        padding: 15px;
+        border: 1px solid rgba(0, 0, 0, 0.08);
+        border-radius: 10px;
+        margin: 0px 20px;
+        position: relative;
+
+    }
+
+    .p-img-container {
+        width: 100%;
+        height: 100%;
+        display: flex;
+        overflow: hidden;
+
+    }
+
+    .p-img a,
+    p-img {
+        width: 100%;
+        height: auto;
+        display: flex;
+    }
+
+    .p-img a img {
+        width: 100%;
+        height: auto;
+        object-position: center;
+        object-fit: contain;
+        animation: fade 0.6s;
+
+    }
+
+    .p-img-back {
+        display: none;
+    }
+
+    .p-img-container:hover .p-img-back {
+        display: block;
+    }
+
+    .p-img-container:hover .p-img-front {
+        display: none;
+    }
+
+    @keyframes fade {
+        0% {
+            opacity: 0;
+        }
+
+        100% {
+            opacity: 1;
+        }
+
+    }
+
+    .p-box.text{
+        margin-top: 5px;
+        width: 100%;
+    }
+    .product-category{
+        display: flex;
+        justify-content: flex-start ;
+        align-items: center;
+        flex-wrap: wrap;
+    }
+
+
+    .product-category span{
+        color: #acacac;
+        font-size: 0.9rem;
+        margin: 5px;
+    }
+
+    .product-title{
+        color: #333333;
+        font-weight: 600;
+        transition: all ease 0.3s;
+    }
+    .product-title:hover{
+        color: #111111;
+        opacity: 0.7;
+        transition: all ease 0.3s;
+    }
+    .price-buy{
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-top: 8px;
+    }
+    .price-buy .p-price{
+        margin-top: 10px;
+        font-size: 1.3rem;
+        color: #333333;
+        font-weight: 700;
+    }
+
+    .price-buy span{
+        color: blue;
+        text-align: center
+        ;
+    }
+
+    .price-buy-btn{
+        margin-top: 20px;
+    }
+    .price-buy-btn .p-buy-btn{
+        color: #e63b3b;
+        margin: 0px 5px;
+        font-weight: 600;
+    } 
+    
+
+    .price-buy-btn .p-buy-btn:hover{
+        text-decoration: underline;
+
+    }
+    .p-discount{
+        position: absolute;
+        left: 20px;
+        top: 20px;
+        width: 65px;
+        height: 24px;
+        color:#ffffff;
+        background-color: #e63b3b;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-size: 0.7rem;
+        letter-spacing: 1px;
+        z-index: 100;
+        border-radius: 3px ;
+         
+
+    }
+     
+</style>
+
+
+<section class="p-slider">
+
+    <h3 class="product-slider-heading">Productos En Ofertas </h3>
+
+
+    <div class="glider-contain mt-14">
+        <div class="glider">
+            {% for products in product %}
+            <div class="product-box">
+                <span class="p-discount"> -20%  </span>
+                 
+                <!-- img container -->
+                <div class="p-img-container">
+                    <div class="p-img">
+                        <a href="">
+                            <img src="https://riba.app/imgrs/THUMBS 500X500/{{products.item}}.jpg" class="p-img-font">
+                            <img src="https://riba.app/imgrs/THUMBS 500X500/{{products.item}}.jpg" class="p-img-back">
+                        </a>
+        
+                    </div>
+                </div>
+        
+                <!-- cuerpo de la card -->
+                <div class="p-box-text">
+        
+                    <div class="product-category">
+                        <span> {{ products.categrorianame }}</span>
+                    </div>
+        
+                    <a href="" class="product-title mt-10">
+                        {{products.nombre}}
+                    </a>
+        
+                    <div class="price-buy mt-10">
+                        <span class="p-price ml-11 sm:ml-20">${{products.precio}} </span>
+               
+                        
+                    </div>
+
+                    <div class="price-buy-btn ml-0 sm:ml-8">
+                        <button class="p-buy-btn ">Agregar al carrito</button>
+                        
+                 
+                        
+                    </div>
+        
+                </div>
+        
+        
+        
+            </div>
+            {% endfor %}
+        </div>
+      
+        <button aria-label="Previous" class="glider-prev">«</button>
+        <button aria-label="Next" class="glider-next">»</button>
+     
+      </div>
+
+
+  
+</section>
+
+
+
+
+<script>
+    new Glider(document.querySelector('.glider'), {
+  slidesToScroll: 1,
+  slidesToShow: 4,
+  draggable: true,
+  dots: '.dots',
+  arrows: {
+    prev: '.glider-prev',
+    next: '.glider-next'
+  }
+});
+</script>
