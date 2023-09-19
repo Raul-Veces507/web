@@ -5,7 +5,7 @@
         justify-content: center;
         align-items: center;
         margin: 50px auto;
-        width: 75%;
+        width: 70%;
     }
 
     .product-slider-heading {
@@ -30,7 +30,7 @@
 
     .p-img-container {
         width: 100%;
-        height: 100%;
+        height: 100px;
         display: flex;
         overflow: hidden;
 
@@ -39,13 +39,13 @@
     .p-img a,
     p-img {
         width: 100%;
-        height: auto;
+        height: 100px;
         display: flex;
     }
 
     .p-img a img {
         width: 100%;
-        height: auto;
+        height: 100px;
         object-position: center;
         object-fit: contain;
         animation: fade 0.6s;
@@ -95,7 +95,7 @@
 
     .product-title{
         color: #333333;
-        font-weight: 600;
+      font-size: 13px;
         transition: all ease 0.3s;
     }
     .product-title:hover{
@@ -121,11 +121,14 @@
         text-align: center
         ;
     }
+   
 
     .price-buy-btn{
         margin-top: 20px;
     }
     .price-buy-btn .p-buy-btn{
+        background-color: #ffffff;
+        
         color: #e63b3b;
         margin: 0px 5px;
         font-weight: 600;
@@ -192,13 +195,21 @@
                     </a>
         
                     <div class="price-buy mt-10">
-                        <span class="p-price ml-11 sm:ml-20">${{products.precio}} </span>
+                        
+                        <span class="p-price ml-11 sm:ml-16">${{products.precio}} </span>
                
                         
                     </div>
 
-                    <div class="price-buy-btn ml-0 sm:ml-8">
-                        <button class="p-buy-btn ">Agregar al carrito</button>
+                    <div class="price-buy-btn ml-0 sm:ml-11">
+                        <button type="button" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300
+                         font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">
+                        
+                         Agregar
+                         <i class="far fa-cart-arrow-down"></i>
+                        </button>
+                      
+                        
                         
                  
                         
@@ -214,7 +225,7 @@
       
         <button aria-label="Previous" class="glider-prev">«</button>
         <button aria-label="Next" class="glider-next">»</button>
-     
+        <div role="tablist" class="dots"></div>
       </div>
 
 
