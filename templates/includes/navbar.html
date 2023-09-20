@@ -2,79 +2,82 @@
 {% load static %}
 
 
+<!-- component -->
+<div class="bg-white">
+  <div class="border py-3 px-6">
+    <div class="flex justify-between">
+      <div class="flex items-center">
+        <img class="w-auto h-9" src="https://www.ribasmith.com/media/logo/websites/1/logowebx1.png" alt="">
+      </div>
 
-<nav class="bg-white border-gray-200 dark:bg-gray-900 shadow-md">
-  <div class="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
-    <button type="button"
-      class="flex mr-3 text-sm bg-gray-800 rounded-full md:mr-0 focus:ring-4 focus:ring-gray-300 dark:focus:ring-gray-600"
-      id="user-menu-button" aria-expanded="false" data-dropdown-toggle="user-dropdown" data-dropdown-placement="bottom">
-      <span class="sr-only">Open user menu</span>
-      <img class="w-8 h-8 rounded-full"
-        src="https://images.pexels.com/photos/220453/pexels-photo-220453.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
-        alt="user photo">
-    </button>
-    <div class="flex md:order-2">
-      <button type="button" data-collapse-toggle="navbar-search" aria-controls="navbar-search" aria-expanded="false"
-        class="md:hidden text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700 focus:outline-none focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 rounded-lg text-sm p-2.5 mr-1">
-        <svg class="w-5 h-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
-          <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-            d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z" />
-        </svg>
-        <span class="sr-only">Search</span>
-      </button>
-      <div class="relative hidden md:block">
-        <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
-          <svg class="w-4 h-4 text-gray-500 dark:text-gray-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
-            fill="none" viewBox="0 0 20 20">
-            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-              d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z" />
-          </svg>
-          <span class="sr-only">Search icon</span>
-        </div>
-        <input type="text" id="search-navbar"
-          class="block w-full p-2 pl-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-          placeholder="Search...">
-      </div>
-      <button data-collapse-toggle="navbar-search" type="button"
-        class="inline-flex items-center p-2 w-10 h-10 justify-center text-sm text-gray-500 rounded-lg md:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600"
-        aria-controls="navbar-search" aria-expanded="false">
-        <span class="sr-only">Open main menu</span>
-        <svg class="w-5 h-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 17 14">
-          <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-            d="M1 1h15M1 7h15M1 13h15" />
-        </svg>
-      </button>
-    </div>
-    <div class="items-center justify-between hidden w-full md:flex md:w-auto md:order-1" id="navbar-search">
-      <div class="relative mt-3 md:hidden">
-        <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
-          <svg class="w-4 h-4 text-gray-500 dark:text-gray-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
-            fill="none" viewBox="0 0 20 20">
-            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-              d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z" />
-          </svg>
-        </div>
-        <input type="text" id="search-navbar"
-          class="block w-full p-2 pl-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-          placeholder="Search...">
-      </div>
-      <ul
-        class="flex flex-col p-4 md:p-0 mt-4 font-medium border border-gray-100 rounded-lg bg-gray-50 md:flex-row md:space-x-8 md:mt-0 md:border-0 md:bg-white dark:bg-gray-800 md:dark:bg-gray-900 dark:border-gray-700">
-        <li>
-          <a href="#"
-            class="block py-2 pl-3 pr-4 text-white bg-blue-700 rounded md:bg-transparent md:text-blue-700 md:p-0 md:dark:text-blue-500"
-            aria-current="page">Inicio</a>
-        </li>
-      <li>
+      <div class="ml-6 flex flex-1 gap-x-3">
         
-          <button id="mega-menu-dropdown-button" data-dropdown-toggle="mega-menu-dropdown"
-            class="flex items-center justify-between w-full py-2 pl-3 pr-4 font-medium text-gray-900 border-b border-gray-100 md:w-auto hover:bg-gray-50 md:hover:bg-transparent md:border-0 md:hover:text-blue-600 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-blue-500 md:dark:hover:bg-transparent dark:border-gray-700">
-            Departamentos <svg class="w-2.5 h-2.5 ml-2.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none"
-              viewBox="0 0 10 6">
-              <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                d="m1 1 4 4 4-4" />
-            </svg>
+        <div class="flex cursor-pointer select-none items-center gap-x-2 rounded-md border bg-[#4094F7] py-2 px-4 text-white hover:bg-blue-500">
+          <button id="mega-menu-dropdown-button" data-dropdown-toggle="mega-menu-dropdown">
+            
+            <span class="text-sm font-medium">Departamentos</span>
           </button>
+          
+        </div>
+
+        <input type="text" class="w-full rounded-md border border-[#DDE2E4] px-3 py-2 text-sm" value="Buscar producto" />
+      </div>
+
+      <div class="ml-2 flex">
+        <div class="flex cursor-pointer items-center gap-x-1 rounded-md py-2 px-4 hover:bg-gray-100">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-gray-500" viewBox="0 0 20 20" fill="currentColor">
+            <path d="M4 3a2 2 0 100 4h12a2 2 0 100-4H4z" />
+            <path fill-rule="evenodd" d="M3 8h14v7a2 2 0 01-2 2H5a2 2 0 01-2-2V8zm5 3a1 1 0 011-1h2a1 1 0 110 2H9a1 1 0 01-1-1z" clip-rule="evenodd" />
+          </svg>
+          <span class="text-sm font-medium">Ordenes</span>
+        </div>
+
+        <div class="flex cursor-pointer items-center gap-x-1 rounded-md py-2 px-4 hover:bg-gray-100">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-gray-500" viewBox="0 0 20 20" fill="currentColor">
+            <path fill-rule="evenodd" d="M3.172 5.172a4 4 0 015.656 0L10 6.343l1.172-1.171a4 4 0 115.656 5.656L10 17.657l-6.828-6.829a4 4 0 010-5.656z" clip-rule="evenodd" />
+          </svg>
+          <span class="text-sm font-medium">Favoritos</span>
+        </div>
+
+        <div class="flex cursor-pointer items-center gap-x-1 rounded-md py-2 px-4 hover:bg-gray-100">
+          <div class="relative">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-gray-500" viewBox="0 0 20 20" fill="currentColor">
+              <path d="M3 1a1 1 0 000 2h1.22l.305 1.222a.997.997 0 00.01.042l1.358 5.43-.893.892C3.74 11.846 4.632 14 6.414 14H15a1 1 0 000-2H6.414l1-1H14a1 1 0 00.894-.553l3-6A1 1 0 0017 3H6.28l-.31-1.243A1 1 0 005 1H3zM16 16.5a1.5 1.5 0 11-3 0 1.5 1.5 0 013 0zM6.5 18a1.5 1.5 0 100-3 1.5 1.5 0 000 3z" />
+            </svg>
+            <span class="absolute -top-2 -right-2 flex h-4 w-4 items-center justify-center rounded-full bg-red-500 p-2 text-xs text-white">3</span>
+          </div>
+          <span class="text-sm font-medium">Carrito</span>
+        </div>
+
+        <div class="ml-2 flex cursor-pointer items-center gap-x-1 rounded-md border py-2 px-4 hover:bg-gray-100">
+          <span class="text-sm font-medium">Iniciar sesion</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="mt-4 flex items-center justify-between">
+      <div class="flex gap-x-2 py-1 px-2">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-gray-500" viewBox="0 0 20 20" fill="currentColor">
+          <path fill-rule="evenodd" d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z" clip-rule="evenodd" />
+        </svg>
+        <span class="text-sm font-medium">Encontrar tienda</span>
+      </div>
+
+      <div class="flex gap-x-8">
+        <span class="cursor-pointer rounded-sm py-1 px-2 text-sm font-medium hover:bg-gray-100">Inicio</span>
+        <span class="cursor-pointer rounded-sm py-1 px-2 text-sm font-medium hover:bg-gray-100">Rimith</span>
+        <span class="cursor-pointer rounded-sm py-1 px-2 text-sm font-medium hover:bg-gray-100">RS+</span>
+        <span class="cursor-pointer rounded-sm py-1 px-2 text-sm font-medium hover:bg-gray-100">Rimith Esencial</span>
+        <span class="cursor-pointer rounded-sm py-1 px-2 text-sm font-medium hover:bg-gray-100">Emprendedores</span>
+      </div>
+
+      
+      <span class="cursor-pointer rounded-sm py-1 px-2 text-sm font-medium hover:bg-gray-100 ">Crear cuenta</span>
+    </div>
+  </div>
+</div>
+
+
           <div id="mega-menu-dropdown"
             class="z-50  absolute  hidden w-auto text-sm bg-white border border-gray-100 rounded-lg shadow-md dark:border-gray-700 md:grid-cols-3 dark:bg-gray-700 ">
             <div class="mx-auto w-full max-w-screen-xl">
@@ -93,79 +96,4 @@
           </div>
 
         </div>
-        </li>
-        <li>
-          <a href="#"
-            class="block py-2 pl-3 pr-4 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700">Emprendedores</a>
-        </li>
-      </ul>
-    </div>
-  </div>
-</nav>
-
-<!-- Dropdown menu user -->
-<div
-  class="z-50 hidden my-4 text-base list-none bg-white divide-y divide-gray-100 rounded-lg shadow dark:bg-gray-700 dark:divide-gray-600"
-  id="user-dropdown">
-  <div class="px-4 py-3">
-    <span class="block text-sm text-gray-900 dark:text-white">Bonnie Green</span>
-    <span class="block text-sm  text-gray-500 truncate dark:text-gray-400">name@flowbite.com</span>
-  </div>
-  <ul class="py-2" aria-labelledby="user-menu-button">
-    <li>
-      <a href="#"
-        class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">Dashboard</a>
-    </li>
-    <li>
-      <a href="#"
-        class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">Settings</a>
-    </li>
-    <li>
-      <a href="#"
-        class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">Earnings</a>
-    </li>
-    <li>
-      <a href="#"
-        class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">Sign
-        out</a>
-    </li>
-  </ul>
-</div>
-
-
-
-
-
-<div class="flex justify-center items-center ">
-  <nav class=" rounded-b-full shadow-sm   w-full md:w-96 bg-blue-800 dark:bg-gray-700">
-    <div class="w-full px-4 py-3 mx-auto">
-      <div class="flex justify-center items-center">
-        <!-- Cambia "tu-imagen.jpg" y ajusta el tamaño -->
-        <ul class="flex flex-row font-medium mt-0  space-x-4 md:space-x-8 text-sm">
-          <li>
-            <a href="#" class="text-white dark:text-white hover:underline">Rimith</a>
-          </li>
-          <li>
-            <a href="#" class="text-white dark:text-white hover:underline">RS+</a>
-
-          </li>
-          <li>
-            <img
-              src="data:image/png;base64,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"
-              alt="Imagen de ejemplo" class="w-7 h-7 ">
-          </li>
-
-
-          <li>
-            <a href="#" class="text-white dark:text-white hover:underline"> Rimith Esencial</a>
-          </li>
-        </ul>
-      </div>
-    </div>
-  </nav>
-</div>
-
-
-
-
-
+       
