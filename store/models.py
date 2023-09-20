@@ -1,4 +1,7 @@
+
 from django.db import models
+
+from category.models import categorias
 
 class Product(models.Model):
     # Definir los campos que corresponden a la estructura de la tabla
@@ -36,16 +39,8 @@ class Product(models.Model):
         return cat
 
     
-class categorias(models.Model):
-    name = models.CharField(max_length=255)
-    img = models.CharField(max_length=255)
-    created_at = models.DateTimeField(auto_now_add=True)
-    updated_at = models.DateTimeField(auto_now=True)
-    class Meta:
-        managed = False
-        db_table = 'categorias'  # Especifica el nombre de la tabla existente en la base de datos
-    def __str__(self):
-        return self.name
+
+
 
 class Banner(models.Model):
     
