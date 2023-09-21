@@ -1,5 +1,6 @@
 
 from django.db import models
+from django.urls import reverse
 
 from category.models import categorias
 
@@ -37,7 +38,15 @@ class Product(models.Model):
         print(cat)
       
         return cat
+    
+    def get_url_marca(self):
+        return reverse('products_by_category_marca',args=[self.categoria_id,self.Marca])
+    
 
+    def viewproduct(self):
+           return reverse('product_detail',args=[self.categoria_id,self.item])
+    
+   
     
 
 
