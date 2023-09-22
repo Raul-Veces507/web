@@ -44,7 +44,8 @@ INSTALLED_APPS = [
     'theme',
     'compressor',
     'store', #app wev
-    'category'
+    'category',
+    'Cart'
 ]
 
 TAILWIND_APP_NAME="theme"
