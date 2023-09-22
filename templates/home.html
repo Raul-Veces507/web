@@ -1,26 +1,14 @@
 {% extends 'base.html' %}
-
+{% load static %}
 
 {% block content %}
 {% include 'includes/carrusel.html' %}
 
 {% include 'includes/carruseles/productOferta.html' %}
 
-<div class="container mx-auto text-center">
-    <h1 class=" text-3xl font-bold mb-9">OFERTAS ESPECIALES PARA  <span class="font-bold text-gray-600">TI</span></h1>
-    <div class="grid grid-cols-1 md:grid-cols-3 text-center md:mb-2 ">
-        <div class="transition-transform duration-300 hover:scale-125 mb-4">
-            <img class="transition-transform duration-300 hover:scale-125 rounded-full w-1/2 mx-auto" src="https://www.ribasmith.com/media/wysiwyg/VERANO/PUNTO_MAGENTA.png" alt="">
-        </div>
-        
-        <div class="mb-4 transition-transform duration-300 hover:scale-125 ">
-            <img class="transition-transform duration-300 hover:scale-125 rounded-full w-1/2 mx-auto" src="https://www.ribasmith.com/media/wysiwyg/VERANO/RIMITH_1.jpg" alt="">
-        </div>
-        
-        <div class="mb-4 transition-transform duration-300 hover:scale-125 ">
-            <img class="transition-transform duration-300 hover:scale-125 rounded-full w-1/2 mx-auto" src="https://www.ribasmith.com/media/wysiwyg/VERANO/boton_de_septiembre.jpg" alt="">
-        </div>
-    </div>
+<div class="container justify-center items-center rounded-xl ">
+    <img src="{% static 'src/images/ban/frut.jpg' %}" alt="" class="container rounded-xl ">
+    
 </div>
 
 {% include 'includes/carruseles/carruselesPromo.html' %}
