@@ -8,6 +8,15 @@
         width: 1190px;
     }
 
+
+    @media screen and (max-width: 768px) {
+        .p-slider {
+            width: 290px;
+            /* Ancho del 60% en pantallas pequeñas */
+        }
+    }
+
+
     .product-slider-heading {
         font-size: 28px;
         text-transform: uppercase;
@@ -19,16 +28,16 @@
     .product-box1 {
         display: flex;
         flex-direction: column;
-        width: 300px;
-       
-        
+        width: 500px;
+
+
         position: relative;
 
     }
 
     .p-img-container {
         width: 100%;
-        height: 100px;
+        height: 100%;
         display: flex;
         overflow: hidden;
 
@@ -37,13 +46,13 @@
     .p-img a,
     p-img {
         width: 100%;
-        height: 100px;
+        height: auto;
         display: flex;
     }
 
     .p-img a img {
         width: 100%;
-        height: 100px;
+        height: auto;
         object-position: center;
         object-fit: contain;
         animation: fade 0.6s;
@@ -73,77 +82,82 @@
 
     }
 
-    .p-box.text{
+    .p-box.text {
         margin-top: 5px;
         width: 100%;
     }
-    .product-category{
+
+    .product-category {
         display: flex;
-        justify-content: flex-start ;
+        justify-content: flex-start;
         align-items: center;
         flex-wrap: wrap;
     }
 
 
-    .product-category span{
+    .product-category span {
         color: #acacac;
         font-size: 0.9rem;
         margin: 5px;
     }
 
-    .product-title{
+    .product-title {
         color: #333333;
-      font-size: 13px;
+        font-size: 13px;
         transition: all ease 0.3s;
     }
-    .product-title:hover{
+
+    .product-title:hover {
         color: #111111;
         opacity: 0.7;
         transition: all ease 0.3s;
     }
-    .price-buy{
+
+    .price-buy {
         display: flex;
         justify-content: space-between;
         align-items: center;
         margin-top: 8px;
     }
-    .price-buy .p-price{
+
+    .price-buy .p-price {
         margin-top: 10px;
         font-size: 1.3rem;
         color: #333333;
         font-weight: 700;
     }
 
-    .price-buy span{
+    .price-buy span {
         color: blue;
-        text-align: center
-        ;
+        text-align: center;
     }
-   
 
-    .price-buy-btn{
+
+    .price-buy-btn {
         margin-top: 20px;
     }
-    .price-buy-btn .p-buy-btn{
+
+    .price-buy-btn .p-buy-btn {
         background-color: #ffffff;
-        
+
         color: #e63b3b;
         margin: 0px 5px;
         font-weight: 600;
-    } 
-    
+    }
 
-    .price-buy-btn .p-buy-btn:hover{
+
+    .price-buy-btn .p-buy-btn:hover {
         text-decoration: underline;
 
     }
-    .p-discount{
+
+    .p-discount {
         position: absolute;
         left: 20px;
         top: 20px;
         width: 65px;
         height: 24px;
-        color:#ffffff;
+        color: #ffffff;
         background-color: #006eff;
         display: flex;
         justify-content: center;
@@ -151,87 +165,129 @@
         font-size: 0.7rem;
         letter-spacing: 1px;
         z-index: 100;
-        border-radius: 3px ;
-         
+        border-radius: 3px;
+
 
     }
 
-
-
+    .text-limit {
+        white-space: nowrap;
+        /* Evita el salto de línea */
+        overflow: hidden;
+        /* Oculta el exceso de texto */
+        text-overflow: ellipsis;
+        /* Agrega puntos suspensivos (...) al final del texto truncado */
+        max-width: 20ch;
+        /* Limita el ancho máximo a 15 caracteres (aproximadamente) */
+        display: inline-block;
+        /* Permite que el elemento ocupe solo el espacio necesario */
+    }
 </style>
 
 
-<section class="p-slider" >
-   
+<section class="p-slider">
+
     <div class="flex justify-between items-center w-full">
         <h3 class="font-bold text-lg rounded-lg">Precios Especiales-Octubre</h3>
         <a href="" class="text-right">Ver todo</a>
     </div>
-    
-    
+
+
 
 
     <div class="glider-contain mt-14">
         <div class="glider">
             {% for products in product %}
             <div class="product-box1">
-                <span class="p-discount"> -20%  </span>
-                 
+                <span class="p-discount"> -20% </span>
+
                 <!-- img container -->
                 <div class="p-img-container">
                     <div class="p-img">
-                        <a href="">
+                        <a href="{{products.viewproduct}}">
                             <img src="https://riba.app/imgrs/THUMBS 500X500/{{products.item}}.jpg" class="p-img-font">
                             <img src="https://riba.app/imgrs/THUMBS 500X500/{{products.item}}.jpg" class="p-img-back">
                         </a>
-        
+
                     </div>
                 </div>
-        
+
                 <!-- cuerpo de la card -->
                 <div class="p-box-text">
-        
+
                     <div class="product-category">
                         <span> {{ products.categrorianame }}</span>
                     </div>
-        
-                    <a href="" class="product-title mt-10">
+
+                    <a href="" class="product-title  text-limit">
                         {{products.nombre}}
                     </a>
-        
-                    <div class="price-buy mt-10">
-                        
-                        <span class="p-price ml-11 sm:ml-16">${{products.precio}} </span>
-               
-                        
+                    <p class="text-green-500 ">In Stock</p>
+                    <!-- estrellas -->
+                    <div class="flex items-center mt-2.5 mb-5">
+                        <svg class="w-4 h-4 text-yellow-300 mr-1" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
+                            fill="currentColor" viewBox="0 0 22 20">
+                            <path
+                                d="M20.924 7.625a1.523 1.523 0 0 0-1.238-1.044l-5.051-.734-2.259-4.577a1.534 1.534 0 0 0-2.752 0L7.365 5.847l-5.051.734A1.535 1.535 0 0 0 1.463 9.2l3.656 3.563-.863 5.031a1.532 1.532 0 0 0 2.226 1.616L11 17.033l4.518 2.375a1.534 1.534 0 0 0 2.226-1.617l-.863-5.03L20.537 9.2a1.523 1.523 0 0 0 .387-1.575Z" />
+                        </svg>
+                        <svg class="w-4 h-4 text-yellow-300 mr-1" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
+                            fill="currentColor" viewBox="0 0 22 20">
+                            <path
+                                d="M20.924 7.625a1.523 1.523 0 0 0-1.238-1.044l-5.051-.734-2.259-4.577a1.534 1.534 0 0 0-2.752 0L7.365 5.847l-5.051.734A1.535 1.535 0 0 0 1.463 9.2l3.656 3.563-.863 5.031a1.532 1.532 0 0 0 2.226 1.616L11 17.033l4.518 2.375a1.534 1.534 0 0 0 2.226-1.617l-.863-5.03L20.537 9.2a1.523 1.523 0 0 0 .387-1.575Z" />
+                        </svg>
+                        <svg class="w-4 h-4 text-yellow-300 mr-1" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
+                            fill="currentColor" viewBox="0 0 22 20">
+                            <path
+                                d="M20.924 7.625a1.523 1.523 0 0 0-1.238-1.044l-5.051-.734-2.259-4.577a1.534 1.534 0 0 0-2.752 0L7.365 5.847l-5.051.734A1.535 1.535 0 0 0 1.463 9.2l3.656 3.563-.863 5.031a1.532 1.532 0 0 0 2.226 1.616L11 17.033l4.518 2.375a1.534 1.534 0 0 0 2.226-1.617l-.863-5.03L20.537 9.2a1.523 1.523 0 0 0 .387-1.575Z" />
+                        </svg>
+                        <svg class="w-4 h-4 text-yellow-300 mr-1" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
+                            fill="currentColor" viewBox="0 0 22 20">
+                            <path
+                                d="M20.924 7.625a1.523 1.523 0 0 0-1.238-1.044l-5.051-.734-2.259-4.577a1.534 1.534 0 0 0-2.752 0L7.365 5.847l-5.051.734A1.535 1.535 0 0 0 1.463 9.2l3.656 3.563-.863 5.031a1.532 1.532 0 0 0 2.226 1.616L11 17.033l4.518 2.375a1.534 1.534 0 0 0 2.226-1.617l-.863-5.03L20.537 9.2a1.523 1.523 0 0 0 .387-1.575Z" />
+                        </svg>
+                        <svg class="w-4 h-4 text-gray-200 dark:text-gray-600" aria-hidden="true"
+                            xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 22 20">
+                            <path
+                                d="M20.924 7.625a1.523 1.523 0 0 0-1.238-1.044l-5.051-.734-2.259-4.577a1.534 1.534 0 0 0-2.752 0L7.365 5.847l-5.051.734A1.535 1.535 0 0 0 1.463 9.2l3.656 3.563-.863 5.031a1.532 1.532 0 0 0 2.226 1.616L11 17.033l4.518 2.375a1.534 1.534 0 0 0 2.226-1.617l-.863-5.03L20.537 9.2a1.523 1.523 0 0 0 .387-1.575Z" />
+                        </svg>
+                        <span
+                            class="bg-blue-100 text-blue-800 text-xs font-semibold mr-2 px-2.5 py-0.5 rounded dark:bg-blue-200 dark:text-blue-800 ml-3">5.0</span>
+                    </div>
+                    <!-- fin de estrellas -->
+                    <div class=" mt-10">
+                        <span class="text-base text-red-700  font-medium text-gray-500 line-through dark:text-gray-300">$25.00</span>
+                        <span class="text-lg font-semibold text-gray-900 dark:text-white ">${{products.precio}} </span>
+
+
                     </div>
 
-                    <div class="price-buy-btn ml-0 sm:ml-11">
-                        <button type="button" class="text-white bg-yellow-300 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300
+                    <div class="price-buy-btn ml-0 sm:ml-7">
+                        <button type="button"
+                            class="text-white bg-yellow-300 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300
                          font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">
-                        
-                         Agregar
-                         <i class="far fa-cart-arrow-down"></i>
+
+                            Agregar
+                            <i class="far fa-cart-arrow-down"></i>
                         </button>
-                      
-                        
-                        
-                 
-                        
+
+
+
+
+
                     </div>
-        
+
                 </div>
-        
-        
-        
+
+
+
             </div>
             {% endfor %}
         </div>
-      
+
         <button aria-label="Previous" class="glider-prev">«</button>
         <button aria-label="Next" class="glider-next">»</button>
         <div role="tablist" class="dots"></div>
-      </div>
+    </div>
 
 
 
@@ -242,13 +298,13 @@
 
 <script>
     new Glider(document.querySelector('.glider'), {
-  slidesToScroll: 1,
-  slidesToShow: 5,
-  draggable: true,
-  dots: '.dots',
-  arrows: {
-    prev: '.glider-prev',
-    next: '.glider-next'
-  }
-});
+        slidesToScroll: 1,
+        slidesToShow: 5,
+        draggable: true,
+        dots: '.dots',
+        arrows: {
+            prev: '.glider-prev',
+            next: '.glider-next'
+        }
+    });
 </script>
