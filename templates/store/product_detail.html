@@ -215,20 +215,30 @@
                     </p>
                 </div>
                 <div class="mt-5">
+                   
+                    {% if single_product.inventario <= 0 %}
+                    <span class=" font-medium text-red-500  dark:text-gray-300"> Out of Stock</span>
+                    {% else %}
                     <span class=" font-medium text-green-500  dark:text-gray-300">In Stock</span>
+                    {% endif %}
                 </div>
 
                 <div class="mt-5">
                     <span>{{ single_product.Detalle }}</span>
                 </div>
+                {% if single_product.inventario <= 0 %}
+                <h5 class=" mt-5 text-center text-red-500" > Producto fuera de stock </h5>
+                {% else %}
                 <div class="mt-5 flex">
                     <button class="btn-menos">-</button>
                     <input class="selector-input ml-2 text-center" type="text" disabled value="1">
                     <button class="btn-mas ml-2">+</button>
-                    <button type="button"
-                        class="ml-2 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">Agregar
-                        al carrito</button>
+                    <a href="{% url 'add_cart' single_product.id %}" class="ml-2 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">
+                        Agregar al carrito
+                    </a>
+        
                 </div>
+                {% endif %}
 
                 <div class="mt-9">
                     <button class="btn-favorite"><i class="far fa-heart"></i> Agregar a lista</button>

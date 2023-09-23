@@ -10,7 +10,7 @@ class Product(models.Model):
     nombre = models.CharField(max_length=255)
     item = models.CharField(max_length=255)
     sku = models.CharField(max_length=25)
-    precio = models.CharField(max_length=255)
+    precio = models.DecimalField(max_digits=16, decimal_places=2)
     Impuesto = models.IntegerField()
     Size = models.CharField(max_length=50)
     img = models.CharField(max_length=255)
