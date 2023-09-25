@@ -25,6 +25,7 @@ class Product(models.Model):
     updated_at = models.DateTimeField(null=True, blank=True)
     CodigoPeso = models.IntegerField()
     FactorConversion = models.DecimalField(max_digits=4, decimal_places=2)
+    
 
     # Establecer managed = False para que Django no cree la tabla
     class Meta:
