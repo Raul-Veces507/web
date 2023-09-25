@@ -32,6 +32,7 @@
             <p class="text-gray-600 text-center">Productos</p>
             <p class="text-gray-600 text-center ml-auto mr-16 xl:mr-24">Cantidad</p>
             <p class="text-gray-600 text-center">Total</p>
+            
         </div>
         <!-- cart title end -->
 
@@ -101,17 +102,21 @@
             <h4>Total</h4>
             <h4>$ {{grand_total}}</h4>
         </div>
-        <div class="text-center mb-3">
-            <img src="{% static 'src/images/misc/payments.png' %}"  height="26">
+        <div class="text-center mb-3 ml-14 mt-5">
+            <img src="{% static 'src/images/misc/payments.png' %}"  width="150" height="26">
 
         </div>
 
 
         <!-- checkout -->
-        <a href="checkout.html" class="bg-blue-600 border border-blue-600 text-white px-4 py-3 font-medium rounded-md uppercase hover:bg-transparent
+        <a href="checkout.html" class="mt-5 bg-blue-600 border border-blue-600 text-white px-4 py-3 font-medium rounded-md uppercase hover:bg-transparent
          hover:text-blue-600 transition text-sm w-full block text-center">
-            Process to checkout
+            Pagar
         </a>
+        <a href="{% url 'home' %}" class="mt-5 bg-gray-400 border border-gray-400 text-white px-4 py-3 font-medium rounded-md uppercase hover:bg-transparent
+        hover:text-blue-600 transition text-sm w-full block text-center">
+           Continuar Compando
+       </a>
         <!-- checkout end -->
     </div>
     <!-- order summary end -->

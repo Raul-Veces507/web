@@ -15,11 +15,13 @@ def store(request,category_slug=None):
         for product in products:
            Marca = product.Marca
            categoria = product.categoria_id
+           products_count=Product.objects.filter(Marca=Marca)
+           cantidad=products_count.count()
            if Marca is not None and categoria is not None:
 
-             Marcas.add((Marca, categoria))
+             Marcas.add((Marca, categoria,cantidad))
 
-        marcas_lista = [{'Marca': Marca, 'Categoria': categoria} for Marca, categoria in Marcas]
+        marcas_lista = [{'Marca': Marca, 'Categoria': categoria,'Cantidad':cantidad} for Marca, categoria,cantidad in Marcas]
 
         paginator=Paginator(products,36)
         page=request.GET.get('page')
@@ -29,12 +31,25 @@ def store(request,category_slug=None):
         start_page = max(current_page - 4, 1)  # Establece el rango de páginas visibles
         end_page = min(current_page + 4,paged_prducts.paginator.num_pages)
       else:
+        categories=categorias.objects.all()
         products=Product.objects.all().order_by('id')
-        
-        paginator=Paginator(products,24)
+        Marcas = set()
+        for product in products:
+           Marca = product.Marca
+           categoria = product.categoria_id
+           if Marca is not None and categoria is not None:
+
+             Marcas.add((Marca, categoria))
+
+        marcas_lista = [{'Marca': Marca, 'Categoria': categoria} for Marca, categoria in Marcas]
+        print(marcas_lista)
+        paginator=Paginator(products,36)
         page=request.GET.get('page')
         paged_prducts=paginator.get_page(page)
         product_count=products.count()
+        current_page = paged_prducts.number
+        start_page = max(current_page - 4, 1)  # Establece el rango de páginas visibles
+        end_page = min(current_page + 4,paged_prducts.paginator.num_pages)
         
       content={
         'productos':paged_prducts,

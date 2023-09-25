@@ -255,17 +255,16 @@
                 <span class="capitalize ml-2 text-white">All categories</span>
 
                 <div class="absolute left-0 top-full w-full bg-white shadow-md py-3 invisible opacity-0 group-hover:opacity-100 group-hover:visible transition duration-300 z-50 divide-y divide-gray-300 divide-dashed">
-                    <!-- single category -->
-                    {% for cat in links %}
-                    <a href="{{cat.get_url}}" class="px-6 py-3 flex items-center hover:bg-gray-100 transition">
-                      
-                      <span class="ml-6 text-gray-600 text-sm">   {{cat.name}}</span>
-                  </a>
+                  <!-- single category -->
+                  {% for cat in links %}
+                  <a href="{% url 'products_by_category' cat.Id %}" class="px-6 py-3 flex items-center hover:bg-gray-100 transition">
+                    <span class="ml-6 text-gray-600 text-sm">   {{cat.Categoria}}</span>
+                </a>
+              
+                  {% endfor %}
                 
-                    {% endfor %}
                   
-                    
-                </div>
+              </div>
             </div>
             <!-- all category end -->
 
