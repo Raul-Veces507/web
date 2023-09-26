@@ -3,7 +3,7 @@
 <!-- component -->
 <!-- Main navigation container -->
 
-<nav class=" " style="background:rgb(20, 32, 201) ;">
+<nav class=" bg-blue-700" >
   <div class="w-full px-4 py-3 mx-auto">
       <div class="flex items-center">
         
@@ -45,19 +45,27 @@
   <nav class="  border">
     <div class="max-w-screen-xl px-4 py-3 mx-auto">
         <div class="flex items-center  justify-between">
-            <ul class="flex flex-row  font-medium mt-0 mr-6 space-x-8 text-sm">
+            <ul class="flex flex-row  font-medium mt-0 mr-6 space-x-2 text-sm">
                 <li>
-                    <a href="#" class="text-gray-900 dark:text-white  hover:text-pink-400"       aria-current="page">Nosotros</a>
+                  <i class="fa-regular fa-heart"></i>
+                    <a href="#" class= " texcto text-gray-900 dark:text-white  hover:text-pink-400">Lista de compras</a>
+                    
                 </li>
                 <li>
-                    <a href="#" class= " texcto text-gray-900 dark:text-white  hover:text-pink-400">Mi cuenta</a>
+                  <i class="fa-solid fa-toolbox"></i>
+                  <a href="#" class="text-gray-900 dark:text-white  hover:text-pink-400" aria-current="page">Mis Pedidos</a>
                 </li>
                 <li>
-                    <a href="#" class="text-gray-900 dark:text-white hover:text-pink-400">Favoritos</a>
+                  <i class="fa-solid fa-location-dot"></i>
+                    <a href="#" class="text-gray-900 dark:text-white hover:text-pink-400">Zonas de Entrega</a>
                 </li>
                 <li>
-                    <a href="#" class="text-gray-900 dark:text-white  hover:text-pink-400">RS+</a>
+                    <a href="#" class="text-gray-900 dark:text-white  hover:text-pink-400">Sucursales y Horarios</a>
                 </li>
+                <li>
+                  <a href="#" class="text-gray-900 dark:text-white  hover:text-pink-400">RS+</a>
+              </li>
+              
                 
 
               
@@ -65,86 +73,19 @@
               <div class="hidden md:flex justify-between"  >
                 
                 <ul class="flex space-x-4">
-                  <li class="flex space-x-2" style="border-right: 2px solid rgb(223, 223, 223);" >
-                    <svg  xmlns="http://www.w3.org/2000/svg" id="Outline" viewBox="0 0 24 24" width="20" height="20"><path d="M18.581,2.14,12.316.051a1,1,0,0,0-.632,0L5.419,2.14A4.993,4.993,0,0,0,2,6.883V12c0,7.563,9.2,11.74,9.594,11.914a1,1,0,0,0,.812,0C12.8,23.74,22,19.563,22,12V6.883A4.993,4.993,0,0,0,18.581,2.14ZM20,12c0,5.455-6.319,9.033-8,9.889-1.683-.853-8-4.42-8-9.889V6.883A3,3,0,0,1,6.052,4.037L12,2.054l5.948,1.983A3,3,0,0,1,20,6.883Z"/><path d="M15.3,8.3,11.112,12.5,8.868,10.16a1,1,0,1,0-1.441,1.386l2.306,2.4a1.872,1.872,0,0,0,1.345.6h.033a1.873,1.873,0,0,0,1.335-.553l4.272-4.272A1,1,0,0,0,15.3,8.3Z"/></svg>
-                    <a href="#" class="text-gray-900 dark:text-white hover:underline">100% seguridad en tus pedidos</a>
-                </li>
                   <li style="border-right: 2px solid rgb(223, 223, 223);">
-                    Nedd help? llamanos
-                    <span class="text-blue-500">+0020 500</span>
+                    Contactenos
+                    <span class="text-blue-700">+507 309-5335</span>
                   </li>
                   <li>
-                    <div class="flex items-center md:order-2">
-                      <button type="button" data-dropdown-toggle="language-dropdown-menu" class="inline-flex items-center font-light justify-center px-4  text-sm text-gray-900 dark:text-white rounded-lg cursor-pointer hover:bg-gray-100 dark:hover:bg-gray-700 dark:hover:text-white">
-                        <svg class="w-4 h-4 mr-2 rounded-full" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 3900 3900"><path fill="#b22234" d="M0 0h7410v3900H0z"/><path d="M0 450h7410m0 600H0m0 600h7410m0 600H0m0 600h7410m0 600H0" stroke="#fff" stroke-width="300"/><path fill="#3c3b6e" d="M0 0h2964v2100H0z"/><g fill="#fff"><g id="d"><g id="c"><g id="e"><g id="b"><path id="a" d="M247 90l70.534 217.082-184.66-134.164h228.253L176.466 307.082z"/><use xlink:href="#a" y="420"/><use xlink:href="#a" y="840"/><use xlink:href="#a" y="1260"/></g><use xlink:href="#a" y="1680"/></g><use xlink:href="#b" x="247" y="210"/></g><use xlink:href="#c" x="494"/></g><use xlink:href="#d" x="988"/><use xlink:href="#c" x="1976"/><use xlink:href="#e" x="2470"/></g></svg>
-                        <p class="text-sm">English (US)</p>
-                      </button>
-                      <!-- Dropdown -->
-                      <div class="z-50 hidden my-4 text-base list-none bg-white divide-y divide-gray-100 rounded-lg shadow dark:bg-gray-700" id="language-dropdown-menu">
-                        <ul class="py-2 font-medium" role="none">
-                          <li >
-                            <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-400 dark:hover:bg-gray-600 dark:hover:text-white" role="menuitem">
-                              <div class="inline-flex items-center">
-                                <svg aria-hidden="true" class="h-3.5 w-3.5 rounded-full mr-2" xmlns="http://www.w3.org/2000/svg" id="flag-icon-css-us" viewBox="0 0 512 512"><g fill-rule="evenodd"><g stroke-width="1pt"><path fill="#bd3d44" d="M0 0h247v10H0zm0 20h247v10H0zm0 20h247v10H0zm0 20h247v10H0zm0 20h247v10H0zm0 20h247v10H0zm0 20h247v10H0z" transform="scale(3.9385)"/><path fill="#fff" d="M0 10h247v10H0zm0 20h247v10H0zm0 20h247v10H0zm0 20h247v10H0zm0 20h247v10H0zm0 20h247v10H0z" transform="scale(3.9385)"/></g><path fill="#192f5d" d="M0 0h98.8v70H0z" transform="scale(3.9385)"/><path fill="#fff" d="M8.2 3l1 2.8H12L9.7 7.5l.9 2.7-2.4-1.7L6 10.2l.9-2.7-2.4-1.7h3zm16.5 0l.9 2.8h2.9l-2.4 1.7 1 2.7-2.4-1.7-2.4 1.7 1-2.7-2.4-1.7h2.9zm16.5 0l.9 2.8H45l-2.4 1.7 1 2.7-2.4-1.7-2.4 1.7 1-2.7-2.4-1.7h2.9zm16.4 0l1 2.8h2.8l-2.3 1.7.9 2.7-2.4-1.7-2.3 1.7.9-2.7-2.4-1.7h3zm16.5 0l.9 2.8h2.9l-2.4 1.7 1 2.7L74 8.5l-2.3 1.7.9-2.7-2.4-1.7h2.9zm16.5 0l.9 2.8h2.9L92 7.5l1 2.7-2.4-1.7-2.4 1.7 1-2.7-2.4-1.7h2.9zm-74.1 7l.9 2.8h2.9l-2.4 1.7 1 2.7-2.4-1.7-2.4 1.7 1-2.7-2.4-1.7h2.9zm16.4 0l1 2.8h2.8l-2.3 1.7.9 2.7-2.4-1.7-2.3 1.7.9-2.7-2.4-1.7h3zm16.5 0l.9 2.8h2.9l-2.4 1.7 1 2.7-2.4-1.7-2.4 1.7 1-2.7-2.4-1.7h2.9zm16.5 0l.9 2.8h2.9l-2.4 1.7 1 2.7-2.4-1.7-2.4 1.7 1-2.7-2.4-1.7H65zm16.4 0l1 2.8H86l-2.3 1.7.9 2.7-2.4-1.7-2.3 1.7.9-2.7-2.4-1.7h3zm-74 7l.8 2.8h3l-2.4 1.7.9 2.7-2.4-1.7L6 24.2l.9-2.7-2.4-1.7h3zm16.4 0l.9 2.8h2.9l-2.3 1.7.9 2.7-2.4-1.7-2.3 1.7.9-2.7-2.4-1.7h2.9zm16.5 0l.9 2.8H45l-2.4 1.7 1 2.7-2.4-1.7-2.4 1.7 1-2.7-2.4-1.7h2.9zm16.4 0l1 2.8h2.8l-2.3 1.7.9 2.7-2.4-1.7-2.3 1.7.9-2.7-2.4-1.7h3zm16.5 0l.9 2.8h2.9l-2.3 1.7.9 2.7-2.4-1.7-2.3 1.7.9-2.7-2.4-1.7h2.9zm16.5 0l.9 2.8h2.9L92 21.5l1 2.7-2.4-1.7-2.4 1.7 1-2.7-2.4-1.7h2.9zm-74.1 7l.9 2.8h2.9l-2.4 1.7 1 2.7-2.4-1.7-2.4 1.7 1-2.7-2.4-1.7h2.9zm16.4 0l1 2.8h2.8l-2.3 1.7.9 2.7-2.4-1.7-2.3 1.7.9-2.7-2.4-1.7h3zm16.5 0l.9 2.8h2.9l-2.3 1.7.9 2.7-2.4-1.7-2.3 1.7.9-2.7-2.4-1.7h2.9zm16.5 0l.9 2.8h2.9l-2.4 1.7 1 2.7-2.4-1.7-2.4 1.7 1-2.7-2.4-1.7H65zm16.4 0l1 2.8H86l-2.3 1.7.9 2.7-2.4-1.7-2.3 1.7.9-2.7-2.4-1.7h3zm-74 7l.8 2.8h3l-2.4 1.7.9 2.7-2.4-1.7L6 38.2l.9-2.7-2.4-1.7h3zm16.4 0l.9 2.8h2.9l-2.3 1.7.9 2.7-2.4-1.7-2.3 1.7.9-2.7-2.4-1.7h2.9zm16.5 0l.9 2.8H45l-2.4 1.7 1 2.7-2.4-1.7-2.4 1.7 1-2.7-2.4-1.7h2.9zm16.4 0l1 2.8h2.8l-2.3 1.7.9 2.7-2.4-1.7-2.3 1.7.9-2.7-2.4-1.7h3zm16.5 0l.9 2.8h2.9l-2.3 1.7.9 2.7-2.4-1.7-2.3 1.7.9-2.7-2.4-1.7h2.9zm16.5 0l.9 2.8h2.9L92 35.5l1 2.7-2.4-1.7-2.4 1.7 1-2.7-2.4-1.7h2.9zm-74.1 7l.9 2.8h2.9l-2.4 1.7 1 2.7-2.4-1.7-2.4 1.7 1-2.7-2.4-1.7h2.9zm16.4 0l1 2.8h2.8l-2.3 1.7.9 2.7-2.4-1.7-2.3 1.7.9-2.7-2.4-1.7h3zm16.5 0l.9 2.8h2.9l-2.3 1.7.9 2.7-2.4-1.7-2.3 1.7.9-2.7-2.4-1.7h2.9zm16.5 0l.9 2.8h2.9l-2.4 1.7 1 2.7-2.4-1.7-2.4 1.7 1-2.7-2.4-1.7H65zm16.4 0l1 2.8H86l-2.3 1.7.9 2.7-2.4-1.7-2.3 1.7.9-2.7-2.4-1.7h3zm-74 7l.8 2.8h3l-2.4 1.7.9 2.7-2.4-1.7L6 52.2l.9-2.7-2.4-1.7h3zm16.4 0l.9 2.8h2.9l-2.3 1.7.9 2.7-2.4-1.7-2.3 1.7.9-2.7-2.4-1.7h2.9zm16.5 0l.9 2.8H45l-2.4 1.7 1 2.7-2.4-1.7-2.4 1.7 1-2.7-2.4-1.7h2.9zm16.4 0l1 2.8h2.8l-2.3 1.7.9 2.7-2.4-1.7-2.3 1.7.9-2.7-2.4-1.7h3zm16.5 0l.9 2.8h2.9l-2.3 1.7.9 2.7-2.4-1.7-2.3 1.7.9-2.7-2.4-1.7h2.9zm16.5 0l.9 2.8h2.9L92 49.5l1 2.7-2.4-1.7-2.4 1.7 1-2.7-2.4-1.7h2.9zm-74.1 7l.9 2.8h2.9l-2.4 1.7 1 2.7-2.4-1.7-2.4 1.7 1-2.7-2.4-1.7h2.9zm16.4 0l1 2.8h2.8l-2.3 1.7.9 2.7-2.4-1.7-2.3 1.7.9-2.7-2.4-1.7h3zm16.5 0l.9 2.8h2.9l-2.3 1.7.9 2.7-2.4-1.7-2.3 1.7.9-2.7-2.4-1.7h2.9zm16.5 0l.9 2.8h2.9l-2.4 1.7 1 2.7-2.4-1.7-2.4 1.7 1-2.7-2.4-1.7H65zm16.4 0l1 2.8H86l-2.3 1.7.9 2.7-2.4-1.7-2.3 1.7.9-2.7-2.4-1.7h3zm-74 7l.8 2.8h3l-2.4 1.7.9 2.7-2.4-1.7L6 66.2l.9-2.7-2.4-1.7h3zm16.4 0l.9 2.8h2.9l-2.3 1.7.9 2.7-2.4-1.7-2.3 1.7.9-2.7-2.4-1.7h2.9zm16.5 0l.9 2.8H45l-2.4 1.7 1 2.7-2.4-1.7-2.4 1.7 1-2.7-2.4-1.7h2.9zm16.4 0l1 2.8h2.8l-2.3 1.7.9 2.7-2.4-1.7-2.3 1.7.9-2.7-2.4-1.7h3zm16.5 0l.9 2.8h2.9l-2.3 1.7.9 2.7-2.4-1.7-2.3 1.7.9-2.7-2.4-1.7h2.9zm16.5 0l.9 2.8h2.9L92 63.5l1 2.7-2.4-1.7-2.4 1.7 1-2.7-2.4-1.7h2.9z" transform="scale(3.9385)"/></g></svg>              
-                                English (US)
-                              </div>
-                            </a>
-                          </li>
-                          <li>
-                            <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-400 dark:hover:bg-gray-600 dark:hover:text-white" role="menuitem">
-                              <div class="inline-flex items-center">
-                                <svg class="h-3.5 w-3.5 rounded-full mr-2" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" id="flag-icon-css-de" viewBox="0 0 512 512"><path fill="#ffce00" d="M0 341.3h512V512H0z"/><path d="M0 0h512v170.7H0z"/><path fill="#d00" d="M0 170.7h512v170.6H0z"/></svg>
-                                Deutsch
-                              </div>
-                            </a>
-                          </li>
-                          <li>
-                            <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-400 dark:hover:bg-gray-600 dark:hover:text-white" role="menuitem">
-                              <div class="inline-flex items-center">
-                                <svg class="h-3.5 w-3.5 rounded-full mr-2" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" id="flag-icon-css-it" viewBox="0 0 512 512"><g fill-rule="evenodd" stroke-width="1pt"><path fill="#fff" d="M0 0h512v512H0z"/><path fill="#009246" d="M0 0h170.7v512H0z"/><path fill="#ce2b37" d="M341.3 0H512v512H341.3z"/></g></svg>              
-                                Italiano
-                              </div>
-                            </a>
-                          </li>
-                          <li>
-                            <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-400 dark:hover:bg-gray-600 dark:hover:text-white" role="menuitem">
-                              <div class="inline-flex items-center">
-                                <svg class="h-3.5 w-3.5 rounded-full mr-2" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" id="flag-icon-css-cn" viewBox="0 0 512 512"><defs><path id="a" fill="#ffde00" d="M1-.3L-.7.8 0-1 .6.8-1-.3z"/></defs><path fill="#de2910" d="M0 0h512v512H0z"/><use width="30" height="20" transform="matrix(76.8 0 0 76.8 128 128)" xlink:href="#a"/><use width="30" height="20" transform="rotate(-121 142.6 -47) scale(25.5827)" xlink:href="#a"/><use width="30" height="20" transform="rotate(-98.1 198 -82) scale(25.6)" xlink:href="#a"/><use width="30" height="20" transform="rotate(-74 272.4 -114) scale(25.6137)" xlink:href="#a"/><use width="30" height="20" transform="matrix(16 -19.968 19.968 16 256 230.4)" xlink:href="#a"/></svg>
-                                中文 (繁體)
-                              </div>
-                            </a>
-                          </li>
-                        </ul>
+                    <a href="account.html" class="block text-center text-gray-700 hover:text-blue-600 transition">
+                      <div class="text-sm">
+                          <i class="far fa-user"></i> Iniciar sesion
                       </div>
-                      
-                  </div>
+                     
+                  </a>
                   </li>
-                  <li>
-                    <div>
-                      
-<button id="dropdownDefaultButton" data-dropdown-toggle="dropdown" class=   "   flex md:hidden text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5  text-center  items-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800" type="button">USD <svg class="w-2 h-2 ml-2.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6">
-  <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 4 4 4-4"/>
-</svg></button>
-<!-- Dropdown menu -->
-<div id="dropdown" class="z-10 hidden bg-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700">
-  <ul class=" text-sm text-gray-700 dark:text-gray-200" aria-labelledby="dropdownDefaultButton">
-    <li>
-      <a href="#" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Dashboard</a>
-    </li>
-    <li>
-      <a href="#" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Settings</a>
-    </li>
-    <li>
-      <a href="#" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Earnings</a>
-    </li>
-    <li>
-      <a href="#" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Sign out</a>
-    </li>
-  </ul>
-</div>
-
-                    </div>
-                  </li>
+                  
                  </ul>
 
                  
@@ -156,42 +97,18 @@
 
 </nav>
 
-  <header class="py-4 shadow-sm lg:bg-white">
+  <header class="py-4 shadow-sm lg:bg-white sticky top-0 z-10 ">
     <div class="container flex items-center justify-between">
         <!-- logo -->
         <a href="#" class="block w-40">
             <img src="https://www.ribasmith.com/media/logo/websites/1/logowebx1.png" alt="logo" class="w-full">
         </a>
 
-        <div>
-          
-<button id="dropdownDefaultButton" data-dropdown-toggle="dropdown" class=" hidden md:flex     text-blue-800 border  hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center  items-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800" type="button">Selecciona tu tienda <svg class="w-2.5 h-2.5 ml-2.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6">
-  <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 4 4 4-4"/>
-</svg></button>
-<!-- Dropdown menu -->
-<div id="dropdown" class="z-10 hidden bg-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700">
-  <ul class="py-2 text-sm text-gray-700 dark:text-gray-200" aria-labelledby="dropdownDefaultButton">
-    <li>
-      <a href="#" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Dashboard</a>
-    </li>
-    <li>
-      <a href="#" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Settings</a>
-    </li>
-    <li>
-      <a href="#" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Earnings</a>
-    </li>
-    <li>
-      <a href="#" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Sign out</a>
-    </li>
-  </ul>
-</div>
-
-        </div>
         
         <!-- logo end -->
 
         <!-- searchbar -->
-        <div class="w-full xl:max-w-xl lg:max-w-lg lg:flex relative hidden"
+        <div class="w-full xl:max-w-3xl lg:max-w-2xl lg:flex relative hidden"
         >
             <span class="absolute left-4 top-3 text-lg text-gray-400">
                 <i class="fas fa-search"></i>
@@ -209,19 +126,39 @@
         <!-- navicons -->
         <div class="space-x-4 flex items-center">
            
-          <a href="account.html" class="block text-center text-gray-700 hover:text-blue-600 transition">
-            <div class="text-2xl">
-                <i class="far fa-user"></i>
+          <div>
+          
+            <button  id="dropdownDefaultButton" data-dropdown-toggle="dropdown"  class=" z-auto hidden md:flex     text-blue-800 border  hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center  items-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800" type="button">Selecciona tu tienda <svg class="w-2.5 h-2.5 ml-2.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6">
+              <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 4 4 4-4"/>
+            </svg></button>
+            <!-- Dropdown menu -->
+            <div id="dropdown" class="z-50 hidden bg-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700">
+              <ul class="py-2 text-sm text-gray-700 dark:text-gray-200" aria-labelledby="dropdownDefaultButton">
+                <li>
+                  <a href="#" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Dashboard</a>
+                </li>
+                <li>
+                  <a href="#" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Settings</a>
+                </li>
+                <li>
+                  <a href="#" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Earnings</a>
+                </li>
+                <li>
+                  <a href="#" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Sign out</a>
+                </li>
+              </ul>
             </div>
-           
-        </a>
+            
+                    </div>
+                    
+       
         <a href="wishlist.html" class="block text-center text-gray-700 hover:text-blue-600 transition relative">
           <!-- <span
               class="absolute -right-0 -top-1 w-5 h-5 rounded-full flex items-center justify-center bg-blue-600 text-white text-xs">5</span>
           <div class="text-2xl">
               <i class="far fa-heart"></i>
           </div> -->
-          <div class="text-md leading-3 font-bold">$0.00</div>
+        
       </a> 
     
             <a href="{% url 'cart' %}"
@@ -243,43 +180,42 @@
 <!-- header end -->
 
 <!-- navbar -->
-<nav class=" hidden lg:block">
+<nav class="-  hidden lg:block sticky  top-20 z-10  bg-white">
     <div class="container">
-        <div class="flex">
+        <div class="flex justify-between">
 
             <!-- all category -->
             <div class="px-8 py-4 rounded-full  bg-blue-600 flex items-center cursor-pointer group relative">
                 <span class="text-white ">
                     <i class="fas fa-bars"></i>
                 </span>
-                <span class="capitalize ml-2 text-white">All categories</span>
+                <span class="capitalize ml-2 text-white">Departamentos</span>
 
-                <div class="absolute left-0 top-full w-full bg-white shadow-md py-3 invisible opacity-0 group-hover:opacity-100 group-hover:visible transition duration-300 z-50 divide-y divide-gray-300 divide-dashed">
-                  <!-- single category -->
-                  {% for cat in links %}
-                  <a href="{% url 'products_by_category' cat.Id %}" class="px-6 py-3 flex items-center hover:bg-gray-100 transition">
-                    <span class="ml-6 text-gray-600 text-sm">   {{cat.Categoria}}</span>
-                </a>
-              
-                  {% endfor %}
+                <div class=" z-50 absolute left-0 top-full w-full bg-white shadow-md py-3 invisible opacity-0 group-hover:opacity-100 group-hover:visible transition duration-300  divide-y divide-gray-300 divide-dashed">
+                    <!-- single category -->
+                    {% for cat in links %}
+                    <a href="{{cat.get_url}}" class=" z-20 px-6 py-3 flex items-center hover:bg-gray-100 transition ">
+                      
+                      <span class=" z-20 ml-6 text-gray-600 text-sm"> {{cat.name}}</span>
+                  </a>
                 
+                    {% endfor %}
                   
-              </div>
+                    
+                </div>
             </div>
             <!-- all category end -->
 
             <!-- nav menu -->
-            <div class="flex items-center justify-between flex-grow pl-12">
-                <div class="flex items-center space-x-6 text-base capitalize">
+            <div class="flex items-center ">
+                <div class="flex  space-x-6 text-base capitalize">
                     <a href="index.html" class="text-black font-bold hover:text-pink-600 transition">Inicio</a>
                     <a href="shop.html" class=" font-bold text-pink-600 transition">RIMITH</a>
-                    <a href="#" class="text-black  font-bold hover:text-pink-600 transition">RIMITH Escensial</a>
+                    <a href="#" class="text-black  font-bold hover:text-pink-600 transition">RIMITH Esencial</a>
+                    <a href="#" class="text-black font-bold hover:text-pink-600 transition">Verano</a>
                     <a href="#" class="text-black font-bold hover:text-pink-600 transition">Emprendedores</a>
                 </div>
-                <a href="login.html" class="ml-auto justify-self-end text-gray-200 hover:text-white transition">
-                    Login/Register
-                </a>
-            </div>
+                           </div>
             <!-- nav menu end -->
 
         </div>
@@ -347,6 +283,57 @@
 </div>
 <!-- mobile sidebar menu end -->
 
+<!-- Back to top button -->
+<button
+  type="button"
+  onclick="scrollToTop()" 
+  id="scrollTopButton"
+  data-te-ripple-init
+  data-te-ripple-color="light"
+  class=" z-50  !fixed bottom-5 right-5 hidden rounded-full bg-blue-700 p-3 text-xs font-medium uppercase leading-tight text-white shadow-md transition duration-150 ease-in-out hover:bg-red-700 hover:shadow-lg focus:bg-red-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-red-800 active:shadow-lg">
+
+  <svg
+    aria-hidden="true"
+    focusable="false"
+    data-prefix="fas"
+    class="h-4 w-4"
+    role="img"
+    xmlns="http://www.w3.org/2000/svg"
+    viewBox="0 0 448 512">
+    <path
+      fill="currentColor"
+      d="M34.9 289.5l-22.2-22.2c-9.4-9.4-9.4-24.6 0-33.9L207 39c9.4-9.4 24.6-9.4 33.9 0l194.3 194.3c9.4 9.4 9.4 24.6 0 33.9L413 289.4c-9.5 9.5-25 9.3-34.3-.4L264 168.6V456c0 13.3-10.7 24-24 24h-32c-13.3 0-24-10.7-24-24V168.6L69.2 289.1c-9.3 9.8-24.8 10-34.3.4z"></path>
+  </svg>
+</button>
+
+
+
+<style>
+  
+ 
+</style>
+
+<script>
+// Mostrar u ocultar el botón según el desplazamiento
+window.onscroll = function() {
+    if (document.documentElement.scrollTop > 100) {
+        document.getElementById("scrollTopButton").style.display = "block";
+    } else {
+        document.getElementById("scrollTopButton").style.display = "none";
+    }
+};
+
+// Desplazamiento suave al inicio cuando se hace clic en el botón
+function scrollToTop() {
+    window.scrollTo({
+        top: 0,
+        behavior: "smooth"
+    });
+}
+
+
+
+</script>
 
 
 <script>
