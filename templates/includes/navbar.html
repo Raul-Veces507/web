@@ -4,7 +4,7 @@
 <!-- Main navigation container -->
 
 <nav class=" bg-blue-700" >
-  <div class="w-full px-4 py-3 mx-auto">
+  <div class=" px-4 py-3 mx-auto">
       <div class="flex items-center">
         
 <div id="default-carousel" class="relative w-full" data-carousel="slide">
@@ -42,60 +42,51 @@
 
 
   <!-- header -->
-  <nav class="  border">
+  <nav class="border">
     <div class="max-w-screen-xl px-4 py-3 mx-auto">
-        <div class="flex items-center  justify-between">
-            <ul class="flex flex-row  font-medium mt-0 mr-6 space-x-2 text-sm">
+        <div class="flex items-center justify-between">
+            <ul class="flex flex-row font-medium mt-0 mr-6 space-x-2 text-sm">
                 <li>
-                  <i class="fa-regular fa-heart"></i>
-                    <a href="#" class= " texcto text-gray-900 dark:text-white  hover:text-pink-400">Lista de compras</a>
-                    
+                    <i class="fa-regular fa-heart"></i>
+                    <a href="#" class="text-gray-900 dark:text-white hover:text-pink-400">Lista de compras</a>
                 </li>
                 <li>
-                  <i class="fa-solid fa-toolbox"></i>
-                  <a href="#" class="text-gray-900 dark:text-white  hover:text-pink-400" aria-current="page">Mis Pedidos</a>
+                    <i class="fa-solid fa-toolbox"></i>
+                    <a href="#" class="text-gray-900 dark:text-white hover:text-pink-400" aria-current="page">Mis Pedidos</a>
                 </li>
                 <li>
-                  <i class="fa-solid fa-location-dot"></i>
-                    <a href="#" class="text-gray-900 dark:text-white hover:text-pink-400">Zonas de Entrega</a>
+                    <i class="fa-solid fa-location-dot"></i>
+                    <a href="#" class="text-gray-900 dark:text-white hover:text-pink-400   ">Zonas de Entrega</a>
                 </li>
                 <li>
-                    <a href="#" class="text-gray-900 dark:text-white  hover:text-pink-400">Sucursales y Horarios</a>
+                    <a href="#" class="text-gray-900 dark:text-white hover:text-pink-400">Sucursales y Horarios</a>
                 </li>
                 <li>
-                  <a href="#" class="text-gray-900 dark:text-white  hover:text-pink-400">RS+</a>
-              </li>
-              
-                
-
-              
-            </ul>            
-              <div class="hidden md:flex justify-between"  >
-                
-                <ul class="flex space-x-4">
-                  <li style="border-right: 2px solid rgb(223, 223, 223);">
+                    <a href="#" class="text-gray-900 dark:text-white hover:text-pink-400">RS+</a>
+                </li>
+            </ul>
+            
+            <!-- Menú y contacto en pantallas medianas y grandes (md:flex) -->
+            <div class="hidden md:flex items-center space-x-4">
+                <div style="border-right: 2px solid rgb(223, 223, 223);">
                     Contactenos
                     <span class="text-blue-700">+507 309-5335</span>
-                  </li>
-                  <li>
-                    <a href="account.html" class="block text-center text-gray-700 hover:text-blue-600 transition">
-                      <div class="text-sm">
-                          <i class="far fa-user"></i> Iniciar sesion
-                      </div>
-                     
-                  </a>
-                  </li>
-                  
-                 </ul>
-
-                 
-              </div>
-             
-             
+                </div>
+                <a href="account.html" class="block text-center text-gray-700 hover:text-blue-600 transition">
+                    <div class="text-sm">
+                        <i class="far fa-user"></i> Iniciar sesión
+                    </div>
+                </a>
+            </div>
+            
+            <!-- Menú de hamburguesa en pantallas pequeñas (md:hidden) -->
+            <div class="md:hidden">
+                <!-- Agrega aquí tu menú de hamburguesa o botón de menú responsive -->
+            </div>
         </div>
     </div>
-
 </nav>
+
 
   <header class="py-4 shadow-sm lg:bg-white sticky top-0 z-10 ">
     <div class="container flex items-center justify-between">
@@ -180,7 +171,7 @@
 <!-- header end -->
 
 <!-- navbar -->
-<nav class="-  hidden lg:block sticky  top-20 z-10  bg-white">
+<nav class="-  hidden lg:block sticky  top-20   bg-white" style="z-index: 2;">
     <div class="container">
         <div class="flex justify-between">
 
@@ -207,7 +198,7 @@
             <!-- all category end -->
 
             <!-- nav menu -->
-            <div class="flex items-center ">
+            <div class="flex items-center z-0 ">
                 <div class="flex  space-x-6 text-base capitalize">
                     <a href="index.html" class="text-black font-bold hover:text-pink-600 transition">Inicio</a>
                     <a href="shop.html" class=" font-bold text-pink-600 transition">RIMITH</a>
