@@ -6,7 +6,7 @@ from store.models import Banner, Product
 
 def home(request):
     banner=Banner.objects.all()
-    product=Product.objects.filter(categoria_id=1)[:8] 
+    product=Product.objects.filter(grupo_id=2)[:8] 
     cat=categorias.objects.all()
     context={
         'banner':banner,

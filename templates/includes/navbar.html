@@ -193,10 +193,10 @@
 
                 <div class=" z-50 absolute left-0 top-full w-full bg-white shadow-md py-3 invisible opacity-0 group-hover:opacity-100 group-hover:visible transition duration-300  divide-y divide-gray-300 divide-dashed">
                     <!-- single category -->
-                    {% for cat in links %}
-                    <a href="{{cat.get_url}}" class=" z-20 px-6 py-3 flex items-center hover:bg-gray-100 transition ">
+                    {% for depa in links %}
+                    <a href="{{depa.get_url}}" class=" z-20 px-6 py-3 flex items-center hover:bg-gray-100 transition ">
                       
-                      <span class=" z-20 ml-6 text-gray-600 text-sm"> {{cat.name}}</span>
+                      <span class=" z-20 ml-6 text-gray-600 text-sm"> {{depa.nombre}}</span>
                   </a>
                 
                     {% endfor %}

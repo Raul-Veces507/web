@@ -45,7 +45,9 @@ INSTALLED_APPS = [
     'compressor',
     'store', #app wev
     'category',
-    'Cart'
+    'Cart',
+    'Departamento',
+    'Grupo',
 ]
 TE_URL = 'node_modules/'
 STATICFILES_DIRS = [
@@ -77,7 +79,7 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
-                'category.context_processors.menu_links',
+                'Departamento.context_processors.menu_links',
                 'Cart.context_processors.counter',
             ],
         },
