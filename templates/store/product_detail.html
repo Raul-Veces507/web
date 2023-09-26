@@ -36,7 +36,7 @@
     }
 
     /* Estilo base para el contenedor */
-    .container {
+    .container2 {
         display: flex;
         flex-wrap: wrap;
         justify-content: space-between;
@@ -44,7 +44,7 @@
 
     /* Estilo para pantallas pequeñas, como móviles */
     @media screen and (max-width: 768px) {
-        .container {
+        .container2 {
             flex-direction: column;
             /* Columnas una debajo de la otra */
         }
@@ -124,7 +124,7 @@
 
 <section class="container bg-white ">
 
-<nav class="flex mt-10" aria-label="Breadcrumb">
+<div class="flex mt-10" aria-label="Breadcrumb">
     <ol class="inline-flex items-center space-x-1 md:space-x-3">
       <li class="inline-flex items-center">
         <a href="{% url 'home' %}" class="inline-flex items-center text-sm font-medium text-gray-700 hover:text-blue-600 dark:text-gray-400 dark:hover:text-white">
@@ -151,7 +151,7 @@
         </div>
       </li>
     </ol>
-  </nav>
+</div>
   
 
     <div class="contenedor ">
@@ -198,7 +198,7 @@
 
 
 
-    <div class="container">
+    <div class="container2">
         <div class="column">
             <img class="img-fluid w-auto pb-1" src="https://riba.app/imgrs/THUMBS 500X500/{{single_product.item}}.jpg"
                 alt="" onerror="this.src='https://www.ribasmith.com/media/catalog/product/placeholder/default/watermark_4.png' ">
