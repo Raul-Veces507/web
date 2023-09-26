@@ -2,6 +2,7 @@ from django.shortcuts import get_object_or_404, redirect, render
 from Cart.models import Cart, CartItem
 from store.models import Product
 from django.core.exceptions import ObjectDoesNotExist
+from decimal import Decimal
 # Create your views here.
 
 def _cart_id(request):
@@ -35,7 +36,7 @@ def add_cart(request,product_id):
 
 
 
-def cart(request ,total=0 ,quantity=0 , cart_items=None,taxt=0,grand_total=0):
+def cart(request, total=Decimal("0"), quantity=0, cart_items=None, taxt=Decimal("0"), grand_total=Decimal("0"), delivery=Decimal("3.50")):
     try:
         cart=Cart.objects.get(cart_id=_cart_id(request))
         cart_items=CartItem.objects.filter(cart=cart,is_active=True)
@@ -43,8 +44,8 @@ def cart(request ,total=0 ,quantity=0 , cart_items=None,taxt=0,grand_total=0):
             total +=(cart_item.product.precio*cart_item.quantity)
             quantity +=cart_item.quantity
 
-        taxt=(2*total)/100
-        grand_total=total+taxt+3.50
+        taxt = (Decimal("2") * total) / Decimal("100")
+        grand_total = total + taxt + delivery
     except ObjectDoesNotExist :
         pass
   
@@ -52,8 +53,8 @@ def cart(request ,total=0 ,quantity=0 , cart_items=None,taxt=0,grand_total=0):
         'total':total,
         'quantity':quantity,
         'cart_items':cart_items,
-        'taxt':taxt,
-        'grand_total':grand_total
+        'taxt':taxt.quantize(Decimal("0.00")),
+        'grand_total':grand_total.quantize(Decimal("0.00"))
 
     }
     return render(request, 'store/cart.html',context)
