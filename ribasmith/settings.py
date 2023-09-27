@@ -48,6 +48,7 @@ INSTALLED_APPS = [
     'Cart',
     'Departamento',
     'Grupo',
+    'Account'
 ]
 TE_URL = 'node_modules/'
 STATICFILES_DIRS = [
@@ -87,6 +88,8 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = 'ribasmith.wsgi.application'
+
+AUTH_USER_MODEL='Account.Account'
 
 
 # Database
@@ -147,6 +150,12 @@ STATICFILES_DIRS=[
 MEDIA_ROOT=BASE_DIR / 'media'
 
 MEDIA_URL='/media/'
+
+from django.contrib.messages import constants as messages
+
+MESSAGE_TAGS={
+    messages.ERROR:'danger'
+}
 
 
 STATIC_ROOT = BASE_DIR / 'staticfiles'

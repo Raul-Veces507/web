@@ -246,5 +246,5 @@ def upload_excel(request):
     return render(request, 'admin/upload_excel.html', {'form': form})
 
 
-def check(request):
-   return render(request, 'store/check.html')
+def checkout(request):
+   return render(request, 'store/checkout.html')
