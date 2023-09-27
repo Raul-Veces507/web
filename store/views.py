@@ -184,7 +184,7 @@ def products_by_category_marca(request,category_slug,Marca_slug):
 
 
 
-def product_detail(request,category_slug,product_slug):
+def product_detail(request,product_slug):
     print(product_slug)
     try:
         single_product=Product.objects.get(item=product_slug)

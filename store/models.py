@@ -37,7 +37,7 @@ class Product(models.Model):
     
 
     def viewproduct(self):
-           return reverse('product_detail',args=[self.grupo,self.item])
+           return reverse('product_detail',args=[self.item])
     
    
     

@@ -8,9 +8,6 @@ import openpyxl
 # Register your models here.
 
 
-class adminProduct(admin.ModelAdmin):
-    list_display=('nombre','item','sku','inventario','bodega','Marca')
-    search_fields=['nombre','item','sku','bodega','Marca']
 
 class adminBanner(admin.ModelAdmin):
        def thumbnail(self,object):
