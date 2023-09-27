@@ -244,3 +244,7 @@ def upload_excel(request):
         form = ExcelUploadForm()
 
     return render(request, 'admin/upload_excel.html', {'form': form})
+
+
+def check(request):
+   return render(request, 'store/check.html')
