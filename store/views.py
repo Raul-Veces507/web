@@ -9,66 +9,132 @@ import pandas as pd
 from io import BytesIO
 from django.http import HttpResponse
 from django.db.models import Q
+import requests
 # Create your views here.
-def store(request,category_slug=None):
-      products=None
-      if category_slug!=None:
-        
-        departamento=get_object_or_404(Departamento,id=category_slug)
-        products = Product.objects.filter(grupo__categoria__departamento_id=departamento.id)
-        categoriasfill = categorias.objects.filter(	departamento_id=departamento.id).order_by('id')
-        # print(products)
-     
-        Marcas = set()
-        for product in products:
-           Marca = product.Marca
-           categoria = product.grupo.categoria.name
-           products_count=Product.objects.filter(Marca=Marca)
-           cantidad=products_count.count()
-           if Marca is not None and categoria is not None:
+def store(request,depar):
+    try:
+        print(depar)
+        # Realizar una nueva solicitud a la API para obtener los detalles del producto
+        url = f'http://192.168.88.136:3002/ecommer/rs/Detapramento/{depar}/'
+        response = requests.get(url)
+        data_from_express_api = response.json()
 
-             Marcas.add((Marca, categoria,cantidad))
-
-        marcas_lista = [{'Marca': Marca, 'Categoria': categoria,'Cantidad':cantidad} for Marca, categoria,cantidad in Marcas]
-
-        paginator=Paginator(products,36)
-        page=request.GET.get('page')
-        paged_prducts=paginator.get_page(page)
-        product_count=products.count()
-        current_page = paged_prducts.number
-        start_page = max(current_page - 4, 1)  # Establece el rango de páginas visibles
-        end_page = min(current_page + 4,paged_prducts.paginator.num_pages)
-      else:
-        categoriasfill = categorias.objects.all()
-        products=Product.objects.all().order_by('id')
-        Marcas = set()
-        for product in products:
-           Marca = product.Marca
-           categoria = product.grupo.categoria.name
-           if Marca is not None and categoria is not None:
-
-             Marcas.add((Marca, categoria))
-
-        marcas_lista = [{'Marca': Marca, 'Categoria': categoria,'Cantidad':cantidad} for Marca, categoria,cantidad in Marcas]
-        paginator=Paginator(products,36)
-        page=request.GET.get('page')
-        paged_prducts=paginator.get_page(page)
-        product_count=products.count()
-        current_page = paged_prducts.number
-        start_page = max(current_page - 4, 1)  # Establece el rango de páginas visibles
-        end_page = min(current_page + 4,paged_prducts.paginator.num_pages)
-        
-      content={
-        'productos':paged_prducts,
-        'products_count':product_count,
-        'Marcas':marcas_lista,
-        'filtrado':False,
-        'start_page': start_page,
-        'end_page': end_page,
-        'categoriasfill':categoriasfill
+        if response.status_code == 200:
             
-       }
-      return render(request,'store/store.html',content)
+           paginator=Paginator(data_from_express_api['productos'],36)
+           page=request.GET.get('page')
+           paged_prducts=paginator.get_page(page)
+           product_count = len(data_from_express_api['productos'])
+           current_page = paged_prducts.number
+           start_page = max(current_page - 4, 1)  # Establece el rango de páginas visibles
+           end_page = min(current_page + 4,paged_prducts.paginator.num_pages)
+           context={
+                'productos':paged_prducts,
+                'products_count':product_count,
+                'Categoria':data_from_express_api['categorias'],
+                'Marca':data_from_express_api['Marca'],
+                'filtradoCategoria':False,
+                'start_page': start_page,
+                'end_page': end_page,
+                }
+         
+        else:
+            # Manejar el caso en el que el producto no exista o haya un error en la API
+            context = None
+
+    except Exception as e:
+        print(e)
+        context = None
+
+    return render(request, 'store/store.html', context) 
+
+
+
+def product_detail(request,product):
+    try:
+        print(product)
+        # Realizar una nueva solicitud a la API para obtener los detalles del producto
+        url = f'http://192.168.88.136:3002/ecommer/rs/Product/{product}/'
+        response = requests.get(url)
+        data_from_express_api = response.json()
+
+        if response.status_code == 200:
+           context={
+               'productos':data_from_express_api['productos']
+               
+                }
+         
+        else:
+            # Manejar el caso en el que el producto no exista o haya un error en la API
+            context = None
+
+    except Exception as e:
+        print(e)
+        context = None
+
+    return render(request, 'store/product_detail.html', context) 
+
+
+
+# def store(request,category_slug=None):
+#       products=None
+#       if category_slug!=None:
+        
+#         departamento=get_object_or_404(Departamento,id=category_slug)
+#         products = Product.objects.filter(grupo__categoria__departamento_id=departamento.id)
+#         categoriasfill = categorias.objects.filter(	departamento_id=departamento.id).order_by('id')
+#         # print(products)
+     
+#         Marcas = set()
+#         for product in products:
+#            Marca = product.Marca
+#            categoria = product.grupo.categoria.name
+#            products_count=Product.objects.filter(Marca=Marca)
+#            cantidad=products_count.count()
+#            if Marca is not None and categoria is not None:
+
+#              Marcas.add((Marca, categoria,cantidad))
+
+#         marcas_lista = [{'Marca': Marca, 'Categoria': categoria,'Cantidad':cantidad} for Marca, categoria,cantidad in Marcas]
+
+#         paginator=Paginator(products,36)
+#         page=request.GET.get('page')
+#         paged_prducts=paginator.get_page(page)
+#         product_count=products.count()
+#         current_page = paged_prducts.number
+#         start_page = max(current_page - 4, 1)  # Establece el rango de páginas visibles
+#         end_page = min(current_page + 4,paged_prducts.paginator.num_pages)
+#       else:
+#         categoriasfill = categorias.objects.all()
+#         products=Product.objects.all().order_by('id')
+#         Marcas = set()
+#         for product in products:
+#            Marca = product.Marca
+#            categoria = product.grupo.categoria.name
+#            if Marca is not None and categoria is not None:
+
+#              Marcas.add((Marca, categoria))
+
+#         marcas_lista = [{'Marca': Marca, 'Categoria': categoria,'Cantidad':cantidad} for Marca, categoria,cantidad in Marcas]
+#         paginator=Paginator(products,36)
+#         page=request.GET.get('page')
+#         paged_prducts=paginator.get_page(page)
+#         product_count=products.count()
+#         current_page = paged_prducts.number
+#         start_page = max(current_page - 4, 1)  # Establece el rango de páginas visibles
+#         end_page = min(current_page + 4,paged_prducts.paginator.num_pages)
+        
+#       content={
+#         'productos':paged_prducts,
+#         'products_count':product_count,
+#         'Marcas':marcas_lista,
+#         'filtrado':False,
+#         'start_page': start_page,
+#         'end_page': end_page,
+#         'categoriasfill':categoriasfill
+            
+#        }
+#       return render(request,'store/store.html',content)
              
 
 
@@ -184,20 +250,7 @@ def products_by_category_marca(request,category_slug,Marca_slug):
 
 
 
-def product_detail(request,product_slug):
-    print(product_slug)
-    try:
-        single_product=Product.objects.get(item=product_slug)
 
-    except Exception as e:
-        raise e
-
-
-    context={
-        'single_product': single_product,
-    }
-
-    return render(request, 'store/product_detail.html',context)
 
 
 #Administrador

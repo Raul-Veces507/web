@@ -99,7 +99,7 @@
                                         </a>
                                     </ul>
                                     {% else %}
-                                    {% for cat in categoriasfill %}
+                                    {% for cat in Categoria %}
                                     <li>
                                         
                                         <a href="{% url 'products_by_category' cat.id %}">
@@ -140,12 +140,12 @@
                                     </a>
                                     {% endfor %}
                                     {% else %}
-                                    {% for product in Marcas %}
+                                    {% for product in Marca %}
                                     <li>
-                                        {% if product.Marca %}
+                                        {% if product.name %}
                                         <a
-                                            href="{% url 'products_by_category_marca' product.Categoria product.Marca %}">
-                                            <span>{{product.Marca}} ({{product.Cantidad}})</span>
+                                            href="{% url 'products_by_category_marca' product.idcategoria product.name %}">
+                                            <span>{{product.name}}</span>
                                         
                                         </a>
                                         {% else %}
@@ -220,7 +220,7 @@
             <div class="w-52 h-auto group rounded bg-white shadow overflow-hidden">
                 <!-- product image -->
 
-                <a href="{{product.viewproduct}}">
+                <a href="{%  url 'product_detail' product.item %}">
                     <img src=" https://riba.app/imgrs/THUMBS 500X500/{{product.item}}.jpg " class="w-full" onerror="this.src='https://www.ribasmith.com/media/catalog/product/placeholder/default/watermark_4.png' ">
                 </a>
 

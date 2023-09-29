@@ -197,15 +197,15 @@
 
     <div class="glider-contain mt-14">
         <div class="glider">
-            {% for products in product %}
+            {% for item in datas %}
             <div class="product-box1">
                 <span class="p-discount"> -20% </span>
 
                 <!-- img container -->
                 <div class="p-img-container">
                     <div class="p-img">
-                        <a href="{{products.viewproduct}}">
-                            <img src="https://riba.app/imgrs/THUMBS 500X500/{{products.item}}.jpg" class="transform hover:scale-110 transition-transform duration-300 ease-in-out w-full p-img-font">
+                        <a href="{% url 'product_detail' product=item.id %}">
+                            <img src="{{item.img}}" class="transform hover:scale-110 transition-transform duration-300 ease-in-out w-full p-img-font">
 
                             
                         </a>
@@ -217,11 +217,11 @@
                 <div class="p-box-text">
 
                     <div class="product-category">
-                        <span> {{ products.categrorianame }}</span>
+                        <span> {{ item.name }}</span>
                     </div>
 
                     <a href="" class="product-title  text-limit">
-                        {{products.nombre}}
+                        {{item.nombre}}
                     </a>
                     <p class="text-green-500 ">In Stock</p>
                     <!-- estrellas -->
@@ -257,13 +257,13 @@
                     <!-- fin de estrellas -->
                     <div class=" mt-10">
                         <span class="text-base text-red-700  font-medium line-through dark:text-gray-300">$25.00</span>
-                        <span class="text-lg font-semibold text-gray-900 dark:text-white ">${{products.precio}} </span>
+                        <span class="text-lg font-semibold text-gray-900 dark:text-white ">${{item.price|floatformat:2}} </span>
 
 
                     </div>
 
                     <div class="price-buy-btn ml-0 sm:ml-7">
-                        <a href="{% url 'add_cart' products.id %}"   class="text-white bg-yellow-300 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300
+                        <a href=""   class="text-white bg-yellow-300 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300
                          font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">
                          Agregar
                          <i class="far fa-cart-arrow-down"></i>
