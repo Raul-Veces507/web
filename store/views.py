@@ -57,12 +57,15 @@ def product_detail(request,product):
         url = f'http://192.168.88.136:3002/ecommer/rs/Product/{product}/'
         response = requests.get(url)
         data_from_express_api = response.json()
-        print(data_from_express_api)
+        promocion=data_from_express_api['promocion']
+        precio=data_from_express_api['productos'][0]['precio']
+        preciodes = precio - (precio * (promocion / 100))
 
         if response.status_code == 200:
            context={
                'productos':data_from_express_api['productos'][0],
-               'Categoria':data_from_express_api['productos'][0]
+               'promocion':preciodes,
+               'porcentaje':promocion
                
                 }
          
@@ -279,3 +282,62 @@ def upload_excel(request):
 
 def checkout(request):
    return render(request, 'store/checkout.html')
+
+
+def precios_especiales(request,seccion):
+
+    try:
+        url = f'http://192.168.88.136:3002/ecommer/rs/seccionesid/{seccion}/'
+        response = requests.get(url)
+        data_from_express_api = response.json()
+        if response.status_code == 200:
+           productos_con_descuento = []
+           for elemento in data_from_express_api['productos']:
+            id = elemento['id']
+            nombre = elemento['nombre']
+            item = elemento['item']
+            sku = elemento['sku']
+            precio = elemento['precio']
+            descuento = elemento['Descuento']
+            preciodes = precio - (precio * (descuento / 100))
+            
+            # Agregar el producto con precio calculado a la lista
+            productos_con_descuento.append({
+                'id': id,
+                'nombre': nombre,
+                'item': item,
+                'sku': sku,
+                'descuento':descuento,
+                'precio': precio,
+                'preciodes': preciodes
+            })
+            
+           paginator=Paginator(productos_con_descuento,36)
+           page=request.GET.get('page')
+           paged_prducts=paginator.get_page(page)
+           product_count = len(productos_con_descuento)
+           current_page = paged_prducts.number
+           start_page = max(current_page - 4, 1)  # Establece el rango de páginas visibles
+           end_page = min(current_page + 4,paged_prducts.paginator.num_pages)
+          
+           context={
+                'productos':paged_prducts,
+                'products_count':product_count,
+                'Categoria':data_from_express_api['categorias'],
+                'Marca':data_from_express_api['Marca'],
+                'filtradoCategoria':False,
+                'filtradoMarca':False,
+                'precioEspecial':True,
+                'start_page': start_page,
+                'end_page': end_page,
+                }
+         
+        else:
+            # Manejar el caso en el que el producto no exista o haya un error en la API
+            context = None
+
+    except Exception as e:
+        print(e)
+        print('error')
+        context = None
+    return render(request,'store/store.html',context)

@@ -248,9 +248,12 @@
                     </h4>
 
                     <div class="flex items-baseline mb-1 space-x-2">
-                 
-                        <p class="text-sm text-red-700  font-roboto line-through">$55.00</p>
-                        <p class="text-xl  text-gray-900 font-roboto font-semibold">${{product.precio}}</p>
+                        {% if precioEspecial == True %}
+                        <p class="text-sm text-red-700  font-roboto line-through">$   {{product.precio|floatformat:2}}</p>
+                        <p class="text-xl  text-gray-900 font-roboto font-semibold">$ {{product.preciodes|floatformat:2}}</p>
+                        {% else %}
+                        <p class="text-xl  text-gray-900 font-roboto font-semibold">$ {{product.precio|floatformat:2}}</p>
+                        {% endif %}
                     </div>
                        <!-- estrellas -->
                        <div class="flex items-center mt-5 mb-5">
@@ -301,7 +304,7 @@
                         class="text-white bg-yellow-300 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300
                         font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">
                         Agregar al carrito
-                        <i class="far fa-cart-arrow-down"></i>
+                        <i class="fa fa-cart-arrow-down"></i>
                     </a>
                 </div>
                 <div class="mt-10">

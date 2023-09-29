@@ -119,6 +119,24 @@
     border-radius: 20px;
     border: 1px solid black;
     }
+    .p-discount {
+        position: relative;
+        display: flex;
+        right: auto;
+        top: 20px;
+        width: 65px;
+        height: 24px;
+        color: #ffffff;
+        background-color: #006eff;
+        justify-content: center;
+        align-items: center;
+        font-size: 0.7rem;
+        letter-spacing: 1px;
+        z-index: 100;
+        border-radius: 3px;
+
+
+    }
 </style>
 
 {% if productos %}
@@ -204,9 +222,16 @@
     
     
         <div class="container2">
+           
             <div class="column">
+                {% if promocion %}
+                <span class="p-discount text-right"> -{{porcentaje}}% </span>
                 <img class="img-fluid w-auto pb-1" src="https://riba.app/imgrs/THUMBS 500X500/{{productos.item}}.jpg"
                     alt="" onerror="this.src='https://www.ribasmith.com/media/catalog/product/placeholder/default/watermark_4.png' ">
+                {% else %}
+                <img class="img-fluid w-auto pb-1" src="https://riba.app/imgrs/THUMBS 500X500/{{productos.item}}.jpg"
+                    alt="" onerror="this.src='https://www.ribasmith.com/media/catalog/product/placeholder/default/watermark_4.png' ">
+                {% endif %}
             </div>
     
     
@@ -215,8 +240,13 @@
             <div class="column">
                 <div class="">
                     <div class="flex items-center">
-                        <p style="font-size: 20px;" class="text-base  font-medium text-gray-500 line-through dark:text-gray-300">$25.00</p>
-                        <p style="font-size: 30px;" class="ml-2 text-lg font-semibold text-red-500 dark:text-white">${{ productos.precio|floatformat:2 }}
+                        {% if promocion %}
+                        <p style="font-size: 20px;" class="text-base  font-medium text-gray-500 line-through dark:text-gray-300">$ {{ productos.precio|floatformat:2 }} </p>
+                        <p style="font-size: 30px;" class="ml-2 text-lg font-semibold text-red-500 dark:text-white">$ {{promocion|floatformat:2}} </p>
+                        {% else %}
+                        <p style="font-size: 30px;" class="ml-2 text-lg font-semibold text-red-500 dark:text-white">$ {{ productos.precio|floatformat:2 }}
+                        {% endif %}
+                      
                         </p>
                     </div>
                     <div class="mt-5">

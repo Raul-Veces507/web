@@ -28,7 +28,7 @@ class RegistrationForm(forms.ModelForm):
         password = cleaned_data.get('password')
         confirm_password = cleaned_data.get('Confirm_password')
         if password != confirm_password:
-            print(1)
+            
             raise forms.ValidationError(
                 "El password no coincide"
             )
