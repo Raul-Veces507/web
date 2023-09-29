@@ -57,10 +57,12 @@ def product_detail(request,product):
         url = f'http://192.168.88.136:3002/ecommer/rs/Product/{product}/'
         response = requests.get(url)
         data_from_express_api = response.json()
+        print(data_from_express_api)
 
         if response.status_code == 200:
            context={
-               'productos':data_from_express_api['productos']
+               'productos':data_from_express_api['productos'][0],
+               'Categoria':data_from_express_api['productos'][0]
                
                 }
          
@@ -141,54 +143,41 @@ def product_detail(request,product):
 
 def products_by_category(request,category_slug):
 
-      try:
-      
-          categories=None
-          products=None
-      except Exception as e:
-          raise e
-      if category_slug!=None:
-
-        categories=categorias.objects.get(id=category_slug)
-        print(categories)
-        
-        products = Product.objects.filter(grupo__categoria__id=categories.id).order_by('id')
-      
-        Marcas = set()
-        for product in products:
-          
-           Marca = product.Marca
-           categoria = product.grupo.categoria.id
-           products_count=Product.objects.filter(Marca=Marca)
-           cantidad=products_count.count()
-           if Marca is not None and categoria is not None:
-
-              Marcas.add((Marca, categoria,cantidad))
-
-        marcas_lista = [{'Marca': Marca, 'Categoria': categoria,'Cantidad':cantidad} for Marca, categoria,cantidad in Marcas]
-
-        paginator=Paginator(products,36)
-        page=request.GET.get('page')
-        paged_prducts=paginator.get_page(page)
-        product_count=products.count()
-        product_count=products.count()
+    try:
    
-      else:
-        products=Product.objects.all().order_by('id')
-        paginator=Paginator(products,24)
-        page=request.GET.get('page')
-        paged_prducts=paginator.get_page(page)
-        product_count=products.count()
-      content={
-        'productos':paged_prducts,
-        'products_count':product_count,
-        'Marcas':marcas_lista,
-        'filtradoCategoria':True,
-        'filtradoMarca':False,
-        'categories':categories
+        # Realizar una nueva solicitud a la API para obtener los detalles del producto
+        url = f'http://192.168.88.136:3002/ecommer/rs/Filtradoxcategoria/{category_slug}'
+
+        response = requests.get(url)
+        data_from_express_api = response.json()
+
+        if response.status_code == 200:
             
-       }
-      return render(request,'store/store.html',content)
+           paginator=Paginator(data_from_express_api['productos'],36)
+           page=request.GET.get('page')
+           paged_prducts=paginator.get_page(page)
+           product_count = len(data_from_express_api['productos'])
+           current_page = paged_prducts.number
+           start_page = max(current_page - 4, 1)  # Establece el rango de páginas visibles
+           end_page = min(current_page + 4,paged_prducts.paginator.num_pages)
+           context={
+                'productos':paged_prducts,
+                'products_count':product_count,
+                'Categoria':data_from_express_api['categorias'],
+                'Marca':data_from_express_api['Marca'],
+                'filtradoCategoria':True,
+                'start_page': start_page,
+                'end_page': end_page,
+                }
+         
+        else:
+            # Manejar el caso en el que el producto no exista o haya un error en la API
+            context = None
+
+    except Exception as e:
+        print(e)
+        context = None
+    return render(request,'store/store.html',context)
 
 
 
@@ -197,59 +186,48 @@ def products_by_category(request,category_slug):
 
 
 def products_by_category_marca(request,category_slug,Marca_slug):
-      print('hola')
-      try:
-      
-          categories=None
-          products=None
-      except Exception as e:
-          raise e
-      
+    try:
+        data ={
+         "id":category_slug,
+          "marca":Marca_slug
+           }
+        # Realizar una nueva solicitud a la API para obtener los detalles del producto
+        url = f'http://192.168.88.136:3002/ecommer/rs/Filtradoxmarca'
 
-      if category_slug!=None:
-        categories=get_object_or_404(categorias,id=category_slug)
-        products = Product.objects.filter( Q(grupo__categoria__id=categories.id) & Q(Marca=Marca_slug))
+        response = requests.post(url, json=data)  # Usar json=data en lugar de data=data
 
-        print(products)
-      #   categories=get_object_or_404(categorias,id=category_slug)
-      #   products=Product.objects.filter(categoria_id=categories.id,Marca=Marca_slug).order_by('id')
-      
-        Marcas = set()
-        for product in products:
-           Marca = product.Marca
-           categoria = product.grupo.categoria.id
-           if Marca is not None and categoria is not None:
+        data_from_express_api = response.json()
 
-             Marcas.add((Marca, categoria))
-
-        marcas_lista = [{'Marca': Marca, 'Categoria': categoria} for Marca, categoria in Marcas]
-
-        paginator=Paginator(products,36)
-        page=request.GET.get('page')
-        paged_prducts=paginator.get_page(page)
-        product_count=products.count()
-        product_count=products.count()
-   
-      else:
-        products=Product.objects.all().order_by('id')
-        paginator=Paginator(products,24)
-        page=request.GET.get('page')
-        paged_prducts=paginator.get_page(page)
-        product_count=products.count()
-      content={
-        'productos':paged_prducts,
-        'products_count':product_count,
-        'Marcas':marcas_lista,
-        'filtrado':True,
-        'filtradoCategoria':True,
-        'filtradoMarca':True,
-        'categories':categories
+        if response.status_code == 200:
             
-       }
-      return render(request,'store/store.html',content)
+           paginator=Paginator(data_from_express_api['productos'],36)
+           page=request.GET.get('page')
+           paged_prducts=paginator.get_page(page)
+           product_count = len(data_from_express_api['productos'])
+           current_page = paged_prducts.number
+           start_page = max(current_page - 4, 1)  # Establece el rango de páginas visibles
+           end_page = min(current_page + 4,paged_prducts.paginator.num_pages)
+           context={
+                'productos':paged_prducts,
+                'products_count':product_count,
+                'Categoria':data_from_express_api['categorias'],
+                'Marca':data_from_express_api['Marca'],
+                'filtradoCategoria':True,
+                'filtradoMarca':True,
+                'start_page': start_page,
+                'end_page': end_page,
+                }
+         
+        else:
+            # Manejar el caso en el que el producto no exista o haya un error en la API
+            context = None
 
+    except Exception as e:
+        print(e)
+        context = None
+    return render(request,'store/store.html',context)
 
-
+ 
 
 
 

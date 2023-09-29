@@ -93,10 +93,12 @@
                             <div class="box">
                                 <ul>
                                     {% if filtradoCategoria == True %}
-                                        <a href="{% url 'products_by_departamento' categories.departamento_id  %}">
-                                            <span style="color: red;">{{ categories.name }} <i
+                                    {% for cat in Categoria %}
+                                        <a href="{% url 'products_by_departamento' cat.iddepa  %}">
+                                            <span style="color: red;">{{ cat.name }} <i
                                                     class="fas fa-times"></i></span>
                                         </a>
+                                        {% endfor %}
                                     </ul>
                                     {% else %}
                                     {% for cat in Categoria %}
@@ -131,12 +133,13 @@
                         <div class="p-5 border border-b-0 border-gray-200 dark:border-gray-700 w-full "
                             style=" max-height: 300px; overflow-y: auto;">
                             <div class="box">
+                                
                                 <ul>
                                     {% if filtradoMarca == True %}
-                                    {% for product in Marcas %}
-                                    <a href="{% url 'products_by_category' product.Categoria %}">
-                                        <span style="color: red;">{{ product.Marca }} <i
-                                                class="fas fa-times"></i></span>
+                                    
+                                    {% for product in Marca %}
+                                    <a href="{% url 'products_by_category' product.idcategoria %}">
+                                        <span style="color: red;">{{ product.name }} <i class="fas fa-times"></i></span>
                                     </a>
                                     {% endfor %}
                                     {% else %}
