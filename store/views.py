@@ -52,14 +52,21 @@ def store(request,depar):
 
 def product_detail(request,product):
     try:
-        print(product)
+   
         # Realizar una nueva solicitud a la API para obtener los detalles del producto
         url = f'http://192.168.88.136:3002/ecommer/rs/Product/{product}/'
         response = requests.get(url)
         data_from_express_api = response.json()
         promocion=data_from_express_api['promocion']
-        precio=data_from_express_api['productos'][0]['precio']
-        preciodes = precio - (precio * (promocion / 100))
+        preciodes=0
+        if promocion == 0:
+            promocion = []
+        else:
+            promocion=promocion
+            precio=data_from_express_api['productos'][0]['precio']
+            preciodes = precio - (precio * (promocion / 100))
+
+   
 
         if response.status_code == 200:
            context={
