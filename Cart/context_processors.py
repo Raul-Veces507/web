@@ -47,6 +47,8 @@ def counter(request, total=Decimal("0"), quantity=0, cart_items=None, taxt=Decim
                 'taxt': taxt.quantize(Decimal("0.00")),
                 'grand_total': grand_total.quantize(Decimal("0.00"))
             }
+        else:
+                context = []
 
 
     except Cart.DoesNotExist:
