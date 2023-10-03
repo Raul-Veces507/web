@@ -1,0 +1,127 @@
+<a 
+class="lg:block text-center text-gray-700 hover:text-blue-600 transition hidden relative">
+<button id="carritoview">
+    <span
+    class="absolute -right-3 -top-1 w-5 h-5 rounded-full flex items-center justify-center bg-blue-600 text-white text-xs">{{cart_count.cantidad}}</span>
+    <div class="text-2xl">
+        <i class="fas fa-shopping-bag"></i>
+      </div>
+</button>
+
+
+
+</a>
+
+<div id="modalcarrito" class="relative z-10" aria-labelledby="slide-over-title" role="dialog" aria-modal="false" style="display: none;">
+    <div class="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity"></div>
+  
+    <div class="fixed inset-0 overflow-hidden">
+      <div class="absolute inset-0 overflow-hidden">
+        <div class="pointer-events-none fixed inset-y-0 right-0 flex max-w-full pl-10">
+
+          <div class="pointer-events-auto w-screen max-w-md">
+            <div class="flex h-full flex-col overflow-y-scroll bg-white shadow-xl">
+              <div class="flex-1 overflow-y-auto px-4 py-6 sm:px-6">
+                <div class="flex items-start justify-between">
+                  <h2 class="text-lg font-medium text-gray-900" id="slide-over-title">Carrito de Compra</h2>
+                  <div class="ml-3 flex h-7 items-center">
+                    <button id="cerrarCarrito" type="button" class="relative -m-2 p-2 text-gray-400 hover:text-gray-500">
+                      <span class="absolute -inset-0.5"></span>
+                      <span class="sr-only">Close panel</span>
+                      <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+                      </svg>
+                    </button>
+                  </div>
+                </div>
+  
+                <div class="mt-8">
+                  <div class="flow-root">
+                    <ul role="list" class="-my-6 divide-y divide-gray-200">
+                        {% for data  in  cart_count.cart_items %}
+                      <li class="flex py-6">
+                        <div class="h-24 w-24 flex-shrink-0 overflow-hidden rounded-md border border-gray-200">
+                          <img src="https://riba.app/imgrs/THUMBS 500X500/{{data.item}}.jpg" alt="not found" class="h-full w-full object-cover object-center" onerror="this.src='https://www.ribasmith.com/media/catalog/product/placeholder/default/watermark_4.png' ">
+                        </div>
+  
+                        <div class="ml-4 flex flex-1 flex-col">
+                          <div>
+                            <div class="flex justify-between text-base font-medium text-gray-900">
+                              <h3>
+                                <a href="#">{{data.nombre}}</a>
+                              </h3>
+                              <p class="ml-4">${{data.precio|floatformat:2}}</p>
+                            </div>
+                            <p class="mt-1 text-sm text-gray-500">Salmon</p>
+                          </div>
+                          <div class="flex flex-1 items-end justify-between text-sm">
+                            <p class="text-gray-500">Qty {{data.quantity}}</p>
+  
+                            <div class="flex">
+                              <button type="button" class="font-medium text-indigo-600 hover:text-indigo-500">Remove</button>
+                            </div>
+                          </div>
+                        </div>
+                      </li>
+                      {% endfor %}
+              
+                    </ul>
+                  </div>
+                </div>
+              </div>
+  
+              <div class="border-t border-gray-200 px-4 py-6 sm:px-6">
+                <div class="flex justify-between text-base font-medium text-gray-900">
+                  <p>Subtotal</p>
+                  <p>${{cart_count.grand_total|floatformat:2}}</p>
+                </div>
+                <p class="mt-0.5 text-sm text-gray-500">Envío e impuestos calculados al finalizar la compra.</p>
+                <div class="mt-6">
+                  <a href="{% url 'cart' %}" class="flex items-center justify-center rounded-md border border-transparent bg-indigo-600 px-6 py-3 text-base font-medium text-white shadow-sm hover:bg-indigo-700">Ir al Carrito</a>
+                </div>
+                <div class="mt-6 flex justify-center text-center text-sm text-gray-500">
+                  <p>
+                    or
+                    <button id="continuarcomprando" type="button" class="font-medium text-indigo-600 hover:text-indigo-500">
+                      Continuar Comprando
+                      <span aria-hidden="true"> &rarr;</span>
+                    </button>
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+
+
+  <script>
+    const carritoview = document.getElementById('carritoview');
+    const modalcarrito = document.getElementById('modalcarrito');
+    const cerrarCarrito = document.getElementById('cerrarCarrito');
+    const continuarcomprando = document.getElementById('continuarcomprando');
+    
+    continuarcomprando.addEventListener('click', function () {
+      // // Alternar la visibilidad del submenú al hacer clic en el botón
+      //
+      modalcarrito.style.display = (modalcarrito.style.display === 'none') ? 'block' : 'none';
+    });
+    
+    cerrarCarrito.addEventListener('click', function () {
+      // // Alternar la visibilidad del submenú al hacer clic en el botón
+      //
+      modalcarrito.style.display = (modalcarrito.style.display === 'none') ? 'block' : 'none';
+    });
+  
+    // Agregar un controlador de eventos al botón "Company"
+    carritoview.addEventListener('click', function () {
+      // // Alternar la visibilidad del submenú al hacer clic en el botón
+      //
+      modalcarrito.style.display = (modalcarrito.style.display === 'none') ? 'block' : 'none';
+    });
+  
+  </script>
+  

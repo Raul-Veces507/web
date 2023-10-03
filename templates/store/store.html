@@ -53,6 +53,23 @@
 
 
     }
+    .p-discountsin {
+    
+    width: 65px;
+    height: 24px;
+    color: #ffffff;
+   
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 0.7rem;
+    letter-spacing: 1px;
+    margin-top: 20px;
+    margin-left: 20px;
+    border-radius: 3px;
+
+
+}
 </style>
 
 <section class="container bg-white ">
@@ -243,7 +260,7 @@
                 {% if product.porcentaje %}
                 <span class="p-discount"> -{{product.porcentaje}}% </span>
                 {% else %}
-
+                <span class="p-discountsin">  </span>
                 {% endif %}
 
                 <a href="{%  url 'product_detail' product.item %}">

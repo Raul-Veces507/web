@@ -11,8 +11,6 @@ def home(request):
         # Realizar una nueva solicitud a la API para obtener los detalles del producto
         url = f'http://192.168.88.136:3002/ecommer/rs/seccionesid/1'
         response = requests.get(url)
-
-        productos_con_descuento = []
         if response.status_code == 200:
            data_from_express_api = response.json()
            productos=data_from_express_api['productos'][:10]
@@ -31,4 +29,5 @@ def home(request):
         context = None
 
     return render(request, 'home.html',context) 
+  
   
