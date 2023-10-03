@@ -87,7 +87,7 @@
         <div class="space-y-1 text-gray-600 pb-3 border-b border-gray-200">
             <div class="flex justify-between font-medium">
                 <p>Subtotal</p>
-                <p>$ {{total}}</p>
+                <p>$ {{total |floatformat:2}}</p>
             </div>
             <div class="flex justify-between">
                 <p>Delivery</p>
@@ -95,12 +95,12 @@
             </div>
             <div class="flex justify-between">
                 <p>Tax</p>
-                <p>$ {{taxt}}</p>
+                <p>$ {{taxt|floatformat:2}}</p>
             </div>
         </div>
         <div class="flex justify-between my-3 text-gray-800 font-semibold uppercase">
             <h4>Total</h4>
-            <h4>$ {{grand_total}}</h4>
+            <h4>$ {{grand_total|floatformat:2}}</h4>
         </div>
         <div class="text-center mb-3 ml-14 mt-5">
             <img src="{% static 'src/images/misc/payments.png' %}"  width="150" height="26">

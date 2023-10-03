@@ -60,11 +60,14 @@ def product_detail(request,product):
         promocion=data_from_express_api['promocion']
         preciodes=0
         if promocion == 0:
+            descuentoobject=0
             promocion = []
         else:
             promocion=promocion
+            
             precio=data_from_express_api['productos'][0]['precio']
-            preciodes = precio - (precio * (promocion / 100))
+            descuentoobject=int(promocion*100)
+            preciodes = precio - (precio * promocion)
 
    
 
@@ -72,7 +75,7 @@ def product_detail(request,product):
            context={
                'productos':data_from_express_api['productos'][0],
                'promocion':preciodes,
-               'porcentaje':promocion
+               'porcentaje':descuentoobject
                
                 }
          
@@ -287,8 +290,6 @@ def upload_excel(request):
     return render(request, 'admin/upload_excel.html', {'form': form})
 
 
-def checkout(request):
-   return render(request, 'store/checkout.html')
 
 
 def precios_especiales(request,seccion):
@@ -298,31 +299,31 @@ def precios_especiales(request,seccion):
         response = requests.get(url)
         data_from_express_api = response.json()
         if response.status_code == 200:
-           productos_con_descuento = []
-           for elemento in data_from_express_api['productos']:
-            id = elemento['id']
-            nombre = elemento['nombre']
-            item = elemento['item']
-            sku = elemento['sku']
-            precio = elemento['precio']
-            descuento = elemento['Descuento']
-            preciodes = precio - (precio * (descuento / 100))
+        #    productos_con_descuento = []
+        #    for elemento in data_from_express_api['productos']:
+        #     id = elemento['id']
+        #     nombre = elemento['nombre']
+        #     item = elemento['item']
+        #     sku = elemento['sku']
+        #     precio = elemento['precio']
+        #     descuento = elemento['Descuento']
+        #     preciodes = precio - (precio * (descuento / 100))
             
-            # Agregar el producto con precio calculado a la lista
-            productos_con_descuento.append({
-                'id': id,
-                'nombre': nombre,
-                'item': item,
-                'sku': sku,
-                'descuento':descuento,
-                'precio': precio,
-                'preciodes': preciodes
-            })
+        #     # Agregar el producto con precio calculado a la lista
+        #     productos_con_descuento.append({
+        #         'id': id,
+        #         'nombre': nombre,
+        #         'item': item,
+        #         'sku': sku,
+        #         'descuento':descuento,
+        #         'precio': precio,
+        #         'preciodes': preciodes
+        #     })
             
-           paginator=Paginator(productos_con_descuento,36)
+           paginator=Paginator(data_from_express_api['productos'],36)
            page=request.GET.get('page')
            paged_prducts=paginator.get_page(page)
-           product_count = len(productos_con_descuento)
+           product_count = len(data_from_express_api['productos'])
            current_page = paged_prducts.number
            start_page = max(current_page - 4, 1)  # Establece el rango de páginas visibles
            end_page = min(current_page + 4,paged_prducts.paginator.num_pages)

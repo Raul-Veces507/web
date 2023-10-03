@@ -36,6 +36,24 @@
 
         color: #fff;
     }
+    .p-discount {
+        position: relative;
+        left: 20px;
+        top: 20px;
+        width: 65px;
+        height: 24px;
+        color: #ffffff;
+        background-color: #006eff;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-size: 0.7rem;
+        letter-spacing: 1px;
+        z-index: 100;
+        border-radius: 3px;
+
+
+    }
 </style>
 
 <section class="container bg-white ">
@@ -223,6 +241,11 @@
             {% for product in productos %}
             <div class="w-52 h-auto group rounded bg-white shadow overflow-hidden">
                 <!-- product image -->
+                {% if product.porcentaje %}
+                <span class="p-discount"> -{{product.porcentaje}}% </span>
+                {% else %}
+
+                {% endif %}
 
                 <a href="{%  url 'product_detail' product.item %}">
                     <img src=" https://riba.app/imgrs/THUMBS 500X500/{{product.item}}.jpg " class="w-full" onerror="this.src='https://www.ribasmith.com/media/catalog/product/placeholder/default/watermark_4.png' ">
@@ -249,9 +272,9 @@
                     </h4>
 
                     <div class="flex items-baseline mb-1 space-x-2">
-                        {% if precioEspecial == True %}
+                        {% if product.Descuento %}
                         <p class="text-sm text-red-700  font-roboto line-through">$   {{product.precio|floatformat:2}}</p>
-                        <p class="text-xl  text-gray-900 font-roboto font-semibold">$ {{product.preciodes|floatformat:2}}</p>
+                        <p class="text-xl  text-gray-900 font-roboto font-semibold">$ {{product.Descuento|floatformat:2}}</p>
                         {% else %}
                         <p class="text-xl  text-gray-900 font-roboto font-semibold">$ {{product.precio|floatformat:2}}</p>
                         {% endif %}

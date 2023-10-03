@@ -17,27 +17,9 @@ def home(request):
            data_from_express_api = response.json()
            productos=data_from_express_api['productos'][:10]
           
-           for elemento in productos:
-               id = elemento['id']
-               nombre = elemento['nombre']
-               item = elemento['item']
-               sku = elemento['sku']
-               precio = elemento['precio']
-               descuento = elemento['Descuento']
-               preciodes = precio - (precio * (descuento / 100))
-               
-               # Agregar el producto con precio calculado a la lista
-               productos_con_descuento.append({
-                   'id': id,
-                   'nombre': nombre,
-                   'item': item,
-                   'sku': sku,
-                   'descuento':descuento,
-                   'precio': precio,
-                   'preciodes': preciodes
-               })
+  
            context = {
-                'productos': productos_con_descuento
+                'productos': productos
             }
            
         else:

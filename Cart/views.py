@@ -12,7 +12,6 @@ def _cart_id(request):
     cart=request.session.session_key
     if not cart:
         cart=request.session.create()
-    print(cart)
     return cart
 
 def add_cart(request,product_id):
@@ -71,6 +70,7 @@ def add_cart(request,product_id):
 
 
 
+
 def cart(request, total=Decimal("0"), quantity=0, cart_items=None, taxt=Decimal("0"), grand_total=Decimal("0"), delivery=Decimal("3.50")):
     try:
         cart=_cart_id(request)
@@ -86,18 +86,30 @@ def cart(request, total=Decimal("0"), quantity=0, cart_items=None, taxt=Decimal(
         if response.status_code == 200:
             data_from_express_api = response.json()
             cart_items = data_from_express_api['carrito']
+            
+            array=[]
             for cart_item in cart_items:
                 precio = Decimal(str(cart_item['precio']))  # Convierte a Decimal
-                total += (precio * cart_item['quantity'])
-                quantity += cart_item['quantity']
-        
+                Descuento = Decimal(str(cart_item['Descuento'])) 
+                totaldes=precio-(Descuento * precio)
+                total += (totaldes * cart_item['quantity'])
+                data={
+                    'nombre':cart_item['nombre'],
+                    'precio': precio-(Descuento * precio) ,
+                    'quantity':cart_item['quantity'],
+                    'item':cart_item['item'],
+                    'total':cart_item['total']
+                   
+                }
+                array.append(data)
+
             taxt = (Decimal("2") * total) / Decimal("100")
             grand_total = total + taxt + delivery
         
             context = {
                 'total': total,
                 'quantity': quantity,
-                'cart_items': cart_items,
+                'cart_items': array,
                 'taxt': taxt.quantize(Decimal("0.00")),
                 'grand_total': grand_total.quantize(Decimal("0.00"))
             }
@@ -216,4 +228,88 @@ def remove_cart_item(request, product_id):
         print(e)
         context = None
         return redirect('cart')
+
+def checkout(request, total=Decimal("0"), quantity=0, cart_items=None, taxt=Decimal("0"), grand_total=Decimal("0"), delivery=Decimal("3.50")):
+    try:
+        cart=_cart_id(request)
+        data ={
+         "cart":cart,
+           }        
+        # Realizar una nueva solicitud a la API para obtener los detalles del producto
+        url = f'http://192.168.88.136:3002/ecommer/rs/viewcart'
+
+        response = requests.post(url, json=data)  # Usar json=data en lugar de data=data
+
+
+        if response.status_code == 200:
+            data_from_express_api = response.json()
+            cart_items = data_from_express_api['carrito']
+            
+            array=[]
+            for cart_item in cart_items:
+                precio = Decimal(str(cart_item['precio']))  # Convierte a Decimal
+                Descuento = Decimal(str(cart_item['Descuento'])) 
+                totaldes=precio-(Descuento * precio)
+                total += (totaldes * cart_item['quantity'])
+                data={
+                    'nombre':cart_item['nombre'],
+                    'precio': precio-(Descuento * precio) ,
+                    'quantity':cart_item['quantity'],
+                    'item':cart_item['item'],
+                    'total':cart_item['total']
+                   
+                }
+                array.append(data)
+
+            taxt = (Decimal("2") * total) / Decimal("100")
+            grand_total = total + taxt + delivery
+        
+            context = {
+                'total': total,
+                'quantity': quantity,
+                'cart_items': array,
+                'taxt': taxt.quantize(Decimal("0.00")),
+                'grand_total': grand_total.quantize(Decimal("0.00"))
+            }
+            return render(request, 'store/checkout.html', context)
+
+            
+        else:
+            pass
+            return render(request, 'store/checkout.html', context)
+
+
+
+    except Exception as e:
+        print(e)
+        context = None
+        return render(request, 'store/checkout.html',context)
+
+
+
+
+
+
+    
+    # try:
+    #     cart=Cart.objects.get(cart_id=_cart_id(request))
+    #     cart_items=CartItem.objects.filter(cart=cart,is_active=True)
+    #     for cart_item in cart_items:
+    #         total +=(cart_item.product.precio*cart_item.quantity)
+    #         quantity +=cart_item.quantity
+
+    #     taxt = (Decimal("2") * total) / Decimal("100")
+    #     grand_total = total + taxt + delivery
+    # except ObjectDoesNotExist :
+    #     pass
+  
+    # context={
+    #     'total':total,
+    #     'quantity':quantity,
+    #     'cart_items':cart_items,
+    #     'taxt':taxt.quantize(Decimal("0.00")),
+    #     'grand_total':grand_total.quantize(Decimal("0.00"))
+
+    # }
+    # return render(request, 'store/cart.html',context)
 

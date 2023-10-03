@@ -1771,10 +1771,6 @@ input[type="range"]:active::-webkit-slider-thumb{
   margin-top: 0.15rem;
 }
 
-.mt-auto{
-  margin-top: auto;
-}
-
 .box-border{
   box-sizing: border-box;
 }

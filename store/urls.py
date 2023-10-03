@@ -9,6 +9,6 @@ urlpatterns=[
     path('product/<int:product>/',views.product_detail,name='product_detail'),
     path('PreciosEspeciales/<int:seccion>/',views.precios_especiales,name='precios_especiales'),
     path('upload_excel/', views.upload_excel, name='upload_excel'),
-    path('checkout/',views.checkout, name='checkout')
+
          
 ]
