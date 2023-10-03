@@ -42,7 +42,7 @@
 
 
   <!-- header -->
-  <nav class=" hidden md:flex justify-between  border">
+  <nav class=" hidden lg:flex justify-between  border">
     <div class="w-full px-4 py-3 mx-auto">
         <div class="flex items-center  justify-between">
             <ul class="flex flex-row  font-medium mt-0 mr-6 space-x-2 text-sm">
@@ -188,26 +188,26 @@
 
 </nav>
 
-  <header class="py-4 shadow-sm bg-white sticky  top-0 z-10 ">
-    <div class="container flex items-center justify-between " >
+  <header class="py-4 shadow-sm bg-white sticky  top-0  md:top-0   z-10 ">
+    <div class="container flex items-center  justify-center  md:justify-between " >
         <!-- logo -->
-        <a  href="{% url 'home' %}" class="block w-40">
-            <img src="https://www.ribasmith.com/media/logo/websites/1/logowebx1.png" alt="logo" class="w-full">
+        <a  href="{% url 'home' %}" class="block w-40 ">
+            <img src="https://www.ribasmith.com/media/logo/websites/1/logowebx1.png" alt="logo" class="  mt-4  w-full    ">
         </a>
 
         
         <!-- logo end -->
 
         <!-- searchbar -->
-        <div class="w-full xl:max-w-xl lg:max-w-2xl  flex flex-col" style="z-index: 1000;">
-          <div class="relative">
+        <div class="  hidden      xl:max-w-xl lg:max-w-2xl  md:flex flex-col" style="z-index: 1000;">
+          <div class="relative  px-2 ">
               <span class="absolute left-4 top-3 text-lg text-gray-400">
-                  <i class="fas fa-search"></i>
+               
               </span>
               <input type="text"
                   id="search-input"
-                  class="pl-12 w-full border  py-3 px-5 rounded-full focus:ring-primary focus:border-primary"
-                  placeholder="Buscar articulo" 
+                  class="pl-13 w-full   py-3 px-3 rounded-full "
+                  placeholder="busqueda"
                   autocomplete="off">
              
           </div>
@@ -283,8 +283,8 @@
 
 <!-- navbar -->
 <nav class=" hidden lg:block sticky  top-20     bg-white" style="z-index: 1;">
-    <div class="container">
-        <div class="flex justify-between">
+    <div class="container justify-center">
+        <div class="flex text-center justify-center ">
 
             <!-- all category -->
             
@@ -295,7 +295,7 @@
             <!-- all category end -->
 
             <!-- nav menu -->
-            <div class="flex items-center mt-10 ">
+            <div class="flex items-center mt-4 mb-4 text-center ">
                 <div class="flex  space-x-6 text-base capitalize">
                     <a href="{% url 'home' %}" class="text-black font-bold hover:text-pink-600 transition">Inicio</a>
                     <a href="shop.html" class=" font-bold text-pink-600 transition">RIMITH</a>
@@ -705,7 +705,7 @@ button.addEventListener('click', function() {
 </script>
 
 
-
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
 
   let typingTimer;
@@ -773,7 +773,7 @@ button.addEventListener('click', function() {
   </script>
   
   
-  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  
 
 
 
