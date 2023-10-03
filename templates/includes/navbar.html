@@ -42,8 +42,8 @@
 
 
   <!-- header -->
-  <nav class="  border">
-    <div class="max-w-screen-xl px-4 py-3 mx-auto">
+  <nav class=" hidden md:flex justify-between  border">
+    <div class="w-full px-4 py-3 mx-auto">
         <div class="flex items-center  justify-between">
             <ul class="flex flex-row  font-medium mt-0 mr-6 space-x-2 text-sm">
                 <li>
@@ -188,8 +188,8 @@
 
 </nav>
 
-  <header class="py-4 shadow-sm lg:bg-white sticky top-0 z-10 ">
-    <div class="container flex items-center justify-between">
+  <header class="py-4 shadow-sm bg-white sticky  top-0 z-10 ">
+    <div class="container flex items-center justify-between " >
         <!-- logo -->
         <a href="#" class="block w-40">
             <img src="https://www.ribasmith.com/media/logo/websites/1/logowebx1.png" alt="logo" class="w-full">
@@ -199,27 +199,38 @@
         <!-- logo end -->
 
         <!-- searchbar -->
-        <div class="w-full xl:max-w-xl lg:max-w-2xl lg:flex relative hidden"
-        >
-            <span class="absolute left-4 top-3 text-lg text-gray-400">
-                <i class="fas fa-search"></i>
-            </span>
-            <input type="text"
-                class="pl-12 w-full border border-r-0 border-blue-600 py-3 px-3 rounded-l-md focus:ring-primary focus:border-primary"
-                placeholder="search">
-            <button type="submit"
-                class="bg-blue-600 border border-blue-600 text-white px-8 font-medium rounded-r-md hover:bg-transparent hover:text-blue-600 transition">
-                Search
-            </button>
-        </div>
-        <!-- searchbar end -->
+        <div class="w-full xl:max-w-xl lg:max-w-2xl  flex flex-col" style="z-index: 1000;">
+          <div class="relative">
+              <span class="absolute left-4 top-3 text-lg text-gray-400">
+                  <i class="fas fa-search"></i>
+              </span>
+              <input type="text"
+                  id="search-input"
+                  class="pl-12 w-full border  py-3 px-5 rounded-full focus:ring-primary focus:border-primary"
+                  placeholder="Buscar articulo" 
+                  autocomplete="off">
+             
+          </div>
+          <!-- searchbar end -->
+          
+
+
+<!-- Dropdown menu -->
+<div id="search-results" class="  absolute top-20 z-50  rounded-xl shadow  dark:bg-gray-700 " style="z-index: 10000000; background: rgb(245, 245, 245); width: 500px;  border-radius: 12px;">
+  
+</div>
+
+        
+      </div>
+      
+      
 
         <!-- navicons -->
         <div class="space-x-4 flex items-center">
            
           <div>
           
-            <button  id="dropdownDefaultButton" data-dropdown-toggle="dropdown"  class=" z-auto hidden md:flex     text-blue-800 border  hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center  items-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800" type="button">Selecciona tu tienda <svg class="w-2.5 h-2.5 ml-2.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6">
+            <button  id="dropdownDefaultButton" data-dropdown-toggle="dropdown"  class=" z-auto hidden md:flex     text-blue-800 border  hover:bg-gray-200 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center  items-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800" type="button">Selecciona tu tienda <svg class="w-2.5 h-2.5 ml-2.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6">
               <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 4 4 4-4"/>
             </svg></button>
             <!-- Dropdown menu -->
@@ -271,7 +282,7 @@
 <!-- header end -->
 
 <!-- navbar -->
-<nav class="-  hidden lg:block sticky  top-20 z-10  bg-white">
+<nav class="-  hidden lg:block sticky  top-20     bg-white" style="z-index: 1;">
     <div class="container">
         <div class="flex justify-between">
 
@@ -300,7 +311,7 @@
             <!-- nav menu -->
             <div class="flex items-center ">
                 <div class="flex  space-x-6 text-base capitalize">
-                    <a href="index.html" class="text-black font-bold hover:text-pink-600 transition">Inicio</a>
+                    <a href="" class="text-black font-bold hover:text-pink-600 transition">Inicio</a>
                     <a href="shop.html" class=" font-bold text-pink-600 transition">RIMITH</a>
                     <a href="#" class="text-black  font-bold hover:text-pink-600 transition">RIMITH Esencial</a>
                     <a href="#" class="text-black font-bold hover:text-pink-600 transition">Verano</a>
@@ -318,23 +329,14 @@
 <div
     class=" w-full border-t border-gray-200 shadow-sm bg-white py-3 bottom-0 left-0 flex justify-around items-start px-6 lg:hidden z-40">
     <a href="javascript:void(0)" class="block text-center text-gray-700 hover:text-blue-600 transition relative">
-        <div class="text-2xl" id="menuBar">
+        <div class="text-2xl"  data-te-sidenav-toggle-ref   data-te-target="#sidenav-1" >
             <i class="fas fa-bars"></i>
         </div>
         <div class="text-xs leading-3">Menu</div>
     </a>
-    <a href="#" class="block text-center text-gray-700 hover:text-blue-600 transition relative">
-        <div class="text-2xl">
-            <i class="fas fa-list-ul"></i>
-        </div>
-        <div class="text-xs leading-3">Category</div>
-    </a>
-    <a href="#" class="block text-center text-gray-700 hover:text-blue-600 transition relative">
-        <div class="text-2xl">
-            <i class="fas fa-search"></i>
-        </div>
-        <div class="text-xs leading-3">Search</div>
-    </a>
+   
+   
+ 
     <a href="cart.html" class="text-center text-gray-700 hover:text-blue-600 transition relative">
         <span
             class="absolute -right-3 -top-1 w-5 h-5 rounded-full flex items-center justify-center bg-blue-600 text-white text-xs">3</span>
@@ -347,31 +349,157 @@
 <!-- mobile menu end -->
 
 <!-- mobile sidebar menu -->
-<div class="fixed left-0 top-0 w-full h-full z-50 bg-black bg-opacity-30 shadow hidden" id="mobileMenu">
-    <div class="absolute left-0 top-0 w-72 h-full z-50 bg-white shadow">
-        <div id="closeMenu"
-            class="text-gray-400 hover:text-blue-600 text-lg absolute right-3 top-3 cursor-pointer">
-            <i class="fas fa-times"></i>
-        </div>
-        <!-- navlink -->
-        <h3 class="text-xl font-semibold text-gray-700 mb-1 font-roboto pl-4 pt-4">Menu</h3>
-        <div class="font-bold">
-            <a href="index.html" class="block px-4 py-2 font-medium transition hover:bg-gray-100">
-                Home
-            </a>
-            <a href="shop.html" class="block px-4 py-2 font-medium transition hover:bg-gray-100">
-                Shop
-            </a>
-            <a href="#" class="block px-4 py-2 font-medium transition hover:bg-gray-100">
-                About Us
-            </a>
-            <roa href="#" class="block px-4 py-2 font-medium transition hover:bg-gray-100">
-                Contact Us
-            </roa>
-        </div>
-        <!-- navlinks end -->
-    </div>
-</div>
+<nav
+  id="sidenav-1"
+  class="absolute left-0 top-0 z-[1035] h-full w-60 -translate-x-full overflow-hidden  bg-white   data-[te-sidenav-hidden='false']:translate-x-0 dark:bg-zinc-800"
+  data-te-sidenav-init
+  data-te-sidenav-hidden="true"
+  data-te-sidenav-position="absolute">
+  <ul class="relative m-0 list-none px-[0.2rem]" data-te-sidenav-menu-ref>
+    <li class="relative">
+      <a
+        class="flex h-12 cursor-pointer items-center truncate rounded-[5px] px-6 py-4 text-[0.875rem] text-gray-600 outline-none transition duration-300 ease-linear hover:bg-slate-50 hover:text-inherit hover:outline-none focus:bg-slate-50 focus:text-inherit focus:outline-none active:bg-slate-50 active:text-inherit active:outline-none data-[te-sidenav-state-active]:text-inherit data-[te-sidenav-state-focus]:outline-none motion-reduce:transition-none dark:text-gray-300 dark:hover:bg-white/10 dark:focus:bg-white/10 dark:active:bg-white/10"
+        data-te-sidenav-link-ref>
+        <span
+          class="mr-4 [&>svg]:h-4 [&>svg]:w-4 [&>svg]:text-gray-400 dark:[&>svg]:text-gray-300">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke-width="1.5"
+            stroke="currentColor"
+            class="h-4 w-4">
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              d="M15.182 15.182a4.5 4.5 0 01-6.364 0M21 12a9 9 0 11-18 0 9 9 0 0118 0zM9.75 9.75c0 .414-.168.75-.375.75S9 10.164 9 9.75 9.168 9 9.375 9s.375.336.375.75zm-.375 0h.008v.015h-.008V9.75zm5.625 0c0 .414-.168.75-.375.75s-.375-.336-.375-.75.168-.75.375-.75.375.336.375.75zm-.375 0h.008v.015h-.008V9.75z" />
+          </svg>
+        </span>
+        <span>Inicio</span>
+      </a>
+    </li>
+   
+    <li class="relative">
+      <a
+        class="flex h-12 cursor-pointer items-center truncate rounded-[5px] px-6 py-4 text-[0.875rem] text-gray-600 outline-none transition duration-300 ease-linear hover:bg-slate-50 hover:text-inherit hover:outline-none focus:bg-slate-50 focus:text-inherit focus:outline-none active:bg-slate-50 active:text-inherit active:outline-none data-[te-sidenav-state-active]:text-inherit data-[te-sidenav-state-focus]:outline-none motion-reduce:transition-none dark:text-gray-300 dark:hover:bg-white/10 dark:focus:bg-white/10 dark:active:bg-white/10"
+        data-te-sidenav-link-ref>
+        <span
+          class="mr-4 [&>svg]:h-4 [&>svg]:w-4 [&>svg]:text-gray-400 dark:[&>svg]:text-gray-300">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 24 24"
+            fill="currentColor"
+            class="h-4 w-4">
+            <path
+              fill-rule="evenodd"
+              d="M12 2.25c-5.385 0-9.75 4.365-9.75 9.75s4.365 9.75 9.75 9.75 9.75-4.365 9.75-9.75S17.385 2.25 12 2.25zm-2.625 6c-.54 0-.828.419-.936.634a1.96 1.96 0 00-.189.866c0 .298.059.605.189.866.108.215.395.634.936.634.54 0 .828-.419.936-.634.13-.26.189-.568.189-.866 0-.298-.059-.605-.189-.866-.108-.215-.395-.634-.936-.634zm4.314.634c.108-.215.395-.634.936-.634.54 0 .828.419.936.634.13.26.189.568.189.866 0 .298-.059.605-.189.866-.108.215-.395.634-.936.634-.54 0-.828-.419-.936-.634a1.96 1.96 0 01-.189-.866c0-.298.059-.605.189-.866zm2.023 6.828a.75.75 0 10-1.06-1.06 3.75 3.75 0 01-5.304 0 .75.75 0 00-1.06 1.06 5.25 5.25 0 007.424 0z"
+              clip-rule="evenodd" />
+          </svg>
+        </span>
+        <span>Departamentos</span>
+        <span
+          class="absolute right-0 ml-auto mr-[0.8rem] transition-transform duration-300 ease-linear motion-reduce:transition-none [&>svg]:text-gray-600 dark:[&>svg]:text-gray-300"
+          data-te-sidenav-rotate-icon-ref>
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 20 20"
+            fill="currentColor"
+            class="h-5 w-5">
+            <path
+              fill-rule="evenodd"
+              d="M5.23 7.21a.75.75 0 011.06.02L10 11.168l3.71-3.938a.75.75 0 111.08 1.04l-4.25 4.5a.75.75 0 01-1.08 0l-4.25-4.5a.75.75 0 01.02-1.06z"
+              clip-rule="evenodd" />
+          </svg>
+        </span>
+      </a>
+      <ul
+        class="show !visible relative m-0 hidden list-none p-0 data-[te-collapse-show]:block "
+        data-te-sidenav-collapse-ref>
+        <li class="relative">
+          {% for depa in links %}
+          <a href="{% url 'products_by_departamento' depar=depa.id %}" class=" z-20 px-6 py-3 flex items-center hover:bg-gray-100 transition ">
+            
+            <span class=" z-20 ml-6 text-gray-600 text-sm"> {{depa.nombre}}</span>
+        </a>
+      
+          {% endfor %}
+        </li>
+        
+      </ul>
+    </li>
+
+    <li class="relative">
+      <a
+        class="flex h-12 cursor-pointer items-center truncate rounded-[5px] px-6 py-4 text-[0.875rem] text-gray-600 outline-none transition duration-300 ease-linear hover:bg-slate-50 hover:text-inherit hover:outline-none focus:bg-slate-50 focus:text-inherit focus:outline-none active:bg-slate-50 active:text-inherit active:outline-none data-[te-sidenav-state-active]:text-inherit data-[te-sidenav-state-focus]:outline-none motion-reduce:transition-none dark:text-gray-300 dark:hover:bg-white/10 dark:focus:bg-white/10 dark:active:bg-white/10"
+        data-te-sidenav-link-ref>
+        <span
+          class="mr-4 [&>svg]:h-4 [&>svg]:w-4 [&>svg]:text-gray-400 dark:[&>svg]:text-gray-300">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke-width="1.5"
+            stroke="currentColor"
+            class="h-4 w-4">
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              d="M15.182 15.182a4.5 4.5 0 01-6.364 0M21 12a9 9 0 11-18 0 9 9 0 0118 0zM9.75 9.75c0 .414-.168.75-.375.75S9 10.164 9 9.75 9.168 9 9.375 9s.375.336.375.75zm-.375 0h.008v.015h-.008V9.75zm5.625 0c0 .414-.168.75-.375.75s-.375-.336-.375-.75.168-.75.375-.75.375.336.375.75zm-.375 0h.008v.015h-.008V9.75z" />
+          </svg>
+        </span>
+        <span>Rimith</span>
+      </a>
+    </li>
+
+    <li class="relative">
+      <a
+        class="flex h-12 cursor-pointer items-center truncate rounded-[5px] px-6 py-4 text-[0.875rem] text-gray-600 outline-none transition duration-300 ease-linear hover:bg-slate-50 hover:text-inherit hover:outline-none focus:bg-slate-50 focus:text-inherit focus:outline-none active:bg-slate-50 active:text-inherit active:outline-none data-[te-sidenav-state-active]:text-inherit data-[te-sidenav-state-focus]:outline-none motion-reduce:transition-none dark:text-gray-300 dark:hover:bg-white/10 dark:focus:bg-white/10 dark:active:bg-white/10"
+        data-te-sidenav-link-ref>
+        <span
+          class="mr-4 [&>svg]:h-4 [&>svg]:w-4 [&>svg]:text-gray-400 dark:[&>svg]:text-gray-300">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke-width="1.5"
+            stroke="currentColor"
+            class="h-4 w-4">
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              d="M15.182 15.182a4.5 4.5 0 01-6.364 0M21 12a9 9 0 11-18 0 9 9 0 0118 0zM9.75 9.75c0 .414-.168.75-.375.75S9 10.164 9 9.75 9.168 9 9.375 9s.375.336.375.75zm-.375 0h.008v.015h-.008V9.75zm5.625 0c0 .414-.168.75-.375.75s-.375-.336-.375-.75.168-.75.375-.75.375.336.375.75zm-.375 0h.008v.015h-.008V9.75z" />
+          </svg>
+        </span>
+        <span>Rimith Esencial</span>
+      </a>
+    </li>
+
+
+    <li class="relative">
+      <a
+        class="flex h-12 cursor-pointer items-center truncate rounded-[5px] px-6 py-4 text-[0.875rem] text-gray-600 outline-none transition duration-300 ease-linear hover:bg-slate-50 hover:text-inherit hover:outline-none focus:bg-slate-50 focus:text-inherit focus:outline-none active:bg-slate-50 active:text-inherit active:outline-none data-[te-sidenav-state-active]:text-inherit data-[te-sidenav-state-focus]:outline-none motion-reduce:transition-none dark:text-gray-300 dark:hover:bg-white/10 dark:focus:bg-white/10 dark:active:bg-white/10"
+        data-te-sidenav-link-ref>
+        <span
+          class="mr-4 [&>svg]:h-4 [&>svg]:w-4 [&>svg]:text-gray-400 dark:[&>svg]:text-gray-300">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke-width="1.5"
+            stroke="currentColor"
+            class="h-4 w-4">
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              d="M15.182 15.182a4.5 4.5 0 01-6.364 0M21 12a9 9 0 11-18 0 9 9 0 0118 0zM9.75 9.75c0 .414-.168.75-.375.75S9 10.164 9 9.75 9.168 9 9.375 9s.375.336.375.75zm-.375 0h.008v.015h-.008V9.75zm5.625 0c0 .414-.168.75-.375.75s-.375-.336-.375-.75.168-.75.375-.75.375.336.375.75zm-.375 0h.008v.015h-.008V9.75z" />
+          </svg>
+        </span>
+        <span>Emprendedores</span>
+      </a>
+    </li>
+    
+  </ul>
+</nav>
 <!-- mobile sidebar menu end -->
 
 <!-- Back to top button -->
@@ -398,12 +526,6 @@
 </button>
 
 
-
-<style>
-  
- 
-</style>
-
 <script>
 // Mostrar u ocultar el botón según el desplazamiento
 window.onscroll = function() {
@@ -422,6 +544,82 @@ function scrollToTop() {
     });
 }
 </script>
+
+
+
+
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+
+<script>
+
+let typingTimer;
+const delay = 1; // Tiempo en milisegundos para esperar después de dejar de escribir
+
+$('#search-input').on('input', function() {
+    var query = $(this).val();
+    
+    // Borra el temporizador anterior si existe
+    clearTimeout(typingTimer);
+
+    // Inicia un nuevo temporizador
+    typingTimer = setTimeout(function() {
+        if (query.length >= 2) {  // Evitar búsquedas vacías o muy cortas
+            var requestData = { "busqueda": query };
+            $.ajax({
+                url: 'http://192.168.88.136:3002/ecommer/rs/buscador',
+                method: 'POST',
+                contentType: 'application/json',
+                data: JSON.stringify(requestData),
+                
+                success: function(data) {
+                    // Procesa los datos de la API y muestra los resultados
+                    console.log(data);
+                    var datos = data['productos'];
+                    var resultsHtml = '<div class=" h-96 overflow-y-scroll border border-gray-300">'; // Contenedor con barra de desplazamiento
+resultsHtml += '<div class="grid grid-cols-1 md:grid-cols-1 lg:grid-cols-1 relative  ml-5 mr-12 mt-5 mb-5">'; // Contenedor del contenido
+datos.slice(0, 15).forEach(function(product) {
+  resultsHtml += '<a href="#">'; 
+  resultsHtml += '<div class="hover:bg-gray-200 bg-white shadow-md">'; 
+  resultsHtml += '<div class="flex">';
+  
+  // Agrega la imagen del producto (reemplaza "imagen_del_producto.jpg" con la URL de la imagen real)
+  resultsHtml += `<img src="https://riba.app/imgrs/THUMBS 500X500/${product.item}.jpg" alt="${product.nombre}" class="w-16 h-16 rounded-full" onerror="this.src='https://www.ribasmith.com/media/catalog/product/placeholder/default/watermark_4.png' ">`
+
+  resultsHtml += '<div class="flex-1">';
+  resultsHtml += '<h1 class="text-black hover:text-black font-semibold">' + product.nombre + '</h1>';
+  // Agrega más información del producto si es necesario
+  resultsHtml += '</div>';
+  
+  resultsHtml += '</div>'; // Cierra el div.flex
+  resultsHtml += '</div>'; // Cierra la tarjeta
+  resultsHtml += '</a>';
+});
+resultsHtml += '</div>'; // Cierra el contenedor del contenido
+resultsHtml += '</div>'; // Cierra el contenedor con barra de desplazamiento
+
+
+$('#search-results').html(resultsHtml);
+
+                   
+                },
+                error: function() {
+                    // Maneja errores de la solicitud AJAX
+                    $('#search-results').html('Error en la búsqueda.');
+                }
+            });
+        } else {
+            $('#search-results').html('');
+        }
+    }, delay); // Establece el retraso antes de realizar la búsqueda
+});
+
+
+</script>
+
+
+
 
 <!-- component -->
 <!-- This is an example component -->
@@ -570,19 +768,7 @@ function scrollToTop() {
 
 
 
-<script>
-    let menuBar = document.querySelector('#menuBar')
-    let mobileMenu = document.querySelector('#mobileMenu')
-    let closeMenu = document.querySelector('#closeMenu')
 
-    menuBar.addEventListener('click', function(){
-        mobileMenu.classList.remove('hidden')
-    })
-
-    closeMenu.addEventListener('click', function(){
-        mobileMenu.classList.add('hidden')
-    })
-</script>
 <!-- 
 <nav class="bg-white border-gray-200 dark:bg-gray-900">
   <div class="max-w-screen-xl flex flex-wrap items-center  mx-auto p-4">

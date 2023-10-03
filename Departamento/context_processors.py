@@ -23,7 +23,7 @@ def menu_links(request):
             
 
         else:
-            return render(request, 'index.html', {'message': 'Error al obtener datos del API'})
+            return render(request, 'home.html', {'message': 'Error al obtener datos del API'})
 
     except requests.exceptions.RequestException as e:
-        return render(request, 'index.html', {'message': str(e)})
+        return render(request, 'home.html', {'message': str(e)})
