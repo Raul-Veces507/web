@@ -37,9 +37,7 @@
         color: #fff;
     }
     .p-discount {
-        position: relative;
-        left: 20px;
-        top: 20px;
+    
         width: 65px;
         height: 24px;
         color: #ffffff;
@@ -49,7 +47,8 @@
         align-items: center;
         font-size: 0.7rem;
         letter-spacing: 1px;
-        z-index: 100;
+        margin-top: 20px;
+        margin-left: 20px;
         border-radius: 3px;
 
 
@@ -236,10 +235,10 @@
         <!-- sorting end -->
         <!-- product wrapper -->
         {% if productos %}
-        <div class="grid lg:grid-cols-3 xl:grid-cols-4 sm:grid-cols-2 gap-6">
+        <div class="grid grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 sm:grid-cols-3 gap-6">
             <!-- single product -->
             {% for product in productos %}
-            <div class="w-52 h-auto group rounded bg-white shadow overflow-hidden">
+            <div class="w-40 md:w-56 h-auto group rounded bg-white shadow overflow-hidden">
                 <!-- product image -->
                 {% if product.porcentaje %}
                 <span class="p-discount"> -{{product.porcentaje}}% </span>
@@ -323,7 +322,7 @@
                 </div>
                 <!-- product content end -->
                 <!-- product button -->
-                <div class="text-center mt-1">
+                <div class="text-center mt-1 absolute lg:static left-4 top-16 w-72 lg:w-full lg:block sidebar hidden">
                     <a href="{% url 'add_cart' product.item %}"
                         class="text-white bg-yellow-300 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300
                         font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">
@@ -331,6 +330,15 @@
                         <i class="fa fa-cart-arrow-down"></i>
                     </a>
                 </div>
+                <div class="text-center mt-1 lg:hidden block">
+                    <a href="{% url 'add_cart' product.item %}"
+                        class="text-white bg-yellow-300 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300
+                        font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">
+                        Agregar
+                        <i class="fa fa-cart-arrow-down"></i>
+                    </a>
+                </div>
+          
                 <div class="mt-10">
 
                 </div>

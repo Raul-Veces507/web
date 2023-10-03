@@ -13,7 +13,7 @@ import requests
 # Create your views here.
 def store(request,depar):
     try:
-        print(depar)
+     
         # Realizar una nueva solicitud a la API para obtener los detalles del producto
         url = f'http://192.168.88.136:3002/ecommer/rs/Detapramento/{depar}/'
         response = requests.get(url)
