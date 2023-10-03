@@ -1,5 +1,7 @@
+{% if cart_count.cantidad %}
 <a 
 class="lg:block text-center text-gray-700 hover:text-blue-600 transition hidden relative">
+
 <button id="carritoview">
     <span
     class="absolute -right-3 -top-1 w-5 h-5 rounded-full flex items-center justify-center bg-blue-600 text-white text-xs">{{cart_count.cantidad}}</span>
@@ -8,9 +10,21 @@ class="lg:block text-center text-gray-700 hover:text-blue-600 transition hidden 
       </div>
 </button>
 
-
-
 </a>
+{% else  %}
+<a href="{% url 'cart' %}"
+class="lg:block text-center text-gray-700 hover:text-blue-600 transition hidden relative">
+
+<span
+class="absolute -right-3 -top-1 w-5 h-5 rounded-full flex items-center justify-center bg-blue-600 text-white text-xs">0</span>
+<div class="text-2xl">
+    <i class="fas fa-shopping-bag"></i>
+  </div>
+{% endif %}
+</a>
+
+
+
 
 <div id="modalcarrito" class="relative z-10" aria-labelledby="slide-over-title" role="dialog" aria-modal="false" style="display: none;">
     <div class="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity"></div>
@@ -50,7 +64,7 @@ class="lg:block text-center text-gray-700 hover:text-blue-600 transition hidden 
                               <h3>
                                 <a href="#">{{data.nombre}}</a>
                               </h3>
-                              <p class="ml-4">${{data.precio|floatformat:2}}</p>
+                              <p class="ml-4">${{data.total|floatformat:2}}</p>
                             </div>
                             <p class="mt-1 text-sm text-gray-500">Salmon</p>
                           </div>
@@ -73,7 +87,7 @@ class="lg:block text-center text-gray-700 hover:text-blue-600 transition hidden 
               <div class="border-t border-gray-200 px-4 py-6 sm:px-6">
                 <div class="flex justify-between text-base font-medium text-gray-900">
                   <p>Subtotal</p>
-                  <p>${{cart_count.grand_total|floatformat:2}}</p>
+                  <p>${{cart_count.total|floatformat:2}}</p>
                 </div>
                 <p class="mt-0.5 text-sm text-gray-500">Envío e impuestos calculados al finalizar la compra.</p>
                 <div class="mt-6">
