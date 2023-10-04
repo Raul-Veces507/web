@@ -22,7 +22,7 @@
         text-transform: uppercase;
         columns: #313131;
         text-align: center;
-        
+
         margin: 0px;
     }
 
@@ -39,7 +39,7 @@
         width: 200px;
         height: 100%;
         display: flex;
-        
+
         overflow: hidden;
 
     }
@@ -184,43 +184,55 @@
         /* Permite que el elemento ocupe solo el espacio necesario */
     }
 
-    @media(max-width:500px){
-        .product-box1{
-            margin:0px 10px;
+    @media(max-width:500px) {
+        .product-box1 {
+            margin: 0px 10px;
         }
-        .p-slider{
+
+        .p-slider {
             width: 100%;
         }
-        .product-slider-heading{
+
+        .product-slider-heading {
             text-align: center;
             font-size: 1.3rem;
             display: flex;
         }
-        .p-img a ,.p-img{
+
+        .p-img a,
+        .p-img {
             height: 200px;
         }
-        .price-buy .p-price{
+
+        .price-buy .p-price {
             font-size: 1.1rem;
         }
-        .p-img-container:hover .p-img-back{
+
+        .p-img-container:hover .p-img-back {
             display: none;
         }
-        .p-img-container:hover .p-img-front{
+
+        .p-img-container:hover .p-img-front {
             display: block;
         }
 
     }
-    @media(max-width:320px){
+
+    @media(max-width:320px) {
+
         .p-img a,
-        .p-img{
+        .p-img {
             height: 190px;
         }
-        .slider-btns{
+
+        .slider-btns {
             padding: 0px;
         }
 
-        
+
     }
+
+
 </style>
 
 
@@ -229,62 +241,65 @@
 
         <div class="flex justify-between items-center w-full">
             <h3 style="font-size: 19px;" class="font-bold text-lg rounded-lg">Precios Especiales-Octubre</h3>
-            <a style="font-size: 19px;" href="{% url 'precios_especiales' 1%}" class="ml-1 text-sm font-medium text-gray-700 hover:text-blue-600 md:ml-2 dark:text-gray-400 dark:hover:text-white text-right">Ver todo <i class="fas fa-chevron-right"></i></a>
+            <a style="font-size: 19px;" href="{% url 'precios_especiales' 1%}"
+                class="ml-1 text-sm font-medium text-gray-700 hover:text-blue-600 md:ml-2 dark:text-gray-400 dark:hover:text-white text-right">Ver
+                todo <i class="fas fa-chevron-right"></i></a>
         </div>
-    
-    
-    
-    
+
+
+
+
         <div class="glider-contain mt-14">
-            {% include 'includes/alerts.html'  %}
             <div class="glider">
-              
+
                 {% for item in productos %}
                 <div class="product-box1 ">
                     <span class="p-discount"> -{{item.porcentaje}}% </span>
-    
+
                     <!-- img container -->
                     <div class="p-img-container">
                         <div class="p-img">
                             <a href="{% url 'product_detail' item.item %}">
-                                <img src=" https://riba.app/imgrs/THUMBS 500X500/{{item.item}}.jpg" class="transform hover:scale-110 transition-transform duration-300 ease-in-out w-10 p-img-font" onerror="this.src='https://www.ribasmith.com/media/catalog/product/placeholder/default/watermark_4.png' ">
-    
-                                
+                                <img src=" https://riba.app/imgrs/THUMBS 500X500/{{item.item}}.jpg"
+                                    class="transform hover:scale-110 transition-transform duration-300 ease-in-out w-10 p-img-font"
+                                    onerror="this.src='https://www.ribasmith.com/media/catalog/product/placeholder/default/watermark_4.png' ">
+
+
                             </a>
-    
+
                         </div>
                     </div>
-    
+
                     <!-- cuerpo de la card -->
                     <div class="p-box-text">
-    
+
                         <div class="product-category">
                             <span> {{ item.name }}</span>
                         </div>
-    
+
                         <a href="" class="product-title  text-limit">
                             {{item.nombre}}
                         </a>
                         <p class="text-green-500 ">In Stock</p>
                         <!-- estrellas -->
                         <div class="flex items-center mt-2.5 mb-5">
-                            <svg class="w-4 h-4 text-yellow-300 mr-1" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
-                                fill="currentColor" viewBox="0 0 22 20">
+                            <svg class="w-4 h-4 text-yellow-300 mr-1" aria-hidden="true"
+                                xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 22 20">
                                 <path
                                     d="M20.924 7.625a1.523 1.523 0 0 0-1.238-1.044l-5.051-.734-2.259-4.577a1.534 1.534 0 0 0-2.752 0L7.365 5.847l-5.051.734A1.535 1.535 0 0 0 1.463 9.2l3.656 3.563-.863 5.031a1.532 1.532 0 0 0 2.226 1.616L11 17.033l4.518 2.375a1.534 1.534 0 0 0 2.226-1.617l-.863-5.03L20.537 9.2a1.523 1.523 0 0 0 .387-1.575Z" />
                             </svg>
-                            <svg class="w-4 h-4 text-yellow-300 mr-1" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
-                                fill="currentColor" viewBox="0 0 22 20">
+                            <svg class="w-4 h-4 text-yellow-300 mr-1" aria-hidden="true"
+                                xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 22 20">
                                 <path
                                     d="M20.924 7.625a1.523 1.523 0 0 0-1.238-1.044l-5.051-.734-2.259-4.577a1.534 1.534 0 0 0-2.752 0L7.365 5.847l-5.051.734A1.535 1.535 0 0 0 1.463 9.2l3.656 3.563-.863 5.031a1.532 1.532 0 0 0 2.226 1.616L11 17.033l4.518 2.375a1.534 1.534 0 0 0 2.226-1.617l-.863-5.03L20.537 9.2a1.523 1.523 0 0 0 .387-1.575Z" />
                             </svg>
-                            <svg class="w-4 h-4 text-yellow-300 mr-1" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
-                                fill="currentColor" viewBox="0 0 22 20">
+                            <svg class="w-4 h-4 text-yellow-300 mr-1" aria-hidden="true"
+                                xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 22 20">
                                 <path
                                     d="M20.924 7.625a1.523 1.523 0 0 0-1.238-1.044l-5.051-.734-2.259-4.577a1.534 1.534 0 0 0-2.752 0L7.365 5.847l-5.051.734A1.535 1.535 0 0 0 1.463 9.2l3.656 3.563-.863 5.031a1.532 1.532 0 0 0 2.226 1.616L11 17.033l4.518 2.375a1.534 1.534 0 0 0 2.226-1.617l-.863-5.03L20.537 9.2a1.523 1.523 0 0 0 .387-1.575Z" />
                             </svg>
-                            <svg class="w-4 h-4 text-yellow-300 mr-1" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
-                                fill="currentColor" viewBox="0 0 22 20">
+                            <svg class="w-4 h-4 text-yellow-300 mr-1" aria-hidden="true"
+                                xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 22 20">
                                 <path
                                     d="M20.924 7.625a1.523 1.523 0 0 0-1.238-1.044l-5.051-.734-2.259-4.577a1.534 1.534 0 0 0-2.752 0L7.365 5.847l-5.051.734A1.535 1.535 0 0 0 1.463 9.2l3.656 3.563-.863 5.031a1.532 1.532 0 0 0 2.226 1.616L11 17.033l4.518 2.375a1.534 1.534 0 0 0 2.226-1.617l-.863-5.03L20.537 9.2a1.523 1.523 0 0 0 .387-1.575Z" />
                             </svg>
@@ -297,44 +312,52 @@
                                 class="bg-blue-100 text-blue-800 text-xs font-semibold mr-2 px-2.5 py-0.5 rounded dark:bg-blue-200 dark:text-blue-800 ml-3">5.0</span>
                         </div>
                         <!-- fin de estrellas -->
-    
-                 
+
+
                         {% if item.Descuento %}
                         <div class=" mt-10">
-                            <span class="text-base text-red-700  font-medium line-through dark:text-gray-300">$ {{item.precio|floatformat:2}}</span>
-                            <span class="text-lg font-semibold text-gray-900 dark:text-white ">${{item.Descuento|floatformat:2}} </span>
+                            <span class="text-base text-red-700  font-medium line-through dark:text-gray-300">$
+                                {{item.precio|floatformat:2}}</span>
+                            <span
+                                class="text-lg font-semibold text-gray-900 dark:text-white ">${{item.Descuento|floatformat:2}}
+                            </span>
                         </div>
                         {% else %}
-                        <span class="text-lg font-semibold text-gray-900 dark:text-white ">${{item.precio|floatformat:2}} </span>
+                        <span
+                            class="text-lg font-semibold text-gray-900 dark:text-white ">${{item.precio|floatformat:2}}
+                        </span>
                         {% endif %}
-    
-                        <div class="price-buy-btn ml-0 sm:ml-7">
-                            <a href="{% url 'add_cart' item.item %}"   class="text-white bg-yellow-300 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300
-                             font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">
-                             Agregar
-                             <i class="fa fa-cart-arrow-down"></i>
-                             </a>
-                
-                        </div>
+                        <form method="post">
+                            {% csrf_token %}
+                            <div class="price-buy-btn ml-0 sm:ml-7">
+                                <a class="text-white bg-yellow-300 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300
+                             font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800 add-to-cart-button"
+                                    data-product-id="{{item.item}}">
+                                    Agregar
+                                    <i class="fa fa-cart-arrow-down"></i>
+                                </a>
+
+                            </div>
+                        </form>
                         <div class="mt-5">
-    
+
                         </div>
-    
+
                     </div>
-    
-    
-    
+
+
+
                 </div>
                 {% endfor %}
             </div>
-    
+
             <button aria-label="Previous" class="glider-prev">«</button>
             <button aria-label="Next" class="glider-next">»</button>
             <div role="tablist" class="dots"></div>
         </div>
-    
-    
-    
+
+
+       
     </section>
 </div>
 <script>
@@ -348,47 +371,102 @@
             next: '.glider-next'
         },
         responsive: [
-    {
-      // screens greater than >= 775px
-      breakpoint: 1200,
-      settings: {
-        // Set to `auto` and provide item width to adjust to viewport
-        slidesToShow: 4,
-        slidesToScroll: 2
-      }
-    },{
-      // screens greater than >= 1024px
-      breakpoint: 900,
-      settings: {
-        slidesToShow: 3,
-        slidesToScroll: 1
-      }
-    },{
-      // screens greater than >= 1024px
-      breakpoint: 640,
-      settings: {
-        slidesToShow: 2,
-        slidesToScroll: 1
-      }
-    },{
-      // screens greater than >= 1024px
-      breakpoint: 304,
-      settings: {
-        slidesToShow: 1.5,
-        slidesToScroll: 1
-      }
-    },{
-      // screens greater than >= 1024px
-      breakpoint: 0,
-      settings: {
-        slidesToShow: 1,
-        slidesToScroll: 1
-      }
-    }
-  ]
+            {
+                // screens greater than >= 775px
+                breakpoint: 1200,
+                settings: {
+                    // Set to `auto` and provide item width to adjust to viewport
+                    slidesToShow: 4,
+                    slidesToScroll: 2
+                }
+            }, {
+                // screens greater than >= 1024px
+                breakpoint: 900,
+                settings: {
+                    slidesToShow: 3,
+                    slidesToScroll: 1
+                }
+            }, {
+                // screens greater than >= 1024px
+                breakpoint: 640,
+                settings: {
+                    slidesToShow: 2,
+                    slidesToScroll: 1
+                }
+            }, {
+                // screens greater than >= 1024px
+                breakpoint: 304,
+                settings: {
+                    slidesToShow: 1.5,
+                    slidesToScroll: 1
+                }
+            }, {
+                // screens greater than >= 1024px
+                breakpoint: 0,
+                settings: {
+                    slidesToShow: 1,
+                    slidesToScroll: 1
+                }
+            }
+        ]
     });
+</script>
+{% load static %}
+
+<script>
+    
+    var addToCartUrl = "{% url 'add_cart' 0 %}";
+    var cartoCartUrl = " {% url 'get_cart_count' %}";
+   
 </script>
 
 
+<script>
+// $(".add-to-cart-button").click(function () {
+//     var product_id = $(this).data("product-id");
+//    var addToCartUrl= "{% url 'add_cart' product_id=0 %}".replace('0', product_id)
+// })
 
+    // $(document).ready(function () {
+    //     $(".add-to-cart-button").click(function () {
+    //         var product_id = $(this).data("product-id");
+    //         console.log(product_id);
 
+    //         // Obtén el token CSRF del formulario
+    //         var csrfToken = $("input[name=csrfmiddlewaretoken]").val();
+
+    //         $.ajax({
+    //             url: "{% url 'add_cart' product_id=0 %}".replace('0', product_id),
+    //             method: "POST",
+    //             dataType: "json",
+    //             headers: {
+    //                 "X-CSRFToken": csrfToken  // Agrega el token CSRF como encabezado
+    //             },
+    //             success: function (data) {
+    //                 if (data.status === "success") {
+    //                     fetch("{% url 'get_cart_count' %}")
+    //                         .then(response => response.json())
+    //                         .then(cartData => {
+    //                             var toast = document.getElementById("toast");
+    //                             toast.style.display = "block";
+    //                             setTimeout(function () {
+    //                                 toast.style.display = "none";
+    //                             }, 1500);
+
+    //                             var cartCountElement = document.getElementById("cart-count");
+    //                             if (cartCountElement) {
+    //                                 cartCountElement.textContent = cartData.cart_count;
+    //                             }
+    //                         })
+    //                         .catch(error => {
+    //                             console.error("Error al obtener la cantidad del carrito", error);
+    //                         });
+    //                     // Actualiza la interfaz de usuario según sea necesario
+    //                 } else {
+    //                     alert("Error al agregar el producto al carrito");
+    //                 }
+    //             }
+    //         });
+    //     });
+    // });
+</script>

@@ -60,7 +60,11 @@
                 <div class="flex border border-gray-300 text-gray-600 divide-x divide-gray-300">
                     <a href="{% url 'remove_cart' cart_item.item %}" class="h-8 w-8 text-xl flex items-center justify-center cursor-pointer select-none">-</a>
                     <div class="h-8 w-10 flex items-center justify-center">{{cart_item.quantity}}</div>
-                    <a href=" {% url 'add_cart' cart_item.item %}" class="h-8 w-8 text-xl flex items-center justify-center cursor-pointer select-none">+</a>
+                    <form method="post">
+                        {% csrf_token %}
+                    <a  class="h-8 w-8 text-xl flex items-center justify-center cursor-pointer select-none add-to-cart-button" data-product-id="{{cart_item.item}}">+</a>
+
+                </form>
                 
                 </div>
                 <!-- cart quantity end -->
@@ -124,4 +128,16 @@
 
 {% endif %}
 
+
+<script>
+    
+    var addToCartUrl = "{% url 'add_cart' 0 %}";
+    var cartoCartUrl = " {% url 'get_cart_count' %}";
+    var carrito = " {% url 'cart' %}";
+   
+</script>
+
+
   {% endblock %}
+
+  
