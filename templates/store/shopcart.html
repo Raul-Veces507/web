@@ -40,6 +40,10 @@
                   </button>
                 </div>
               </div>
+              <div class="text-right mt-5">
+                <button  class="text-red-700 hover:bg-red-500 EliminarCarrito" id="EliminarCarrito">Eliminar Carrito <i class="fas fa-trash-alt"></i></button>
+              </div>
+       
               <div class="mt-8" id="modalint">
                 
               </div>
@@ -60,7 +64,7 @@
               </div>
               <div class="mt-6 flex justify-center text-center text-sm text-gray-500">
                 <p>
-                  or
+                
                   <button id="continuarcomprando" type="button"
                     class="font-medium text-indigo-600 hover:text-indigo-500">
                     Continuar Comprando
@@ -85,6 +89,10 @@
   var carrito = " {% url 'cart' %}";
   var vercarrito="{% url 'viewfiltcart' %}"
   var urlfinaldelete="{% url 'remove_cart_item' 0 %}"
+  var urlremove_cart="{% url 'remove_cart' 0 %}"
+  var urlrEliminarCarrtioCompleto="{% url 'EliminarCarrtioCompleto' %}"
+
+  
  
 </script>
 <script src="{% static 'src/js/javascrip.js' %}"></script>

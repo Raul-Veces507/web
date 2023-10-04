@@ -230,21 +230,24 @@ def remove_cart(request, product_id):
         referer = request.META.get('HTTP_REFERER')
 
         if response.status_code == 200:
+             print(1)
              if referer=='http://127.0.0.1:8000/cart/':
-                 return JsonResponse({'status': 'error', 'message': 'Producto Eliminado del carrito'})
+                 print(2)
+                 return JsonResponse({'status': 'carrito', 'message': 'Producto Eliminado del carrito'})
              else:
-                 return redirect('cart')
+                 print(3)
+                 return JsonResponse({'status': 'success', 'message': 'Producto Eliminado del carrito'})
 
             
         else:
-            pass
-            return redirect('cart')
+            print(4)
+            return JsonResponse({'status': 'error', 'message': 'Error al Eliminar el producto del carrito'})
 
 
     except Exception as e:
         print(e)
         context = None
-        return redirect('cart')
+        return JsonResponse({'status': 'error', 'message': 'Error interno del servidor'})
 
 
     # cart=Cart.objects.get(cart_id=_cart_id(request))
@@ -277,24 +280,62 @@ def remove_cart_item(request, product_id):
         url = f'http://192.168.88.136:3002/ecommer/rs/eliminarproductcarrito'
 
         response = requests.post(url, json=data)  # Usar json=data en lugar de data=data
-
+        referer = request.META.get('HTTP_REFERER')
 
         if response.status_code == 200:
-
-            return redirect('cart')
+             print(1)
+             if referer=='http://127.0.0.1:8000/cart/':
+                 print(2)
+                 return JsonResponse({'status': 'carrito', 'message': 'Producto Eliminado del carrito'})
+             else:
+                 print(3)
+                 return JsonResponse({'status': 'success', 'message': 'Producto Eliminado del carrito'})
 
 
             
         else:
-            pass
-            return redirect('cart')
+            return JsonResponse({'status': 'error', 'message': 'Error al Eliminar el producto del carrito'})
 
 
 
     except Exception as e:
         print(e)
         context = None
-        return redirect('cart')
+        return JsonResponse({'status': 'error', 'message': 'Error interno del servidor'})
+
+def EliminarCarrtioCompleto(request):
+    try:
+        cart=_cart_id(request)
+        data ={
+         "cart":cart,
+           }        
+        # Realizar una nueva solicitud a la API para obtener los detalles del producto
+        url = f'http://192.168.88.136:3002/ecommer/rs/EliminarCarrtioCompleto'
+
+        response = requests.post(url, json=data)  # Usar json=data en lugar de data=data
+        referer = request.META.get('HTTP_REFERER')
+
+        if response.status_code == 200:
+             print(1)
+             if referer=='http://127.0.0.1:8000/cart/':
+                 print(2)
+                 return JsonResponse({'status': 'carrito', 'message': 'Producto Eliminado del carrito'})
+             else:
+                 print(3)
+                 return JsonResponse({'status': 'success', 'message': 'Producto Eliminado del carrito'})
+
+            
+        else:
+            print(4)
+            return JsonResponse({'status': 'error', 'message': 'Error al Eliminar el producto del carrito'})
+
+
+    except Exception as e:
+        print(e)
+        context = None
+        return JsonResponse({'status': 'error', 'message': 'Error interno del servidor'})
+
+
 
 def checkout(request, total=Decimal("0"), quantity=0, cart_items=None, taxt=Decimal("0"), grand_total=Decimal("0"), delivery=Decimal("3.50")):
     try:
