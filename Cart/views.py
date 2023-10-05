@@ -16,6 +16,9 @@ def _cart_id(request):
 
 def add_cart(request,product_id):
 
+ 
+    
+
     try:
         cart=_cart_id(request)
         data ={
@@ -75,6 +78,42 @@ def add_cart(request,product_id):
     #     cart_item.save()
     # return redirect('cart')
 
+def add_cart_detail(request):
+   if request.method=='POST':
+      
+      cantidad=request.POST['cantidad']
+      item=request.POST['item']
+      print(request.POST['cantidad'])
+      try:
+        cart=_cart_id(request)
+        data ={
+         "cart":cart,
+          "quantity":cantidad,
+          "product":item
+           }   
+        # Realizar una nueva solicitud a la API para obtener los detalles del producto
+        url = f'http://192.168.88.136:3002/ecommer/rs/carrito'
+
+        response = requests.post(url, json=data)  # Usar json=data en lugar de data=data
+
+        data_from_express_api = response.json()
+        referer = request.META.get('HTTP_REFERER')
+  
+
+        if response.status_code == 200:
+            messages.success(request,' Producto Agregado con exito')
+            return redirect(referer)
+           
+        else:
+            return JsonResponse({'status': 'error', 'message': 'Error al agregar el producto al carrito'})
+
+
+      except Exception as e:
+        print(e)
+        context = None
+        return JsonResponse({'status': 'error', 'message': 'Error interno del servidor'})
+   
+
 
 
 
@@ -109,6 +148,7 @@ def cart(request, total=Decimal("0"), quantity=0, cart_items=None, taxt=Decimal(
                 'taxt': taxt.quantize(Decimal("0.00")),
                 'grand_total': grand_total.quantize(Decimal("0.00"))
             }
+          
             return render(request, 'store/cart.html', context)
 
             

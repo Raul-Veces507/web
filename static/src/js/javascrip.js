@@ -132,7 +132,20 @@ $(document).ready(function () {
 
      
       if (cartData['cart_items'] == '' || cartData == ['cart_items'] == undefined) {
-        window.location.href = carrito;
+        modalcarrito.style.display = (modalcarrito.style.display === 'none') ? 'block' : 'none';
+        fetch(cartoCartUrl)
+        .then(response => response.json())
+        .then(cartData => {
+   
+
+          var cartCountElement = document.getElementById("cart-count");
+          if (cartCountElement) {
+            cartCountElement.textContent = cartData.cart_count;
+          }
+        })
+        .catch(error => {
+          console.error("Error al obtener la cantidad del carrito", error);
+        });
       } else {
         var datos = cartData['cart_items'];
         var dato2 = Number(cartData['total'])
@@ -180,6 +193,23 @@ $(document).ready(function () {
 
         $('#modalintsub').html(resultsHtml2);
         $('#modalint').html(resultsHtml);
+        fetch(cartoCartUrl)
+        .then(response => response.json())
+        .then(cartData => {
+          var toast = document.getElementById("toast");
+          toast.style.display = "block";
+          setTimeout(function () {
+            toast.style.display = "none";
+          }, 1500);
+
+          var cartCountElement = document.getElementById("cart-count");
+          if (cartCountElement) {
+            cartCountElement.textContent = cartData.cart_count;
+          }
+        })
+        .catch(error => {
+          console.error("Error al obtener la cantidad del carrito", error);
+        });
       }
     
     })
@@ -235,27 +265,33 @@ $(document).ready(function () {
       cancelButtonText: 'No',
       confirmButtonText: 'Si, Eliminar'
     }).then((result) => {
+    
+      if (result.isConfirmed) {
+
+      
+        var product_id = $(this).data("product-id");
+        var urlfinal = urlfinaldelete.replace('0', product_id)
+        var csrfToken = $("input[name=csrfmiddlewaretoken]").val();
+    
+        $.ajax({
+          url: urlfinal,
+          method: "POST",
+          dataType: "json",
+          headers: {
+            "X-CSRFToken": csrfToken  // Agrega el token CSRF como encabezado
+          },
+          success: function (data) {
+    
+            if (data.status === "success") {
+    
+              carritomodal2()
+            }
+          }
+        })
+      }
  
 
-    var product_id = $(this).data("product-id");
-    var urlfinal = urlfinaldelete.replace('0', product_id)
-    var csrfToken = $("input[name=csrfmiddlewaretoken]").val();
-
-    $.ajax({
-      url: urlfinal,
-      method: "POST",
-      dataType: "json",
-      headers: {
-        "X-CSRFToken": csrfToken  // Agrega el token CSRF como encabezado
-      },
-      success: function (data) {
-
-        if (data.status === "success") {
-
-          carritomodal2()
-        }
-      }
-    })
+  
   })
   })
     $(document).on("click", ".sumar", function () {
