@@ -1,4 +1,3 @@
-
 $(document).ready(function () {
   $(".add-to-cart-button").click(function () {
     // var addToCartUrl = window.addToCartUrl;
@@ -64,12 +63,13 @@ $(document).ready(function () {
     fetch(vercarrito)
     .then(response => response.json())
     .then(cartData => {
-      if (cartData['cart_items'] == '') {
+
+      if (cartData['cart_items'] == '' ||cartData['cart_items'] == undefined ) {
         window.location.href = carrito;
       } else {
         modalcarrito.style.display = (modalcarrito.style.display === 'none') ? 'block' : 'none';
         var datos = cartData['cart_items'];
-        console.log(datos);
+        // console.log(datos);
         var dato2 = Number(cartData['total'])
 
 
@@ -77,10 +77,10 @@ $(document).ready(function () {
         resultsHtml += '       <ul role="list" class="-my-6 divide-y divide-gray-200">';
         datos.forEach(function (data) {
           resultsHtml += '         <li class="flex py-6">';
-          resultsHtml += '           <div class="h-24 w-24 flex-shrink-0 overflow-hidden rounded-md border border-gray-200">';
-          resultsHtml += ` <img src="https://riba.app/imgrs/THUMBS 500X500/${data.item}.jpg" alt="not found class="h-full w-full object-cover object-center" onerror="this.src='https://www.ribasmith.com/media/catalog/product/placeholder/default/watermark_4.png' ">`;
+          resultsHtml += '           <div style="    width: 120px; height: 120px;" class="h-24 w-24 flex-shrink-0 overflow-hidden rounded-md border border-gray-200">';
+          resultsHtml += ` <img src="https://riba.app/imgrs/THUMBS 500X500/${data.item}.jpg" alt="not found class="w-full h-full object-cover object-center" onerror="this.src='https://www.ribasmith.com/media/catalog/product/placeholder/default/watermark_4.png' ">`;
           resultsHtml += '           </div>';
-          resultsHtml += '           <div class="ml-4 flex flex-1 flex-col">';
+          resultsHtml += '           <div class="ml-5 flex flex-1 flex-col">';
           resultsHtml += '             <div>';
           resultsHtml += '               <div class="flex justify-between text-base font-medium text-gray-900">';
           resultsHtml += '                 <h3>';
@@ -88,6 +88,7 @@ $(document).ready(function () {
           resultsHtml += '                 </h3>';
           resultsHtml += `                <p class="ml-4 text-indigo-600">$ ${data.total.toFixed(2)}</p>`;
           resultsHtml += '               </div>';
+          resultsHtml += `                 <p class="mt-2 text-sm text-gray-500">Precio ${Number(data.Descuento).toFixed(2)}</p>`
           resultsHtml += '             </div>';
           resultsHtml += '  <div class="flex w-28 border border-gray-300 text-gray-600 divide-x divide-gray-300 mt-5">';
           resultsHtml += `  <a  class="h-8 w-8 text-xl flex items-center justify-center cursor-pointer select-none restar" id="restar" data-product-id="${data.item}">-</a>`;
@@ -95,13 +96,15 @@ $(document).ready(function () {
           resultsHtml += `  <a  class="h-8 w-8 text-xl flex items-center justify-center cursor-pointer select-none sumar" id="sumar" data-product-id="${data.item}">+</a>`;
           resultsHtml += '  </div>';
           resultsHtml += '             <div class="flex flex-1 items-end justify-between text-sm mt-5">';
-          resultsHtml += `               <p class="text-gray-500">Qty ${data.quantity}</p>`;
+          resultsHtml += `               <p class="text-gray-500">Cantidad ${data.quantity}</p>`;
           resultsHtml += '               <div class="flex">';
           resultsHtml += `<button type="submit" id="ElimianrProducto" class="font-medium text-red-700 hover:text-red-400 ElimianrProducto" data-product-id="${data.item}">Eliminar <i class="fas fa-trash"></i></button>`
           resultsHtml += '               </div>';
           resultsHtml += '             </div>';
           resultsHtml += '           </div>';
           resultsHtml += '         </li>';
+          resultsHtml += '         <hr>';
+
         });
         resultsHtml += '       </ul>';
         resultsHtml += '     </div>';
@@ -114,6 +117,7 @@ $(document).ready(function () {
         $('#modalintsub').html(resultsHtml2);
         $('#modalint').html(resultsHtml);
       }
+
     })
     .catch(error => {
       console.error("Error al obtener la cantidad del carrito", error);
@@ -124,11 +128,13 @@ $(document).ready(function () {
     fetch(vercarrito)
     .then(response => response.json())
     .then(cartData => {
-      if (cartData['cart_items'] == '') {
+      
+
+     
+      if (cartData['cart_items'] == '' || cartData == ['cart_items'] == undefined) {
         window.location.href = carrito;
       } else {
         var datos = cartData['cart_items'];
-        console.log(datos);
         var dato2 = Number(cartData['total'])
 
 
@@ -136,10 +142,10 @@ $(document).ready(function () {
         resultsHtml += '       <ul role="list" class="-my-6 divide-y divide-gray-200">';
         datos.forEach(function (data) {
           resultsHtml += '         <li class="flex py-6">';
-          resultsHtml += '           <div class="h-24 w-24 flex-shrink-0 overflow-hidden rounded-md border border-gray-200">';
-          resultsHtml += ` <img src="https://riba.app/imgrs/THUMBS 500X500/${data.item}.jpg" alt="not found class="h-full w-full object-cover object-center" onerror="this.src='https://www.ribasmith.com/media/catalog/product/placeholder/default/watermark_4.png' ">`;
+          resultsHtml += '           <div style="    width: 120px; height: 120px;" class="h-24 w-24 flex-shrink-0 overflow-hidden rounded-md border border-gray-200">';
+          resultsHtml += ` <img src="https://riba.app/imgrs/THUMBS 500X500/${data.item}.jpg" alt="not found class="w-full h-full object-cover object-center" onerror="this.src='https://www.ribasmith.com/media/catalog/product/placeholder/default/watermark_4.png' ">`;
           resultsHtml += '           </div>';
-          resultsHtml += '           <div class="ml-4 flex flex-1 flex-col">';
+          resultsHtml += '           <div class="ml-5 flex flex-1 flex-col">';
           resultsHtml += '             <div>';
           resultsHtml += '               <div class="flex justify-between text-base font-medium text-gray-900">';
           resultsHtml += '                 <h3>';
@@ -147,6 +153,7 @@ $(document).ready(function () {
           resultsHtml += '                 </h3>';
           resultsHtml += `                <p class="ml-4 text-indigo-600">$ ${data.total.toFixed(2)}</p>`;
           resultsHtml += '               </div>';
+          resultsHtml += `                 <p class="mt-2 text-sm text-gray-500">Precio ${Number(data.Descuento).toFixed(2)}</p>`
           resultsHtml += '             </div>';
           resultsHtml += '  <div class="flex w-28 border border-gray-300 text-gray-600 divide-x divide-gray-300 mt-5">';
           resultsHtml += `  <a  class="h-8 w-8 text-xl flex items-center justify-center cursor-pointer select-none restar" id="restar" data-product-id="${data.item}">-</a>`;
@@ -154,13 +161,14 @@ $(document).ready(function () {
           resultsHtml += `  <a  class="h-8 w-8 text-xl flex items-center justify-center cursor-pointer select-none sumar" id="sumar" data-product-id="${data.item}">+</a>`;
           resultsHtml += '  </div>';
           resultsHtml += '             <div class="flex flex-1 items-end justify-between text-sm mt-5">';
-          resultsHtml += `               <p class="text-gray-500">Qty ${data.quantity}</p>`;
+          resultsHtml += `               <p class="text-gray-500">Cantidad ${data.quantity}</p>`;
           resultsHtml += '               <div class="flex">';
           resultsHtml += `<button type="submit" id="ElimianrProducto" class="font-medium text-red-700 hover:text-red-400 ElimianrProducto" data-product-id="${data.item}">Eliminar <i class="fas fa-trash"></i></button>`
           resultsHtml += '               </div>';
           resultsHtml += '             </div>';
           resultsHtml += '           </div>';
           resultsHtml += '         </li>';
+          resultsHtml += '         <hr>';
         });
         resultsHtml += '       </ul>';
         resultsHtml += '     </div>';
@@ -173,6 +181,7 @@ $(document).ready(function () {
         $('#modalintsub').html(resultsHtml2);
         $('#modalint').html(resultsHtml);
       }
+    
     })
     .catch(error => {
       console.error("Error al obtener la cantidad del carrito", error);

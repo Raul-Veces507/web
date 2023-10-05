@@ -2,6 +2,9 @@ from .models import Cart, CartItem
 from .views import _cart_id
 import requests
 from decimal import Decimal
+
+
+
 def counter(request, total=Decimal("0"), quantity=0, cart_items=None, taxt=Decimal("0"), grand_total=Decimal("0"), delivery=Decimal("3.50")):
     cart_count=0
     try:
@@ -48,7 +51,9 @@ def counter(request, total=Decimal("0"), quantity=0, cart_items=None, taxt=Decim
                 'grand_total': grand_total.quantize(Decimal("0.00"))
             }
         else:
-                context = []
+                context = {
+                      'cantidad':0,
+                }
 
 
     except Cart.DoesNotExist:

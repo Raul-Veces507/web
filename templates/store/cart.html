@@ -70,7 +70,7 @@
                 <!-- cart quantity end -->
                 <div class="ml-auto md:ml-0">
                     <p class="text-primary text-lg font-semibold">${{cart_item.total|floatformat:2}}</p>
-                    <p>${{cart_item.precio|floatformat:2}} cada uno</p>
+                    <p>${{cart_item.Descuento|floatformat:2}} cada uno</p>
                 </div>
                 
                 <div class="text-gray-600 hover:text-primary cursor-pointer">
@@ -93,10 +93,7 @@
                 <p>Subtotal</p>
                 <p>$ {{total |floatformat:2}}</p>
             </div>
-            <div class="flex justify-between">
-                <p>Delivery</p>
-                <p>$ 3.50</p>
-            </div>
+
             <div class="flex justify-between">
                 <p>Tax</p>
                 <p>$ {{taxt|floatformat:2}}</p>
