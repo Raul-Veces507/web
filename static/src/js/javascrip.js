@@ -392,5 +392,92 @@ $(document).ready(function () {
 
 
 
+
+
+  ////pertenece al checkoout 
+
+
+  const tarjetaFormulario = document.getElementById("tarjetaFormulario");
+  const type1RadioButton = document.getElementById("type1");
+  const type2RadioButton = document.getElementById("type2");
+  const type3RadioButton = document.getElementById("type3");
+  // Escucha cambios en la selección del radio button
+  type3RadioButton.addEventListener("change", function () {
+      if (type3RadioButton.checked) {
+          tarjetaFormulario.style.display = "none"; // Oculta el formulario de tarjeta
+      }
+  });
+  type2RadioButton.addEventListener("change", function () {
+      if (type2RadioButton.checked) {
+          tarjetaFormulario.style.display = "none"; // Oculta el formulario de tarjeta
+      }
+  });
+  
+  type1RadioButton.addEventListener("change", function () {
+      if (type1RadioButton.checked) {
+          tarjetaFormulario.style.display = "block"; // Muestra el formulario de tarjeta
+      }
+  });
+
+
+
+///inicia el mapa del checkout
+  function initMap() {
+    if ("geolocation" in navigator) {
+      // El navegador soporta geolocalización
+      navigator.geolocation.getCurrentPosition(function(position) {
+        // Se ha obtenido la ubicación del usuario
+        var latitud = position.coords.latitude;
+        var longitud = position.coords.longitude;
+  
+        // Crea un objeto de mapa de Google Maps y lo muestra en el elemento con el ID "map"
+        var map = new google.maps.Map(document.getElementById('map'), {
+          center: { lat: latitud, lng: longitud },
+          zoom: 15 // Nivel de zoom
+        });
+  
+        // Crea un marcador inicial en la ubicación del usuario
+        var marker = new google.maps.Marker({
+          position: { lat: latitud, lng: longitud },
+          map: map,
+          draggable: true // Permite que el marcador sea movible
+        });
+  
+        // Agrega un evento para escuchar cuando se arrastra el marcador
+        marker.addListener('dragend', function(event) {
+          var newLatitud = event.latLng.lat();
+          var newLongitud = event.latLng.lng();
+          
+          // Actualiza la posición del marcador en la página
+          document.getElementById('coordenadas').textContent = "Latitud: " + newLatitud + ", Longitud: " + newLongitud;
+        });
+  
+        // También puedes mostrar las coordenadas en la página
+        document.getElementById('coordenadas').textContent = "Latitud: " + latitud + ", Longitud: " + longitud;
+      }, function(error) {
+        // Manejar errores de geolocalización
+        switch (error.code) {
+          case error.PERMISSION_DENIED:
+            console.error("El usuario ha denegado la solicitud de geolocalización.");
+            break;
+          case error.POSITION_UNAVAILABLE:
+            console.error("La información de ubicación no está disponible.");
+            break;
+          case error.TIMEOUT:
+            console.error("Se ha agotado el tiempo de espera para obtener la ubicación.");
+            break;
+          case error.UNKNOWN_ERROR:
+            console.error("Se ha producido un error desconocido.");
+            break;
+        }
+      });
+    } else {
+      // El navegador no soporta geolocalización
+      console.error("La geolocalización no es compatible en este navegador.");
+    }
+  }
+  
+  
+    initMap();
   
 })

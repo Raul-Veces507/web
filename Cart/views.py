@@ -6,6 +6,7 @@ from decimal import Decimal
 from django.contrib import messages
 from django.http import JsonResponse
 import requests
+import json
 # Create your views here.
 
 def _cart_id(request):
@@ -148,9 +149,6 @@ def add_cart_detail(request):
         return JsonResponse({'status': 'error', 'message': 'Error interno del servidor'})
    
 
-
-
-
 def cart(request, total=Decimal("0"), quantity=0, cart_items=None, taxt=Decimal("0"), grand_total=Decimal("0"), delivery=Decimal("3.50")):
     
     session_data = dict(request.session)
@@ -269,8 +267,6 @@ def cart(request, total=Decimal("0"), quantity=0, cart_items=None, taxt=Decimal(
     # return render(request, 'store/cart.html',context)
 
 
-
-
 def viewfiltcart(request, total=Decimal("0"), quantity=0, cart_items=None, taxt=Decimal("0"), grand_total=Decimal("0"), delivery=Decimal("3.50")):
 
     session_data = dict(request.session)
@@ -378,11 +374,6 @@ def viewfiltcart(request, total=Decimal("0"), quantity=0, cart_items=None, taxt=
             context = None
             return JsonResponse(context)
     
-
-
-
-
-
 
 def remove_cart(request, product_id):
     session_data = dict(request.session)
@@ -541,11 +532,6 @@ def remove_cart_item(request, product_id):
             return JsonResponse({'status': 'error', 'message': 'Error interno del servidor'})
 
 
-
-
-
-
-
 def EliminarCarrtioCompleto(request):
     session_data = dict(request.session)
     if session_data:
@@ -615,50 +601,99 @@ def EliminarCarrtioCompleto(request):
 
 
 def checkout(request, total=Decimal("0"), quantity=0, cart_items=None, taxt=Decimal("0"), grand_total=Decimal("0"), delivery=Decimal("3.50")):
-    try:
-        cart=_cart_id(request)
-        data ={
-         "cart":cart,
-           }        
-        # Realizar una nueva solicitud a la API para obtener los detalles del producto
-        url = f'http://192.168.88.136:3002/ecommer/rs/viewcart'
-
-        response = requests.post(url, json=data)  # Usar json=data en lugar de data=data
-
-
-        if response.status_code == 200:
-            data_from_express_api = response.json()
-            cart_items = data_from_express_api['carrito']
+    session_data = dict(request.session)
+    if session_data:
+        try:
+            cart=_cart_id(request)
+            data ={
+             "cart":cart,
+             "usuario":session_data['id']
+               }        
+            # Realizar una nueva solicitud a la API para obtener los detalles del producto
+            url = f'http://192.168.88.136:3002/ecommer/rs/viewcart'
+    
+            response = requests.post(url, json=data)  # Usar json=data en lugar de data=data
+    
+    
+            if response.status_code == 200:
+                data_from_express_api = response.json()
+                cart_items = data_from_express_api['carrito']
+                
+                for cart_item in cart_items:
+                    Descuento = Decimal(str(cart_item['Descuento'])) 
+    
+                    total += (Descuento * cart_item['quantity'])
+    
+                taxt = (Decimal("2") * total) / Decimal("100")
+                grand_total = total + taxt + delivery
+                semigrand_total = total + taxt 
+                context = {
+                    'total': total,
+                    'quantity': quantity,
+                    'cart_items': cart_items,
+                    'taxt': taxt.quantize(Decimal("0.00")),
+                   'semigrand_total': semigrand_total.quantize(Decimal("0.00")),
+                    'grand_total': grand_total.quantize(Decimal("0.00")),
+                }
+                return render(request, 'store/checkout.html', context)
+    
+                
+            else:
+                pass
+                return render(request, 'store/checkout.html', context)
+    
+    
+    
+        except Exception as e:
             
-            for cart_item in cart_items:
-                Descuento = Decimal(str(cart_item['Descuento'])) 
+            context = None
+            return render(request, 'store/checkout.html',context)
+    else:
 
-                total += (Descuento * cart_item['quantity'])
-
-            taxt = (Decimal("2") * total) / Decimal("100")
-            grand_total = total + taxt + delivery
-        
-            context = {
-                'total': total,
-                'quantity': quantity,
-                'cart_items': cart_items,
-                'taxt': taxt.quantize(Decimal("0.00")),
-                'grand_total': grand_total.quantize(Decimal("0.00"))
-            }
-            return render(request, 'store/checkout.html', context)
-
+        try:
+            cart=_cart_id(request)
+            data ={
+             "cart":cart,
+               }        
+            # Realizar una nueva solicitud a la API para obtener los detalles del producto
+            url = f'http://192.168.88.136:3002/ecommer/rs/viewcart'
+    
+            response = requests.post(url, json=data)  # Usar json=data en lugar de data=data
+    
+    
+            if response.status_code == 200:
+                data_from_express_api = response.json()
+                cart_items = data_from_express_api['carrito']
+                
+                for cart_item in cart_items:
+                    Descuento = Decimal(str(cart_item['Descuento'])) 
+    
+                    total += (Descuento * cart_item['quantity'])
+    
+                taxt = (Decimal("2") * total) / Decimal("100")
+                grand_total = total + taxt + delivery
+                semigrand_total = total + taxt 
+                context = {
+                    'total': total,
+                    'quantity': quantity,
+                    'cart_items': cart_items,
+                    'taxt': taxt.quantize(Decimal("0.00")),
+                   'semigrand_total': semigrand_total.quantize(Decimal("0.00")),
+                    'grand_total': grand_total.quantize(Decimal("0.00")),
+                }
+                return render(request, 'store/checkout.html', context)
+    
+                
+            else:
+                pass
+                return render(request, 'store/checkout.html', context)
+    
+    
+    
+        except Exception as e:
             
-        else:
-            pass
-            return render(request, 'store/checkout.html', context)
-
-
-
-    except Exception as e:
-        
-        context = None
-        return render(request, 'store/checkout.html',context)
-
+            context = None
+            return render(request, 'store/checkout.html',context)       
 
 
 
