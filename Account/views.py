@@ -9,6 +9,9 @@ from django.utils.http import urlsafe_base64_encode,urlsafe_base64_decode
 from django.contrib.auth.tokens import default_token_generator
 from django.utils.encoding import force_bytes
 from django.core.mail import EmailMessage
+import requests
+from django.http import JsonResponse
+from django.contrib.auth import logout
 # Create your views here.
 
 def register(request):
@@ -57,26 +60,72 @@ def login(request):
     if request.method== 'POST':
         email=request.POST['email']
         password=request.POST['password']
+        try:
+          data ={
+           "email":email,
+            "password":password,
 
-        user=auth.authenticate(email=email,password=password)
+             }   
+          # Realizar una nueva solicitud a la API para obtener los detalles del producto
+          url = f'http://192.168.88.136:3002/ecommer/rs/login'
+  
+          response = requests.post(url, json=data)  # Usar json=data en lugar de data=data
+  
+          data_from_express_api = response.json()
+          referer = request.META.get('HTTP_REFERER')
+          print(data_from_express_api)
+  
+          if response.status_code == 200:
+             token=data_from_express_api['token']
+             nombre=data_from_express_api['nombre']
+             id=data_from_express_api['id']
+             request.session['token'] = token
+             request.session['Usuario'] = nombre
+             request.session['id'] = id
+             request.session.save()
+             return redirect('home') 
+             
+          else:
+              return JsonResponse({'status': 'error', 'message': 'Error al agregar el producto al carrito'})
+  
+
+        except Exception as e:
+          print(e)
+          context = None
+          return JsonResponse({'status': 'error', 'message': 'Error interno del servidor'})
    
-        if user is not None:
-            auth.login(request,user)
-            return redirect('home')
+    #     user=auth.authenticate(email=email,password=password)
+   
+    #     if user is not None:
+    #         auth.login(request,user)
+    #         return redirect('home')
         
-        else:
-            messages.error(request, 'Las credenciales son incorrectas')
-            return redirect('login')
+    #     else:
+    #         messages.error(request, 'Las credenciales son incorrectas')
+    #         return redirect('login')
 
 
     return render(request, 'accounts/login.html')
 
 
-@login_required(login_url='login')
+
 def logout(request):
-    auth.logout(request)
-    messages.success(request, 'Has salido de sesion')
-    return redirect('login')
+    # logout(request)
+    # auth.logout(request)
+    # messages.success(request, 'Has salido de sesion')
+    if 'token' in request.session:
+        print('j')
+        del request.session['token']
+        request.session.modified = True
+
+    if 'Usuario' in request.session:
+        print('j2')
+        del request.session['Usuario']
+        request.session.modified = True
+
+    # Otras acciones que desees realizar después de cerrar la sesión
+    return redirect('home')  # Redirige a la página de inicio o a donde desees
+    # return redirect('login')
 
 
 def activate(request,uidb64,token):
