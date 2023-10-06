@@ -1,4 +1,6 @@
 from django.shortcuts import render,redirect
+
+from Cart.views import _cart_id
 from .forms import RegistrationForm
 from .models import Account
 from django.contrib import messages, auth
@@ -60,10 +62,12 @@ def login(request):
     if request.method== 'POST':
         email=request.POST['email']
         password=request.POST['password']
+        cart=_cart_id(request)
         try:
           data ={
            "email":email,
             "password":password,
+            "cart":cart
 
              }   
           # Realizar una nueva solicitud a la API para obtener los detalles del producto
