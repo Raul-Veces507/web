@@ -56,6 +56,8 @@ def counter(request, total=Decimal("0"), quantity=0, cart_items=None, taxt=Decim
                     context = {
                           'cantidad':0,
                     }
+
+           
     
     
         except Cart.DoesNotExist:

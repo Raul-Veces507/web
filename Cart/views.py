@@ -50,7 +50,7 @@ def add_cart(request,product_id):
                  return JsonResponse({'status': 'error', 'message': 'Error al agregar el producto al carrito'})
      
          except Exception as e:
-             print(e)
+             
              context = None
              return JsonResponse({'status': 'error', 'message': 'Error interno del servidor'})
         else:
@@ -86,7 +86,7 @@ def add_cart(request,product_id):
                   return JsonResponse({'status': 'error', 'message': 'Error al agregar el producto al carrito'})
       
           except Exception as e:
-              print(e)
+              
               context = None
               return JsonResponse({'status': 'error', 'message': 'Error interno del servidor'})
       
@@ -143,7 +143,7 @@ def add_cart_detail(request):
 
 
       except Exception as e:
-        print(e)
+       
         context = None
         return JsonResponse({'status': 'error', 'message': 'Error interno del servidor'})
    
@@ -196,7 +196,7 @@ def cart(request, total=Decimal("0"), quantity=0, cart_items=None, taxt=Decimal(
     
     
         except Exception as e:
-            print(e)
+           
             context = None
             return render(request, 'store/cart.html',context)
     else:
@@ -240,7 +240,7 @@ def cart(request, total=Decimal("0"), quantity=0, cart_items=None, taxt=Decimal(
     
     
         except Exception as e:
-            print(e)
+            
             context = None
             return render(request, 'store/cart.html',context)
 
@@ -323,7 +323,7 @@ def viewfiltcart(request, total=Decimal("0"), quantity=0, cart_items=None, taxt=
     
     
         except Exception as e:
-            print(e)
+          
             context = None
             return JsonResponse(context)
     else:
@@ -374,7 +374,7 @@ def viewfiltcart(request, total=Decimal("0"), quantity=0, cart_items=None, taxt=
     
     
         except Exception as e:
-            print(e)
+     
             context = None
             return JsonResponse(context)
     
@@ -410,12 +410,12 @@ def remove_cart(request, product_id):
      
                 
             else:
-                print(4)
+            
                 return JsonResponse({'status': 'error', 'message': 'Error al Eliminar el producto del carrito'})
      
      
         except Exception as e:
-            print(e)
+          
             context = None
             return JsonResponse({'status': 'error', 'message': 'Error interno del servidor'})
 
@@ -442,12 +442,12 @@ def remove_cart(request, product_id):
      
                 
             else:
-                print(4)
+             
                 return JsonResponse({'status': 'error', 'message': 'Error al Eliminar el producto del carrito'})
      
      
         except Exception as e:
-            print(e)
+       
             context = None
             return JsonResponse({'status': 'error', 'message': 'Error interno del servidor'})
 
@@ -471,71 +471,146 @@ def remove_cart_item(request, product_id):
     # cart_item.delete()
     # return redirect('cart')
 
+    session_data = dict(request.session)
+    if session_data:
+        try:
+            cart=_cart_id(request)
+            data ={
+             "cart":cart,
+             "product":product_id,
+             "usuario":session_data['id']
+               }        
+            # Realizar una nueva solicitud a la API para obtener los detalles del producto
+            url = f'http://192.168.88.136:3002/ecommer/rs/eliminarproductcarrito'
 
-    try:
-        cart=_cart_id(request)
-        data ={
-         "cart":cart,
-         "product":product_id
-           }        
-        # Realizar una nueva solicitud a la API para obtener los detalles del producto
-        url = f'http://192.168.88.136:3002/ecommer/rs/eliminarproductcarrito'
+            response = requests.post(url, json=data)  # Usar json=data en lugar de data=data
+            referer = request.META.get('HTTP_REFERER')
 
-        response = requests.post(url, json=data)  # Usar json=data en lugar de data=data
-        referer = request.META.get('HTTP_REFERER')
-
-        if response.status_code == 200:
-             print(1)
-             if referer=='http://127.0.0.1:8000/cart/':
-              
-                 return redirect(referer)
-             else:
-              
-                 return JsonResponse({'status': 'success', 'message': 'Producto Eliminado del carrito'})
-
-
+            if response.status_code == 200:
             
-        else:
-            return JsonResponse({'status': 'error', 'message': 'Error al Eliminar el producto del carrito'})
+                 if referer=='http://127.0.0.1:8000/cart/':
+                
+                     return redirect(referer)
+                 else:
+                
+                     return JsonResponse({'status': 'success', 'message': 'Producto Eliminado del carrito'})
 
 
 
-    except Exception as e:
-        print(e)
-        context = None
-        return JsonResponse({'status': 'error', 'message': 'Error interno del servidor'})
+            else:
+                return JsonResponse({'status': 'error', 'message': 'Error al Eliminar el producto del carrito'})
+
+
+
+        except Exception as e:
+           
+            context = None
+            return JsonResponse({'status': 'error', 'message': 'Error interno del servidor'})
+    else:
+        try:
+            cart=_cart_id(request)
+            data ={
+             "cart":cart,
+             "product":product_id
+               }        
+            # Realizar una nueva solicitud a la API para obtener los detalles del producto
+            url = f'http://192.168.88.136:3002/ecommer/rs/eliminarproductcarrito'
+
+            response = requests.post(url, json=data)  # Usar json=data en lugar de data=data
+            referer = request.META.get('HTTP_REFERER')
+
+            if response.status_code == 200:
+               
+                 if referer=='http://127.0.0.1:8000/cart/':
+                
+                     return redirect(referer)
+                 else:
+                
+                     return JsonResponse({'status': 'success', 'message': 'Producto Eliminado del carrito'})
+
+
+
+            else:
+                return JsonResponse({'status': 'error', 'message': 'Error al Eliminar el producto del carrito'})
+
+
+
+        except Exception as e:
+           
+            context = None
+            return JsonResponse({'status': 'error', 'message': 'Error interno del servidor'})
+
+
+
+
+
+
 
 def EliminarCarrtioCompleto(request):
-    try:
-        cart=_cart_id(request)
-        data ={
-         "cart":cart,
-           }        
-        # Realizar una nueva solicitud a la API para obtener los detalles del producto
-        url = f'http://192.168.88.136:3002/ecommer/rs/EliminarCarrtioCompleto'
-
-        response = requests.post(url, json=data)  # Usar json=data en lugar de data=data
-        referer = request.META.get('HTTP_REFERER')
-
-        if response.status_code == 200:
-             print(1)
-             if referer=='http://127.0.0.1:8000/cart/':
-                 print(2)
-                 return JsonResponse({'status': 'carrito', 'message': 'Producto Eliminado del carrito'})
-             else:
-                 print(3)
-                 return JsonResponse({'status': 'success', 'message': 'Producto Eliminado del carrito'})
-
-            
-        else:
-            print(4)
-            return JsonResponse({'status': 'error', 'message': 'Error al Eliminar el producto del carrito'})
-
-
-    except Exception as e:
-        print(e)
-        context = None
-        return JsonResponse({'status': 'error', 'message': 'Error interno del servidor'})
+    session_data = dict(request.session)
+    if session_data:
+        try:
+            cart=_cart_id(request)
+            data ={
+             "cart":cart,
+             "usuario":session_data['id']
+               }        
+            # Realizar una nueva solicitud a la API para obtener los detalles del producto
+            url = f'http://192.168.88.136:3002/ecommer/rs/EliminarCarrtioCompleto'
+    
+            response = requests.post(url, json=data)  # Usar json=data en lugar de data=data
+            referer = request.META.get('HTTP_REFERER')
+    
+            if response.status_code == 200:
+              
+                 if referer=='http://127.0.0.1:8000/cart/':
+                    
+                     return JsonResponse({'status': 'carrito', 'message': 'Producto Eliminado del carrito'})
+                 else:
+                  
+                     return JsonResponse({'status': 'success', 'message': 'Producto Eliminado del carrito'})
+    
+                
+            else:
+              
+                return JsonResponse({'status': 'error', 'message': 'Error al Eliminar el producto del carrito'})
+    
+    
+        except Exception as e:
+      
+            context = None
+            return JsonResponse({'status': 'error', 'message': 'Error interno del servidor'})
+    else:
+        try:
+            cart=_cart_id(request)
+            data ={
+             "cart":cart,
+               }        
+            # Realizar una nueva solicitud a la API para obtener los detalles del producto
+            url = f'http://192.168.88.136:3002/ecommer/rs/EliminarCarrtioCompleto'
+    
+            response = requests.post(url, json=data)  # Usar json=data en lugar de data=data
+            referer = request.META.get('HTTP_REFERER')
+    
+            if response.status_code == 200:
+               
+                 if referer=='http://127.0.0.1:8000/cart/':
+                 
+                     return JsonResponse({'status': 'carrito', 'message': 'Producto Eliminado del carrito'})
+                 else:
+                 
+                     return JsonResponse({'status': 'success', 'message': 'Producto Eliminado del carrito'})
+    
+                
+            else:
+                
+                return JsonResponse({'status': 'error', 'message': 'Error al Eliminar el producto del carrito'})
+    
+    
+        except Exception as e:
+           
+            context = None
+            return JsonResponse({'status': 'error', 'message': 'Error interno del servidor'})
 
 
 
@@ -580,7 +655,7 @@ def checkout(request, total=Decimal("0"), quantity=0, cart_items=None, taxt=Deci
 
 
     except Exception as e:
-        print(e)
+        
         context = None
         return render(request, 'store/checkout.html',context)
 
@@ -614,53 +689,109 @@ def checkout(request, total=Decimal("0"), quantity=0, cart_items=None, taxt=Deci
 
 def get_cart_count(request, total=Decimal("0"), quantity=0, cart_items=None, taxt=Decimal("0"), grand_total=Decimal("0"), delivery=Decimal("3.50")):
     cart_count=0
-    try:
-        cart=_cart_id(request)
-        data ={
-         "cart":cart,
-           }        
-        # Realizar una nueva solicitud a la API para obtener los detalles del producto
-        url = f'http://192.168.88.136:3002/ecommer/rs/viewcart'
-
-        response = requests.post(url, json=data)  # Usar json=data en lugar de data=data
-
-
-        if response.status_code == 200:
-            data_from_express_api = response.json()
-            cart_items = data_from_express_api['carrito']
+    session_data = dict(request.session)
+    if session_data:
+        try:
+            cart=_cart_id(request)
+            data ={
+             "cart":cart,
+             "usuario":session_data['id']
+               }        
+            # Realizar una nueva solicitud a la API para obtener los detalles del producto
+            url = f'http://192.168.88.136:3002/ecommer/rs/viewcart'
+    
+            response = requests.post(url, json=data)  # Usar json=data en lugar de data=data
+    
+    
+            if response.status_code == 200:
+                data_from_express_api = response.json()
+                cart_items = data_from_express_api['carrito']
+                
+                array=[]
+                for cart_item in cart_items:
+                    precio = Decimal(str(cart_item['precio']))  # Convierte a Decimal
+                    Descuento = Decimal(str(cart_item['Descuento'])) 
+                    totaldes=precio-(Descuento * precio)
+                    total += (totaldes * cart_item['quantity'])
+                    cart_count += cart_item['quantity']
+                    data={
+                        'nombre':cart_item['nombre'],
+                        'precio': precio-(Descuento * precio) ,
+                        'quantity':cart_item['quantity'],
+                        'item':cart_item['item'],
+                        'total':cart_item['total']
+                       
+                    }
+                    array.append(data)
+    
+                taxt = (Decimal("2") * total) / Decimal("100")
+                grand_total = total + taxt + delivery
             
-            array=[]
-            for cart_item in cart_items:
-                precio = Decimal(str(cart_item['precio']))  # Convierte a Decimal
-                Descuento = Decimal(str(cart_item['Descuento'])) 
-                totaldes=precio-(Descuento * precio)
-                total += (totaldes * cart_item['quantity'])
-                cart_count += cart_item['quantity']
-                data={
-                    'nombre':cart_item['nombre'],
-                    'precio': precio-(Descuento * precio) ,
-                    'quantity':cart_item['quantity'],
-                    'item':cart_item['item'],
-                    'total':cart_item['total']
-                   
+                context = {
+                    'total': total,
+                    'quantity': quantity,
+                    'cart_items': array,
+                    'cantidad':cart_count,
+                    'taxt': taxt.quantize(Decimal("0.00")),
+                    'grand_total': grand_total.quantize(Decimal("0.00"))
                 }
-                array.append(data)
+            else:
+                    context = []
+    
+    
+        except Cart.DoesNotExist:
+                cart_count=0
+        return JsonResponse({'cart_count': cart_count})
+    else:
+        try:
+            cart=_cart_id(request)
+            data ={
+             "cart":cart,
+               }        
+            # Realizar una nueva solicitud a la API para obtener los detalles del producto
+            url = f'http://192.168.88.136:3002/ecommer/rs/viewcart'
+    
+            response = requests.post(url, json=data)  # Usar json=data en lugar de data=data
+    
+    
+            if response.status_code == 200:
+                data_from_express_api = response.json()
+                cart_items = data_from_express_api['carrito']
+                
+                array=[]
+                for cart_item in cart_items:
+                    precio = Decimal(str(cart_item['precio']))  # Convierte a Decimal
+                    Descuento = Decimal(str(cart_item['Descuento'])) 
+                    totaldes=precio-(Descuento * precio)
+                    total += (totaldes * cart_item['quantity'])
+                    cart_count += cart_item['quantity']
+                    data={
+                        'nombre':cart_item['nombre'],
+                        'precio': precio-(Descuento * precio) ,
+                        'quantity':cart_item['quantity'],
+                        'item':cart_item['item'],
+                        'total':cart_item['total']
+                       
+                    }
+                    array.append(data)
+    
+                taxt = (Decimal("2") * total) / Decimal("100")
+                grand_total = total + taxt + delivery
+            
+                context = {
+                    'total': total,
+                    'quantity': quantity,
+                    'cart_items': array,
+                    'cantidad':cart_count,
+                    'taxt': taxt.quantize(Decimal("0.00")),
+                    'grand_total': grand_total.quantize(Decimal("0.00"))
+                }
+            else:
+                    context = []
+    
+    
+        except Cart.DoesNotExist:
+                cart_count=0
+        return JsonResponse({'cart_count': cart_count})
 
-            taxt = (Decimal("2") * total) / Decimal("100")
-            grand_total = total + taxt + delivery
         
-            context = {
-                'total': total,
-                'quantity': quantity,
-                'cart_items': array,
-                'cantidad':cart_count,
-                'taxt': taxt.quantize(Decimal("0.00")),
-                'grand_total': grand_total.quantize(Decimal("0.00"))
-            }
-        else:
-                context = []
-
-
-    except Cart.DoesNotExist:
-            cart_count=0
-    return JsonResponse({'cart_count': cart_count})
