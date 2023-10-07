@@ -479,5 +479,65 @@ $(document).ready(function () {
   
   
     initMap();
+
+
+    $(document).ready(function () {
+
+      setTimeout(function () {
+          $('#messages').fadeOut('slow')
+      }, 4000)
+  });
   
+
+  const datapicker  = document.getElementById('test');
+
+  new Datepicker(datapicker, {
+      todayHighlight: true,
+      minDate: new Date()
+  });
 })
+
+
+
+///funcion de store
+
+///sidebar de filtrado
+document.addEventListener("DOMContentLoaded", function () {
+  const sidebar = document.querySelector(".sidebar");
+  const toggleFilterButton = document.querySelector(".toggle-filter-button");
+
+
+
+  // Agrega un evento clic al botón de filtro
+  toggleFilterButton.addEventListener("click", function () {
+      // Toggle (mostrar/ocultar) el sidebar al hacer clic en el botón
+      sidebar.classList.toggle("hidden");
+  });
+
+  $("#cerrar").click(function () {
+  sidebar.classList.toggle("hidden");
+});
+});
+
+
+
+//funcion de product_detail 
+
+//contador
+let numero = 0;
+boton.onclick = () => {
+    numero++;
+    cantidad.value = numero;
+}
+
+rest.onclick = () => {
+
+    if (numero < 1) {
+
+    } else {
+        numero--;
+        cantidad.value = numero;
+    }
+
+
+}

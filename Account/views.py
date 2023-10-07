@@ -148,4 +148,7 @@ def activate(request,uidb64,token):
     else:
         messages.error(request,' La activacion es invalida')
         return redirect('register')
-     
+
+
+
+

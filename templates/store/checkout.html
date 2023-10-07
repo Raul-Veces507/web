@@ -481,8 +481,15 @@
 
 </section>
 
-<script src="https://unpkg.com/flowbite-datepicker@1.2.2/dist/js/datepicker-full.js"></script>
-<link rel="stylesheet" href="https://unpkg.com/flowbite@1.5.3/dist/flowbite.min.css" />
+
+   <!-- Incluye el script de Google Maps con la API key -->
+   <script>
+    var api_key = "";
+</script>
+
+<!-- En algún lugar de tu código JavaScript -->
+<script src="https://maps.googleapis.com/maps/api/js?key={{ GOOGLE_MAPS_API_KEY }}&callback=initMap" async defer></script>
+
 
 <script>
   const tarjetaFormulario = document.getElementById("tarjetaFormulario");
@@ -619,12 +626,9 @@
     });
   });
 
- const datapicker  = document.getElementById('test');
 
-new Datepicker(datapicker, {
-    todayHighlight: true,
-    minDate: new Date()
-});
 
 </script>
+
+
 {% endblock %}

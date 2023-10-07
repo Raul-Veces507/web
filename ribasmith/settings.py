@@ -176,3 +176,6 @@ STATICFILES_FINDERS = ('compressor.finders.CompressorFinder',)
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+
+GOOGLE_MAPS_API_KEY = 'AIzaSyCdjCuB5DCVSeqwvAbek3aEpWB2tFTnMRU'

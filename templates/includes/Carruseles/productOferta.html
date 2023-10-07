@@ -411,62 +411,11 @@
         ]
     });
 </script>
-{% load static %}
+
 
 <script>
     
     var addToCartUrl = "{% url 'add_cart' 0 %}";
     var cartoCartUrl = " {% url 'get_cart_count' %}";
    
-</script>
-
-
-<script>
-// $(".add-to-cart-button").click(function () {
-//     var product_id = $(this).data("product-id");
-//    var addToCartUrl= "{% url 'add_cart' product_id=0 %}".replace('0', product_id)
-// })
-
-    // $(document).ready(function () {
-    //     $(".add-to-cart-button").click(function () {
-    //         var product_id = $(this).data("product-id");
-    //         console.log(product_id);
-
-    //         // Obtén el token CSRF del formulario
-    //         var csrfToken = $("input[name=csrfmiddlewaretoken]").val();
-
-    //         $.ajax({
-    //             url: "{% url 'add_cart' product_id=0 %}".replace('0', product_id),
-    //             method: "POST",
-    //             dataType: "json",
-    //             headers: {
-    //                 "X-CSRFToken": csrfToken  // Agrega el token CSRF como encabezado
-    //             },
-    //             success: function (data) {
-    //                 if (data.status === "success") {
-    //                     fetch("{% url 'get_cart_count' %}")
-    //                         .then(response => response.json())
-    //                         .then(cartData => {
-    //                             var toast = document.getElementById("toast");
-    //                             toast.style.display = "block";
-    //                             setTimeout(function () {
-    //                                 toast.style.display = "none";
-    //                             }, 1500);
-
-    //                             var cartCountElement = document.getElementById("cart-count");
-    //                             if (cartCountElement) {
-    //                                 cartCountElement.textContent = cartData.cart_count;
-    //                             }
-    //                         })
-    //                         .catch(error => {
-    //                             console.error("Error al obtener la cantidad del carrito", error);
-    //                         });
-    //                     // Actualiza la interfaz de usuario según sea necesario
-    //                 } else {
-    //                     alert("Error al agregar el producto al carrito");
-    //                 }
-    //             }
-    //         });
-    //     });
-    // });
 </script>

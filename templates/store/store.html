@@ -1,77 +1,6 @@
 {% extends 'base.html' %}
 {% block content %}
 
-<style>
-    .text-limit {
-        white-space: nowrap;
-        /* Evita el salto de línea */
-        overflow: hidden;
-        /* Oculta el exceso de texto */
-        text-overflow: ellipsis;
-        /* Agrega puntos suspensivos (...) al final del texto truncado */
-        max-width: 15ch;
-        /* Limita el ancho máximo a 15 caracteres (aproximadamente) */
-        display: inline-block;
-        /* Permite que el elemento ocupe solo el espacio necesario */
-    }
-
-    .box ul {
-        position: relative;
-        background: #fff;
-    }
-
-    .box ul li {
-        list-style: none;
-        padding: 10px;
-        width: 100%;
-        background: #fff;
-
-        transition: transform 0.5s;
-    }
-
-    .box ul li:hover {
-        transform: scale(1.1);
-        z-index: 100;
-        background: #25bcff;
-
-        color: #fff;
-    }
-    .p-discount {
-    
-        width: 65px;
-        height: 24px;
-        color: #ffffff;
-        background-color: #006eff;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        font-size: 0.7rem;
-        letter-spacing: 1px;
-        margin-top: 20px;
-        margin-left: 20px;
-        border-radius: 3px;
-
-
-    }
-    .p-discountsin {
-    
-    width: 65px;
-    height: 24px;
-    color: #ffffff;
-   
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-size: 0.7rem;
-    letter-spacing: 1px;
-    margin-top: 20px;
-    margin-left: 20px;
-    border-radius: 3px;
-
-
-}
-</style>
-
 <section class="container bg-white ">
     <nav class="flex mt-5" aria-label="Breadcrumb">
         <ol class="inline-flex items-center space-x-1 md:space-x-3">
@@ -436,33 +365,6 @@
     </div>
 </div>
 </div>
-
-<!-- products end -->
-
-<!-- shop wrapper end -->
-<script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
-
-<script>
-
-    document.addEventListener("DOMContentLoaded", function () {
-        const sidebar = document.querySelector(".sidebar");
-        const toggleFilterButton = document.querySelector(".toggle-filter-button");
-
-
-
-        // Agrega un evento clic al botón de filtro
-        toggleFilterButton.addEventListener("click", function () {
-            // Toggle (mostrar/ocultar) el sidebar al hacer clic en el botón
-            sidebar.classList.toggle("hidden");
-        });
-
-        $("#cerrar").click(function () {
-        sidebar.classList.toggle("hidden");
-    });
-    });
-</script>
-
-{% load static %}
 
 <script>
     

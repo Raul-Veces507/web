@@ -5,8 +5,10 @@ from django.core.exceptions import ObjectDoesNotExist
 from decimal import Decimal
 from django.contrib import messages
 from django.http import JsonResponse
+from Account.auth import verificar_autenticacion
 import requests
 import json
+from ribasmith.settings import GOOGLE_MAPS_API_KEY
 # Create your views here.
 
 def _cart_id(request):
@@ -601,6 +603,13 @@ def EliminarCarrtioCompleto(request):
 
 
 def checkout(request, total=Decimal("0"), quantity=0, cart_items=None, taxt=Decimal("0"), grand_total=Decimal("0"), delivery=Decimal("3.50")):
+        # Verifica la autenticación usando la función personalizada
+    resultado_redireccion = verificar_autenticacion(request)
+
+    if resultado_redireccion is not None:
+        # Si la función devuelve una redirección, redirige al usuario a la página de inicio de sesión
+        return resultado_redireccion
+    
     session_data = dict(request.session)
     if session_data:
         try:
@@ -634,6 +643,7 @@ def checkout(request, total=Decimal("0"), quantity=0, cart_items=None, taxt=Deci
                     'taxt': taxt.quantize(Decimal("0.00")),
                    'semigrand_total': semigrand_total.quantize(Decimal("0.00")),
                     'grand_total': grand_total.quantize(Decimal("0.00")),
+                    'GOOGLE_MAPS_API_KEY': GOOGLE_MAPS_API_KEY
                 }
                 return render(request, 'store/checkout.html', context)
     
