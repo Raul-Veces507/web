@@ -525,7 +525,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
 //contador
 let numero = 0;
-boton.onclick = () => {
+masbtn.onclick = () => {
     numero++;
     cantidad.value = numero;
 }

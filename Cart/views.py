@@ -118,38 +118,73 @@ def add_cart(request,product_id):
 def add_cart_detail(request):
    if request.method=='POST':
       
+      
+      
       cantidad=request.POST['cantidad']
       item=request.POST['item']
-      
-      try:
-        cart=_cart_id(request)
-        data ={
-         "cart":cart,
-          "quantity":cantidad,
-          "product":item
-           }   
-        # Realizar una nueva solicitud a la API para obtener los detalles del producto
-        url = f'http://192.168.88.136:3002/ecommer/rs/carrito'
+      session_data = dict(request.session)
+      if session_data:
+            try:
+              cart=_cart_id(request)
+              data ={
+               "cart":cart,
+                "quantity":cantidad,
+                "product":item,
+                "usuario":session_data['id']
+                 }   
+              # Realizar una nueva solicitud a la API para obtener los detalles del producto
+              url = f'http://192.168.88.136:3002/ecommer/rs/carrito'
 
-        response = requests.post(url, json=data)  # Usar json=data en lugar de data=data
+              response = requests.post(url, json=data)  # Usar json=data en lugar de data=data
 
-        data_from_express_api = response.json()
-        referer = request.META.get('HTTP_REFERER')
-  
-
-        if response.status_code == 200:
-            messages.success(request,' Producto Agregado con exito')
-            return redirect(referer)
-           
-        else:
-            return JsonResponse({'status': 'error', 'message': 'Error al agregar el producto al carrito'})
+              data_from_express_api = response.json()
+              referer = request.META.get('HTTP_REFERER')
 
 
-      except Exception as e:
-       
-        context = None
-        return JsonResponse({'status': 'error', 'message': 'Error interno del servidor'})
-   
+              if response.status_code == 200:
+                  messages.success(request,' Producto Agregado con exito')
+                  return redirect(referer)
+
+              else:
+                  return JsonResponse({'status': 'error', 'message': 'Error al agregar el producto al carrito'})
+
+
+            except Exception as e:
+            
+              context = None
+              return JsonResponse({'status': 'error', 'message': 'Error interno del servidor'})
+            
+      else:
+            try:
+              cart=_cart_id(request)
+              data ={
+               "cart":cart,
+                "quantity":cantidad,
+                "product":item
+                 }   
+              # Realizar una nueva solicitud a la API para obtener los detalles del producto
+              url = f'http://192.168.88.136:3002/ecommer/rs/carrito'
+
+              response = requests.post(url, json=data)  # Usar json=data en lugar de data=data
+
+              data_from_express_api = response.json()
+              referer = request.META.get('HTTP_REFERER')
+
+
+              if response.status_code == 200:
+                  messages.success(request,' Producto Agregado con exito')
+                  return redirect(referer)
+
+              else:
+                  return JsonResponse({'status': 'error', 'message': 'Error al agregar el producto al carrito'})
+
+
+            except Exception as e:
+            
+              context = None
+              return JsonResponse({'status': 'error', 'message': 'Error interno del servidor'})
+          
+
 
 def cart(request, total=Decimal("0"), quantity=0, cart_items=None, taxt=Decimal("0"), grand_total=Decimal("0"), delivery=Decimal("3.50")):
     
