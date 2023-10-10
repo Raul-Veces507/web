@@ -247,7 +247,7 @@
 
 
 <!-- Dropdown menu -->
-<div id="search-results" class="  absolute top-20 z-50  rounded-xl shadow   " style="z-index: 100000; width: 500px;  border-radius: 12px; background: white;">
+<div id="search-results"  class="  absolute top-20 z-50  rounded-xl shadow   " style="z-index: 100000; width: 500px;  border-radius: 12px; background: white;">
   
 </div>
 
@@ -259,28 +259,17 @@
         <!-- navicons -->
         <div class="space-x-4 flex items-center">
            
-          <div>
+        
+          <select data-te-select-init data-te-select-size="lg"  >
+            <option value="1">Market Plaza</option>
+            <option value="2">Two</option>
+            <option value="3">Three</option>
+            <option value="4">Four</option>
+            <option value="5">Five</option>
+          </select>
+          <label data-te-select-label-ref>Selecciona tu tienda</label> 
+         
           
-            <button  id="dropdownDefaultButton" data-dropdown-toggle="dropdown"  class=" z-auto hidden md:flex     text-blue-800 border  hover:bg-gray-200 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center  items-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800" type="button">Selecciona tu tienda <svg class="w-2.5 h-2.5 ml-2.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6">
-              <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 4 4 4-4"/>
-            </svg></button>
-            <!-- Dropdown menu -->
-            <div id="dropdown" class="z-50 hidden bg-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700">
-              <ul class="py-2 text-sm text-gray-700 dark:text-gray-200" aria-labelledby="dropdownDefaultButton">
-                <li>
-                  <a href="#" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Dashboard</a>
-                </li>
-                <li>
-                  <a href="#" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Settings</a>
-                </li>
-                <li>
-                  <a href="#" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Earnings</a>
-                </li>
-                <li>
-                  <a href="#" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Sign out</a>
-                </li>
-              </ul>
-            </div>
             
                     </div>
                     
@@ -476,7 +465,7 @@
 
 
 <!-- Dropdown menu -->
-<div id="search-resultss" class="absolute top-20 z-50 rounded-xl shadow w-full sm:w-2/3 md:w-1/2 lg:w-1/3 xl:w-1/4 mx-auto p-4 bg-white">
+<div id="search-resultss"  class="absolute top-20 z-50 rounded-xl shadow w-full sm:w-2/3 md:w-1/2 lg:w-1/3 xl:w-1/4 mx-auto p-4 bg-white">
   <!-- Contenido del elemento -->
 </div>
 
@@ -944,23 +933,26 @@ function manejarInput(inputElement, resultElement) {
 
                         datos.slice(0, 5).forEach(function(product) {
                             resultsHtml += '<li class="pb-3 sm:pb-4">';
+                            resultsHtml += '<a href=" /store/product/' + product.item + '/">'; 
                             resultsHtml += '<div class="flex items-center space-x-4">';
                             resultsHtml += '<div class="flex-shrink-0">';
                             resultsHtml += `<img class="w-8 h-8 rounded-full" src="https://riba.app/imgrs/THUMBS 500X500/${product.item}.jpg" alt="${product.nombre}" onerror="this.src='https://www.ribasmith.com/media/catalog/product/placeholder/default/watermark_4.png'">`;
                             resultsHtml += '</div>';
                             resultsHtml += '<div class="flex-1 min-w-0">';
+                            // Utiliza la URL generada
                             resultsHtml += '<p class="text-sm font-medium text-gray-900 truncate dark:text-white">';
                             resultsHtml += product.nombre;
                             resultsHtml += '</p>';
                             resultsHtml += '<p class="text-sm text-gray-500 truncate dark:text-gray-400">';
-                            resultsHtml += 'email@flowbite.com';
+                            resultsHtml += product.categoria;
                             resultsHtml += '</p>';
                             resultsHtml += '</div>';
                             resultsHtml += '<div class="inline-flex items-center text-base font-semibold text-gray-900 dark:text-white">';
                             resultsHtml += '<span>$</span>'
-                            resultsHtml += product.precio; // Replace with the appropriate price data if available
+                            resultsHtml += product.precio; // Reemplaza con los datos de precio apropiados si están disponibles
                             resultsHtml += '</div>';
                             resultsHtml += '</div>';
+                            resultsHtml += '</a>';
                             resultsHtml += '</li>';
                         });
 
@@ -980,7 +972,7 @@ function manejarInput(inputElement, resultElement) {
     });
 }
 
-// Llama a la función para el campo de búsqueda dentro del modal
+// Llama a la función para los campos de búsqueda dentro del modal
 manejarInput('#search-inputs', '#search-resultss');
 manejarInput('#search-input', '#search-results');
 
