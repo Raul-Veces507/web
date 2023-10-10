@@ -517,7 +517,6 @@ document.addEventListener("DOMContentLoaded", function () {
   $("#cerrar").click(function () {
   sidebar.classList.toggle("hidden");
 });
-});
 
 
 
@@ -541,3 +540,7 @@ rest.onclick = () => {
 
 
 }
+
+
+
+});

@@ -77,7 +77,6 @@ def login(request):
   
           data_from_express_api = response.json()
           referer = request.META.get('HTTP_REFERER')
-          print(data_from_express_api)
   
           if response.status_code == 200:
              token=data_from_express_api['token']
@@ -118,12 +117,12 @@ def logout(request):
     # auth.logout(request)
     # messages.success(request, 'Has salido de sesion')
     if 'token' in request.session:
-        print('j')
+  
         del request.session['token']
         request.session.modified = True
 
     if 'Usuario' in request.session:
-        print('j2')
+        
         del request.session['Usuario']
         request.session.modified = True
 
