@@ -33,17 +33,29 @@
 </head>
 
 <body>
+    <style>
+        .hide-on-load {
+        opacity: 0;
+        visibility: hidden;
+        transition: opacity 0.5s ease-in-out, visibility 0.5s ease-in-out;
+    }
+    /* Aplicar estilos para mostrar elementos gradualmente */
+    .show-on-load {
+        opacity: 1;
+        visibility: visible;
+    }
+    </style>
 
 
     {% include 'includes/navbar.html' %}
 
-
+    <div class="hide-on-load">
     {% block content %}
 
     {%endblock%}
 
 
-
+</div>
     {% include 'includes/footer.html' %}
     <div id="toast" class="hidden">
         Producto Agregado Con Exito
@@ -55,6 +67,14 @@
     <script src=" {% static 'src/js/sweetalert2.js' %}"></script>
     <script src=" {% static 'src/js/jquery.js' %}"></script>
     <script src="{% static 'src/js/javascrip.js' %}" type="text/javascript"></script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+        const hiddenElements = document.querySelectorAll('.hide-on-load');
+        hiddenElements.forEach(function(element) {
+            element.classList.add('show-on-load');
+        });
+    });
+    </script>
 </body>
 
 </html>
