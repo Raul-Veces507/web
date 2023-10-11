@@ -15,7 +15,7 @@ import requests
 from django.http import JsonResponse
 from django.contrib.auth import logout
 # Create your views here.
-
+from datetime import datetime
 def register(request):
     form=RegistrationForm()
     if request.method == 'POST':
@@ -126,6 +126,11 @@ def logout(request):
         del request.session['Usuario']
         request.session.modified = True
 
+    if 'id' in request.session:
+        
+        del request.session['id']
+        request.session.modified = True
+
     # Otras acciones que desees realizar después de cerrar la sesión
     return redirect('home')  # Redirige a la página de inicio o a donde desees
     # return redirect('login')
@@ -147,6 +152,361 @@ def activate(request,uidb64,token):
     else:
         messages.error(request,' La activacion es invalida')
         return redirect('register')
+
+
+def dashboard(request):
+    session_data = dict(request.session)
+    if session_data:
+         return render(request,'accounts/dashboard.html')
+    
+    else:
+        return redirect('login')
+
+def perfil(request):
+    session_data = dict(request.session)
+    if session_data:
+         try:
+              data ={
+                "usuario":session_data['id']
+                 }   
+
+              # Realizar una nueva solicitud a la API para obtener los detalles del producto
+              url = f'http://192.168.88.136:3002/ecommer/rs/obtenerperfil'
+
+              response = requests.post(url, json=data)  # Usar json=data en lugar de data=data
+              data_from_express_api = response.json()
+
+              if response.status_code == 200:
+                  info=data_from_express_api['user']
+                  fecha_obj = datetime.strptime(info['Fecha_nacimiento'], '%Y-%m-%dT%H:%M:%S.%fZ')
+
+                  context={
+                      'detalle':info,
+                      'Fecha_nacimiento': fecha_obj.strftime('%m/%d/%Y')
+                  }
+                  return render(request,'accounts/perfil.html',context)
+                  # return redirect('home')
+         
+          
+              else:
+                   context={
+                      'detalle':[]
+                  }
+                   return render(request,'accounts/perfil.html',context)
+            
+         except Exception as e:
+              print(e)
+              context = None
+              return redirect('login')
+      
+    
+    else:
+        return redirect('login')
+
+def ordenes(request):
+    session_data = dict(request.session)
+    if session_data:
+         return render(request,'accounts/Ordenes.html')
+    
+    else:
+        return redirect('login')
+
+
+
+
+def ListaCompra(request):
+      session_data = dict(request.session)
+      if session_data:
+            try:
+              data ={
+                "usuario":session_data['id']
+                 }   
+
+              # Realizar una nueva solicitud a la API para obtener los detalles del producto
+              url = f'http://192.168.88.136:3002/ecommer/rs/listafavorito'
+
+              response = requests.get(url, json=data)  # Usar json=data en lugar de data=data
+              data_from_express_api = response.json()
+
+              if response.status_code == 200:
+                  existingCart=data_from_express_api['existingCart']
+                  context={
+                      'lista':existingCart
+                  }
+                  return render(request, 'accounts/wishlist.html',context) 
+                  # return redirect('home')
+         
+          
+              else:
+                   context={
+                      'lista':[]
+                  }
+                   return render(request, 'accounts/wishlist.html',context) 
+            
+            except Exception as e:
+              print(e)
+              context = None
+              return redirect('login')
+      else:
+    
+           return redirect('login')
+      
+def Listaproductos(request,id):
+      session_data = dict(request.session)
+      if session_data:
+            try:
+              data ={
+                "usuario":session_data['id'],
+                "idlista":id
+                 }   
+
+              # Realizar una nueva solicitud a la API para obtener los detalles del producto
+              url = f'http://192.168.88.136:3002/ecommer/rs/listafavoritoviewproduct'
+
+              response = requests.get(url, json=data)  # Usar json=data en lugar de data=data
+              data_from_express_api = response.json()
+           
+              if response.status_code == 200:
+                  existingCart=data_from_express_api['carrito']
+                  print(existingCart)
+                  context={
+                      'Productos':existingCart,
+                      'idlista':id
+                  }
+                  return render(request, 'accounts/wishlistProduct.html',context) 
+                  # return redirect('home')
+         
+          
+              elif response.status_code == 201:
+                  
+                  context={
+                      'Productos':[],
+                      'idlista':id
+                  }
+           
+                  return render(request, 'accounts/wishlistProduct.html',context) 
+              
+              else:
+          
+                  return redirect('dashboard') 
+                  
+            
+            except Exception as e:
+              print(e)
+              context = None
+              return redirect('dashboard') 
+      else:
+    
+           return redirect('login')
+      
+def NuevaLista(request):
+      session_data = dict(request.session)
+      if session_data:
+            if request.method=='POST':
+                try:
+                  data ={
+                    "Detalle":request.POST['detalle'],
+                    "usuario":session_data['id'],
+                     }   
+                  # Realizar una nueva solicitud a la API para obtener los detalles del producto
+                  url = f'http://192.168.88.136:3002/ecommer/rs/addlistafavorito'
+    
+                  response = requests.post(url, json=data)  # Usar json=data en lugar de data=data
+                  data_from_express_api = response.json()
+                  referer = request.META.get('HTTP_REFERER')
+    
+                  if response.status_code == 200:
+                        messages.success(request,'Lista Creada')
+                        return redirect(referer)
+                      # return redirect('home')
+                  elif response.status_code == 201:
+                        messages.error(request,'No Se Pudo Crear La Lista')
+                        return redirect(referer)
+                
+                  else:
+                      messages.error(request,' No Se Pudo Crear La Lista')
+                      return redirect(referer)
+
+                except Exception as e:
+                  print(e)
+                  context = None
+                
+                  return redirect(referer)
+            else:
+                   referer = request.META.get('HTTP_REFERER')
+                   return redirect(referer)
+      else:
+            messages.error(request,'Debe Iniciar Session')
+            return redirect('login')
+      
+
+def AgregaraLista(request):
+      session_data = dict(request.session)
+      if session_data:
+            if request.method=='POST':
+                try:
+                  data ={
+                    "idlista":request.POST['idlista'],
+                    "item":request.POST['item']
+                     }   
+                  # Realizar una nueva solicitud a la API para obtener los detalles del producto
+                  url = f'http://192.168.88.136:3002/ecommer/rs/agregarproductolista'
+    
+                  response = requests.post(url, json=data)  # Usar json=data en lugar de data=data
+                  data_from_express_api = response.json()
+                  referer = request.META.get('HTTP_REFERER')
+    
+                  if response.status_code == 200:
+                        messages.success(request,' Producto Agregado Al Listado')
+                        return redirect(referer)
+                      # return redirect('home')
+                  elif response.status_code == 201:
+                        messages.error(request,' Producto Ya Se Encuentra En El Listado')
+                        return redirect(referer)
+                
+                  else:
+                      messages.error(request,' No se pudo Agregar Al Listado')
+                      return redirect(referer)
+
+                except Exception as e:
+                  print(e)
+                  context = None
+                  messages.error(request,' No se pudo Agregar Al Listado')
+                  return redirect(referer)
+            else:
+                   referer = request.META.get('HTTP_REFERER')
+                   return redirect(referer)
+      else:
+            referer = request.META.get('HTTP_REFERER')
+            messages.error(request,'Debe Iniciar Session')
+            return redirect(referer)
+      
+
+
+
+def AgregaraListaNueva(request):
+      session_data = dict(request.session)
+      if session_data:
+            if request.method=='POST':
+                try:
+                  data ={
+                    "usuario":session_data['id'],
+                    "Detalle":request.POST['detalle'],
+                    "item":request.POST['item']
+                     }   
+                  # Realizar una nueva solicitud a la API para obtener los detalles del producto
+                  url = f'http://192.168.88.136:3002/ecommer/rs/agregarlistaProduct'
+    
+                  response = requests.post(url, json=data)  # Usar json=data en lugar de data=data
+                  data_from_express_api = response.json()
+                  referer = request.META.get('HTTP_REFERER')
+    
+                  if response.status_code == 200:
+                        messages.success(request,' Producto Agregado Al Listado')
+                        return redirect(referer)
+                      # return redirect('home')
+                  elif response.status_code == 201:
+                        messages.error(request,' Producto Ya Se Encuentra En El Listado')
+                        return redirect(referer)
+                
+                  else:
+                      messages.error(request,' No se pudo Agregar Al Listado')
+                      return redirect(referer)
+
+                except Exception as e:
+                  print(e)
+                  context = None
+                  messages.error(request,' No se pudo Agregar Al Listado')
+                  return redirect(referer)
+            else:
+                   referer = request.META.get('HTTP_REFERER')
+                   return redirect(referer)
+      else:
+            referer = request.META.get('HTTP_REFERER')
+            messages.error(request,'Debe Iniciar Session')
+            return redirect(referer)
+      
+
+def eliminarLista(request,idlista):
+      session_data = dict(request.session)
+      if session_data:
+            try:
+              data ={
+                "usuario":session_data['id'],
+                "idlista":idlista,
+                 }   
+
+              # Realizar una nueva solicitud a la API para obtener los detalles del producto
+              url = f'http://192.168.88.136:3002/ecommer/rs/eliminarLista'
+
+              response = requests.post(url, json=data)  # Usar json=data en lugar de data=data
+              data_from_express_api = response.json()
+              referer = request.META.get('HTTP_REFERER')
+              if response.status_code == 200:
+        
+                 messages.success(request,'Lista Eliminada')
+                 return redirect(referer)
+         
+          
+              elif response.status_code == 201:
+            
+                 messages.success(request,data_from_express_api['message'] )
+                 return redirect(referer)
+              
+              else:
+          
+                  return redirect('dashboard') 
+                  
+            
+            except Exception as e:
+              print(e)
+              context = None
+              return redirect('dashboard') 
+      else:
+    
+           return redirect('login')
+
+
+
+def eliminarProductoListado(request,idlista,item):
+      session_data = dict(request.session)
+      if session_data:
+            try:
+              data ={
+                "usuario":session_data['id'],
+                "idlista":idlista,
+                "item":item
+                 }   
+
+              # Realizar una nueva solicitud a la API para obtener los detalles del producto
+              url = f'http://192.168.88.136:3002/ecommer/rs/eliminarProductoListado'
+
+              response = requests.post(url, json=data)  # Usar json=data en lugar de data=data
+              data_from_express_api = response.json()
+              referer = request.META.get('HTTP_REFERER')
+              if response.status_code == 200:
+        
+                 messages.success(request,' Producto Eliminado Del Listado')
+                 return redirect(referer)
+         
+          
+              elif response.status_code == 201:
+            
+                 messages.success(request,data_from_express_api['message'] )
+                 return redirect(referer)
+              
+              else:
+          
+                  return redirect('dashboard') 
+                  
+            
+            except Exception as e:
+              print(e)
+              context = None
+              return redirect('dashboard') 
+      else:
+    
+           return redirect('login')
 
 
 

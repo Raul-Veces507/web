@@ -48,7 +48,7 @@ INSTALLED_APPS = [
     'Cart',
     'Departamento',
     'Grupo',
-    'Account'
+    'Account',
 ]
 TE_URL = 'node_modules/'
 STATICFILES_DIRS = [

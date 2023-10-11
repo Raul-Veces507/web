@@ -10,6 +10,7 @@ from io import BytesIO
 from django.http import HttpResponse
 from django.db.models import Q
 import requests
+from Account.views import ListaCompra
 # Create your views here.
 def store(request,depar):
     try:
@@ -72,12 +73,46 @@ def product_detail(request,product):
    
 
         if response.status_code == 200:
-           context={
+            session_data = dict(request.session)
+            if session_data:
+                 data ={
+                "usuario":session_data['id']
+                 }   
+
+              # Realizar una nueva solicitud a la API para obtener los detalles del producto
+                 url = f'http://192.168.88.136:3002/ecommer/rs/listafavorito'
+   
+                 response = requests.get(url, json=data)  # Usar json=data en lugar de data=data
+                 resp = response.json()
+   
+                 if response.status_code == 200:
+                     existingCart=resp['existingCart']
+                     context={
+                         'productos':data_from_express_api['productos'][0],
+                         'promocion':preciodes,
+                         'porcentaje':descuentoobject,
+                         'lista':existingCart
+                           }
+
+            
+             
+                 else:
+                      context={
+                         'productos':data_from_express_api['productos'][0],
+                         'promocion':preciodes,
+                         'porcentaje':descuentoobject,
+                         'lista':[]
+                      }
+            else:
+                context={
                'productos':data_from_express_api['productos'][0],
                'promocion':preciodes,
-               'porcentaje':descuentoobject
+               'porcentaje':descuentoobject,
+               'list':[]
                
                 }
+                
+  
          
         else:
             # Manejar el caso en el que el producto no exista o haya un error en la API

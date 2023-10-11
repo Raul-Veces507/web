@@ -481,13 +481,7 @@ $(document).ready(function () {
     initMap();
 
 
-    $(document).ready(function () {
-
-      setTimeout(function () {
-          $('#messages').fadeOut('slow')
-      }, 4000)
-  });
-  
+ 
 
   const datapicker  = document.getElementById('test');
 
@@ -520,26 +514,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
 
-//funcion de product_detail 
 
-//contador
-let numero = 0;
-masbtn.onclick = () => {
-    numero++;
-    cantidad.value = numero;
-}
-
-rest.onclick = () => {
-
-    if (numero < 1) {
-
-    } else {
-        numero--;
-        cantidad.value = numero;
-    }
-
-
-}
 
 
 

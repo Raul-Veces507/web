@@ -5,7 +5,7 @@
 
 
 
-
+<!-- Carrusel -->
 <nav class=" bg-blue-700" >
   <div class="w-full px-4 py-3 mx-auto">
       <div class="flex items-center">
@@ -43,10 +43,11 @@
   </div>
 </nav>
 
+<!-- Fin Carrusel -->
 
 
 
-  <!-- header -->
+  <!-- Subheader -->
   <nav class=" hidden md:flex justify-between  border">
     <div class="w-full px-4 py-3 mx-auto">
         <div class="flex items-center  justify-between">
@@ -114,7 +115,7 @@
                         <li>
                           <a
                           class="block w-full whitespace-nowrap bg-transparent px-4 py-2 text-sm font-normal text-neutral-700 hover:bg-neutral-100 active:text-neutral-800 active:no-underline disabled:pointer-events-none disabled:bg-transparent disabled:text-neutral-400 dark:text-neutral-200 dark:hover:bg-neutral-600"
-                          href="{% url 'login' %}"
+                          href="{% url 'dashboard' %}"
                           data-te-dropdown-item-ref
                           >Dashboard</a>
                         </li>
@@ -122,7 +123,7 @@
                          
                           <a
                           class="block w-full whitespace-nowrap bg-transparent px-4 py-2 text-sm font-normal text-neutral-700 hover:bg-neutral-100 active:text-neutral-800 active:no-underline disabled:pointer-events-none disabled:bg-transparent disabled:text-neutral-400 dark:text-neutral-200 dark:hover:bg-neutral-600"
-                          href="{% url 'login' %}"
+                          href="{% url 'ListaCompra' %}"
                           data-te-dropdown-item-ref
                           >Lista de compras</a>
                           
@@ -195,6 +196,7 @@
     </div>
 
 </nav>
+  <!-- Fin Subheader -->
 
   <header class="py-4 shadow-sm bg-white sticky  top-0  md:top-0   z-10 ">
     <div class="container flex items-center  justify-between md:mx-auto  " >
