@@ -394,6 +394,8 @@ $(document).ready(function () {
 
 
 
+
+
   ////pertenece al checkoout 
 
 

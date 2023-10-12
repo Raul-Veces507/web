@@ -1,0 +1,289 @@
+{% extends 'base.html' %}
+{% block content %}
+{% include 'includes/sidebarnav.html' %}
+
+<div class="col-span-9 mt-6 lg:mt-0 space-y-4">
+
+    {% if detalle %}
+    <div class="container">
+        {% include 'includes/alerts.html' %}
+        <h1>Libreta de Direcciones</h1>
+
+        <h1 class="mt-5">Dirección de envío predeterminada</h1>
+        {% for ubic in detalle %}
+
+        {% if ubic.Is_active == 1%}
+        <a href="{% url 'EditarDireccion' ubic.id %}"
+            class="block  p-6 bg-white border border-gray-200 rounded-lg shadow hover:bg-gray-100 dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700 mt-5">
+
+         
+            <div class="grid gap-6 mb-6  mt-5">
+                <dl class=" text-gray-900  divide-gray-200 dark:text-white dark:divide-gray-700">
+                    <div class="flex flex-col pb-1">
+                        <dt class="mb-1 text-gray-500 md:text-lg dark:text-gray-400">Nombre</dt>
+                        <dd class="text-lg font-semibold">{{request.session.Usuario | capfirst}}</dd>
+                    </div>
+                    <div class="flex flex-col py-1">
+                        <dt class="mb-1 text-gray-500 md:text-lg dark:text-gray-400">Dirección</dt>
+                        <dd class="text-lg font-semibold">{{ubic.Detalle}}</dd>
+                    </div>
+                    <div class="flex flex-col pt-1">
+                        <dt class="mb-1 text-gray-500 md:text-lg dark:text-gray-400">Celular </dt>
+                        <dd class="text-lg font-semibold">{{ubic.Celular}}</dd>
+                    </div>
+                </dl>
+
+            </div>
+           
+        </a>
+        {% else %}
+
+        {% endif %}
+        {% endfor %}
+
+
+        <div class="mt-10 text-center flex justify-between">
+
+
+            <div>
+                <h1 class="mt-5">Direcciones Registradas: </h1>
+            </div>
+
+            <div>
+                {% if Total < 5 %} <a href="{% url 'Agregardireccion' %}" type="button"
+                    data-tooltip-target="tooltip-default"
+                    class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg  text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">
+                    <svg class="w-6 h-6 text-white dark:text-white" aria-hidden="true"
+                        xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 18 18">
+                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M9 1v16M1 9h16" />
+                    </svg></a>
+
+                    <div id="tooltip-default" role="tooltip"
+                        class="absolute z-10 invisible inline-block px-3 py-2 text-sm font-medium text-white transition-opacity duration-300 bg-gray-900 rounded-lg shadow-sm opacity-0 tooltip dark:bg-gray-700">
+                        Agregar Nueva Direccion
+                        <div class="tooltip-arrow" data-popper-arrow></div>
+                    </div>
+                    {% else %}
+                    {% endif %}
+            </div>
+
+
+        </div>
+
+        <div id="toasterror"
+            class="flex items-center p-4 mb-4 text-sm text-red-800 border border-red-300 rounded-lg bg-red-50 dark:bg-gray-800 dark:text-red-400 dark:border-red-800"
+            role="alert" style="display: none;">
+            <svg class="flex-shrink-0 inline w-4 h-4 mr-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
+                fill="currentColor" viewBox="0 0 20 20">
+                <path
+                    d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5ZM9.5 4a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3ZM12 15H8a1 1 0 0 1 0-2h1v-3H8a1 1 0 0 1 0-2h2a1 1 0 0 1 1 1v4h1a1 1 0 0 1 0 2Z" />
+            </svg>
+            <span class="sr-only">Info</span>
+            <div>
+                <span class="font-medium">Error!</span> No Se Pudo Eliminar La Direccion
+            </div>
+        </div>
+
+
+        <div class="relative overflow-x-auto mt-10">
+            <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
+                <thead class="text-xs text-gray-700  bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+                    <tr>
+                        <th scope="col" class="px-6 py-3">
+                            Nombre
+                        </th>
+                        <th scope="col" class="px-6 py-3">
+                            Direccion
+                        </th>
+                        <th scope="col" class="px-6 py-3">
+                            Celular
+                        </th>
+                        <th scope="col" class="px-6 py-3">
+                            Accion
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for ubic in detalle %}
+                    <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
+                        <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                            {{request.session.Usuario | capfirst}}
+                        </th>
+                        <td class="px-6 py-4">
+                            {{ubic.Detalle}}
+                        </td>
+                        <td class="px-6 py-4">
+                            {{ubic.Celular}}
+                        </td>
+                        <td class="px-6 py-4">
+                            {% if ubic.Is_active == 1 %}
+                            <button id="dropdownLeftButton" data-dropdown-toggle="dropdownLeft"
+                                data-dropdown-placement="left"
+                                class="inline-flex items-center p-2 text-sm font-medium text-center text-gray-900 bg-white rounded-lg hover:bg-gray-100 focus:ring-4 focus:outline-none dark:text-white focus:ring-gray-50 dark:bg-gray-800 dark:hover:bg-gray-700 dark:focus:ring-gray-600"
+                                type="button">
+                                <svg class="w-5 h-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
+                                    fill="currentColor" viewBox="0 0 16 3">
+                                    <path
+                                        d="M2 0a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3Zm6.041 0a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3ZM14 0a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3Z" />
+                                </svg>
+                            </button>
+
+                            <div id="dropdownLeft"
+                                class="z-10 hidden bg-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700">
+                                <ul class="py-2 text-sm text-gray-700 dark:text-gray-200"
+                                    aria-labelledby="dropdownLeftButton">
+                                    <li>
+                                        <a href="{% url 'EditarDireccion' ubic.id %}"
+                                            class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Editar</a>
+                                    </li>
+                                    <li>
+                                        <a  href="#"  data-product-id="{{ubic.id}}"
+                                            class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white deleteDireccion">Eliminar</a>
+                                    </li>
+
+                                </ul>
+                            </div>
+                            {% else %}
+                            <button data-dropdown-toggle="dropdownLeftfil" data-dropdown-placement="left"
+                                class="inline-flex items-center p-2 text-sm font-medium text-center text-gray-900 bg-white rounded-lg hover:bg-gray-100 focus:ring-4 focus:outline-none dark:text-white focus:ring-gray-50 dark:bg-gray-800 dark:hover:bg-gray-700 dark:focus:ring-gray-600"
+                                type="button">
+                                <svg class="w-5 h-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
+                                    fill="currentColor" viewBox="0 0 16 3">
+                                    <path
+                                        d="M2 0a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3Zm6.041 0a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3ZM14 0a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3Z" />
+                                </svg>
+                            </button>
+                            <div id="dropdownLeftfil"
+                                class="z-10 hidden bg-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700">
+                                <ul class="py-2 text-sm text-gray-700 dark:text-gray-200"
+                                    aria-labelledby="dropdownLeftButton">
+                                    <li>
+                                        <a href="{% url 'EditarDireccion' ubic.id %}"
+                                            class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Editar</a>
+                                    </li>
+
+
+                                    <li>
+                                        <a href="{% url 'ActivarDireccion' ubic.id %}"
+                                            class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Seleccionar</a>
+                                    </li>
+
+                                    <li>
+
+                                        <a  href="#" 
+                                            class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white deleteDireccion"
+                                            data-product-id="{{ubic.id}}">Eliminar</a>
+
+                                    </li>
+
+                                </ul>
+                            </div>
+                            {% endif %}
+                        </td>
+                    </tr>
+                    {% endfor %}
+
+                </tbody>
+            </table>
+        </div>
+
+
+
+    </div>
+
+    {% else %}
+
+    <div class="container">
+        <div class="text-center mt-5">
+            <h1>Sin Ubicaciones Registradas </h1>
+        </div>
+
+        <div class="text-center mt-5">
+            <a href="{% url 'Agregardireccion' %}" type="button"
+                class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">Registrar
+                Nueva Ubicacion</a>
+
+        </div>
+
+
+    </div>
+    {% endif %}
+
+</div>
+
+
+<script>
+    var Direccitiondelete = "{% url 'EliminarDireccion' 0 %}"
+    var direccion = "{% url 'direccion' %}"
+
+    $(document).on("click", ".deleteDireccion", function () {
+        Swal.fire({
+            title: '¿Estás seguro?',
+            text: "¡No podrás revertir esto!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            cancelButtonText: 'No',
+            confirmButtonText: 'Si, Eliminar'
+        }).then((result) => {
+
+            if (result.isConfirmed) {
+
+
+                var product_id = $(this).data("product-id");
+                var urlfinal = Direccitiondelete.replace('0', product_id)
+                var csrfToken = getCookie("csrftoken");
+
+                function getCookie(name) {
+                    var cookieValue = null;
+                    if (document.cookie && document.cookie !== "") {
+                        var cookies = document.cookie.split(";");
+                        for (var i = 0; i < cookies.length; i++) {
+                            var cookie = cookies[i].trim();
+                            if (cookie.substring(0, name.length + 1) === name + "=") {
+                                cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                                break;
+                            }
+                        }
+                    }
+                    return cookieValue;
+                }
+
+                $.ajax({
+                    url: urlfinal,
+                    method: "POST",
+                    dataType: "json",
+                    headers: {
+                        "X-CSRFToken": csrfToken  // Agrega el token CSRF como encabezado
+                    },
+                    success: function (data) {
+                        console.log(data);
+
+                        if (data.status === "success") {
+                 
+
+                             window.location.href = direccion;
+
+                        } else {
+                            var toast = document.getElementById("toasterror");
+                            toast.style.display = "block";
+                            setTimeout(function () {
+                                toast.style.display = "none";
+                            }, 1500);
+                        }
+                    }
+                })
+            }
+
+
+
+        })
+    })
+
+</script>
+
+
+
+{% endblock %}

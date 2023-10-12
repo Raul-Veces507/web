@@ -22,7 +22,7 @@
                 <a href=" {% url 'perfil' %}" class="hover:text-primary transition capitalize block {% if '/account/perfil/' == request.path %} 
                      text-blue-600  rounded-t-lg active dark:border-blue-500 {% endif %} mt-5 ">
                      <i class="fas fa-user"></i> Informacion de Perfil</a>
-                <a href="manage-address.html" class="hover:text-primary transition capitalize block {% if '/account/DireccionAdmin/' == request.path %} 
+                <a href="{% url 'direccion' %}" class="hover:text-primary transition capitalize block {% if '/account/direccion/' == request.path %} 
                     text-blue-600  rounded-t-lg active dark:text-blue-500 dark:border-blue-500 {% endif %} mt-5"><i class="fas fa-map-signs"></i> Administrar
                     Direccion
                 </a>

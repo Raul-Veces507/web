@@ -16,6 +16,7 @@ from django.http import JsonResponse
 from django.contrib.auth import logout
 # Create your views here.
 from datetime import datetime
+from ribasmith.settings import GOOGLE_MAPS_API_KEY
 def register(request):
     form=RegistrationForm()
     if request.method == 'POST':
@@ -211,6 +212,315 @@ def ordenes(request):
     else:
         return redirect('login')
 
+def direccion(request):
+    session_data = dict(request.session)
+    if session_data:
+         try:
+              data ={
+                "usuario":session_data['id']
+                 }   
+
+              # Realizar una nueva solicitud a la API para obtener los detalles del producto
+              url = f'http://192.168.88.136:3002/ecommer/rs/obtenerubicaciones'
+
+              response = requests.post(url, json=data)  # Usar json=data en lugar de data=data
+              data_from_express_api = response.json()
+
+              if response.status_code == 200:
+                  info=data_from_express_api['ubcaciones']
+                  Total=data_from_express_api['totalUbicaciones']
+                  context={
+                      'detalle':info,
+                      'Total':Total
+                  }
+                 
+                  return render(request,'accounts/manage-direction.html',context)
+                  # return redirect('home')
+         
+          
+              else:
+                   context={
+                      'detalle':[]
+                  }
+                
+                   return render(request,'accounts/manage-direction.html',context)
+            
+         except Exception as e:
+              print(e)
+              context = None
+              return redirect('login')
+      
+    
+    else:
+        return redirect('login')
+ 
+
+def Agregardireccion(request):
+      session_data = dict(request.session)
+      if session_data:
+            if request.method=='POST':
+             
+                try:
+                  data ={
+                        "Detalle" :request.POST['Detalle'],
+                        "usuario" :session_data['id'],
+                        "Celular" :request.POST['Celular'],
+                        "Longitud" :request.POST['longitudInput'],
+                        "Latitud" :request.POST['latitudInput'],
+
+                     }   
+                  if 'Direccionenvio' in request.POST:
+                         data["Activa"] = request.POST['Direccionenvio']
+                  else:
+                        data["Activa"] = 'No'  # Establece un valor predeterminado si no se seleccionó "Direccionenvio"
+                  # Realizar una nueva solicitud a la API para obtener los detalles del producto
+                  print(data)
+                  url = f'http://192.168.88.136:3002/ecommer/rs/AgregarDireccion'
+    
+                  response = requests.post(url, json=data)  # Usar json=data en lugar de data=data
+                  data_from_express_api = response.json()
+                  referer = request.META.get('HTTP_REFERER')
+    
+                  if response.status_code == 200:
+                        messages.success(request,'Direccion Agregada')
+                        return redirect('direccion')
+                      # return redirect('home')
+                  elif response.status_code == 201:
+                        messages.error(request,data_from_express_api['message'])
+                        return redirect('direccion')
+                
+                  else:
+                      messages.error(request,' No Se Pudo Registar La Ubicacion')
+                      return redirect(referer)
+
+                except Exception as e:
+                  print(e)
+                  context = None
+                  referer = request.META.get('HTTP_REFERER')
+                  return redirect(referer)
+            else:
+                context = {
+                          'GOOGLE_MAPS_API_KEY': GOOGLE_MAPS_API_KEY
+                          }
+                return render(request, 'accounts/AddDireccion.html',context)
+
+      else:
+            messages.error(request,'Debe Iniciar Session')
+            return redirect('login')
+
+
+def EliminarDireccion(request,idlista):
+      session_data = dict(request.session)
+      if session_data:
+           
+             
+                try:
+                  data ={
+                        "idUbicacion" :idlista,
+                        "usuario" :session_data['id'],
+                     }   
+                  print(data)
+                  url = f'http://192.168.88.136:3002/ecommer/rs/EliminarUbicacion'
+    
+                  response = requests.post(url, json=data)  # Usar json=data en lugar de data=data
+                  data_from_express_api = response.json()
+                  referer = request.META.get('HTTP_REFERER')
+                  if response.status_code == 200:
+                
+                     return JsonResponse({'status': 'success', 'message': 'Producto Eliminado del carrito'})
+     
+                  if response.status_code == 201:
+                     
+                     return JsonResponse({'status': 'error', 'message': data_from_express_api['message']})
+
+                
+                  else:
+                      return JsonResponse({'status': 'error', 'message': ' No Se Pudo Registar La Ubicacion'})
+
+                except Exception as e:
+                  print(e)
+                  context = None
+                  referer = request.META.get('HTTP_REFERER')
+                  return redirect(referer)
+
+      else:
+            messages.error(request,'Debe Iniciar Session')
+            return redirect('login')
+
+
+def EditarDireccion(request,id):
+      session_data = dict(request.session)
+      if session_data:
+            if request.method=='POST':
+             
+                try:
+                  data ={
+                        "Detalle" :request.POST['Detalle'],
+                        "usuario" :session_data['id'],
+                        "Celular" :request.POST['Celular'],
+                        "Longitud" :request.POST['longitudInput'],
+                        "Latitud" :request.POST['latitudInput'],
+
+                     }   
+                  if 'Direccionenvio' in request.POST:
+                         data["Activa"] = request.POST['Direccionenvio']
+                  else:
+                        data["Activa"] = 'No'  # Establece un valor predeterminado si no se seleccionó "Direccionenvio"
+                  # Realizar una nueva solicitud a la API para obtener los detalles del producto
+               
+                  url = f'http://192.168.88.136:3002/ecommer/rs/EditarUbicacion'
+    
+                  response = requests.post(url, json=data)  # Usar json=data en lugar de data=data
+                  data_from_express_api = response.json()
+                  referer = request.META.get('HTTP_REFERER')
+    
+                  if response.status_code == 200:
+                        messages.success(request,'Direccion Agregada')
+                        return redirect('direccion')
+                      # return redirect('home')
+                  elif response.status_code == 201:
+                        messages.error(request,data_from_express_api['message'])
+                        return redirect('direccion')
+                
+                  else:
+                      messages.error(request,' No Se Pudo Registar La Ubicacion')
+                      return redirect(referer)
+
+                except Exception as e:
+                  print(e)
+                  context = None
+                  referer = request.META.get('HTTP_REFERER')
+                  return redirect(referer)
+            else:
+                try:
+                  data ={
+                      "usuario" :session_data['id'],
+                        "idUbicacion" :id
+                     }   
+                  url = f'http://192.168.88.136:3002/ecommer/rs/verdirecciones'
+    
+                  response = requests.post(url, json=data)  # Usar json=data en lugar de data=data
+                
+                  data_from_express_api = response.json()
+                  referer = request.META.get('HTTP_REFERER')
+                  data=data_from_express_api['ubcaciones']
+                 
+                  if response.status_code == 200:
+                      context = {
+                          'detalle':data[0],
+                          'GOOGLE_MAPS_API_KEY': GOOGLE_MAPS_API_KEY
+                          }
+                      return render(request, 'accounts/EditDireccion.html',context)
+
+                  else:
+                      messages.error(request,'Direccion No Encontrada')
+                      return redirect('direccion')
+
+                except Exception as e:
+                  print(e)
+                  context = None
+                  messages.error(request,'Direccion No Encontrada')
+                  return redirect('direccion')
+               
+
+      else:
+            messages.error(request,'Debe Iniciar Session')
+            return redirect('login')
+      
+def EditarUbicacion(request):
+      session_data = dict(request.session)
+      if session_data:
+            if request.method=='POST':
+             
+                try:
+                  data ={
+                        "Detalle" :request.POST['Detalle'],
+                        "usuario" :session_data['id'],
+                        "Celular" :request.POST['Celular'],
+                        "Longitud" :request.POST['longitudInput'],
+                        "Latitud" :request.POST['latitudInput'],
+                        "idubicacion":request.POST['idubicacion']
+
+                     }   
+                  if 'Direccionenvio' in request.POST:
+                         data["Activa"] = request.POST['Direccionenvio']
+                  else:
+                        data["Activa"] = 'No'  # Establece un valor predeterminado si no se seleccionó "Direccionenvio"
+                  # Realizar una nueva solicitud a la API para obtener los detalles del producto
+               
+                  url = f'http://192.168.88.136:3002/ecommer/rs/EditarUbicacion'
+    
+                  response = requests.post(url, json=data)  # Usar json=data en lugar de data=data
+             
+                  data_from_express_api = response.json()
+                  referer = request.META.get('HTTP_REFERER')
+    
+                  if response.status_code == 200:
+                        messages.success(request,'Direccion Editada Con Exito')
+                        return redirect('direccion')
+                      # return redirect('home')
+                  elif response.status_code == 201:
+                        messages.error(request,data_from_express_api['message'])
+                        return redirect('direccion')
+                
+                  else:
+                      messages.error(request,' No Se Pudo Registar La Ubicacion')
+                      return redirect(referer)
+
+                except Exception as e:
+                  print(e)
+                  context = None
+                  referer = request.META.get('HTTP_REFERER')
+                  return redirect(referer)
+            else:
+                referer = request.META.get('HTTP_REFERER')
+                return redirect(referer)
+               
+               
+
+      else:
+            messages.error(request,'Debe Iniciar Session')
+            return redirect('login')    
+
+def ActivarDireccion(request,idlista):
+      session_data = dict(request.session)
+      if session_data:
+           
+             
+                try:
+                  data ={
+                        "idUbicacion" :idlista,
+                        "usuario" :session_data['id'],
+
+
+                     }   
+                  url = f'http://192.168.88.136:3002/ecommer/rs/activarubicacion'
+    
+                  response = requests.post(url, json=data)  # Usar json=data en lugar de data=data
+                  data_from_express_api = response.json()
+                  referer = request.META.get('HTTP_REFERER')
+    
+                  if response.status_code == 200:
+                        messages.success(request,'Direccion De Envio Activada')
+                        return redirect('direccion')
+                      # return redirect('home')
+                  elif response.status_code == 201:
+                        messages.error(request,data_from_express_api['message'])
+                        return redirect('direccion')
+                
+                  else:
+                      messages.error(request,' No Se Pudo Cambiar La Ubicacion')
+                      return redirect(referer)
+
+                except Exception as e:
+                  print(e)
+                  context = None
+                  referer = request.META.get('HTTP_REFERER')
+                  return redirect(referer)
+
+      else:
+            messages.error(request,'Debe Iniciar Session')
+            return redirect('login')
 
 
 
@@ -268,7 +578,7 @@ def Listaproductos(request,id):
            
               if response.status_code == 200:
                   existingCart=data_from_express_api['carrito']
-                  print(existingCart)
+              
                   context={
                       'Productos':existingCart,
                       'idlista':id
