@@ -188,9 +188,9 @@
             <div class="w-40 md:w-56 h-auto group rounded bg-white shadow overflow-hidden">
                 <!-- product image -->
                 {% if product.porcentaje %}
-                <span class="p-discount"> -{{product.porcentaje}}% </span>
+                <span class="p-discountstore"> -{{product.porcentaje}}% </span>
                 {% else %}
-                <span class="p-discountsin">  </span>
+                <span class="p-discountsinstore">  </span>
                 {% endif %}
 
                 <a href="{%  url 'product_detail' product.item %}">

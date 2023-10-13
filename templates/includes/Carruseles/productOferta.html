@@ -152,10 +152,9 @@
 
     }
 
-    .p-discount {
+    .p-discounts {
         position: absolute;
-        left: 20px;
-        top: 20px;
+top: 0;
         width: 65px;
         height: 24px;
         color: #ffffff;
@@ -254,7 +253,7 @@
 
                 {% for item in productos %}
                 <div class="product-box1 ">
-                    <span class="p-discount"> -{{item.porcentaje}}% </span>
+                    <span class="p-discounts"> -{{item.porcentaje}}% </span>
 
                     <!-- img container -->
                     <div class="p-img-container">

@@ -110,6 +110,9 @@ def guardar_valor_en_sesion(request):
         selected_text = request.POST['selected_text']  # También obtén el texto de la opción seleccionada si lo necesitas.
 
         # # Guarda los valores en request.session
+        request.session['token'] = ''
+        request.session['Usuario'] = ''
+        request.session['id'] = ''
         request.session['valor_seleccionado'] = selected_value
         request.session['nombre_tienda'] = selected_text  # Si necesitas guardar el nombre de la tienda.
         request.session.save()

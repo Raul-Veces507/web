@@ -195,13 +195,12 @@
       }
 
       // Verificar si hay un valor guardado en sessionStorage
-      const storedValue = " {{request.session.valor_seleccionado}} "
+      const storedValue = "{{ request.session.valor_seleccionado }}".trim(); // Elimina espacios en blanco alrededor del valor
       // Mostrar la alerta solo si no hay un valor en sessionStorage
-      if (!storedValue) {
+      if (storedValue === "") {
         // Mostrar la alerta automáticamente después de 3 segundos
         setTimeout(showAlert, 1000); // 3000 milisegundos (3 segundos)
       }
-
       // Cerrar la alerta al hacer clic en el botón de cierre
       closeAlertButton.addEventListener("click", hideAlert);
     });
@@ -222,27 +221,27 @@
     // Función para guardar el valor en sessionStorage
 
     function guardarValorEnSesion() {
-    const selectedValue = miSelect.value; // Obtén el valor seleccionado
-    const selectedText = miSelect.options[miSelect.selectedIndex].text; // Obtén el texto de la opción seleccionada
-    var csrfToken = $("input[name=csrfmiddlewaretoken]").val();
-    $.ajax({
+      const selectedValue = miSelect.value; // Obtén el valor seleccionado
+      const selectedText = miSelect.options[miSelect.selectedIndex].text; // Obtén el texto de la opción seleccionada
+      var csrfToken = $("input[name=csrfmiddlewaretoken]").val();
+      $.ajax({
         type: "POST",
         url: "{% url 'guardar_valor_en_sesion' %}", // Asegúrate de especificar la URL correcta
         data: {
-            selected_value: selectedValue,
-            selected_text: selectedText
+          selected_value: selectedValue,
+          selected_text: selectedText
         },
         headers: {
-        "X-CSRFToken": csrfToken  // Agrega el token CSRF como encabezado
-      },
+          "X-CSRFToken": csrfToken  // Agrega el token CSRF como encabezado
+        },
         success: function (data) {
-            // Manejar la respuesta del servidor si es necesario
+          // Manejar la respuesta del servidor si es necesario
         },
         error: function (error) {
-            // Manejar errores si es necesario
+          // Manejar errores si es necesario
         }
-    });
-}
+      });
+    }
 
     // function guardarValorEnSesion() {
     //   const selectedValue = miSelect.value;
@@ -253,8 +252,8 @@
 
     // Función para mostrar el valor seleccionado
     function mostrarValor() {
-      const storedValue = "{{request.session.valor_seleccionado}}" 
-      const storedNombreTienda ="{{request.session.nombre_tienda}}" 
+      const storedValue = "{{request.session.valor_seleccionado}}"
+      const storedNombreTienda = "{{request.session.nombre_tienda}}"
 
       if (storedValue) {
         miSelect.value = storedValue;
