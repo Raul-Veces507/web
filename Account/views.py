@@ -60,54 +60,47 @@ def register(request):
     return render(request, 'account/register.html',context)
 
 def login(request):
-    if request.method== 'POST':
-        email=request.POST['email']
-        password=request.POST['password']
-        cart=_cart_id(request)
-        try:
-          data ={
-           "email":email,
-            "password":password,
-            "cart":cart
+    session_data = dict(request.session)
+    if session_data:
+         return redirect('home')
+    else:
+        if request.method== 'POST':
+            email=request.POST['email']
+            password=request.POST['password']
+            cart=_cart_id(request)
+            try:
+              data ={
+               "email":email,
+                "password":password,
+                "cart":cart
 
-             }   
-          # Realizar una nueva solicitud a la API para obtener los detalles del producto
-          url = f'http://192.168.88.136:3002/ecommer/rs/login'
-  
-          response = requests.post(url, json=data)  # Usar json=data en lugar de data=data
-  
-          data_from_express_api = response.json()
-          referer = request.META.get('HTTP_REFERER')
-  
-          if response.status_code == 200:
-             token=data_from_express_api['token']
-             nombre=data_from_express_api['nombre']
-             id=data_from_express_api['id']
-             request.session['token'] = token
-             request.session['Usuario'] = nombre
-             request.session['id'] = id
-             request.session.save()
-             return redirect('home') 
-             
-          else:
-              return JsonResponse({'status': 'error', 'message': 'Error al agregar el producto al carrito'})
-  
+                 }   
+              # Realizar una nueva solicitud a la API para obtener los detalles del producto
+              url = f'http://192.168.88.136:3002/ecommer/rs/login'
+    
+              response = requests.post(url, json=data)  # Usar json=data en lugar de data=data
+    
+              data_from_express_api = response.json()
+              referer = request.META.get('HTTP_REFERER')
+    
+              if response.status_code == 200:
+                 token=data_from_express_api['token']
+                 nombre=data_from_express_api['nombre']
+                 id=data_from_express_api['id']
+                 request.session['token'] = token
+                 request.session['Usuario'] = nombre
+                 request.session['id'] = id
+                 request.session.save()
+                 return redirect('home') 
 
-        except Exception as e:
-          print(e)
-          context = None
-          return JsonResponse({'status': 'error', 'message': 'Error interno del servidor'})
-   
-    #     user=auth.authenticate(email=email,password=password)
-   
-    #     if user is not None:
-    #         auth.login(request,user)
-    #         return redirect('home')
-        
-    #     else:
-    #         messages.error(request, 'Las credenciales son incorrectas')
-    #         return redirect('login')
+              else:
+                  return JsonResponse({'status': 'error', 'message': 'Error al agregar el producto al carrito'})
+    
 
+            except Exception as e:
+              print(e)
+              context = None
+              return JsonResponse({'status': 'error', 'message': 'Error interno del servidor'})
 
     return render(request, 'accounts/login.html')
 
@@ -204,6 +197,56 @@ def perfil(request):
     else:
         return redirect('login')
 
+
+def EditarPerfil(request):
+      session_data = dict(request.session)
+      if session_data:
+            if request.method=='POST':
+                try:
+                  data ={
+                    "nombre":request.POST['nombre'],
+                    "apellido":request.POST['apellido'],
+                    "fechad":request.POST['fechad'],
+                    "Sexo":request.POST['Sexo'],
+                    "eresmas":request.POST['eresmas'],
+                    "empresa":request.POST['empresa'],
+                    "Ruc":request.POST['Ruc'],
+                    "Dv":request.POST['Dv'],
+                    "usuario":session_data['id']
+                     }   
+                  # Realizar una nueva solicitud a la API para obtener los detalles del producto
+                  url = f'http://192.168.88.136:3002/ecommer/rs/EditarPerfil'
+    
+                  response = requests.post(url, json=data)  # Usar json=data en lugar de data=data
+                  data_from_express_api = response.json()
+                  referer = request.META.get('HTTP_REFERER')
+    
+                  if response.status_code == 200:
+                        messages.success(request,'Perfil Editado')
+                        return redirect(referer)
+                      # return redirect('home')
+                  elif response.status_code == 201:
+                        messages.error(request,'No Se Pudo Editar El Perfil')
+                        return redirect(referer)
+                
+                  else:
+                      messages.error(request,'No Se Pudo Editar El Perfil')
+                      return redirect(referer)
+
+                except Exception as e:
+                  print(e)
+                  context = None
+                  referer = request.META.get('HTTP_REFERER')
+                  messages.error(request,'No Se Pudo Editar El Perfil')
+                  return redirect(referer)
+            else:
+                   referer = request.META.get('HTTP_REFERER')
+                   return redirect(referer)
+      else:
+            referer = request.META.get('HTTP_REFERER')
+            messages.error(request,'Debe Iniciar Session')
+            return redirect(referer)
+      
 def ordenes(request):
     session_data = dict(request.session)
     if session_data:

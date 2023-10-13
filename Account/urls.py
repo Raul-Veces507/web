@@ -9,6 +9,7 @@ urlpatterns=[
     path('activate/<uidb64>/<token>/',views.activate, name='activate'),
     path('dashboard/',views.dashboard, name='dashboard'),
     path('perfil/',views.perfil, name='perfil'),
+    path('EditarPerfil/',views.EditarPerfil, name='EditarPerfil'),
     path('ordenes/',views.ordenes, name='ordenes'),
     path('direccion/',views.direccion, name='direccion'),
     path('direccion/Agregar',views.Agregardireccion, name='Agregardireccion'),
