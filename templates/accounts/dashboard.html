@@ -4,11 +4,182 @@
    
     {% include 'includes/sidebarnav.html' %}
 
-   
-<div class="col-span-9 mt-6 lg:mt-0 space-y-4">
-
+    <div class="lg:flex md:justify-center lg:bg-gray-50 col-span-9 mt-2 lg:mt-0 w-full h-full items-center rounded-lg">
+        <div class="w-full max-w-sm lg:mx-6 md:mx-auto mt-10 bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
+            <div class="flex flex-col items-center py-3 pb-10">
+                <img class="w-30 h-30 mb-3 rounded-full shadow-lg" src="https://cdn-icons-png.flaticon.com/128/2202/2202112.png" alt="Bonnie image">
+                <h5 class="mb-1 text-xl font-medium text-gray-900 dark:text-white">{{detalle.Nombre}} {{detalle.Apellido}}</h5>
+                <span class="text-sm text-gray-500 dark:text-gray-400">{{Fecha_nacimiento}}</span>
+                <div class="flex mt-4 space-x-3 md:mt-6">
+                    <a href="#" data-modal-target="authentication-modal" data-modal-toggle="authentication-modal" class="inline-flex items-center px-4 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-full hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover-bg-blue-700 dark:focus-ring-blue-800">Editar Perfil</a>
+                    <a href="#" class="inline-flex items-center px-4 py-2 text-sm font-medium text-center text-white bg-red-700 border border-gray-300 rounded-full hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-gray-200 dark:bg-gray-800 dark:text-white dark:border-gray-600 dark:hover-bg-gray-700 dark:hover-border-gray-700 dark:focus-ring-gray-700">Cerrar Sesión</a>
+                </div>
+            </div>
+        </div>
+        <div class="mx-4 space-y-4 py-6 md:mx-auto">
+            <div class="max-w-sm p-4 sm:p-6 bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
+                <a href="#">
+                    <h5 class="mb-2 text-2xl font-semibold tracking-tight text-gray-900 dark:text-white">Mi libreta de direcciones</h5>
+                </a>
+                <dl class="max-w-md text-gray-900 divide-y divide-gray-200 dark:text-white dark:divide-gray-700">
+                    <div class="flex flex-col pb-3">
+                        <dt class="mb-1 text-gray-500 dark:text-gray-400">Email address</dt>
+                        <dd class="text-lg font-semibold">yourname@flowbite.com</dd>
+                    </div>
+                    <div class="flex flex-col py-3">
+                        <dt class="mb-1 text-gray-500 dark:text-gray-400">Home address</dt>
+                        <dd class="text-lg font-semibold">92 Miles Drive, Newark, NJ 07103, California, USA</dd>
+                    </div>
+                    <div class="flex flex-col pt-3">
+                        <dt class="mb-1 text-gray-500 dark:text-gray-400">Phone number</dt>
+                        <dd class="text-lg font-semibold">+00 123 456 789 / +12 345 678</dd>
+                    </div>
+                </dl>
+                <div class="mt-4 flex justify-center">
+                    <button type="button" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 dark:bg-blue-600 dark:hover-bg-blue-700 dark:focus-ring-blue-800 focus:outline-none dark:focus-ring-blue-800">Administrar Direcciones</button>
+                </div>
+            </div>
+            <div class="max-w-sm p-4 sm:p-6 bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
+                <a href="#">
+                    <h5 class="mb-2 text-2xl font-semibold tracking-tight text-gray-900 dark:text-white">Mis listas de Compras</h5>
+                </a>
+                <p class="mb-3 font-normal text-gray-500 dark:text-gray-400">Follow this step-by-step guideline on how to certify for your weekly benefits:</p>
+                <a href="#" class="inline-flex items-center text-blue-600 hover:underline">
+                    See our guideline
+                    <svg class="w-3 h-3 ml-2.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 18 18">
+                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11v4.833A1.166 1.166 0 0 1 13.833 17H2.167A1.167 1.167 0 0 1 1 15.833V4.167A1.166 1.166 0 0 1 2.167 3h4.618m4.447-2H17v5.768M9.111 8.889l7.778-7.778"/>
+                    </svg>
+                </a>
+            </div>
+        </div>
+    </div>
     
-</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!--modal de perfil-->
+<div id="authentication-modal" tabindex="-1" aria-hidden="true" class="fixed top-0 left-0 right-0 z-50 hidden w-full p-4 overflow-x-hidden overflow-y-auto md:inset-0 h-[calc(100%-1rem)] max-h-full">
+    <div class="relative w-full max-w-md max-h-full">
+        <!-- Modal content -->
+        <div class="relative bg-white rounded-lg shadow dark:bg-gray-700">
+            <button type="button" class="absolute top-3 right-2.5 text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ml-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white" data-modal-hide="authentication-modal">
+                <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
+                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"/>
+                </svg>
+                <span class="sr-only">Close modal</span>
+            </button>
+            <div class="px-6 py-6 lg:px-8">
+                <h3 class="mb-4 text-xl font-medium text-gray-900 dark:text-white">Actualiza tus datos</h3>
+                <div class="container">
+ 
+    
+                    <form>
+                        <div class="grid gap-6 mb-6 md:grid-cols-2">
+                            <div>
+                                <label for="first_name" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Nombre</label>
+                                <input type="text" id="first_name" value="{{detalle.Nombre}}" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="John" required>
+                            </div>
+                            <div>
+                                <label for="last_name" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Apellido</label>
+                                <input type="text" id="last_name" value="{{detalle.Apellido}}" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Doe" required>
+                            </div>
+                            <div>
+                                <label for="company" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Fecha de nacimiento</label>
+                    
+                                <div class="relative max-w-sm">
+                                    <div class="absolute inset-y-0 left-0 flex items-center pl-3.5 pointer-events-none">
+                                      <svg class="w-4 h-4 text-gray-500 dark:text-gray-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
+                                        <path d="M20 4a2 2 0 0 0-2-2h-2V1a1 1 0 0 0-2 0v1h-3V1a1 1 0 0 0-2 0v1H6V1a1 1 0 0 0-2 0v1H2a2 2 0 0 0-2 2v2h20V4ZM0 18a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V8H0v10Zm5-8h10a1 1 0 0 1 0 2H5a1 1 0 0 1 0-2Z"/>
+                                      </svg>
+                                    </div>
+                                    <input datepicker type="text" value="{{Fecha_nacimiento}}"
+                                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full pl-10 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                    placeholder="Seleccionar Fecha de Entrega" readonly>
+                                </div>
+                               
+                            </div>  
+                            <div>
+                                <label for="phone" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Sexo</label>
+                                <select id="countries" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                                    <option value="1" {% if detalle.Sexo == "1" %}selected{% endif %}>Masculino</option>
+                                    <option value="2" {% if detalle.Sexo == "2" %}selected{% endif %}>Femenino</option>
+                                    <option value="3" {% if detalle.Sexo == "3" %}selected{% endif %}>No Definido</option>
+                                </select>
+                            </div>
+                            
+                            <div>
+                                <label for="website" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Eresmás #</label>
+                                <input type="number" value="{{detalle.Eresmas}}" id="website" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="" required>
+                            </div>
+                            <div>
+                                <label for="visitors" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Empresa</label>
+                                <input type="text"  value="{{detalle.Empresa}}"  id="visitors" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="" required>
+                            </div>
+                            <div >
+                                <label for="RUC" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">RUC</label>
+                                <input type="text" value="{{detalle.RUC}}"  id="email" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="" required>
+                            </div> 
+                            <div >
+                                <label for="dv" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">D.V</label>
+                                <input type="text" value="{{detalle.DV}}"  id="password" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="" required>
+                            </div> 
+                        </div>
+                      
+                        <div class="text-center">
+                    
+                            <button type="submit" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Guardar</button>
+                        </div>
+                      
+                    </form>
+                    
+                              
+                            </div>
+                            
+            </div>
+        </div>
+    </div>
+</div> 
+
+
+
+
+
+
 
 
 
