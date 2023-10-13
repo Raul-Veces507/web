@@ -104,7 +104,16 @@ def login(request):
 
     return render(request, 'accounts/login.html')
 
+def guardar_valor_en_sesion(request):
+    if request.method == 'POST':
+        selected_value = request.POST['selected_value']  # Asegúrate de que 'selected_value' sea el nombre correcto del campo HTML.
+        selected_text = request.POST['selected_text']  # También obtén el texto de la opción seleccionada si lo necesitas.
 
+        # # Guarda los valores en request.session
+        request.session['valor_seleccionado'] = selected_value
+        request.session['nombre_tienda'] = selected_text  # Si necesitas guardar el nombre de la tienda.
+        request.session.save()
+    return redirect('home')  # Redirige a la vista que necesites después de guardar los valores.
 
 def logout(request):
     # logout(request)
@@ -123,6 +132,15 @@ def logout(request):
     if 'id' in request.session:
         
         del request.session['id']
+        request.session.modified = True
+    if 'valor_seleccionado' in request.session:
+        
+        del request.session['valor_seleccionado']
+        request.session.modified = True
+
+    if 'nombre_tienda' in request.session:
+        
+        del request.session['nombre_tienda']
         request.session.modified = True
 
     # Otras acciones que desees realizar después de cerrar la sesión

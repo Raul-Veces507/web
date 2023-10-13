@@ -292,7 +292,7 @@ selectElement.addEventListener("change", function () {
 
            <script>
             // Recupera el valor de sessionStorage
-            const miValor = sessionStorage.getItem("nombreTienda");
+            const miValor = "{{request.session.nombre_tienda}}";
            
             // Verifica si el valor existe en sessionStorage
             if (miValor) {
