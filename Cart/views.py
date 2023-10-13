@@ -662,6 +662,8 @@ def checkout(request, total=Decimal("0"), quantity=0, cart_items=None, taxt=Deci
             if response.status_code == 200:
                 data_from_express_api = response.json()
                 cart_items = data_from_express_api['carrito']
+                Direccion = data_from_express_api['Direccion']
+                
                 
                 for cart_item in cart_items:
                     Descuento = Decimal(str(cart_item['Descuento'])) 
@@ -678,7 +680,7 @@ def checkout(request, total=Decimal("0"), quantity=0, cart_items=None, taxt=Deci
                     'taxt': taxt.quantize(Decimal("0.00")),
                    'semigrand_total': semigrand_total.quantize(Decimal("0.00")),
                     'grand_total': grand_total.quantize(Decimal("0.00")),
-                    'GOOGLE_MAPS_API_KEY': GOOGLE_MAPS_API_KEY
+                    'Direccion':Direccion
                 }
                 return render(request, 'store/checkout.html', context)
     

@@ -8,7 +8,6 @@ from decimal import Decimal
 def counter(request, total=Decimal("0"), quantity=0, cart_items=None, taxt=Decimal("0"), grand_total=Decimal("0"), delivery=Decimal("3.50")):
     cart_count=0
     session_data = dict(request.session)
-    
     if session_data:
         try:
             cart=_cart_id(request)

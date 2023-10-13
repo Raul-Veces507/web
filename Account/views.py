@@ -60,10 +60,7 @@ def register(request):
     return render(request, 'account/register.html',context)
 
 def login(request):
-    session_data = dict(request.session)
-    if session_data:
-         return redirect('home')
-    else:
+        session_data = dict(request.session)
         if request.method== 'POST':
             email=request.POST['email']
             password=request.POST['password']
@@ -102,7 +99,7 @@ def login(request):
               context = None
               return JsonResponse({'status': 'error', 'message': 'Error interno del servidor'})
 
-    return render(request, 'accounts/login.html')
+        return render(request, 'accounts/login.html')
 
 def guardar_valor_en_sesion(request):
     if request.method == 'POST':
