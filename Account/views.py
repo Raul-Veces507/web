@@ -60,7 +60,7 @@ def register(request):
     return render(request, 'account/register.html',context)
 
 def login(request):
-        session_data = dict(request.session)
+       
         if request.method== 'POST':
             email=request.POST['email']
             password=request.POST['password']

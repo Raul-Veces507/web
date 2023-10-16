@@ -660,10 +660,12 @@ def checkout(request, total=Decimal("0"), quantity=0, cart_items=None, taxt=Deci
     
     
             if response.status_code == 200:
+              
                 data_from_express_api = response.json()
                 cart_items = data_from_express_api['carrito']
                 Direccion = data_from_express_api['Direccion']
-                
+                  
+              
                 
                 for cart_item in cart_items:
                     Descuento = Decimal(str(cart_item['Descuento'])) 

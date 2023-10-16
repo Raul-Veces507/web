@@ -23,8 +23,11 @@
                      text-blue-600  rounded-t-lg active dark:border-blue-500 {% endif %} mt-5 ">
                      <i class="fas fa-user"></i> Informacion de Perfil</a>
                 <a href="{% url 'direccion' %}" class="hover:text-primary transition capitalize block {% if '/account/direccion/' == request.path %} 
-                    text-blue-600  rounded-t-lg active dark:text-blue-500 dark:border-blue-500 {% endif %} mt-5"><i class="fas fa-map-signs"></i> Administrar
-                    Direccion
+                    text-blue-600  rounded-t-lg active dark:text-blue-500 dark:border-blue-500 {%elif '/account/direccion/Agregar' == request.path %}   
+                      text-blue-600  rounded-t-lg active dark:text-blue-500 dark:border-blue-500
+                     
+                      {% endif %} mt-5"><i class="fas fa-map-signs"></i> Administrar
+                    Direccion 
                 </a>
                 <a href="change-password.html" class="hover:text-primary transition capitalize block {% if '/account/changePassword/' == request.path %} 
                     text-blue-600  rounded-t-lg active dark:text-blue-500 dark:border-blue-500 {% endif %} mt-5">
