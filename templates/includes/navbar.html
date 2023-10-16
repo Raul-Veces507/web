@@ -262,30 +262,47 @@
         <div  class="  space-x-4  items-center">
            
            <div   class="hidden md:flex">
-            <div class="relative">
-              <input type="text" id="floating_outlined"  id="resultado" class="block px-2.5 pb-2.5 pt-4 w-full text-sm text-gray-900 bg-transparent rounded-lg border-1 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder=" " />
-              <label for="floating_outlined" class="absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-white dark:bg-gray-900 px-2 peer-focus:px-2 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 left-1">Floating outlined</label>
-          </div>
-          <p id="resultado"></p>
+            <div class="relative mb-1 " data-te-input-wrapper-init>
+              <input
+                type="text"
+                class="peer block min-h-[auto] w-full rounded border-0 bg-neutral-100 px-3 py-[0.32rem] leading-[1.6] outline-none transition-all duration-200 ease-linear focus:placeholder:opacity-100 peer-focus:text-primary data-[te-input-state-active]:placeholder:opacity-100 motion-reduce:transition-none dark:bg-neutral-700 dark:text-neutral-200 dark:placeholder:text-neutral-200 dark:peer-focus:text-primary [&:not([data-te-input-placeholder-active])]:placeholder:opacity-0"
+                id=""
+                value="{{request.session.nombre_tienda}}"
+                aria-label="readonly input example"
+                readonly />
+              <label
+                for="exampleFormControlInput50"
+                class="pointer-events-none absolute left-3 top-0 mb-0 max-w-[90%] origin-[0_0] truncate pt-[0.37rem] leading-[1.6] text-black transition-all duration-200 ease-out peer-focus:-translate-y-[0.9rem] peer-focus:scale-[0.8] peer-focus:text-primary peer-data-[te-input-state-active]:-translate-y-[0.9rem] peer-data-[te-input-state-active]:scale-[0.8] motion-reduce:transition-none dark:text-neutral-200 dark:peer-focus:text-primary"
+                >Tienda seleccionada
+              </label>
+             <div class="bg-gray-50">
+              <a id="alertboton" class=" ml-2 text-sm hover:underline hover:text-blue-700 alertboton " href="#">Cambiar tienda</a>
+             </div> 
+            </div>         
           
            </div>  
 
            <script>
-            // Obtén una referencia al elemento select y al modal
-const selectElement = document.getElementById("metodoSelect");
-const modalElement = document.getElementById("popup-modal");
 
-// Agrega un evento de cambio al select
-selectElement.addEventListener("change", function () {
-  // Verifica si se seleccionó la opción "Cambiar método"
-  if (selectElement.value === "seleccion") {
-    // Abre el modal
-    modalElement.classList.remove("hidden");
-  } else {
-    // Si se selecciona otra opción, asegúrate de ocultar el modal
-    modalElement.classList.add("hidden");
-  }
-});
+
+              document.addEventListener("DOMContentLoaded", function () {
+
+                $(document).on("click", ".alertboton", function () {
+                  showAlert()
+                })
+      const alertElement = document.getElementById("alert");
+      const overlayElement = document.getElementById("overlay");
+      function showAlert() {
+        alertElement.classList.remove("hidden");
+        overlayElement.classList.remove("hidden");
+      }
+
+      // Función para ocultar la alerta y restaurar el fondo
+      function hideAlert() {
+        alertElement.classList.add("hidden");
+        overlayElement.classList.add("hidden");
+      }
+              })
 
            </script>
            
