@@ -98,7 +98,7 @@ AUTH_USER_MODEL='Account.Account'
 DATABASES = {
  'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'fastdeli',
+        'NAME': 'fastdeli2',
         'USER': 'root',  # El usuario por defecto de MySQL en XAMPP es "root".
         'PASSWORD': '',  # Deja la contraseña en blanco si no la configuraste.
         'HOST': '127.0.0.1',  # Utiliza la dirección IP en lugar de 'localhost'.

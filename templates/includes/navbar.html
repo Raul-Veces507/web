@@ -6,40 +6,43 @@
 
 
 <!-- Carrusel -->
-<nav class=" bg-blue-700" >
+<nav class=" bg-blue-700">
   <div class="w-full px-4 py-3 mx-auto">
-      <div class="flex items-center">
-        
-<div id="default-carousel" class="relative w-full" data-carousel="slide">
-  <!-- Carousel wrapper -->
-  <div class="relative  h-4 overflow-hidden rounded-lg md:h-4 text-center">
-       <!-- Item 1 --> 
-      <div class="hidden duration-700 ease-in-out text-white " data-carousel-item>
-          <h6 class="font-bold   " style="font-size: 15px; font-family: 'AVENIRLTSTD-BOOK';"  >Verificar fechas DISPONIBLES</h6 >
-      </div>
-      <!-- Item 2 -->
-      <div class="hidden duration-700 ease-in-out text-white" data-carousel-item>
-        <h6  class="font-bold" style="font-size: 15px; font-family: 'Avenir LT Std 45 Book';" >Verificar fechas DISPONIBLES</h6>
-      </div>
-      <!-- Item 3 -->
-      <div class="hidden duration-700 ease-in-out text-white" data-carousel-item>
-        <h6 class="font-bold" style="font-size: 15px;" >Verificar fechas DISPONIBLES</h6>
-      </div>
-      <!-- Item 4 -->
-      <div class="hidden duration-700 ease-in-out text-white" data-carousel-item>
-        <h6 class="font-bold" style="font-size: 15px; font-family: 'Avenir LT Std 85 Heavy Oblique';" >Verificar fechas DISPONIBLES</h6>
-      </div>
-      <!-- Item 5 -->
-      <div class="hidden duration-700 ease-in-out text-white" data-carousel-item>
-        <h6 class="font-bold" style="font-size: 15px; ">Verificar fechas DISPONIBLES</h6>
-      </div>
-  </div>
-  <!-- Slider indicators -->
-  <!-- Slider controls -->
- 
-</div>
+    <div class="flex items-center">
+
+      <div id="default-carousel" class="relative w-full" data-carousel="slide">
+        <!-- Carousel wrapper -->
+        <div class="relative  h-4 overflow-hidden rounded-lg md:h-4 text-center">
+          <!-- Item 1 -->
+          <div class="hidden duration-700 ease-in-out text-white " data-carousel-item>
+            <h6 class="font-bold   " style="font-size: 15px; font-family: 'AVENIRLTSTD-BOOK';">Verificar fechas
+              DISPONIBLES</h6>
+          </div>
+          <!-- Item 2 -->
+          <div class="hidden duration-700 ease-in-out text-white" data-carousel-item>
+            <h6 class="font-bold" style="font-size: 15px; font-family: 'Avenir LT Std 45 Book';">Verificar fechas
+              DISPONIBLES</h6>
+          </div>
+          <!-- Item 3 -->
+          <div class="hidden duration-700 ease-in-out text-white" data-carousel-item>
+            <h6 class="font-bold" style="font-size: 15px;">Verificar fechas DISPONIBLES</h6>
+          </div>
+          <!-- Item 4 -->
+          <div class="hidden duration-700 ease-in-out text-white" data-carousel-item>
+            <h6 class="font-bold" style="font-size: 15px; font-family: 'Avenir LT Std 85 Heavy Oblique';">Verificar
+              fechas DISPONIBLES</h6>
+          </div>
+          <!-- Item 5 -->
+          <div class="hidden duration-700 ease-in-out text-white" data-carousel-item>
+            <h6 class="font-bold" style="font-size: 15px; ">Verificar fechas DISPONIBLES</h6>
+          </div>
+        </div>
+        <!-- Slider indicators -->
+        <!-- Slider controls -->
 
       </div>
+
+    </div>
   </div>
 </nav>
 
@@ -47,329 +50,273 @@
 
 
 
-  <!-- Subheader -->
-  <nav class=" hidden md:flex justify-between  border">
-    <div class="w-full px-4 py-3 mx-auto">
-        <div class="flex items-center  justify-between">
-            <ul class="flex flex-row  font-medium mt-0 mr-6 space-x-2 text-sm">
-              
-                <li>
-                  <i class="fa-solid fa-location-dot"></i>
-                    <a href="#" class="text-gray-900 dark:text-white hover:text-pink-400">Zonas de Entrega</a>
-                </li>
-                <li>
-                    <a href="#" class="text-gray-900 dark:text-white  hover:text-pink-400">Sucursales y Horarios</a>
-                </li>
-                <li>
-                  <a href="#" class="text-gray-900 dark:text-white  hover:text-pink-400">RS+</a>
-              </li>
-              
-                
+<!-- Subheader -->
+<nav class=" hidden md:flex justify-between  border">
+  <div class="w-full px-4 py-3 mx-auto">
+    <div class="flex items-center  justify-between">
+      <ul class="flex flex-row  font-medium mt-0 mr-6 space-x-2 text-sm">
 
-              
-            </ul>            
-              <div class="hidden md:flex justify-between"  >
-                
-                <ul class="flex space-x-4">
-                  <li class="pt-1">
-                    Contactenos
-                    <span class="text-blue-700">+507 309-5335</span>
-                  </li>
-                  <li class="flex">
-                    {% if request.session.Usuario %}
-                 
-                    <div class="relative" data-te-dropdown-ref>
-                      <button
-                        class=" rounded-full flex items-center whitespace-nowrap   px-6 pb-2 pt-1 text-xs font-medium uppercase leading-normal text-black border transition duration-150 ease-in-out hover:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)]"
-                        type="button"
-                        id="dropdownMenuButton1"
-                        data-te-dropdown-toggle-ref
-                        aria-expanded="false"
-                        data-te-ripple-init
-                        data-te-ripple-color="light">
-                        <span class="mr-4 w-2 mt-1" style="  width: 15px;
+        <li>
+          <i class="fa-solid fa-location-dot"></i>
+          <a href="#" class="text-gray-900 dark:text-white hover:text-pink-400">Zonas de Entrega</a>
+        </li>
+        <li>
+          <a href="#" class="text-gray-900 dark:text-white  hover:text-pink-400">Sucursales y Horarios</a>
+        </li>
+        <li>
+          <a href="#" class="text-gray-900 dark:text-white  hover:text-pink-400">RS+</a>
+        </li>
+
+
+
+
+      </ul>
+      <div class="hidden md:flex justify-between">
+
+        <ul class="flex space-x-4">
+          <li class="pt-1">
+            Contactenos
+            <span class="text-blue-700">+507 309-5335</span>
+          </li>
+          <li class="flex">
+            {% if request.session.Usuario %}
+
+            <div class="relative" data-te-dropdown-ref>
+              <button
+                class=" rounded-full flex items-center whitespace-nowrap   px-6 pb-2 pt-1 text-xs font-medium uppercase leading-normal text-black border transition duration-150 ease-in-out hover:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)]"
+                type="button" id="dropdownMenuButton1" data-te-dropdown-toggle-ref aria-expanded="false"
+                data-te-ripple-init data-te-ripple-color="light">
+                <span class="mr-4 w-2 mt-1" style="  width: 15px;
                         height: 15px;
                         -moz-border-radius: 50%;
                         -webkit-border-radius: 50%;
                         border-radius: 50%;
                         background: greenyellow">
-                        
-                        </span>
-                        <span class="font-bold mt-1">{{request.session.Usuario | capfirst}}</span>
-                       
-                      </button>
-                      <ul
-                        class="absolute z-[1000] float-left m-0 hidden min-w-max list-none overflow-hidden rounded-lg border-none bg-white bg-clip-padding text-left text-base shadow-lg dark:bg-neutral-700 [&[data-te-dropdown-show]]:block"
-                        aria-labelledby="dropdownMenuButton1"
-                        data-te-dropdown-menu-ref>
-                        <li>
-                          <a
-                          class="block w-full whitespace-nowrap bg-transparent px-4 py-2 text-sm font-normal text-neutral-700 hover:bg-neutral-100 active:text-neutral-800 active:no-underline disabled:pointer-events-none disabled:bg-transparent disabled:text-neutral-400 dark:text-neutral-200 dark:hover:bg-neutral-600"
-                          href="{% url 'logout' %}"
-                          data-te-dropdown-item-ref
-                          >Salir de sesion</a>
-                        
-                          
-                        
-                        </li>
-                        <li>
-                          <a
-                          class="block w-full whitespace-nowrap bg-transparent px-4 py-2 text-sm font-normal text-neutral-700 hover:bg-neutral-100 active:text-neutral-800 active:no-underline disabled:pointer-events-none disabled:bg-transparent disabled:text-neutral-400 dark:text-neutral-200 dark:hover:bg-neutral-600"
-                          href="{% url 'dashboard' %}"
-                          data-te-dropdown-item-ref
-                          >Dashboard</a>
-                        </li>
-                        <li class="flex">
-                         
-                          <a
-                          class="block w-full whitespace-nowrap bg-transparent px-4 py-2 text-sm font-normal text-neutral-700 hover:bg-neutral-100 active:text-neutral-800 active:no-underline disabled:pointer-events-none disabled:bg-transparent disabled:text-neutral-400 dark:text-neutral-200 dark:hover:bg-neutral-600"
-                          href="{% url 'ListaCompra' %}"
-                          data-te-dropdown-item-ref
-                          >Lista de compras</a>
-                          
-                        </li>
 
-                        <li>
-                          <a
-                          class="block w-full whitespace-nowrap bg-transparent px-4 py-2 text-sm font-normal text-neutral-700 hover:bg-neutral-100 active:text-neutral-800 active:no-underline disabled:pointer-events-none disabled:bg-transparent disabled:text-neutral-400 dark:text-neutral-200 dark:hover:bg-neutral-600"
-                          href="{% url 'login' %}"
-                          data-te-dropdown-item-ref
-                          >Mis pedidos</a>
-                          
-                        </li>
-                       
-                      </ul>
-                    </div>
-                  
-                    {% else %}
-                    <div class="relative" data-te-dropdown-ref>
-                      <button
-                        class="flex items-center whitespace-nowrap rounded  px-6 pb-2 pt-1 text-xs font-medium uppercase leading-normal text-black border transition duration-150 ease-in-out hover:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)]"
-                        type="button"
-                        id="dropdownMenuButton1"
-                        data-te-dropdown-toggle-ref
-                        aria-expanded="false"
-                        data-te-ripple-init
-                        data-te-ripple-color="light">
-                        <span class="mr-4 w-2">
-                          <svg xmlns="http://www.w3.org/2000/svg" id="Layer_1" data-name="Layer 1" viewBox="0 0 24 24" width="12" height="12"><path d="M16.043,14H7.957A4.963,4.963,0,0,0,3,18.957V24H21V18.957A4.963,4.963,0,0,0,16.043,14Z"/><circle cx="12" cy="6" r="6"/></svg>
+                </span>
+                <span class="font-bold mt-1">{{request.session.Usuario | capfirst}}</span>
 
-                        </span>
-                        Iniciar Sesion
-                       
-                      </button>
-                      <ul
-                        class="absolute z-[1000] float-left m-0 hidden min-w-max list-none overflow-hidden rounded-lg border-none bg-white bg-clip-padding text-left text-base shadow-lg dark:bg-neutral-700 [&[data-te-dropdown-show]]:block"
-                        aria-labelledby="dropdownMenuButton1"
-                        data-te-dropdown-menu-ref>
-                        <li>
-                          <a
-                          class="block w-full whitespace-nowrap bg-transparent px-4 py-2 text-sm font-normal text-neutral-700 hover:bg-neutral-100 active:text-neutral-800 active:no-underline disabled:pointer-events-none disabled:bg-transparent disabled:text-neutral-400 dark:text-neutral-200 dark:hover:bg-neutral-600"
-                          href="{% url 'login' %}"
-                          data-te-dropdown-item-ref
-                          >login</a>
-                        
-                          
-                        
-                        </li>
-                        <li>
-                          <a
-                          class="block w-full whitespace-nowrap bg-transparent px-4 py-2 text-sm font-normal text-neutral-700 hover:bg-neutral-100 active:text-neutral-800 active:no-underline disabled:pointer-events-none disabled:bg-transparent disabled:text-neutral-400 dark:text-neutral-200 dark:hover:bg-neutral-600"
-                          href="{% url 'login' %}"
-                          data-te-dropdown-item-ref
-                          >Dashboard</a>
-                        </li>
-                       
-                      </ul>
-                    </div>
+              </button>
+              <ul
+                class="absolute z-[1000] float-left m-0 hidden min-w-max list-none overflow-hidden rounded-lg border-none bg-white bg-clip-padding text-left text-base shadow-lg dark:bg-neutral-700 [&[data-te-dropdown-show]]:block"
+                aria-labelledby="dropdownMenuButton1" data-te-dropdown-menu-ref>
+                <li>
+                  <a class="block w-full whitespace-nowrap bg-transparent px-4 py-2 text-sm font-normal text-neutral-700 hover:bg-neutral-100 active:text-neutral-800 active:no-underline disabled:pointer-events-none disabled:bg-transparent disabled:text-neutral-400 dark:text-neutral-200 dark:hover:bg-neutral-600"
+                    href="{% url 'logout' %}" data-te-dropdown-item-ref>Salir de sesion</a>
 
-                    {% endif %}
-                  </li>
-                  
-                 </ul>
 
-                 
-              </div>
-             
-             
-        </div>
+
+                </li>
+                <li>
+                  <a class="block w-full whitespace-nowrap bg-transparent px-4 py-2 text-sm font-normal text-neutral-700 hover:bg-neutral-100 active:text-neutral-800 active:no-underline disabled:pointer-events-none disabled:bg-transparent disabled:text-neutral-400 dark:text-neutral-200 dark:hover:bg-neutral-600"
+                    href="{% url 'dashboard' %}" data-te-dropdown-item-ref>Dashboard</a>
+                </li>
+                <li class="flex">
+
+                  <a class="block w-full whitespace-nowrap bg-transparent px-4 py-2 text-sm font-normal text-neutral-700 hover:bg-neutral-100 active:text-neutral-800 active:no-underline disabled:pointer-events-none disabled:bg-transparent disabled:text-neutral-400 dark:text-neutral-200 dark:hover:bg-neutral-600"
+                    href="{% url 'ListaCompra' %}" data-te-dropdown-item-ref>Lista de compras</a>
+
+                </li>
+
+                <li>
+                  <a class="block w-full whitespace-nowrap bg-transparent px-4 py-2 text-sm font-normal text-neutral-700 hover:bg-neutral-100 active:text-neutral-800 active:no-underline disabled:pointer-events-none disabled:bg-transparent disabled:text-neutral-400 dark:text-neutral-200 dark:hover:bg-neutral-600"
+                    href="{% url 'login' %}" data-te-dropdown-item-ref>Mis pedidos</a>
+
+                </li>
+
+              </ul>
+            </div>
+
+            {% else %}
+            <div class="relative" data-te-dropdown-ref>
+              <button
+                class="flex items-center whitespace-nowrap rounded  px-6 pb-2 pt-1 text-xs font-medium uppercase leading-normal text-black border transition duration-150 ease-in-out hover:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)]"
+                type="button" id="dropdownMenuButton1" data-te-dropdown-toggle-ref aria-expanded="false"
+                data-te-ripple-init data-te-ripple-color="light">
+                <span class="mr-4 w-2">
+                  <svg xmlns="http://www.w3.org/2000/svg" id="Layer_1" data-name="Layer 1" viewBox="0 0 24 24"
+                    width="12" height="12">
+                    <path d="M16.043,14H7.957A4.963,4.963,0,0,0,3,18.957V24H21V18.957A4.963,4.963,0,0,0,16.043,14Z" />
+                    <circle cx="12" cy="6" r="6" />
+                  </svg>
+
+                </span>
+                Iniciar Sesion
+
+              </button>
+              <ul
+                class="absolute z-[1000] float-left m-0 hidden min-w-max list-none overflow-hidden rounded-lg border-none bg-white bg-clip-padding text-left text-base shadow-lg dark:bg-neutral-700 [&[data-te-dropdown-show]]:block"
+                aria-labelledby="dropdownMenuButton1" data-te-dropdown-menu-ref>
+                <li>
+                  <a class="block w-full whitespace-nowrap bg-transparent px-4 py-2 text-sm font-normal text-neutral-700 hover:bg-neutral-100 active:text-neutral-800 active:no-underline disabled:pointer-events-none disabled:bg-transparent disabled:text-neutral-400 dark:text-neutral-200 dark:hover:bg-neutral-600"
+                    href="{% url 'login' %}" data-te-dropdown-item-ref>login</a>
+
+
+
+                </li>
+                <li>
+                  <a class="block w-full whitespace-nowrap bg-transparent px-4 py-2 text-sm font-normal text-neutral-700 hover:bg-neutral-100 active:text-neutral-800 active:no-underline disabled:pointer-events-none disabled:bg-transparent disabled:text-neutral-400 dark:text-neutral-200 dark:hover:bg-neutral-600"
+                    href="{% url 'login' %}" data-te-dropdown-item-ref>Dashboard</a>
+                </li>
+
+              </ul>
+            </div>
+
+            {% endif %}
+          </li>
+
+        </ul>
+
+
+      </div>
+
+
     </div>
+  </div>
 
 </nav>
-  <!-- Fin Subheader -->
+<!-- Fin Subheader -->
 
-  <header class="py-4 shadow-sm bg-white sticky  top-0  md:top-0   z-10 ">
-    <div class="container flex items-center  justify-between md:mx-auto  " >
-        <!-- logo -->
-        <a href="javascript:void(0)" class=" md:hidden block text-center text-gray-700 hover:text-blue-600 transition relative">
-          <div class="text-2xl"  data-te-sidenav-toggle-ref   data-drawer-target="drawer-navigation" data-drawer-show="drawer-navigation" a >
-              <i class="fas fa-bars"></i>
-          </div>
-       
-      </a>
-        <a  href="{% url 'home' %}" class="block w-40  md:ml-4 ">
-            <img src="https://www.ribasmith.com/media/logo/websites/1/logowebx1.png" alt="logo" class="   mt-1  w-full      ">
-        </a>
-
-        <a  data-collapse-toggle="small-modal" aria-controls="small-modal" aria-expanded="false" class="md:hidden text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700 focus:outline-none focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 rounded-lg text-sm p-2.5 mr-1" >
-          <svg class="w-5 h-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
-            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z"/>
-          </svg>
-        
-        </a>
-
-
-        <a href="{% url 'cart' %}" class="   md:hidden text-center text-gray-700 hover:text-blue-600 transition relative">
-          <span
-              class="absolute -right-3 -top-1 w-5 h-5 rounded-full flex items-center justify-center bg-blue-600 text-white text-xs">3</span>
-          <div class="text-2xl">
-              <i class="fas fa-shopping-bag"></i>
-          </div>
-        
-      </a>
-
-        
-        <!-- logo end -->
-
-        <!-- searchbar -->
-        <div class="    hidden    w-96  md:flex flex-col" style="z-index: 1000;">
-          <div class="relative  px-2 ">
-              <span class="absolute left-4 top-3 text-lg text-gray-400">
-               
-              </span>
-              <input type="text"
-                  id="search-input"
-                  class="pl-13 w-full   py-3 px-3 rounded-full "
-                  placeholder="busqueda"
-                  autocomplete="off">
-             
-          </div>
-          <!-- searchbar end -->
-          
-
-
-<!-- Dropdown menu -->
-<div id="search-results"  class="  absolute top-20 z-50  rounded-xl shadow   " style="z-index: 100000; width: 500px;  border-radius: 12px; background: white;">
-  
-</div>
-
-        
+<header class="py-4 shadow-sm bg-white sticky  top-0  md:top-0   z-10 ">
+  <div class="container flex items-center  justify-between md:mx-auto  ">
+    <!-- logo -->
+    <a href="javascript:void(0)"
+      class=" md:hidden block text-center text-gray-700 hover:text-blue-600 transition relative">
+      <div class="text-2xl" data-te-sidenav-toggle-ref data-drawer-target="drawer-navigation"
+        data-drawer-show="drawer-navigation" a>
+        <i class="fas fa-bars"></i>
       </div>
-      
-      
 
-        <!-- navicons -->
-        <div  class="  space-x-4  items-center">
-           
-           <div   class="hidden md:flex flex-col">
-            <div class="relative mb-1 " data-te-input-wrapper-init>
-              <input
-                type="text"
-                class="peer block min-h-[auto] w-full rounded border-0 bg-neutral-100 px-3 py-[0.32rem] leading-[1.6] outline-none transition-all duration-200 ease-linear focus:placeholder:opacity-100 peer-focus:text-primary data-[te-input-state-active]:placeholder:opacity-100 motion-reduce:transition-none dark:bg-neutral-700 dark:text-neutral-200 dark:placeholder:text-neutral-200 dark:peer-focus:text-primary [&:not([data-te-input-placeholder-active])]:placeholder:opacity-0"
-                id=""
-                value="{{request.session.nombre_tienda}}"
-                aria-label="readonly input example"
-                readonly />
-              <label
-                for="exampleFormControlInput50"
-                class="pointer-events-none absolute left-3 top-0 mb-0 max-w-[90%] origin-[0_0] truncate pt-[0.37rem] leading-[1.6] text-black transition-all duration-200 ease-out peer-focus:-translate-y-[0.9rem] peer-focus:scale-[0.8] peer-focus:text-primary peer-data-[te-input-state-active]:-translate-y-[0.9rem] peer-data-[te-input-state-active]:scale-[0.8] motion-reduce:transition-none dark:text-neutral-200 dark:peer-focus:text-primary"
-                >Tienda seleccionada
-              </label>
-            
-            </div>         
-            <div >
-              <a id="alertboton" class=" ml-2 text-sm hover:underline hover:text-blue-700 alertboton text-blue-500 " href="#">Cambiar tienda</a>
-             </div> 
-           </div>  
+    </a>
+    <a href="{% url 'home' %}" class="block w-40  md:ml-4 ">
+      <img src="https://www.ribasmith.com/media/logo/websites/1/logowebx1.png" alt="logo" class="   mt-1  w-full      ">
+    </a>
 
-           <script>
+    <a data-collapse-toggle="small-modal" aria-controls="small-modal" aria-expanded="false"
+      class="md:hidden text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700 focus:outline-none focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 rounded-lg text-sm p-2.5 mr-1">
+      <svg class="w-5 h-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
+        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+          d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z" />
+      </svg>
+
+    </a>
 
 
-              document.addEventListener("DOMContentLoaded", function () {
+    <a href="{% url 'cart' %}" class="   md:hidden text-center text-gray-700 hover:text-blue-600 transition relative">
+      <span
+        class="absolute -right-3 -top-1 w-5 h-5 rounded-full flex items-center justify-center bg-blue-600 text-white text-xs">3</span>
+      <div class="text-2xl">
+        <i class="fas fa-shopping-bag"></i>
+      </div>
 
-                $(document).on("click", ".alertboton", function () {
-                  showAlert()
-                })
-      const alertElement = document.getElementById("alert");
-      const overlayElement = document.getElementById("overlay");
-      function showAlert() {
-        alertElement.classList.remove("hidden");
-        overlayElement.classList.remove("hidden");
-      }
+    </a>
 
-      // Función para ocultar la alerta y restaurar el fondo
-      function hideAlert() {
-        alertElement.classList.add("hidden");
-        overlayElement.classList.add("hidden");
-      }
-              })
 
-           </script>
-           
+    <!-- logo end -->
 
-           <script>
-            // Recupera el valor de sessionStorage
-            const miValor = "{{request.session.nombre_tienda}}";
-           
-            // Verifica si el valor existe en sessionStorage
-            if (miValor) {
-                // Mostrar el valor en el elemento HTML
-                document.getElementById("resultado").textContent = miValor;
-            } else {
-                document.getElementById("resultado").textContent = "No hay valor";
-            }
+    <!-- searchbar -->
+    <div class="    hidden    w-96  md:flex flex-col" style="z-index: 1000;">
+      <div class="relative  px-2 ">
+        <span class="absolute left-4 top-3 text-lg text-gray-400">
 
-         
-            
-        </script>
+        </span>
+        <input type="text" id="search-input" class="pl-13 w-full   py-3 px-3 rounded-full " placeholder="busqueda"
+          autocomplete="off">
+
+      </div>
+      <!-- searchbar end -->
 
 
 
+      <!-- Dropdown menu -->
+      <div id="search-results" class="  absolute top-20 z-50  rounded-xl shadow   "
+        style="z-index: 100000; width: 500px;  border-radius: 12px; background: white;">
+
+      </div>
+
+
+    </div>
 
 
 
-<div id="popup-modal" tabindex="-1" class="fixed top-0 left-0 right-0 z-50 hidden p-4 overflow-x-hidden overflow-y-auto md:inset-0 h-[calc(100%-1rem)] max-h-full">
-  <div class="relative w-full max-w-md max-h-full">
-      <div class="relative bg-white rounded-lg shadow dark:bg-gray-700">
-          <button type="button" class="absolute top-3 right-2.5 text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ml-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white" data-modal-hide="popup-modal">
-              <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
-                  <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"/>
+    <!-- navicons -->
+    <div class="  space-x-4  items-center">
+
+      <div class="hidden md:flex flex-col">
+        <div class="relative mb-1 " data-te-input-wrapper-init>
+          <input type="text"
+            class="peer block min-h-[auto] w-full rounded border-0 bg-neutral-100 px-3 py-[0.32rem] leading-[1.6] outline-none transition-all duration-200 ease-linear focus:placeholder:opacity-100 peer-focus:text-primary data-[te-input-state-active]:placeholder:opacity-100 motion-reduce:transition-none dark:bg-neutral-700 dark:text-neutral-200 dark:placeholder:text-neutral-200 dark:peer-focus:text-primary [&:not([data-te-input-placeholder-active])]:placeholder:opacity-0"
+            id="" value="{{request.session.nombre_tienda}}" aria-label="readonly input example" readonly />
+          <label for="exampleFormControlInput50"
+            class="pointer-events-none absolute left-3 top-0 mb-0 max-w-[90%] origin-[0_0] truncate pt-[0.37rem] leading-[1.6] text-black transition-all duration-200 ease-out peer-focus:-translate-y-[0.9rem] peer-focus:scale-[0.8] peer-focus:text-primary peer-data-[te-input-state-active]:-translate-y-[0.9rem] peer-data-[te-input-state-active]:scale-[0.8] motion-reduce:transition-none dark:text-neutral-200 dark:peer-focus:text-primary">Tienda
+            seleccionada
+          </label>
+
+        </div>
+        <div>
+          <a id="alertboton" class=" ml-2 text-sm hover:underline hover:text-blue-700 alertboton text-blue-500 "
+            href="#">Cambiar tienda</a>
+        </div>
+      </div>
+
+
+
+
+
+
+      <div id="popup-modal" tabindex="-1"
+        class="fixed top-0 left-0 right-0 z-50 hidden p-4 overflow-x-hidden overflow-y-auto md:inset-0 h-[calc(100%-1rem)] max-h-full">
+        <div class="relative w-full max-w-md max-h-full">
+          <div class="relative bg-white rounded-lg shadow dark:bg-gray-700">
+            <button type="button"
+              class="absolute top-3 right-2.5 text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ml-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white"
+              data-modal-hide="popup-modal">
+              <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none"
+                viewBox="0 0 14 14">
+                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                  d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6" />
               </svg>
               <span class="sr-only">Close modal</span>
-          </button>
-          <div class="p-6 text-center">
-              <svg class="mx-auto mb-4 text-gray-400 w-12 h-12 dark:text-gray-200" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
-                  <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 11V6m0 8h.01M19 10a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"/>
+            </button>
+            <div class="p-6 text-center">
+              <svg class="mx-auto mb-4 text-gray-400 w-12 h-12 dark:text-gray-200" aria-hidden="true"
+                xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
+                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                  d="M10 11V6m0 8h.01M19 10a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
               </svg>
-              <h3 class="mb-5 text-lg font-normal text-gray-500 dark:text-gray-400">Are you sure you want to delete this product?</h3>
-              <button data-modal-hide="popup-modal" type="button" class="text-white bg-red-600 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 dark:focus:ring-red-800 font-medium rounded-lg text-sm inline-flex items-center px-5 py-2.5 text-center mr-2">
-                  Yes, I'm sure
+              <h3 class="mb-5 text-lg font-normal text-gray-500 dark:text-gray-400">Are you sure you want to delete this
+                product?</h3>
+              <button data-modal-hide="popup-modal" type="button"
+                class="text-white bg-red-600 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 dark:focus:ring-red-800 font-medium rounded-lg text-sm inline-flex items-center px-5 py-2.5 text-center mr-2">
+                Yes, I'm sure
               </button>
-              <button data-modal-hide="popup-modal" type="button" class="text-gray-500 bg-white hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-gray-200 rounded-lg border border-gray-200 text-sm font-medium px-5 py-2.5 hover:text-gray-900 focus:z-10 dark:bg-gray-700 dark:text-gray-300 dark:border-gray-500 dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-gray-600">No, cancel</button>
+              <button data-modal-hide="popup-modal" type="button"
+                class="text-gray-500 bg-white hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-gray-200 rounded-lg border border-gray-200 text-sm font-medium px-5 py-2.5 hover:text-gray-900 focus:z-10 dark:bg-gray-700 dark:text-gray-300 dark:border-gray-500 dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-gray-600">No,
+                cancel</button>
+            </div>
           </div>
+        </div>
       </div>
-  </div>
-</div>
-          
-      
-         
-         
-          
-            
-                    </div>
-                    
-       
-        <a  href="#" class="block text-center text-gray-700 hover:text-blue-600 transition relative">
-          <!-- <span
+
+
+
+
+
+
+    </div>
+
+
+    <a href="#" class="block text-center text-gray-700 hover:text-blue-600 transition relative">
+      <!-- <span
               class="absolute -right-0 -top-1 w-5 h-5 rounded-full flex items-center justify-center bg-blue-600 text-white text-xs">5</span>
           <div class="text-2xl">
               <i class="far fa-heart"></i>
           </div> -->
-        
-      </a> 
-      {% include 'store/shopcart.html' %}
-    
-            <!-- <a  href="{% url 'cart' %}"
+
+    </a>
+    {% include 'store/shopcart.html' %}
+
+    <!-- <a  href="{% url 'cart' %}"
                 class="lg:block text-center text-gray-700 hover:text-blue-600 transition hidden relative">
                 <span
                     class="absolute -right-3 -top-1 w-5 h-5 rounded-full flex items-center justify-center bg-blue-600 text-white text-xs">{{cart_count}}</span>
@@ -378,12 +325,12 @@
                 </div>
                 
             </a> -->
-           
-           
-        </div>
-        <!-- navicons end -->
 
-    </div>
+
+  </div>
+  <!-- navicons end -->
+
+  </div>
 </header>
 <!-- header end -->
 
@@ -405,55 +352,61 @@
 
 
 <!-- navbar -->
-<nav  class=" hidden md:block sticky  top-20   border  bg-white" style="z-index: 1;">
-    <div class="container justify-center">
-        <div class="flex text-center justify-center ">
+<nav class=" hidden md:block sticky  top-20   border  bg-white" style="z-index: 1;">
+  <div class="container justify-center">
+    <div class="flex text-center justify-center ">
 
-            <!-- all category -->
-            
-            <div class="px-6">
-         
-            </div>
-       
-            <!-- all category end -->
+      <!-- all category -->
 
-            <!-- nav menu -->
-            <div class="flex items-center mt-4 mb-4 text-center ">
-                <div class="flex  space-x-6 text-sm capitalize">
-                    <a href="{% url 'home' %}" class="text-black font-bold hover:text-pink-600 transition">Inicio</a>
-                    <a href="shop.html" class=" font-bold text-pink-600 transition">RIMITH</a>
-                    <a  class="text-black  font-bold hover:text-pink-600 transition">
-                      <button id="company-button" data-collapse-toggle="mega-menu-full-dropdown" class="flex items-center justify-between w-full py-2 pl-3 pr-4 text-gray-900 rounded md:w-auto
-                       md:border-0  md:p-0 dark:text-white  hover:text-pink-600 transition">DEPARTAMENTOS <svg class="w-2.5 h-2.5 ml-2.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6">
-                          <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 4 4 4-4"/>
-                      </svg></button>
-                    </a>
-              
-                    <a href="#" class="text-black  font-bold hover:text-pink-600 transition">RIMITH Esencial</a>
-                    <a href="#" class="text-black font-bold hover:text-pink-600 transition">Verano</a>
-                    <a href="#" class="text-black font-bold hover:text-pink-600 transition">Emprendedores</a>
-                </div>
-                           </div>
-                           
-            <!-- nav menu end -->
+      <div class="px-6">
 
-        </div>
-    </div>
-    <div id="mega-menu-full-dropdown" class="mt-1 border-gray-200 shadow-sm bg-gray-50 md:bg-white border-y dark:bg-gray-100 dark:border-gray-600" style="display: none">
-      <div class="grid max-w-screen-xl px-4 py-5 mx-auto dark:text-white md:px-6">
-        <ul class="grid grid-cols-5 md:grid-cols-5 sm:grid-cols-5 text-sm"> <!-- Utiliza las clases CSS aquí -->
-          {% for depa in links %}
-          <li>
-            <a href="{% url 'products_by_departamento' depar=depa.id %}" class="block p-3 rounded-lg hover:bg-gray-100 hover:text-pink-600 transition">
-              <div class="">{{depa.nombre}}</div>
-            </a>
-          </li>
-          {% endfor %}
-        </ul>
-        <ul>
-        </ul>
       </div>
+
+      <!-- all category end -->
+
+      <!-- nav menu -->
+      <div class="flex items-center mt-4 mb-4 text-center ">
+        <div class="flex  space-x-6 text-sm capitalize">
+          <a href="{% url 'home' %}" class="text-black font-bold hover:text-pink-600 transition">Inicio</a>
+          <a href="shop.html" class=" font-bold text-pink-600 transition">RIMITH</a>
+          <a class="text-black  font-bold hover:text-pink-600 transition">
+            <button id="company-button" data-collapse-toggle="mega-menu-full-dropdown" class="flex items-center justify-between w-full py-2 pl-3 pr-4 text-gray-900 rounded md:w-auto
+                       md:border-0  md:p-0 dark:text-white  hover:text-pink-600 transition">DEPARTAMENTOS <svg
+                class="w-2.5 h-2.5 ml-2.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none"
+                viewBox="0 0 10 6">
+                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                  d="m1 1 4 4 4-4" />
+              </svg></button>
+          </a>
+
+          <a href="#" class="text-black  font-bold hover:text-pink-600 transition">RIMITH Esencial</a>
+          <a href="#" class="text-black font-bold hover:text-pink-600 transition">Verano</a>
+          <a href="#" class="text-black font-bold hover:text-pink-600 transition">Emprendedores</a>
+        </div>
+      </div>
+
+      <!-- nav menu end -->
+
     </div>
+  </div>
+  <div id="mega-menu-full-dropdown"
+    class="mt-1 border-gray-200 shadow-sm bg-gray-50 md:bg-white border-y dark:bg-gray-100 dark:border-gray-600"
+    style="display: none">
+    <div class="grid max-w-screen-xl px-4 py-5 mx-auto dark:text-white md:px-6">
+      <ul class="grid grid-cols-5 md:grid-cols-5 sm:grid-cols-5 text-sm"> <!-- Utiliza las clases CSS aquí -->
+        {% for depa in links %}
+        <li>
+          <a href="{% url 'products_by_departamento' depar=depa.id %}"
+            class="block p-3 rounded-lg hover:bg-gray-100 hover:text-pink-600 transition">
+            <div class="">{{depa.nombre}}</div>
+          </a>
+        </li>
+        {% endfor %}
+      </ul>
+      <ul>
+      </ul>
+    </div>
+  </div>
 </nav>
 <!-- navbar end -->
 
@@ -512,51 +465,53 @@
       
       >
     </div> -->
-   
- 
-    
-</div> 
 
 
 
-<div id="small-modal" tabindex="-1" class="fixed top-0 left-0 right-0 z-50 hidden w-full p-4 overflow-x-hidden overflow-y-auto md:inset-0 h-[calc(100%-1rem)] max-h-full">
-  <div class="relative w-full max-w-md max-h-full">
-      <!-- Modal content -->
-      <div class="relative bg-white rounded-lg shadow dark:bg-gray-700">
-          <!-- Modal header -->
-          <div class="flex items-center justify-between p-5 border-b rounded-t dark:border-gray-600">
-            <input type="text"
-            id="search-inputs"
-            class="pl-13 w-full   py-3 px-3 rounded-full "
-            placeholder="busqueda"
-            autocomplete="off">
-       
-              <button type="button" class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ml-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white" data-modal-hide="small-modal">
-                  <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
-                      <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"/>
-                  </svg>
-                  <span class="sr-only">Close modal</span>
-              </button>
-          </div>
-          <!-- Modal body -->
-          <div class="relative  px-2 ">
-            <span class="absolute left-4 top-3 text-lg text-gray-400">
-             
-            </span>
-            
-        </div>
-        <!-- searchbar end -->
-        
-
-
-<!-- Dropdown menu -->
-<div id="search-resultss"  class="absolute top-20 z-50 rounded-xl shadow w-full sm:w-2/3 md:w-1/2 lg:w-1/3 xl:w-1/4 mx-auto p-4 bg-white">
-  <!-- Contenido del elemento -->
 </div>
 
-          <!-- Modal footer -->
-          
+
+
+<div id="small-modal" tabindex="-1"
+  class="fixed top-0 left-0 right-0 z-50 hidden w-full p-4 overflow-x-hidden overflow-y-auto md:inset-0 h-[calc(100%-1rem)] max-h-full">
+  <div class="relative w-full max-w-md max-h-full">
+    <!-- Modal content -->
+    <div class="relative bg-white rounded-lg shadow dark:bg-gray-700">
+      <!-- Modal header -->
+      <div class="flex items-center justify-between p-5 border-b rounded-t dark:border-gray-600">
+        <input type="text" id="search-inputs" class="pl-13 w-full   py-3 px-3 rounded-full " placeholder="busqueda"
+          autocomplete="off">
+
+        <button type="button"
+          class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ml-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white"
+          data-modal-hide="small-modal">
+          <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
+            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+              d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6" />
+          </svg>
+          <span class="sr-only">Close modal</span>
+        </button>
       </div>
+      <!-- Modal body -->
+      <div class="relative  px-2 ">
+        <span class="absolute left-4 top-3 text-lg text-gray-400">
+
+        </span>
+
+      </div>
+      <!-- searchbar end -->
+
+
+
+      <!-- Dropdown menu -->
+      <div id="search-resultss"
+        class="absolute top-20 z-50 rounded-xl shadow w-full sm:w-2/3 md:w-1/2 lg:w-1/3 xl:w-1/4 mx-auto p-4 bg-white">
+        <!-- Contenido del elemento -->
+      </div>
+
+      <!-- Modal footer -->
+
+    </div>
   </div>
 </div>
 
@@ -584,48 +539,43 @@
 
 
 <!-- mobile sidebar menu -->
-<div id="drawer-navigation" class="fixed top-0 left-0 z-40 w-64 h-screen p-4 overflow-y-auto transition-transform -translate-x-full bg-white dark:bg-gray-800" tabindex="-1" aria-labelledby="drawer-navigation-label">
+<div id="drawer-navigation"
+  class="fixed top-0 left-0 z-40 w-64 h-screen p-4 overflow-y-auto transition-transform -translate-x-full bg-white dark:bg-gray-800"
+  tabindex="-1" aria-labelledby="drawer-navigation-label">
   <div id="drawer-navigation-label" class=" text-base font-semibold text-gray-500 uppercase dark:text-gray-400">
     {% if user.id is None %}
-                   
+
     <div class="  relative" data-te-dropdown-ref>
       <button
         class="flex items-center whitespace-nowrap   px-6 pb-2 pt-1 text-xs font-medium uppercase leading-normal text-black  transition duration-150 ease-in-out hover:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)]"
-        type="button"
-        id="dropdownMenuButton1"
-        data-te-dropdown-toggle-ref
-        aria-expanded="false"
-        data-te-ripple-init
+        type="button" id="dropdownMenuButton1" data-te-dropdown-toggle-ref aria-expanded="false" data-te-ripple-init
         data-te-ripple-color="light">
         <span class="mr-4 w-2">
-          <svg xmlns="http://www.w3.org/2000/svg" id="Layer_1" data-name="Layer 1" viewBox="0 0 24 24" width="12" height="12"><path d="M16.043,14H7.957A4.963,4.963,0,0,0,3,18.957V24H21V18.957A4.963,4.963,0,0,0,16.043,14Z"/><circle cx="12" cy="6" r="6"/></svg>
+          <svg xmlns="http://www.w3.org/2000/svg" id="Layer_1" data-name="Layer 1" viewBox="0 0 24 24" width="12"
+            height="12">
+            <path d="M16.043,14H7.957A4.963,4.963,0,0,0,3,18.957V24H21V18.957A4.963,4.963,0,0,0,16.043,14Z" />
+            <circle cx="12" cy="6" r="6" />
+          </svg>
 
         </span>
         Iniciar Sesion
-       
+
       </button>
       <ul
         class="absolute z-[1000] float-left m-0 hidden min-w-max list-none overflow-hidden rounded-lg border-none bg-white bg-clip-padding text-left text-base shadow-lg dark:bg-neutral-700 [&[data-te-dropdown-show]]:block"
-        aria-labelledby="dropdownMenuButton1"
-        data-te-dropdown-menu-ref>
+        aria-labelledby="dropdownMenuButton1" data-te-dropdown-menu-ref>
         <li>
-          <a
-          class="block w-full whitespace-nowrap bg-transparent px-4 py-2 text-sm font-normal text-neutral-700 hover:bg-neutral-100 active:text-neutral-800 active:no-underline disabled:pointer-events-none disabled:bg-transparent disabled:text-neutral-400 dark:text-neutral-200 dark:hover:bg-neutral-600"
-          href="{% url 'login' %}"
-          data-te-dropdown-item-ref
-          >login</a>
-        
-          
-        
+          <a class="block w-full whitespace-nowrap bg-transparent px-4 py-2 text-sm font-normal text-neutral-700 hover:bg-neutral-100 active:text-neutral-800 active:no-underline disabled:pointer-events-none disabled:bg-transparent disabled:text-neutral-400 dark:text-neutral-200 dark:hover:bg-neutral-600"
+            href="{% url 'login' %}" data-te-dropdown-item-ref>login</a>
+
+
+
         </li>
         <li>
-          <a
-          class="block w-full whitespace-nowrap bg-transparent px-4 py-2 text-sm font-normal text-neutral-700 hover:bg-neutral-100 active:text-neutral-800 active:no-underline disabled:pointer-events-none disabled:bg-transparent disabled:text-neutral-400 dark:text-neutral-200 dark:hover:bg-neutral-600"
-          href="{% url 'login' %}"
-          data-te-dropdown-item-ref
-          >Dashboard</a>
+          <a class="block w-full whitespace-nowrap bg-transparent px-4 py-2 text-sm font-normal text-neutral-700 hover:bg-neutral-100 active:text-neutral-800 active:no-underline disabled:pointer-events-none disabled:bg-transparent disabled:text-neutral-400 dark:text-neutral-200 dark:hover:bg-neutral-600"
+            href="{% url 'login' %}" data-te-dropdown-item-ref>Dashboard</a>
         </li>
-       
+
       </ul>
     </div>
     <!-- <div class="widget-header">
@@ -639,11 +589,7 @@
     <div class="relative" data-te-dropdown-ref>
       <button
         class="  flex items-center whitespace-nowrap  px-2  pb-2 pt-1 text-xs font-medium uppercase leading-normal text-black  transition duration-150 ease-in-out "
-        type="button"
-        id="dropdownMenuButton1"
-        data-te-dropdown-toggle-ref
-        aria-expanded="false"
-        data-te-ripple-init
+        type="button" id="dropdownMenuButton1" data-te-dropdown-toggle-ref aria-expanded="false" data-te-ripple-init
         data-te-ripple-color="light">
         <span class="mr-4 w-2 mt-1" style="  width: 15px;
         height: 15px;
@@ -651,176 +597,172 @@
         -webkit-border-radius: 50%;
         border-radius: 50%;
         background: greenyellow">
-        
+
         </span>
         <span class="font-bold mt-1">{{user.first_name | capfirst}} {{user.last_name|capfirst}}</span>
-       
+
       </button>
       <ul
         class="absolute z-[1000] float-left m-0 hidden min-w-max list-none overflow-hidden rounded-lg border-none bg-white bg-clip-padding text-left text-base shadow-lg dark:bg-neutral-700 [&[data-te-dropdown-show]]:block"
-        aria-labelledby="dropdownMenuButton1"
-        data-te-dropdown-menu-ref>
+        aria-labelledby="dropdownMenuButton1" data-te-dropdown-menu-ref>
         <li>
-          <a
-          class="block w-full whitespace-nowrap bg-transparent px-4 py-2 text-sm font-normal text-neutral-700 hover:bg-neutral-100 active:text-neutral-800 active:no-underline disabled:pointer-events-none disabled:bg-transparent disabled:text-neutral-400 dark:text-neutral-200 dark:hover:bg-neutral-600"
-          href="{% url 'logout' %}"
-          data-te-dropdown-item-ref
-          >Salir de sesion</a>
-        
-          
-        
+          <a class="block w-full whitespace-nowrap bg-transparent px-4 py-2 text-sm font-normal text-neutral-700 hover:bg-neutral-100 active:text-neutral-800 active:no-underline disabled:pointer-events-none disabled:bg-transparent disabled:text-neutral-400 dark:text-neutral-200 dark:hover:bg-neutral-600"
+            href="{% url 'logout' %}" data-te-dropdown-item-ref>Salir de sesion</a>
+
+
+
         </li>
         <li>
-          <a
-          class="block w-full whitespace-nowrap bg-transparent px-4 py-2 text-sm font-normal text-neutral-700 hover:bg-neutral-100 active:text-neutral-800 active:no-underline disabled:pointer-events-none disabled:bg-transparent disabled:text-neutral-400 dark:text-neutral-200 dark:hover:bg-neutral-600"
-          href="{% url 'login' %}"
-          data-te-dropdown-item-ref
-          >Dashboard</a>
+          <a class="block w-full whitespace-nowrap bg-transparent px-4 py-2 text-sm font-normal text-neutral-700 hover:bg-neutral-100 active:text-neutral-800 active:no-underline disabled:pointer-events-none disabled:bg-transparent disabled:text-neutral-400 dark:text-neutral-200 dark:hover:bg-neutral-600"
+            href="{% url 'login' %}" data-te-dropdown-item-ref>Dashboard</a>
         </li>
         <li class="flex">
-         
-          <a
-          class="block w-full whitespace-nowrap bg-transparent px-4 py-2 text-sm font-normal text-neutral-700 hover:bg-neutral-100 active:text-neutral-800 active:no-underline disabled:pointer-events-none disabled:bg-transparent disabled:text-neutral-400 dark:text-neutral-200 dark:hover:bg-neutral-600"
-          href="{% url 'login' %}"
-          data-te-dropdown-item-ref
-          >Lista de compras</a>
-          
+
+          <a class="block w-full whitespace-nowrap bg-transparent px-4 py-2 text-sm font-normal text-neutral-700 hover:bg-neutral-100 active:text-neutral-800 active:no-underline disabled:pointer-events-none disabled:bg-transparent disabled:text-neutral-400 dark:text-neutral-200 dark:hover:bg-neutral-600"
+            href="{% url 'login' %}" data-te-dropdown-item-ref>Lista de compras</a>
+
         </li>
 
         <li>
-          <a
-          class="block w-full whitespace-nowrap bg-transparent px-4 py-2 text-sm font-normal text-neutral-700 hover:bg-neutral-100 active:text-neutral-800 active:no-underline disabled:pointer-events-none disabled:bg-transparent disabled:text-neutral-400 dark:text-neutral-200 dark:hover:bg-neutral-600"
-          href="{% url 'login' %}"
-          data-te-dropdown-item-ref
-          >Mis pedidos</a>
-          
+          <a class="block w-full whitespace-nowrap bg-transparent px-4 py-2 text-sm font-normal text-neutral-700 hover:bg-neutral-100 active:text-neutral-800 active:no-underline disabled:pointer-events-none disabled:bg-transparent disabled:text-neutral-400 dark:text-neutral-200 dark:hover:bg-neutral-600"
+            href="{% url 'login' %}" data-te-dropdown-item-ref>Mis pedidos</a>
+
         </li>
-       
+
       </ul>
     </div>
-  
+
 
     {% endif %}
-  </li>
+    </li>
 
 
 
   </div>
-  <button type="button" data-drawer-hide="drawer-navigation" aria-controls="drawer-navigation" class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 absolute top-2.5 right-2.5 inline-flex items-center dark:hover:bg-gray-600 dark:hover:text-white" >
-      <svg aria-hidden="true" class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>
-      <span class="sr-only">Close menu</span>
+  <button type="button" data-drawer-hide="drawer-navigation" aria-controls="drawer-navigation"
+    class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 absolute top-2.5 right-2.5 inline-flex items-center dark:hover:bg-gray-600 dark:hover:text-white">
+    <svg aria-hidden="true" class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+      <path fill-rule="evenodd"
+        d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
+        clip-rule="evenodd"></path>
+    </svg>
+    <span class="sr-only">Close menu</span>
   </button>
-<div class="py-4 overflow-y-auto">
+  <div class="py-4 overflow-y-auto">
     <ul class="space-y-2 font-medium">
-       <li>
-          <a href="#" class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
-             <svg class="w-5 h-5 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 22 21">
-                <path d="M16.975 11H10V4.025a1 1 0 0 0-1.066-.998 8.5 8.5 0 1 0 9.039 9.039.999.999 0 0 0-1-1.066h.002Z"/>
-                <path d="M12.5 0c-.157 0-.311.01-.565.027A1 1 0 0 0 11 1.02V10h8.975a1 1 0 0 0 1-.935c.013-.188.028-.374.028-.565A8.51 8.51 0 0 0 12.5 0Z"/>
-             </svg>
-             <span class="ml-3">Inicio</span>
-          </a>
-       </li>
-       <li>
-       
-        
-        <button type="button" class="flex items-center w-full p-2 text-base text-gray-900 transition duration-75 rounded-lg group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700" aria-controls="dropdown-example" data-collapse-toggle="dropdown-example">
-              <svg class="flex-shrink-0 w-5 h-5 text-gray-500 transition duration-75 group-hover:text-gray-900 dark:text-gray-400 dark:group-hover:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 18 21">
-                 <path d="M15 12a1 1 0 0 0 .962-.726l2-7A1 1 0 0 0 17 3H3.77L3.175.745A1 1 0 0 0 2.208 0H1a1 1 0 0 0 0 2h.438l.6 2.255v.019l2 7 .746 2.986A3 3 0 1 0 9 17a2.966 2.966 0 0 0-.184-1h2.368c-.118.32-.18.659-.184 1a3 3 0 1 0 3-3H6.78l-.5-2H15Z"/>
-              </svg>
-              <span class="flex-1 ml-3 text-left whitespace-nowrap">Departamentos</span>
-              <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6">
-                 <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 4 4 4-4"/>
-              </svg>
+      <li>
+        <a href="#"
+          class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
+          <svg
+            class="w-5 h-5 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white"
+            aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 22 21">
+            <path d="M16.975 11H10V4.025a1 1 0 0 0-1.066-.998 8.5 8.5 0 1 0 9.039 9.039.999.999 0 0 0-1-1.066h.002Z" />
+            <path
+              d="M12.5 0c-.157 0-.311.01-.565.027A1 1 0 0 0 11 1.02V10h8.975a1 1 0 0 0 1-.935c.013-.188.028-.374.028-.565A8.51 8.51 0 0 0 12.5 0Z" />
+          </svg>
+          <span class="ml-3">Inicio</span>
+        </a>
+      </li>
+      <li>
+
+
+        <button type="button"
+          class="flex items-center w-full p-2 text-base text-gray-900 transition duration-75 rounded-lg group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700"
+          aria-controls="dropdown-example" data-collapse-toggle="dropdown-example">
+          <svg
+            class="flex-shrink-0 w-5 h-5 text-gray-500 transition duration-75 group-hover:text-gray-900 dark:text-gray-400 dark:group-hover:text-white"
+            aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 18 21">
+            <path
+              d="M15 12a1 1 0 0 0 .962-.726l2-7A1 1 0 0 0 17 3H3.77L3.175.745A1 1 0 0 0 2.208 0H1a1 1 0 0 0 0 2h.438l.6 2.255v.019l2 7 .746 2.986A3 3 0 1 0 9 17a2.966 2.966 0 0 0-.184-1h2.368c-.118.32-.18.659-.184 1a3 3 0 1 0 3-3H6.78l-.5-2H15Z" />
+          </svg>
+          <span class="flex-1 ml-3 text-left whitespace-nowrap">Departamentos</span>
+          <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6">
+            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+              d="m1 1 4 4 4-4" />
+          </svg>
         </button>
         <div class="max-h-60 overflow-y-auto bg-slate-100">
           <ul id="dropdown-example" class="hidden py-2 space-y-2">
-            {% for depa in links %} 
-              <li>
-                <a href="{% url 'products_by_departamento' depar=depa.id %}" class="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">{{depa.nombre}}</a>
-              </li>
+            {% for depa in links %}
+            <li>
+              <a href="{% url 'products_by_departamento' depar=depa.id %}"
+                class="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">{{depa.nombre}}</a>
+            </li>
             {% endfor %}
           </ul>
         </div>
-        
-        
-        
-     </li>
-       <li>
-          <a href="#" class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
-             <svg class="flex-shrink-0 w-5 h-5 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
-                <path d="m17.418 3.623-.018-.008a6.713 6.713 0 0 0-2.4-.569V2h1a1 1 0 1 0 0-2h-2a1 1 0 0 0-1 1v2H9.89A6.977 6.977 0 0 1 12 8v5h-2V8A5 5 0 1 0 0 8v6a1 1 0 0 0 1 1h8v4a1 1 0 0 0 1 1h2a1 1 0 0 0 1-1v-4h6a1 1 0 0 0 1-1V8a5 5 0 0 0-2.582-4.377ZM6 12H4a1 1 0 0 1 0-2h2a1 1 0 0 1 0 2Z"/>
-             </svg>
-             <span class="flex-1 ml-3 whitespace-nowrap">Rimith</span>
-             <span class="inline-flex items-center justify-center w-3 h-3 p-3 ml-3 text-sm font-medium text-blue-800 bg-blue-100 rounded-full dark:bg-blue-900 dark:text-blue-300">3</span>
-          </a>
-       </li>
-       <li>
-          <a href="#" class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
-             <svg class="flex-shrink-0 w-5 h-5 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 18">
-                <path d="M14 2a3.963 3.963 0 0 0-1.4.267 6.439 6.439 0 0 1-1.331 6.638A4 4 0 1 0 14 2Zm1 9h-1.264A6.957 6.957 0 0 1 15 15v2a2.97 2.97 0 0 1-.184 1H19a1 1 0 0 0 1-1v-1a5.006 5.006 0 0 0-5-5ZM6.5 9a4.5 4.5 0 1 0 0-9 4.5 4.5 0 0 0 0 9ZM8 10H5a5.006 5.006 0 0 0-5 5v2a1 1 0 0 0 1 1h11a1 1 0 0 0 1-1v-2a5.006 5.006 0 0 0-5-5Z"/>
-             </svg>
-             <span class="flex-1 ml-3 whitespace-nowrap">Rimith Esencial</span>
-          </a>
-       </li>
-       <li>
-          <a href="#" class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
-             <svg class="flex-shrink-0 w-5 h-5 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 18 20">
-                <path d="M17 5.923A1 1 0 0 0 16 5h-3V4a4 4 0 1 0-8 0v1H2a1 1 0 0 0-1 .923L.086 17.846A2 2 0 0 0 2.08 20h13.84a2 2 0 0 0 1.994-2.153L17 5.923ZM7 9a1 1 0 0 1-2 0V7h2v2Zm0-5a2 2 0 1 1 4 0v1H7V4Zm6 5a1 1 0 1 1-2 0V7h2v2Z"/>
-             </svg>
-             <span class="flex-1 ml-3 whitespace-nowrap">Emprendedores</span>
-          </a>
-       </li>
-     
+
+
+
+      </li>
+      <li>
+        <a href="#"
+          class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
+          <svg
+            class="flex-shrink-0 w-5 h-5 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white"
+            aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
+            <path
+              d="m17.418 3.623-.018-.008a6.713 6.713 0 0 0-2.4-.569V2h1a1 1 0 1 0 0-2h-2a1 1 0 0 0-1 1v2H9.89A6.977 6.977 0 0 1 12 8v5h-2V8A5 5 0 1 0 0 8v6a1 1 0 0 0 1 1h8v4a1 1 0 0 0 1 1h2a1 1 0 0 0 1-1v-4h6a1 1 0 0 0 1-1V8a5 5 0 0 0-2.582-4.377ZM6 12H4a1 1 0 0 1 0-2h2a1 1 0 0 1 0 2Z" />
+          </svg>
+          <span class="flex-1 ml-3 whitespace-nowrap">Rimith</span>
+          <span
+            class="inline-flex items-center justify-center w-3 h-3 p-3 ml-3 text-sm font-medium text-blue-800 bg-blue-100 rounded-full dark:bg-blue-900 dark:text-blue-300">3</span>
+        </a>
+      </li>
+      <li>
+        <a href="#"
+          class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
+          <svg
+            class="flex-shrink-0 w-5 h-5 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white"
+            aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 18">
+            <path
+              d="M14 2a3.963 3.963 0 0 0-1.4.267 6.439 6.439 0 0 1-1.331 6.638A4 4 0 1 0 14 2Zm1 9h-1.264A6.957 6.957 0 0 1 15 15v2a2.97 2.97 0 0 1-.184 1H19a1 1 0 0 0 1-1v-1a5.006 5.006 0 0 0-5-5ZM6.5 9a4.5 4.5 0 1 0 0-9 4.5 4.5 0 0 0 0 9ZM8 10H5a5.006 5.006 0 0 0-5 5v2a1 1 0 0 0 1 1h11a1 1 0 0 0 1-1v-2a5.006 5.006 0 0 0-5-5Z" />
+          </svg>
+          <span class="flex-1 ml-3 whitespace-nowrap">Rimith Esencial</span>
+        </a>
+      </li>
+      <li>
+        <a href="#"
+          class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
+          <svg
+            class="flex-shrink-0 w-5 h-5 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white"
+            aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 18 20">
+            <path
+              d="M17 5.923A1 1 0 0 0 16 5h-3V4a4 4 0 1 0-8 0v1H2a1 1 0 0 0-1 .923L.086 17.846A2 2 0 0 0 2.08 20h13.84a2 2 0 0 0 1.994-2.153L17 5.923ZM7 9a1 1 0 0 1-2 0V7h2v2Zm0-5a2 2 0 1 1 4 0v1H7V4Zm6 5a1 1 0 1 1-2 0V7h2v2Z" />
+          </svg>
+          <span class="flex-1 ml-3 whitespace-nowrap">Emprendedores</span>
+        </a>
+      </li>
+
     </ul>
- </div>
+  </div>
 </div>
-<nav
-  id="sidenav-1"
+<nav id="sidenav-1"
   class="absolute left-0 top-0 z-[1035] h-full w-60 -translate-x-full overflow-hidden  bg-white   data-[te-sidenav-hidden='false']:translate-x-0 dark:bg-zinc-800"
-  data-te-sidenav-init
-  data-te-sidenav-hidden="true"
-  data-te-sidenav-position="absolute">
+  data-te-sidenav-init data-te-sidenav-hidden="true" data-te-sidenav-position="absolute">
   <ul class="relative m-0 list-none px-[0.2rem]" data-te-sidenav-menu-ref>
     <li class="relative">
-      <a
-     - 
+      <a -
         class="flex h-12 cursor-pointer items-center truncate rounded-[5px] px-6 py-4 text-[0.875rem] text-gray-600 outline-none transition duration-300 ease-linear hover:bg-slate-50 hover:text-inherit hover:outline-none focus:bg-slate-50 focus:text-inherit focus:outline-none active:bg-slate-50 active:text-inherit active:outline-none data-[te-sidenav-state-active]:text-inherit data-[te-sidenav-state-focus]:outline-none motion-reduce:transition-none dark:text-gray-300 dark:hover:bg-white/10 dark:focus:bg-white/10 dark:active:bg-white/10"
         data-te-sidenav-link-ref>
-        <span
-          class="mr-4 [&>svg]:h-4 [&>svg]:w-4 [&>svg]:text-gray-400 dark:[&>svg]:text-gray-300">
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            fill="none"
-            viewBox="0 0 24 24"
-            stroke-width="1.5"
-            stroke="currentColor"
-            class="h-4 w-4">
-            <path
-              stroke-linecap="round"
-              stroke-linejoin="round"
+        <span class="mr-4 [&>svg]:h-4 [&>svg]:w-4 [&>svg]:text-gray-400 dark:[&>svg]:text-gray-300">
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+            stroke="currentColor" class="h-4 w-4">
+            <path stroke-linecap="round" stroke-linejoin="round"
               d="M15.182 15.182a4.5 4.5 0 01-6.364 0M21 12a9 9 0 11-18 0 9 9 0 0118 0zM9.75 9.75c0 .414-.168.75-.375.75S9 10.164 9 9.75 9.168 9 9.375 9s.375.336.375.75zm-.375 0h.008v.015h-.008V9.75zm5.625 0c0 .414-.168.75-.375.75s-.375-.336-.375-.75.168-.75.375-.75.375.336.375.75zm-.375 0h.008v.015h-.008V9.75z" />
           </svg>
         </span>
         <span>Inicio</span>
       </a>
     </li>
-   
+
     <li class="relative">
-      <a
-       data-te-sidenav-link-ref
-        data-modal-target="small-modal" data-modal-toggle="small-modal"
+      <a data-te-sidenav-link-ref data-modal-target="small-modal" data-modal-toggle="small-modal"
         class="flex h-12 cursor-pointer items-center truncate rounded-[5px] px-6 py-4 text-[0.875rem] text-gray-600 outline-none transition duration-300 ease-linear hover:bg-slate-50 hover:text-inherit hover:outline-none focus:bg-slate-50 focus:text-inherit focus:outline-none active:bg-slate-50 active:text-inherit active:outline-none data-[te-sidenav-state-active]:text-inherit data-[te-sidenav-state-focus]:outline-none motion-reduce:transition-none dark:text-gray-300 dark:hover:bg-white/10 dark:focus:bg-white/10 dark:active:bg-white/10"
         data-te-sidenav-link-ref>
-        <span
-          class="mr-4 [&>svg]:h-4 [&>svg]:w-4 [&>svg]:text-gray-400 dark:[&>svg]:text-gray-300">
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            viewBox="0 0 24 24"
-            fill="currentColor"
-            class="h-4 w-4">
-            <path
-              fill-rule="evenodd"
+        <span class="mr-4 [&>svg]:h-4 [&>svg]:w-4 [&>svg]:text-gray-400 dark:[&>svg]:text-gray-300">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="h-4 w-4">
+            <path fill-rule="evenodd"
               d="M12 2.25c-5.385 0-9.75 4.365-9.75 9.75s4.365 9.75 9.75 9.75 9.75-4.365 9.75-9.75S17.385 2.25 12 2.25zm-2.625 6c-.54 0-.828.419-.936.634a1.96 1.96 0 00-.189.866c0 .298.059.605.189.866.108.215.395.634.936.634.54 0 .828-.419.936-.634.13-.26.189-.568.189-.866 0-.298-.059-.605-.189-.866-.108-.215-.395-.634-.936-.634zm4.314.634c.108-.215.395-.634.936-.634.54 0 .828.419.936.634.13.26.189.568.189.866 0 .298-.059.605-.189.866-.108.215-.395.634-.936.634-.54 0-.828-.419-.936-.634a1.96 1.96 0 01-.189-.866c0-.298.059-.605.189-.866zm2.023 6.828a.75.75 0 10-1.06-1.06 3.75 3.75 0 01-5.304 0 .75.75 0 00-1.06 1.06 5.25 5.25 0 007.424 0z"
               clip-rule="evenodd" />
           </svg>
@@ -829,37 +771,23 @@
         <span
           class="absolute right-0 ml-auto mr-[0.8rem] transition-transform duration-300 ease-linear motion-reduce:transition-none [&>svg]:text-gray-600 dark:[&>svg]:text-gray-300"
           data-te-sidenav-rotate-icon-ref>
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            viewBox="0 0 20 20"
-            fill="currentColor"
-            class="h-5 w-5">
-            <path
-              fill-rule="evenodd"
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="h-5 w-5">
+            <path fill-rule="evenodd"
               d="M5.23 7.21a.75.75 0 011.06.02L10 11.168l3.71-3.938a.75.75 0 111.08 1.04l-4.25 4.5a.75.75 0 01-1.08 0l-4.25-4.5a.75.75 0 01.02-1.06z"
               clip-rule="evenodd" />
           </svg>
         </span>
       </a>
-    
+
     </li>
 
     <li class="relative">
-      <a
-        class="flex h-12 cursor-pointer items-center truncate rounded-[5px] px-6 py-4 text-[0.875rem] text-gray-600 outline-none transition duration-300 ease-linear hover:bg-slate-50 hover:text-inherit hover:outline-none focus:bg-slate-50 focus:text-inherit focus:outline-none active:bg-slate-50 active:text-inherit active:outline-none data-[te-sidenav-state-active]:text-inherit data-[te-sidenav-state-focus]:outline-none motion-reduce:transition-none dark:text-gray-300 dark:hover:bg-white/10 dark:focus:bg-white/10 dark:active:bg-white/10"
+      <a class="flex h-12 cursor-pointer items-center truncate rounded-[5px] px-6 py-4 text-[0.875rem] text-gray-600 outline-none transition duration-300 ease-linear hover:bg-slate-50 hover:text-inherit hover:outline-none focus:bg-slate-50 focus:text-inherit focus:outline-none active:bg-slate-50 active:text-inherit active:outline-none data-[te-sidenav-state-active]:text-inherit data-[te-sidenav-state-focus]:outline-none motion-reduce:transition-none dark:text-gray-300 dark:hover:bg-white/10 dark:focus:bg-white/10 dark:active:bg-white/10"
         data-te-sidenav-link-ref>
-        <span
-          class="mr-4 [&>svg]:h-4 [&>svg]:w-4 [&>svg]:text-gray-400 dark:[&>svg]:text-gray-300">
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            fill="none"
-            viewBox="0 0 24 24"
-            stroke-width="1.5"
-            stroke="currentColor"
-            class="h-4 w-4">
-            <path
-              stroke-linecap="round"
-              stroke-linejoin="round"
+        <span class="mr-4 [&>svg]:h-4 [&>svg]:w-4 [&>svg]:text-gray-400 dark:[&>svg]:text-gray-300">
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+            stroke="currentColor" class="h-4 w-4">
+            <path stroke-linecap="round" stroke-linejoin="round"
               d="M15.182 15.182a4.5 4.5 0 01-6.364 0M21 12a9 9 0 11-18 0 9 9 0 0118 0zM9.75 9.75c0 .414-.168.75-.375.75S9 10.164 9 9.75 9.168 9 9.375 9s.375.336.375.75zm-.375 0h.008v.015h-.008V9.75zm5.625 0c0 .414-.168.75-.375.75s-.375-.336-.375-.75.168-.75.375-.75.375.336.375.75zm-.375 0h.008v.015h-.008V9.75z" />
           </svg>
         </span>
@@ -868,21 +796,12 @@
     </li>
 
     <li class="relative">
-      <a
-        class="flex h-12 cursor-pointer items-center truncate rounded-[5px] px-6 py-4 text-[0.875rem] text-gray-600 outline-none transition duration-300 ease-linear hover:bg-slate-50 hover:text-inherit hover:outline-none focus:bg-slate-50 focus:text-inherit focus:outline-none active:bg-slate-50 active:text-inherit active:outline-none data-[te-sidenav-state-active]:text-inherit data-[te-sidenav-state-focus]:outline-none motion-reduce:transition-none dark:text-gray-300 dark:hover:bg-white/10 dark:focus:bg-white/10 dark:active:bg-white/10"
+      <a class="flex h-12 cursor-pointer items-center truncate rounded-[5px] px-6 py-4 text-[0.875rem] text-gray-600 outline-none transition duration-300 ease-linear hover:bg-slate-50 hover:text-inherit hover:outline-none focus:bg-slate-50 focus:text-inherit focus:outline-none active:bg-slate-50 active:text-inherit active:outline-none data-[te-sidenav-state-active]:text-inherit data-[te-sidenav-state-focus]:outline-none motion-reduce:transition-none dark:text-gray-300 dark:hover:bg-white/10 dark:focus:bg-white/10 dark:active:bg-white/10"
         data-te-sidenav-link-ref>
-        <span
-          class="mr-4 [&>svg]:h-4 [&>svg]:w-4 [&>svg]:text-gray-400 dark:[&>svg]:text-gray-300">
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            fill="none"
-            viewBox="0 0 24 24"
-            stroke-width="1.5"
-            stroke="currentColor"
-            class="h-4 w-4">
-            <path
-              stroke-linecap="round"
-              stroke-linejoin="round"
+        <span class="mr-4 [&>svg]:h-4 [&>svg]:w-4 [&>svg]:text-gray-400 dark:[&>svg]:text-gray-300">
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+            stroke="currentColor" class="h-4 w-4">
+            <path stroke-linecap="round" stroke-linejoin="round"
               d="M15.182 15.182a4.5 4.5 0 01-6.364 0M21 12a9 9 0 11-18 0 9 9 0 0118 0zM9.75 9.75c0 .414-.168.75-.375.75S9 10.164 9 9.75 9.168 9 9.375 9s.375.336.375.75zm-.375 0h.008v.015h-.008V9.75zm5.625 0c0 .414-.168.75-.375.75s-.375-.336-.375-.75.168-.75.375-.75.375.336.375.75zm-.375 0h.008v.015h-.008V9.75z" />
           </svg>
         </span>
@@ -892,52 +811,32 @@
 
 
     <li class="relative">
-      <a
-        class="flex h-12 cursor-pointer items-center truncate rounded-[5px] px-6 py-4 text-[0.875rem] text-gray-600 outline-none transition duration-300 ease-linear hover:bg-slate-50 hover:text-inherit hover:outline-none focus:bg-slate-50 focus:text-inherit focus:outline-none active:bg-slate-50 active:text-inherit active:outline-none data-[te-sidenav-state-active]:text-inherit data-[te-sidenav-state-focus]:outline-none motion-reduce:transition-none dark:text-gray-300 dark:hover:bg-white/10 dark:focus:bg-white/10 dark:active:bg-white/10"
+      <a class="flex h-12 cursor-pointer items-center truncate rounded-[5px] px-6 py-4 text-[0.875rem] text-gray-600 outline-none transition duration-300 ease-linear hover:bg-slate-50 hover:text-inherit hover:outline-none focus:bg-slate-50 focus:text-inherit focus:outline-none active:bg-slate-50 active:text-inherit active:outline-none data-[te-sidenav-state-active]:text-inherit data-[te-sidenav-state-focus]:outline-none motion-reduce:transition-none dark:text-gray-300 dark:hover:bg-white/10 dark:focus:bg-white/10 dark:active:bg-white/10"
         data-te-sidenav-link-ref>
-        <span
-          class="mr-4 [&>svg]:h-4 [&>svg]:w-4 [&>svg]:text-gray-400 dark:[&>svg]:text-gray-300">
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            fill="none"
-            viewBox="0 0 24 24"
-            stroke-width="1.5"
-            stroke="currentColor"
-            class="h-4 w-4">
-            <path
-              stroke-linecap="round"
-              stroke-linejoin="round"
+        <span class="mr-4 [&>svg]:h-4 [&>svg]:w-4 [&>svg]:text-gray-400 dark:[&>svg]:text-gray-300">
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+            stroke="currentColor" class="h-4 w-4">
+            <path stroke-linecap="round" stroke-linejoin="round"
               d="M15.182 15.182a4.5 4.5 0 01-6.364 0M21 12a9 9 0 11-18 0 9 9 0 0118 0zM9.75 9.75c0 .414-.168.75-.375.75S9 10.164 9 9.75 9.168 9 9.375 9s.375.336.375.75zm-.375 0h.008v.015h-.008V9.75zm5.625 0c0 .414-.168.75-.375.75s-.375-.336-.375-.75.168-.75.375-.75.375.336.375.75zm-.375 0h.008v.015h-.008V9.75z" />
           </svg>
         </span>
         <span>Emprendedores</span>
       </a>
     </li>
-    
+
   </ul>
 </nav>
 <!-- mobile sidebar menu end -->
 
 <!-- Back to top button -->
-<button
-  type="button"
-  onclick="scrollToTop()" 
-  id="scrollTopButton"
-  data-te-ripple-init
-  data-te-ripple-color="light"
+<button type="button" onclick="scrollToTop()" id="scrollTopButton" data-te-ripple-init data-te-ripple-color="light"
   class=" z-50  !fixed bottom-5 right-5 hidden rounded-full bg-blue-700 p-3 text-xs font-medium uppercase leading-tight text-white shadow-md transition duration-150 ease-in-out hover:bg-red-700 hover:shadow-lg focus:bg-red-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-red-800 active:shadow-lg">
 
-  <svg
-    aria-hidden="true"
-    focusable="false"
-    data-prefix="fas"
-    class="h-4 w-4"
-    role="img"
-    xmlns="http://www.w3.org/2000/svg"
-    viewBox="0 0 448 512">
-    <path
-      fill="currentColor"
-      d="M34.9 289.5l-22.2-22.2c-9.4-9.4-9.4-24.6 0-33.9L207 39c9.4-9.4 24.6-9.4 33.9 0l194.3 194.3c9.4 9.4 9.4 24.6 0 33.9L413 289.4c-9.5 9.5-25 9.3-34.3-.4L264 168.6V456c0 13.3-10.7 24-24 24h-32c-13.3 0-24-10.7-24-24V168.6L69.2 289.1c-9.3 9.8-24.8 10-34.3.4z"></path>
+  <svg aria-hidden="true" focusable="false" data-prefix="fas" class="h-4 w-4" role="img"
+    xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512">
+    <path fill="currentColor"
+      d="M34.9 289.5l-22.2-22.2c-9.4-9.4-9.4-24.6 0-33.9L207 39c9.4-9.4 24.6-9.4 33.9 0l194.3 194.3c9.4 9.4 9.4 24.6 0 33.9L413 289.4c-9.5 9.5-25 9.3-34.3-.4L264 168.6V456c0 13.3-10.7 24-24 24h-32c-13.3 0-24-10.7-24-24V168.6L69.2 289.1c-9.3 9.8-24.8 10-34.3.4z">
+    </path>
   </svg>
 </button>
 
@@ -954,35 +853,35 @@
 
 <script>
   // Mostrar u ocultar el botón según el desplazamiento
-  window.onscroll = function() {
-      if (document.documentElement.scrollTop > 100) {
-          document.getElementById("scrollTopButton").style.display = "block";
-      } else {
-          document.getElementById("scrollTopButton").style.display = "none";
-      }
+  window.onscroll = function () {
+    if (document.documentElement.scrollTop > 100) {
+      document.getElementById("scrollTopButton").style.display = "block";
+    } else {
+      document.getElementById("scrollTopButton").style.display = "none";
+    }
   };
-  
+
   // Desplazamiento suave al inicio cuando se hace clic en el botón
   function scrollToTop() {
-      window.scrollTo({
-          top: 0,
-          behavior: "smooth"
-      });
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth"
+    });
   }
-  </script>
-  
-  
+</script>
+
+
 
 <script>
   const button = document.getElementById('company-button');
-const subMenu = document.getElementById('mega-menu-full-dropdown');
+  const subMenu = document.getElementById('mega-menu-full-dropdown');
 
-// Agregar un controlador de eventos al botón "Company"
-button.addEventListener('click', function() {
-  // // Alternar la visibilidad del submenú al hacer clic en el botón
-  //
- subMenu.style.display = (subMenu.style.display === 'none') ? 'block' : 'none';
-});
+  // Agregar un controlador de eventos al botón "Company"
+  button.addEventListener('click', function () {
+    // // Alternar la visibilidad del submenú al hacer clic en el botón
+    //
+    subMenu.style.display = (subMenu.style.display === 'none') ? 'block' : 'none';
+  });
 
 </script>
 
@@ -990,78 +889,76 @@ button.addEventListener('click', function() {
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
 
-function manejarInput(inputElement, resultElement) {
+  function manejarInput(inputElement, resultElement) {
     let typingTimer;
     const delay = 1; // Tiempo en milisegundos para esperar después de dejar de escribir
 
-    $(document).on('input', inputElement, function() {
-        var query = $(this).val();
+    $(document).on('input', inputElement, function () {
+      var query = $(this).val();
 
-        // Borra el temporizador anterior si existe
-        clearTimeout(typingTimer);
+      // Borra el temporizador anterior si existe
+      clearTimeout(typingTimer);
 
-        // Inicia un nuevo temporizador
-        typingTimer = setTimeout(function() {
-            if (query.length >= 2) { // Evitar búsquedas vacías o muy cortas
-                var requestData = { "busqueda": query };
-                $.ajax({
-                    url: 'http://192.168.88.136:3002/ecommer/rs/buscador',
-                    method: 'POST',
-                    contentType: 'application/json',
-                    data: JSON.stringify(requestData),
+      // Inicia un nuevo temporizador
+      typingTimer = setTimeout(function () {
+        if (query.length >= 2) { // Evitar búsquedas vacías o muy cortas
+          var requestData = { "busqueda": query };
+          $.ajax({
+            url: 'http://192.168.88.136:3002/ecommer/rs/buscador',
+            method: 'POST',
+            contentType: 'application/json',
+            data: JSON.stringify(requestData),
 
-                    success: function(data) {
-                        // Procesa los datos de la API y muestra los resultados
-                        console.log(data);
-                        var datos = data['productos'];
-                        var resultsHtml = '<ul class="max-w-md divide-y divide-gray-200 dark:divide-gray-700">';
+            success: function (data) {
+              // Procesa los datos de la API y muestra los resultados
 
-                        datos.slice(0, 5).forEach(function(product) {
-                            resultsHtml += '<li class="pb-3 sm:pb-4">';
-                            resultsHtml += '<a href=" /store/product/' + product.item + '/">'; 
-                            resultsHtml += '<div class="flex items-center space-x-4">';
-                            resultsHtml += '<div class="flex-shrink-0">';
-                            resultsHtml += `<img class="w-8 h-8 rounded-full" src="https://riba.app/imgrs/THUMBS 500X500/${product.item}.jpg" alt="${product.nombre}" onerror="this.src='https://www.ribasmith.com/media/catalog/product/placeholder/default/watermark_4.png'">`;
-                            resultsHtml += '</div>';
-                            resultsHtml += '<div class="flex-1 min-w-0">';
-                            // Utiliza la URL generada
-                            resultsHtml += '<p class="text-sm font-medium text-gray-900 truncate dark:text-white">';
-                            resultsHtml += product.nombre;
-                            resultsHtml += '</p>';
-                            resultsHtml += '<p class="text-sm text-gray-500 truncate dark:text-gray-400">';
-                            resultsHtml += product.categoria;
-                            resultsHtml += '</p>';
-                            resultsHtml += '</div>';
-                            resultsHtml += '<div class="inline-flex items-center text-base font-semibold text-gray-900 dark:text-white">';
-                            resultsHtml += '<span>$</span>'
-                            resultsHtml += product.precio; // Reemplaza con los datos de precio apropiados si están disponibles
-                            resultsHtml += '</div>';
-                            resultsHtml += '</div>';
-                            resultsHtml += '</a>';
-                            resultsHtml += '</li>';
-                        });
+              var datos = data['productos'];
+              var resultsHtml = '<ul class="max-w-md divide-y divide-gray-200 dark:divide-gray-700">';
 
-                        resultsHtml += '</ul>';
-                        // Cierra el contenedor con barra de desplazamiento
-                        $(resultElement).html(resultsHtml);
-                    },
-                    error: function() {
-                        // Maneja errores de la solicitud AJAX
-                        $(resultElement).html('Error en la búsqueda.');
-                    }
-                });
-            } else {
-                $(resultElement).html('');
+              datos.slice(0, 5).forEach(function (product) {
+                resultsHtml += '<li class="pb-3 sm:pb-4">';
+                resultsHtml += '<a href=" /store/product/' + product.item + '/">';
+                resultsHtml += '<div class="flex items-center space-x-4">';
+                resultsHtml += '<div class="flex-shrink-0">';
+                resultsHtml += `<img class="w-8 h-8 rounded-full" src="https://riba.app/imgrs/THUMBS 500X500/${product.item}.jpg" alt="${product.nombre}" onerror="this.src='https://www.ribasmith.com/media/catalog/product/placeholder/default/watermark_4.png'">`;
+                resultsHtml += '</div>';
+                resultsHtml += '<div class="flex-1 min-w-0">';
+                // Utiliza la URL generada
+                resultsHtml += '<p class="text-sm font-medium text-gray-900 truncate dark:text-white">';
+                resultsHtml += product.nombre;
+                resultsHtml += '</p>';
+                resultsHtml += '<p class="text-sm text-gray-500 truncate dark:text-gray-400">';
+                resultsHtml += product.categoria;
+                resultsHtml += '</p>';
+                resultsHtml += '</div>';
+                resultsHtml += '<div class="inline-flex items-center text-base font-semibold text-gray-900 dark:text-white">';
+                resultsHtml += '<span>$</span>'
+                resultsHtml += product.precio; // Reemplaza con los datos de precio apropiados si están disponibles
+                resultsHtml += '</div>';
+                resultsHtml += '</div>';
+                resultsHtml += '</a>';
+                resultsHtml += '</li>';
+              });
+
+              resultsHtml += '</ul>';
+              // Cierra el contenedor con barra de desplazamiento
+              $(resultElement).html(resultsHtml);
+            },
+            error: function () {
+              // Maneja errores de la solicitud AJAX
+              $(resultElement).html('Error en la búsqueda.');
             }
-        }, delay); // Establece el retraso antes de realizar la búsqueda
+          });
+        } else {
+          $(resultElement).html('');
+        }
+      }, delay); // Establece el retraso antes de realizar la búsqueda
     });
-}
+  }
 
-// Llama a la función para los campos de búsqueda dentro del modal
-manejarInput('#search-inputs', '#search-resultss');
-manejarInput('#search-input', '#search-results');
-
-
+  // Llama a la función para los campos de búsqueda dentro del modal
+  manejarInput('#search-inputs', '#search-resultss');
+  manejarInput('#search-input', '#search-results');
 
 
 
@@ -1073,18 +970,52 @@ manejarInput('#search-input', '#search-results');
 
 
 
-  </script>
 
 
-  
-  
-
+</script>
 
 
 
 
+<script>
+
+
+  document.addEventListener("DOMContentLoaded", function () {
+
+    $(document).on("click", ".alertboton", function () {
+      showAlert()
+    })
+    const alertElement = document.getElementById("alert");
+    const overlayElement = document.getElementById("overlay");
+
+
+    function showAlert() {
+      alertElement.classList.remove("hidden");
+      overlayElement.classList.remove("hidden");
+    }
+
+    // Función para ocultar la alerta y restaurar el fondo
+    function hideAlert() {
+      alertElement.classList.add("hidden");
+      overlayElement.classList.add("hidden");
+    }
+  })
+
+</script>
+
+
+<script>
+  // Recupera el valor de sessionStorage
+  const miValor = "{{request.session.nombre_tienda}}";
+
+  // Verifica si el valor existe en sessionStorage
+  if (miValor) {
+    // Mostrar el valor en el elemento HTML
+    document.getElementById("resultado").textContent = miValor;
+  } else {
+    document.getElementById("resultado").textContent = "No hay valor";
+  }
 
 
 
-
-
+</script>

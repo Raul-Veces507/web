@@ -224,7 +224,24 @@
     function guardarValorEnSesion() {
       const selectedValue = miSelect.value; // Obtén el valor seleccionado
       const selectedText = miSelect.options[miSelect.selectedIndex].text; // Obtén el texto de la opción seleccionada
-      var csrfToken = $("input[name=csrfmiddlewaretoken]").val();
+      var csrfToken = getCookie("csrftoken");
+      console.log(csrfToken);
+      console.log(document.cookie);
+
+      function getCookie(name) {
+        var cookieValue = null;
+        if (document.cookie && document.cookie !== "") {
+          var cookies = document.cookie.split(";");
+          for (var i = 0; i < cookies.length; i++) {
+            var cookie = cookies[i].trim();
+            if (cookie.substring(0, name.length + 1) === name + "=") {
+              cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+              break;
+            }
+          }
+        }
+        return cookieValue;
+      }
       $.ajax({
         type: "POST",
         url: "{% url 'guardar_valor_en_sesion' %}", // Asegúrate de especificar la URL correcta
@@ -292,7 +309,7 @@
 
 
   </script>
-<script src="https://unpkg.com/scrollreveal@4.0.0/dist/scrollreveal.min.js"></script>
+  <script src="https://unpkg.com/scrollreveal@4.0.0/dist/scrollreveal.min.js"></script>
 </body>
 
 </html>
