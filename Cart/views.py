@@ -146,7 +146,7 @@ def add_cart_comentatario(request):
               url = f'http://192.168.88.136:3002/ecommer/rs/carrito'
 
               response = requests.post(url, json=data)  # Usar json=data en lugar de data=data
-
+              print(response)
               data_from_express_api = response.json()
               referer = request.META.get('HTTP_REFERER')
 
@@ -290,7 +290,10 @@ def cart(request, total=Decimal("0"), quantity=0, cart_items=None, taxt=Decimal(
     
                 for cart_item in cart_items:
     
-                    Descuento = Decimal(str(cart_item['Descuento'])) 
+                    if cart_item['Descuento'] == None:
+                         Descuento =0
+                    else:
+                         Descuento = Decimal(str(cart_item['Descuento'])) 
                     total += (Descuento * cart_item['quantity'])
     
                 taxt = (Decimal("2") * total) / Decimal("100")
@@ -405,7 +408,10 @@ def viewfiltcart(request, total=Decimal("0"), quantity=0, cart_items=None, taxt=
                 cart_items = data_from_express_api['carrito']
              
                 for cart_item in cart_items:
-                    Descuento = Decimal(str(cart_item['Descuento'])) 
+                    if cart_item['Descuento'] == None:
+                         Descuento =0
+                    else:
+                         Descuento = Decimal(str(cart_item['Descuento'])) 
                     total += (Descuento * cart_item['quantity'])
                     
     
@@ -456,7 +462,10 @@ def viewfiltcart(request, total=Decimal("0"), quantity=0, cart_items=None, taxt=
                 cart_items = data_from_express_api['carrito']
              
                 for cart_item in cart_items:
-                    Descuento = Decimal(str(cart_item['Descuento'])) 
+                    if cart_item['Descuento'] == None:
+                         Descuento =0
+                    else:
+                         Descuento = Decimal(str(cart_item['Descuento'])) 
                     total += (Descuento * cart_item['quantity'])
                     
     
@@ -750,7 +759,10 @@ def checkout(request, total=Decimal("0"), quantity=0, cart_items=None, taxt=Deci
               
                 
                 for cart_item in cart_items:
-                    Descuento = Decimal(str(cart_item['Descuento'])) 
+                    if cart_item['Descuento'] == None:
+                         Descuento =0
+                    else:
+                         Descuento = Decimal(str(cart_item['Descuento'])) 
     
                     total += (Descuento * cart_item['quantity'])
     
@@ -797,7 +809,10 @@ def checkout(request, total=Decimal("0"), quantity=0, cart_items=None, taxt=Deci
                 cart_items = data_from_express_api['carrito']
                 
                 for cart_item in cart_items:
-                    Descuento = Decimal(str(cart_item['Descuento'])) 
+                    if cart_item['Descuento'] == None:
+                         Descuento =0
+                    else:
+                         Descuento = Decimal(str(cart_item['Descuento'])) 
     
                     total += (Descuento * cart_item['quantity'])
     
@@ -876,7 +891,10 @@ def get_cart_count(request, total=Decimal("0"), quantity=0, cart_items=None, tax
                 array=[]
                 for cart_item in cart_items:
                     precio = Decimal(str(cart_item['precio']))  # Convierte a Decimal
-                    Descuento = Decimal(str(cart_item['Descuento'])) 
+                    if cart_item['Descuento'] == None:
+                         Descuento =0
+                    else:
+                         Descuento = Decimal(str(cart_item['Descuento'])) 
                     totaldes=precio-(Descuento * precio)
                     total += (totaldes * cart_item['quantity'])
                     cart_count += cart_item['quantity']
@@ -927,7 +945,10 @@ def get_cart_count(request, total=Decimal("0"), quantity=0, cart_items=None, tax
                 array=[]
                 for cart_item in cart_items:
                     precio = Decimal(str(cart_item['precio']))  # Convierte a Decimal
-                    Descuento = Decimal(str(cart_item['Descuento'])) 
+                    if cart_item['Descuento'] == None:
+                         Descuento =0
+                    else:
+                         Descuento = Decimal(str(cart_item['Descuento'])) 
                     totaldes=precio-(Descuento * precio)
                     total += (totaldes * cart_item['quantity'])
                     cart_count += cart_item['quantity']

@@ -85,7 +85,13 @@
                 <!-- cart quantity end -->
                 <div class="ml-auto md:ml-0">
                     <p class="text-primary text-lg font-semibold">${{cart_item.total|floatformat:2}}</p>
+                    {% if cart_item.Descuento == None %}
+                    <p>${{cart_item.precio|floatformat:2}} cada uno</p>
+                    {% else %}
                     <p>${{cart_item.Descuento|floatformat:2}} cada uno</p>
+                    {% endif %}
+           
+                  
                 </div>
                 
                 <div class="text-gray-600 hover:text-primary cursor-pointer">

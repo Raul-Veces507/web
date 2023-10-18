@@ -22,11 +22,16 @@ def counter(request, total=Decimal("0"), quantity=0, cart_items=None, taxt=Decim
             if response.status_code == 200:
                 data_from_express_api = response.json()
                 cart_items = data_from_express_api['carrito']
-                
+            
                 array=[]
                 for cart_item in cart_items:
                     precio = Decimal(str(cart_item['precio']))  # Convierte a Decimal
-                    Descuento = Decimal(str(cart_item['Descuento'])) 
+                    if cart_item['Descuento'] == None:
+                         Descuento =0
+                    else:
+                         Descuento = Decimal(str(cart_item['Descuento'])) 
+                     
+                   
                     totaldes=precio-(Descuento * precio)
                     total += (totaldes * cart_item['quantity'])
                     cart_count += cart_item['quantity']
@@ -83,7 +88,10 @@ def counter(request, total=Decimal("0"), quantity=0, cart_items=None, taxt=Decim
                 array=[]
                 for cart_item in cart_items:
                     precio = Decimal(str(cart_item['precio']))  # Convierte a Decimal
-                    Descuento = Decimal(str(cart_item['Descuento'])) 
+                    if cart_item['Descuento'] == None:
+                         Descuento =0
+                    else:
+                         Descuento = Decimal(str(cart_item['Descuento'])) 
                     totaldes=precio-(Descuento * precio)
                     total += (totaldes * cart_item['quantity'])
                     cart_count += cart_item['quantity']

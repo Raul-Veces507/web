@@ -404,7 +404,12 @@ function modaldetalle (data){
             resultsHtml += '                 </h3>';
             resultsHtml += `                <p class="ml-4 text-indigo-600">$ ${data.total.toFixed(2)}</p>`;
             resultsHtml += '               </div>';
-            resultsHtml += `                 <p class="mt-2 text-sm text-gray-500">Precio ${Number(data.Descuento).toFixed(2)}</p>`
+            if(data.Descuento == null){
+              resultsHtml += `                 <p class="mt-2 text-sm text-gray-500">Precio ${Number(data.precio).toFixed(2)}</p>`
+            }else{
+              resultsHtml += `                 <p class="mt-2 text-sm text-gray-500">Precio ${Number(data.Descuento).toFixed(2)}</p>`
+            }
+           
             resultsHtml += '             </div>';
             resultsHtml += '  <div class="flex w-28 border border-gray-300 text-gray-600 divide-x divide-gray-300 mt-5">';
             resultsHtml += `  <a  class="h-8 w-8 text-xl flex items-center justify-center cursor-pointer select-none restar" id="restar" data-product-id="${data.item}">-</a>`;
@@ -482,7 +487,11 @@ function modaldetalle (data){
             resultsHtml += '                 </h3>';
             resultsHtml += `                <p class="ml-4 text-indigo-600">$ ${data.total.toFixed(2)}</p>`;
             resultsHtml += '               </div>';
-            resultsHtml += `                 <p class="mt-2 text-sm text-gray-500">Precio ${Number(data.Descuento).toFixed(2)}</p>`
+            if(data.Descuento == null){
+              resultsHtml += `                 <p class="mt-2 text-sm text-gray-500">Precio ${Number(data.precio).toFixed(2)}</p>`
+            }else{
+              resultsHtml += `                 <p class="mt-2 text-sm text-gray-500">Precio ${Number(data.Descuento).toFixed(2)}</p>`
+            }
             resultsHtml += '             </div>';
             resultsHtml += '  <div class="flex w-28 border border-gray-300 text-gray-600 divide-x divide-gray-300 mt-5">';
             resultsHtml += `  <a  class="h-8 w-8 text-xl flex items-center justify-center cursor-pointer select-none restar" id="restar" data-product-id="${data.item}">-</a>`;
