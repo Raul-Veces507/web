@@ -125,7 +125,7 @@ function modaldetalle (data){
   resultsHtml += '    <label for="message" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Comentario</label>'
   resultsHtml += `    <input type="hidden" name="itemproducts" id="itemproducts" value="${product_id}">`
 
-  resultsHtml += '    <textarea id="message" rows="4" name="message" '
+  resultsHtml += '    <textarea id="message" rows="4" name="message" maxlength="130" '
   resultsHtml += '        class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"'
   resultsHtml += '        placeholder="Ingrese un Comentario para el producto..."></textarea>'
   resultsHtml += '</div>'
@@ -182,6 +182,8 @@ function modaldetalle (data){
 
   type2.addEventListener("change", () => {
     handleRadioChange(type2, "ComentarioText", false);
+    const textarea = document.getElementById("message");
+    textarea.value = ""; // Esto vaciará el contenido del textarea
   });
 
   type3.addEventListener("change", () => {
