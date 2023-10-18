@@ -52,8 +52,24 @@
                     <h2 class="text-gray-800 mb-3 xl:text-xl textl-lg font-medium uppercase">
                         {{cart_item.nombre}}
                     </h2>
-               
+                       
                     <p class="text-gray-500">Cantidad: {{cart_item.quantity}}</p>
+                    
+                    <div class=" bg-gray-50  rounded-sm shadow-sm w-auto  " >
+                        
+                        {% if cart_item.Comentario %}
+                        <p class="more w-auto mx-2 text-gray-800 font-thin">
+                          {{ cart_item.Comentario|capfirst }}
+                        </p>
+                      {% else %}
+                        <!-- Aquí puedes agregar cualquier HTML o texto que desees mostrar cuando no haya un comentario. -->
+                        <!-- Por ejemplo, puedes mostrar un mensaje de "Sin comentarios". -->
+                      {% endif %}
+                      
+                        
+                    </div>
+                      
+                     
                 </div>
                 <!-- cart content end -->
                 <!-- cart quantity -->
@@ -124,6 +140,57 @@
 </div>
 
 {% endif %}
+<style>
+   
+    .morecontent span {
+    display: none;
+}
+.morelink {
+    display: block;
+}
+
+
+
+</style>
+
+<script>
+   $(document).ready(function() {
+    // Configure/customize these variables.
+    var showChar = 50;  // How many characters are shown by default
+    var ellipsestext = "...";
+    var moretext = "Ver Mas ";
+    var lesstext = "Ver Menos";
+    
+
+    $('.more').each(function() {
+        var content = $(this).html();
+ 
+        if(content.length > showChar) {
+ 
+            var c = content.substr(0, showChar);
+            var h = content.substr(showChar, content.length - showChar);
+ 
+            var html = c + '<span class="moreellipses">' + ellipsestext+ '&nbsp;</span><span class="morecontent"><span>' + h + '</span>&nbsp;&nbsp;<a href="" class="morelink">' + moretext + '</a></span>';
+ 
+            $(this).html(html);
+        }
+ 
+    });
+ 
+    $(".morelink").click(function(){
+        if($(this).hasClass("less")) {
+            $(this).removeClass("less");
+            $(this).html(moretext);
+        } else {
+            $(this).addClass("less");
+            $(this).html(lesstext);
+        }
+        $(this).parent().prev().toggle();
+        $(this).prev().toggle();
+        return false;
+    });
+}); 
+</script>
 
 
 <script>
