@@ -58,24 +58,23 @@
                                 <ul>
                                     {% if filtradoCategoria == True %}
                                     {% for cat in Categoria %}
-                                        <a href="{% url 'products_by_departamento' cat.iddepa  %}">
-                                            <span style="color: red;">{{ cat.name }} <i
-                                                    class="fas fa-times"></i></span>
-                                        </a>
-                                        {% endfor %}
-                                    </ul>
-                                    {% else %}
-                                    {% for cat in Categoria %}
-                                    <li>
-                                        
-                                        <a href="{% url 'products_by_category' cat.id %}">
-                                            <span>{{cat.name}}</span>
-                                        </a>
-                                    </li>
-
+                                    <a href="{% url 'products_by_departamento' cat.iddepa  %}">
+                                        <span style="color: red;">{{ cat.name }} <i class="fas fa-times"></i></span>
+                                    </a>
                                     {% endfor %}
-                                    {% endif %}
-                                 
+                                </ul>
+                                {% else %}
+                                {% for cat in Categoria %}
+                                <li>
+
+                                    <a href="{% url 'products_by_category' cat.id %}">
+                                        <span>{{cat.name}}</span>
+                                    </a>
+                                </li>
+
+                                {% endfor %}
+                                {% endif %}
+
                                 </ul>
                             </div>
                         </div>
@@ -97,10 +96,10 @@
                         <div class="p-5 border border-b-0 border-gray-200 dark:border-gray-700 w-full "
                             style=" max-height: 300px; overflow-y: auto;">
                             <div class="box">
-                                
+
                                 <ul>
                                     {% if filtradoMarca == True %}
-                                    
+
                                     {% for product in Marca %}
                                     <a href="{% url 'products_by_category' product.idcategoria %}">
                                         <span style="color: red;">{{ product.name }} <i class="fas fa-times"></i></span>
@@ -113,12 +112,12 @@
                                         <a
                                             href="{% url 'products_by_category_marca' product.idcategoria product.name %}">
                                             <span>{{product.name}}</span>
-                                        
+
                                         </a>
                                         {% else %}
                                         <!-- Manejo de casos donde product.Marca está vacío -->
                                         <span>{{ product.Categoria }}<span>
-                                        {% endif %}
+                                                {% endif %}
                                     </li>
                                     {% endfor %}
                                     {% endif %}
@@ -178,7 +177,7 @@
                 <span class="mr-auto"><b>{{ products_count }}</b> Productos Encontrados</span>
             </div>
         </header>
-        {% include 'includes/alerts.html'  %}
+        {% include 'includes/alerts.html' %}
         <!-- sorting end -->
         <!-- product wrapper -->
         {% if productos %}
@@ -190,11 +189,12 @@
                 {% if product.porcentaje %}
                 <span class="p-discountstore"> -{{product.porcentaje}}% </span>
                 {% else %}
-                <span class="p-discountsinstore">  </span>
+                <span class="p-discountsinstore"> </span>
                 {% endif %}
 
                 <a href="{%  url 'product_detail' product.item %}">
-                    <img src=" https://riba.app/imgrs/THUMBS 500X500/{{product.item}}.jpg " class="w-full" onerror="this.src='https://www.ribasmith.com/media/catalog/product/placeholder/default/watermark_4.png' ">
+                    <img src=" https://riba.app/imgrs/THUMBS 500X500/{{product.item}}.jpg " class="w-full"
+                        onerror="this.src='https://www.ribasmith.com/media/catalog/product/placeholder/default/watermark_4.png' ">
                 </a>
 
 
@@ -219,14 +219,16 @@
 
                     <div class="flex items-baseline mb-1 space-x-2">
                         {% if product.Descuento %}
-                        <p class="text-sm text-red-700  font-roboto line-through">$   {{product.precio|floatformat:2}}</p>
-                        <p class="text-xl  text-gray-900 font-roboto font-semibold">$ {{product.Descuento|floatformat:2}}</p>
+                        <p class="text-sm text-red-700  font-roboto line-through">$ {{product.precio|floatformat:2}}</p>
+                        <p class="text-xl  text-gray-900 font-roboto font-semibold">$
+                            {{product.Descuento|floatformat:2}}</p>
                         {% else %}
-                        <p class="text-xl  text-gray-900 font-roboto font-semibold">$ {{product.precio|floatformat:2}}</p>
+                        <p class="text-xl  text-gray-900 font-roboto font-semibold">$ {{product.precio|floatformat:2}}
+                        </p>
                         {% endif %}
                     </div>
-                       <!-- estrellas -->
-                       <div class="flex items-center mt-5 mb-5">
+                    <!-- estrellas -->
+                    <div class="flex items-center mt-5 mb-5">
                         <svg class="w-4 h-4 text-yellow-300 mr-1" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
                             fill="currentColor" viewBox="0 0 22 20">
                             <path
@@ -271,26 +273,27 @@
                 <!-- product button -->
                 <form method="post">
                     {% csrf_token %}
-                <div class="text-center mt-1 absolute lg:static left-4 top-16 w-72 lg:w-full lg:block sidebar hidden">
-                    <a 
-                        class="text-white bg-yellow-300 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300
-                        font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800 add-to-cart-button" data-product-id="{{product.item}}">
-                        Agregar al carrito
-                        <i class="fa fa-cart-arrow-down"></i>
-                    </a>
-                </div>
-            </form>
-            <form method="post">
-                {% csrf_token %}
-                <div class="text-center mt-1 lg:hidden block">
-                    <a 
-                        class="text-white bg-yellow-300 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300
-                        font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800 add-to-cart-button" data-product-id="{{product.item}}">
-                        Agregar
-                        <i class="fa fa-cart-arrow-down"></i>
-                    </a>
-                </div>
-            </form>
+                    <div
+                        class="text-center mt-1 absolute lg:static left-4 top-16 w-72 lg:w-full lg:block sidebar hidden">
+                        <a class="text-white bg-yellow-300 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300
+                        font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800 add-to-cart-button"
+                            data-product-id="{{product.item}}">
+                            Agregar al carrito
+                            <i class="fa fa-cart-arrow-down"></i>
+                        </a>
+                    </div>
+                </form>
+                <form method="post">
+                    {% csrf_token %}
+                    <div class="text-center mt-1 lg:hidden block">
+                        <a class="text-white bg-yellow-300 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300
+                        font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800 add-to-cart-button"
+                            data-product-id="{{product.item}}">
+                            Agregar
+                            <i class="fa fa-cart-arrow-down"></i>
+                        </a>
+                    </div>
+                </form>
                 <div class="mt-10">
 
                 </div>
@@ -367,11 +370,22 @@
 </div>
 </div>
 
+
+
+
+
+<!-- <button type="button" data-modal-target="crypto-modal" data-modal-toggle="crypto-modal" class="text-gray-900 bg-white hover:bg-gray-100 border border-gray-200 focus:ring-4 focus:outline-none focus:ring-gray-100 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center dark:focus:ring-gray-600 dark:bg-gray-800 dark:border-gray-700 dark:text-white dark:hover:bg-gray-700">
+    <svg aria-hidden="true" class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1"></path></svg>
+    Connect wallet
+  </button>
+   -->
+<!-- Main modal -->
+
 <script>
-    
+
     var addToCartUrl = "{% url 'add_cart' 0 %}";
     var cartoCartUrl = " {% url 'get_cart_count' %}";
-   
+
 </script>
 
 {% endblock %}
