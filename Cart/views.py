@@ -289,11 +289,7 @@ def cart(request, total=Decimal("0"), quantity=0, cart_items=None, taxt=Decimal(
                 cart_items = data_from_express_api['carrito']
     
                 for cart_item in cart_items:
-    
-                    if cart_item['Descuento'] == None:
-                         Descuento =0
-                    else:
-                         Descuento = Decimal(str(cart_item['Descuento'])) 
+                    Descuento = Decimal(str(cart_item['Descuento'])) 
                     total += (Descuento * cart_item['quantity'])
     
                 taxt = (Decimal("2") * total) / Decimal("100")
@@ -408,10 +404,7 @@ def viewfiltcart(request, total=Decimal("0"), quantity=0, cart_items=None, taxt=
                 cart_items = data_from_express_api['carrito']
              
                 for cart_item in cart_items:
-                    if cart_item['Descuento'] == None:
-                         Descuento =0
-                    else:
-                         Descuento = Decimal(str(cart_item['Descuento'])) 
+                    Descuento = Decimal(str(cart_item['Descuento'])) 
                     total += (Descuento * cart_item['quantity'])
                     
     
@@ -462,10 +455,7 @@ def viewfiltcart(request, total=Decimal("0"), quantity=0, cart_items=None, taxt=
                 cart_items = data_from_express_api['carrito']
              
                 for cart_item in cart_items:
-                    if cart_item['Descuento'] == None:
-                         Descuento =0
-                    else:
-                         Descuento = Decimal(str(cart_item['Descuento'])) 
+                    Descuento = Decimal(str(cart_item['Descuento'])) 
                     total += (Descuento * cart_item['quantity'])
                     
     
@@ -759,11 +749,7 @@ def checkout(request, total=Decimal("0"), quantity=0, cart_items=None, taxt=Deci
               
                 
                 for cart_item in cart_items:
-                    if cart_item['Descuento'] == None:
-                         Descuento =0
-                    else:
-                         Descuento = Decimal(str(cart_item['Descuento'])) 
-    
+                    Descuento = Decimal(str(cart_item['Descuento'])) 
                     total += (Descuento * cart_item['quantity'])
     
                 taxt = (Decimal("2") * total) / Decimal("100")
@@ -809,12 +795,9 @@ def checkout(request, total=Decimal("0"), quantity=0, cart_items=None, taxt=Deci
                 cart_items = data_from_express_api['carrito']
                 
                 for cart_item in cart_items:
-                    if cart_item['Descuento'] == None:
-                         Descuento =0
-                    else:
-                         Descuento = Decimal(str(cart_item['Descuento'])) 
-    
+                    Descuento = Decimal(str(cart_item['Descuento'])) 
                     total += (Descuento * cart_item['quantity'])
+    
     
                 taxt = (Decimal("2") * total) / Decimal("100")
                 grand_total = total + taxt + delivery

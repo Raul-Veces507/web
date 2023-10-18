@@ -26,10 +26,7 @@ def counter(request, total=Decimal("0"), quantity=0, cart_items=None, taxt=Decim
                 array=[]
                 for cart_item in cart_items:
                     precio = Decimal(str(cart_item['precio']))  # Convierte a Decimal
-                    if cart_item['Descuento'] == None:
-                         Descuento =0
-                    else:
-                         Descuento = Decimal(str(cart_item['Descuento'])) 
+                    Descuento = Decimal(str(cart_item['Descuento'])) 
                      
                    
                     totaldes=precio-(Descuento * precio)
@@ -88,10 +85,8 @@ def counter(request, total=Decimal("0"), quantity=0, cart_items=None, taxt=Decim
                 array=[]
                 for cart_item in cart_items:
                     precio = Decimal(str(cart_item['precio']))  # Convierte a Decimal
-                    if cart_item['Descuento'] == None:
-                         Descuento =0
-                    else:
-                         Descuento = Decimal(str(cart_item['Descuento'])) 
+                    Descuento = Decimal(str(cart_item['Descuento'])) 
+                
                     totaldes=precio-(Descuento * precio)
                     total += (totaldes * cart_item['quantity'])
                     cart_count += cart_item['quantity']
