@@ -55,15 +55,14 @@
                        
                     <p class="text-gray-500">Cantidad: {{cart_item.quantity}}</p>
                     
-                    <div class=" bg-gray-50  rounded-sm shadow-sm w-auto  " >
+                    <div class="  rounded-sm  w-auto  " >
                         
                         {% if cart_item.Comentario %}
                         <p class="more w-auto mx-2 text-gray-800 font-thin">
                           {{ cart_item.Comentario|capfirst }}
                         </p>
                       {% else %}
-                        <!-- Aquí puedes agregar cualquier HTML o texto que desees mostrar cuando no haya un comentario. -->
-                        <!-- Por ejemplo, puedes mostrar un mensaje de "Sin comentarios". -->
+                        <p>Sin comentarios</p>
                       {% endif %}
                       
                         
