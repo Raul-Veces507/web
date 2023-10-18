@@ -118,8 +118,16 @@ def add_cart(request,product_id):
 
 def add_cart_comentatario(request):
      if request.method=='POST':
-      Comentario=request.POST['Comentario']
-      Newproduct=request.POST['Newproduct']
+      if 'Comentario' in request.POST:
+          Comentario=request.POST['Comentario']
+      else:
+          Comentario=''
+      if 'Newproduct' in request.POST:
+         Newproduct=request.POST['Newproduct']
+      else:
+             Newproduct=''
+        
+          
       item=request.POST['item']
       session_data = dict(request.session)
       if session_data:
