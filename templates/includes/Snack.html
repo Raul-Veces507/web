@@ -1,5 +1,134 @@
 {% load static %}
 
+<section class="bg-white mt-9 container justify-center">
+    <div class="flex flex-col md:flex-row gap-10 justify-center">
+        <div class="w-2/3 md:w-full">
+            <!-- Agrega una imagen en el primer div -->
+            <img class=" h-full rounded-sm    " src="{% static 'src/images/ban/snackcongusto.jpg' %}" alt="">
+        </div>
+        <div class="md:w-1/2">
+            <!-- Agrega un grid de 3 objetos en el segundo div -->
+            <div class="grid grid-cols-3 md:grid-cols-1 lg:grid-cols-3  ">
+                <!-- Primer objeto (tarjeta) -->
+                <div class="bg-white  overflow-hidden shadow-lg">
+                    <img class="w-full h-auto" src="{% static 'src/images/ban/snackcongusto.jpg' %}">
+                    <div class="p-4">
+                        <h5 class="mb-2 text-vmd font-bold tracking-tight text-gray-900">Título de la tarjeta 1</h5>
+                        <p class="font-normal text-gray-700">Contenido de la tarjeta 1.</p>
+                    </div>
+                </div>
+                <!-- Segundo objeto (tarjeta) -->
+                <div class="bg-white  overflow-hidden shadow-lg">
+                    <img class="w-full h-auto" src="{% static 'src/images/ban/snackcongusto.jpg' %}">
+                    <div class="p-4">
+                        <h5 class="mb-2 text-vmd font-bold tracking-tight text-gray-900">Título de la tarjeta 2</h5>
+                        <p class="font-normal text-gray-700">Contenido de la tarjeta 2</p>
+                    </div>
+                </div>
+                <!-- Tercer objeto (tarjeta) -->
+                <div class="bg-white  overflow-hidden shadow-lg">
+                    <img class="w-full h-auto" src="{% static 'src/images/ban/snackcongusto.jpg' %}">
+                    <div class="p-4">
+                        <h5 class="mb-2 text-vmd font-bold tracking-tight text-gray-900">Título de la tarjeta 3</h5>
+                        <p class="font-normal text-gray-700">Contenido de la tarjeta 3.</p>
+                    </div>
+                </div>
+                <!-- Cuarto objeto (tarjeta) -->
+                <div class="bg-white  overflow-hidden shadow-lg">
+                    <img class="w-full h-auto" src="{% static 'src/images/ban/snackcongusto.jpg' %}">
+                    <div class="p-4">
+                        <h5 class="mb-2 text-vmd font-bold tracking-tight text-gray-900">Título de la tarjeta 4</h5>
+                        <p class="font-normal text-gray-700">Contenido de la tarjeta 4.</p>
+                    </div>
+                </div>
+
+                <div class="bg-white  overflow-hidden shadow-lg">
+                    <img class="w-full h-auto" src="{% static 'src/images/ban/snackcongusto.jpg' %}">
+                    <div class="p-4">
+                        <h5 class="mb-2 text-vmd font-bold tracking-tight text-gray-900">Título de la tarjeta 4</h5>
+                        <p class="font-normal text-gray-700">Contenido de la tarjeta 4.</p>
+                    </div>
+                </div>
+
+                <div class="bg-white  overflow-hidden shadow-lg">
+                    <img class="w-full h-auto" src="{% static 'src/images/ban/snackcongusto.jpg' %}">
+                    <div class="p-4">
+                        <h5 class="mb-2 text-vmd font-bold tracking-tight text-gray-900">Título de la tarjeta 4</h5>
+                        <p class="font-normal text-gray-700">Contenido de la tarjeta 4.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 <!-- 
@@ -42,7 +171,7 @@
 </section>
 
 
-<section class="container sproduct  flex flex-col  mb-3 ">
+<section class="container sproduct  flex flex-col  mb-8 ">
     <div class="grid grid-cols-1 sproduct md:grid-cols-2 mt-4">
 
         <div class=" flex sproduct ">
@@ -52,7 +181,7 @@
 
                     <div class=" flex sproduct ">
 
-                        <img class="img-fluid w-full h-auto pb-1" src="{% static 'src/images/ban/snackcongusto.jpg' %}"
+                        <img class="  rounded-lg img-fluid w-full h-auto pb-1" src="{% static 'src/images/ban/snackcongusto.jpg' %}"
                             alt="">
                         </div>
 
@@ -121,16 +250,16 @@
                 {% for product in product %}
 
 
-                <div class="  w-44 h-auto transform overflow-hidden rounded-lg border  ">
+                <div class="  w-auto h-auto transform overflow-hidden rounded-lg border  ">
                     <a href="{{product.viewproduct}}">
-                        <img class="h-32 w-36 object-cover object-center"
+                        <img class="h-44 w-36 object-cover object-center"
                             src="https://riba.app/imgrs/THUMBS 500X500/{{ product.item }}.jpg" alt="Product Image" />
                     </a>
                     <div class="p-4">
                         <p style="font-size: 10px;" class="mb-2 font-medium dark:text-white text-gray-900 text-limit">
                             {{product.nombre}}</p>
                         <p class="text-green-500 text-center">In Stock</p>
-                    
+                        
                         <div class="flex items-center mt-2.5 mb-5">
                             <svg class="w-4 h-4 text-yellow-300 mr-1" aria-hidden="true"
                                 xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 22 20">
@@ -160,7 +289,7 @@
                             <span
                                 class="bg-blue-100 text-blue-800 text-xs font-semibold mr-2 px-2.5 py-0.5 rounded dark:bg-blue-200 dark:text-blue-800 ml-3">5.0</span>
                         </div>
-                        
+                       
                         <div class="flex items-center">
                             <p class="text-base  font-medium text-gray-500 line-through dark:text-gray-300">$25.00</p>
                             <p class="ml-2 text-lg font-semibold text-gray-900 dark:text-white">${{ product.precio }}
@@ -174,7 +303,7 @@
                         <div class="mt-9 ml-7">
                             <a href="#"
                                 class="text-white bg-yellow-300 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300
-                                font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800"">Agregar</a>
+                                font-medium rounded-lg text-sm md:px-2 py-2.5 mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800"">Agregar</a>
 
                         </div>
                     </div>

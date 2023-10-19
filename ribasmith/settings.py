@@ -45,7 +45,10 @@ INSTALLED_APPS = [
     'compressor',
     'store', #app wev
     'category',
-    'Cart'
+    'Cart',
+    'Departamento',
+    'Grupo',
+    'Account',
 ]
 TE_URL = 'node_modules/'
 STATICFILES_DIRS = [
@@ -77,7 +80,7 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
-                'category.context_processors.menu_links',
+                'Departamento.context_processors.menu_links',
                 'Cart.context_processors.counter',
             ],
         },
@@ -86,6 +89,8 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'ribasmith.wsgi.application'
 
+AUTH_USER_MODEL='Account.Account'
+
 
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
@@ -93,7 +98,7 @@ WSGI_APPLICATION = 'ribasmith.wsgi.application'
 DATABASES = {
  'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'fastdeli',
+        'NAME': 'fastdeli2',
         'USER': 'root',  # El usuario por defecto de MySQL en XAMPP es "root".
         'PASSWORD': '',  # Deja la contraseña en blanco si no la configuraste.
         'HOST': '127.0.0.1',  # Utiliza la dirección IP en lugar de 'localhost'.
@@ -146,6 +151,19 @@ MEDIA_ROOT=BASE_DIR / 'media'
 
 MEDIA_URL='/media/'
 
+from django.contrib.messages import constants as messages
+
+MESSAGE_TAGS={
+    messages.ERROR:'danger'
+}
+
+EMAIL_HOST='smtp.gmail.com'
+EMAIL_PORT=587
+EMAIL_HOST_USER='jetveces@gmail.com'
+EMAIL_HOST_PASSWORD='kcpghbionvunfmhj'
+EMAIL_USE_TLS=True
+
+EMAIL_USE_TLS=True
 
 STATIC_ROOT = BASE_DIR / 'staticfiles'
 
@@ -158,3 +176,6 @@ STATICFILES_FINDERS = ('compressor.finders.CompressorFinder',)
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+SESSION_EXPIRE_AT_BROWSER_CLOSE = True
+GOOGLE_MAPS_API_KEY = 'AIzaSyCdjCuB5DCVSeqwvAbek3aEpWB2tFTnMRU'

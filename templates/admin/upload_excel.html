@@ -1,0 +1,13 @@
+{% extends "admin/base.html" %}
+{% load i18n %}
+
+{% block content %}
+<div class="wrap">
+    <h1>{% blocktrans %}Cargar archivo Excel{% endblocktrans %}</h1>
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit" class="default">Cargar Excel</button>
+    </form>
+</div>
+{% endblock %}

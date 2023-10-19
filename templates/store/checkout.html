@@ -1,0 +1,420 @@
+{% extends 'base.html' %}
+{% block content %}
+
+
+<section class="container">
+
+
+  <div class="min-w-screen min-h-screen  py-5">
+    <form action="">
+
+
+      <div class="w-full bg-white border-t border-b border-gray-200 px-5 py-10 text-gray-800">
+        <div class="w-full">
+          <div class="-mx-3 md:flex items-start">
+            <div class=" px-3 md:w-7/12 lg:pr-10">
+              <p class="text-lg font-medium">Contacto</p>
+
+              <div
+                class=" mt-5 w-full mx-auto rounded-lg bg-white border border-gray-200 p-3 text-gray-800 font-light mb-6">
+                {% if Direccion %}
+                <div class="w-full flex mb-3 items-center">
+                  <div class="w-48">
+                    <span class="text-gray-600 font-semibold">Nombre: </span>
+                  </div>
+                  <div class="flex-grow pl-3">
+                    <span>{{request.session.Usuario | capfirst}}</span>
+                  </div>
+                </div>
+                <div class="w-full flex items-center">
+                  <div class="w-48">
+                    <span class="text-gray-600 font-semibold">Direccion de entrega:</span>
+                  </div>
+                  <div class="flex-grow pl-3">
+                    <label for="">{{Direccion.Detalle}}</label>
+                  </div>
+                </div>
+                <div class="w-full flex items-center mt-5">
+                  <div class="w-48">
+                    <span class="text-gray-600 font-semibold">Celular:</span>
+                  </div>
+                  <div class="flex-grow pl-3">
+                    <label for="">{{Direccion.Celular}}</label>
+                  </div>
+                </div>
+                <div class="text-center mt-5">
+
+                  <a href="{% url 'direccion' %}"
+                    class="font-medium text-blue-600 dark:text-blue-500 hover:underline">Cambiar Direccion</a>
+
+                </div>
+                {% else %}
+                <h1 class="text-center mt-5">Sin Direcciones Registradas</h1>
+                <div class="text-center mt-5">
+                  <a href="{% url 'direccion' %}" type="button" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 
+                mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">Agregar
+                    Direccion</a>
+                </div>
+
+
+                {% endif %}
+              </div>
+
+
+
+
+              <p class="text-lg font-medium">Metodo De Entrega</p>
+              <div
+                class=" mt-5 w-full mx-auto rounded-lg bg-white border border-gray-200 p-3 text-gray-800 font-light mb-6">
+
+                <div class="w-full flex items-center mt-5">
+                  <div class="w-48">
+                    <span class="text-gray-600 font-semibold">Fecha de Entrega:</span>
+                  </div>
+                  <div class="flex-grow pl-3">
+                    <div class="relative max-w-sm">
+                      <div class="absolute inset-y-0 left-0 flex items-center pl-3.5 pointer-events-none">
+                        <svg class="w-4 h-4 text-gray-500 dark:text-gray-400" aria-hidden="true"
+                          xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
+                          <path
+                            d="M20 4a2 2 0 0 0-2-2h-2V1a1 1 0 0 0-2 0v1h-3V1a1 1 0 0 0-2 0v1H6V1a1 1 0 0 0-2 0v1H2a2 2 0 0 0-2 2v2h20V4ZM0 18a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V8H0v10Zm5-8h10a1 1 0 0 1 0 2H5a1 1 0 0 1 0-2Z" />
+                        </svg>
+                      </div>
+                      <input datepicker type="text"spellcheck="false"
+                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full pl-10 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                        placeholder="Seleccionar Fecha de Entrega" id="test"  required>
+            
+                    </div>
+
+                  </div>
+                </div>
+
+
+
+                <div class="w-full flex items-center mt-5">
+                  <div class="w-48">
+                    <span class="text-gray-600 font-semibold">Método de envío:</span>
+                  </div>
+                  <div class="flex-grow pl-3">
+                    <select name="Envio" id="Envio"
+                      class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500
+                    focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                      required>
+                      <option value="">Seleccione una opción</option>
+                      <option value="Rt">Retiro en tienda</option>
+                      <option value="Domicilio">Domicilio</option>
+                    </select>
+                  </div>
+                </div>
+
+
+                <div class="w-full flex items-center mt-5" id="rt-container" style="display: none;">
+                  <span class="text-gray-600 font-semibold mt-5">Tienda de retiro: {{request.session.nombre_tienda}} </span>
+
+
+                </div>
+
+
+              </div>
+
+              <p class="mt-8 text-lg font-medium">Metodo de Pago</p>
+              <div class="w-full mx-auto rounded-lg bg-white border border-gray-200 text-gray-800 font-light mb-6 mt-5">
+                <div class="w-full p-3 border-b border-gray-200">
+                  <div class="mb-5">
+                    <label for="type1" class="flex items-center cursor-pointer">
+                      <input type="radio" class="form-radio h-5 w-5 text-indigo-500" name="type" id="type1">
+                      <img src="https://leadershipmemphis.org/wp-content/uploads/2020/08/780370.png" class="h-6 ml-3">
+                    </label>
+                  </div>
+                  <div id="tarjetaFormulario" style="display: none;">
+                    <div class="mb-3">
+                      <label class="text-gray-600 font-semibold text-sm mb-2 ml-1">Nombre del titular de la tarjeta</label>
+                      <div>
+                        <input
+                          class=" mt-3 w-full px-3 py-2 mb-1 border border-gray-200 rounded-md focus:outline-none focus:border-indigo-500 transition-colors"
+                          placeholder="John Smith" type="text" />
+                      </div>
+                    </div>
+                    <div class="mb-3">
+                      <label class="text-gray-600 font-semibold text-sm mb-2 ml-1">Número de tarjeta</label>
+                      <div>
+                        <input
+                          class="mt-3 w-full px-3 py-2 mb-1 border border-gray-200 rounded-md focus:outline-none focus:border-indigo-500 transition-colors"
+                          placeholder="0000 0000 0000 0000" type="text" />
+                      </div>
+                      <div class="mb-3 -mx-2 flex items-end mt-5">
+                        <div class="px-2 w-1/4">
+                          <label class="text-gray-600 font-semibold text-sm mb-2 ml-1">Fecha de caducidad</label>
+                          <div>
+                            <select
+                              class="mt-3 form-select w-full px-3 py-2 mb-1 border border-gray-200 rounded-md focus:outline-none focus:border-indigo-500 transition-colors cursor-pointer" >
+                              <option value=""></option>
+                              <option value="01">01 - Enero</option>
+                              <option value="02">02 - Febrero</option>
+                              <option value="03">03 - Marzo</option>
+                              <option value="04">04 - Abril</option>
+                              <option value="05">05 - Mayo</option>
+                              <option value="06">06 - Junio</option>
+                              <option value="07">07 - Julio</option>
+                              <option value="08">08 - Agosto</option>
+                              <option value="09">09 - Septiembre</option>
+                              <option value="10">10 - Octubre</option>
+                              <option value="11">11 - Noviembre</option>
+                              <option value="12">12 - Diciembre</option>
+                            </select>
+                          </div>
+                        </div>
+                        <div class="px-2 w-1/4">
+                          <label class="text-gray-600 font-semibold text-sm mb-2 ml-1"></label>
+                          <select
+                            class=" mt-3 form-select w-full px-3 py-2 mb-1 border border-gray-200 rounded-md focus:outline-none focus:border-indigo-500 transition-colors cursor-pointer" >
+                            <option value=""></option>
+                            <option value="2020">2020</option>
+                            <option value="2021">2021</option>
+                            <option value="2022">2022</option>
+                            <option value="2023">2023</option>
+                            <option value="2024">2024</option>
+                            <option value="2025">2025</option>
+                            <option value="2026">2026</option>
+                            <option value="2027">2027</option>
+                            <option value="2028">2028</option>
+                            <option value="2029">2029</option>
+                          </select>
+                        </div>
+                        <div class="px-2 w-1/4">
+                          <label class="text-gray-600 font-semibold text-sm mb-2 ml-1">cvc</label>
+                          <div>
+                            
+                            <input
+                              class="mt-3 w-full px-3 py-2 mb-1 border border-gray-200 rounded-md focus:outline-none focus:border-indigo-500 transition-colors"
+                              placeholder="000" type="text" / required>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+               
+                  </div>
+                </div>
+                <div class="w-full p-3 border-b border-gray-200">
+                  <label for="type2" class="flex items-center cursor-pointer">
+                    <input type="radio" class="form-radio h-5 w-5 text-indigo-500" name="type" id="type2">
+                    <label class="text-gray-600 font-semibold mb-2 ml-1 mt-3">Contra Entrega</label>
+                  </label>
+                </div>
+                <div class="w-full p-3">
+                  <label for="type3" class="flex items-center cursor-pointer">
+                    <input type="radio" class="form-radio h-5 w-5 text-indigo-500" name="type" id="type3" checked>
+                    <label class="text-gray-600 font-semibold mb-2 ml-1 mt-3">Efectivo</label>
+                  </label>
+                </div>
+              </div>
+              <div>
+
+              </div>
+            </div>
+            <div class="px-3 md:w-5/12">
+              <div class="w-full mx-auto text-gray-800 font-light mb-6 border-b border-gray-200 pb-6"
+                style=" max-height: 300px; overflow-y: auto;">
+                {% for item in cart_items %}
+
+
+                <div class="w-full flex items-center mt-5">
+                  <div class="overflow-hidden rounded-lg w-16 h-16 bg-gray-50 border border-gray-200">
+                    <img src="https://riba.app/imgrs/THUMBS 500X500/{{item.item}}.jpg" alt="">
+                  </div>
+                  <div class="flex-grow pl-3">
+                    <h6 class="font-semibold uppercase text-gray-600">{{item.nombre}}</h6>
+                    <p class="text-gray-400">Cantidad: {{item.quantity}}</p>
+                  </div>
+                  <div>
+                    <span class="font-semibold text-gray-600 text-xl">${{item.total|floatformat:2}}</span></span>
+                  </div>
+                </div>
+                {% endfor %}
+              </div>
+
+              <div class="mb-6 pb-6 border-b border-gray-200 text-gray-800">
+                <div class="w-full flex mb-3 items-center">
+                  <div class="flex-grow">
+                    <span class="text-gray-600">Subtotal</span>
+                  </div>
+                  <div class="pl-3">
+                    <span class="font-semibold">${{total|floatformat:2}}</span>
+                  </div>
+                </div>
+                <div class="w-full flex items-center">
+                  <div class="flex-grow">
+                    <span class="text-gray-600">Impuesto</span>
+                  </div>
+                  <div class="pl-3">
+                    <span class="font-semibold">${{taxt|floatformat:2}}</span>
+                  </div>
+
+                </div>
+                <div class="w-full flex items-center mt-3">
+                  <div class="flex-grow">
+                    <span class="text-gray-600">Delivery</span>
+                  </div>
+                  <div class="pl-3">
+                    <span id="taxt1" class="font-semibold" style="display: block;">$0.00</span>
+                    <span id="taxt2" class="font-semibold" style="display: none;">$3.50</span>
+                  </div>
+
+                </div>
+              </div>
+              <div class="mb-6 pb-6 border-b border-gray-200 md:border-none text-gray-800 text-xl">
+                <div class="w-full flex items-center">
+                  <div class="flex-grow">
+                    <span class="text-gray-600">Total</span>
+                  </div>
+                  <div class="pl-3">
+                    <span class="font-semibold text-gray-400 text-sm"></span>
+                    <span id="total1" class="font-semibold"
+                      style="display: block;">${{semigrand_total|floatformat:2}}</span>
+                    <span id="total2" class="font-semibold" style="display: none;">${{grand_total|floatformat:2}}</span>
+                  </div>
+                </div>
+              </div>
+
+              {% if Direccion %}
+              <button
+                class="block w-full max-w-xs mx-auto bg-indigo-500 hover:bg-indigo-700 focus:bg-indigo-700 text-white rounded-lg px-3 py-2 font-semibold"><i
+                  class="mdi mdi-lock-outline mr-1"></i> Realizar Pedido</button>
+              {% else %}
+              <h1 class="text-center">Sin Direcciones Registradas</h1>
+              {% endif %}
+
+            </div>
+
+          </div>
+        </div>
+      </div>
+
+    </form>
+  </div>
+
+</section>
+
+
+
+
+<script>
+
+  const type1 = document.getElementById("type1");
+  const type2 = document.getElementById("type2");
+  const type3 = document.getElementById("type3");
+
+  const tarjetaFormulario = document.getElementById("tarjetaFormulario");
+
+  type1.addEventListener("change", () => {
+  if (type1.checked) {
+    tarjetaFormulario.style.display = "block";
+
+    // Configura los campos de tarjeta como requeridos
+    const tarjetaInputs = tarjetaFormulario.querySelectorAll("input, select");
+    tarjetaInputs.forEach((element) => {
+      element.required = true;
+    });
+  }
+});
+
+  type2.addEventListener("change", () => {
+    if (type2.checked) {
+      tarjetaFormulario.style.display = "none";
+      // Elimina el atributo required de los campos de tarjeta
+      const tarjetaInputs = tarjetaFormulario.querySelectorAll("input");
+      tarjetaInputs.forEach((input) => {
+        input.required = false;
+      });
+    }
+  });
+
+  type3.addEventListener("change", () => {
+    if (type3.checked) {
+      tarjetaFormulario.style.display = "none";
+      // Elimina el atributo required de los campos de tarjeta
+      const tarjetaInputs = tarjetaFormulario.querySelectorAll("input");
+      tarjetaInputs.forEach((input) => {
+        input.required = false;
+      });
+    }
+  });
+
+  const Envio = document.getElementById("Envio");
+  const rtContainer = document.getElementById("rt-container");
+
+  Envio.addEventListener("change", () => {
+    if (Envio.value === "Rt") {
+      rtContainer.style.display = "block";
+      // Configura los campos de radio como requeridos
+      const radioInputs = rtContainer.querySelectorAll("input[type=radio]");
+      radioInputs.forEach((input) => {
+        input.required = true;
+      });
+    } else {
+      rtContainer.style.display = "none";
+      // Elimina el atributo required de los campos de radio
+      const radioInputs = rtContainer.querySelectorAll("input[type=radio]");
+      radioInputs.forEach((input) => {
+        input.required = false;
+      });
+    }
+  });
+
+</script>
+
+<script>
+
+
+  document.addEventListener('DOMContentLoaded', function () {
+    // Obtiene el elemento <select> y el contenedor del mapa
+    var selectEnvio = document.getElementById('Envio');
+
+    var rtcontainer = document.getElementById('rt-container');
+    var total1 = document.getElementById('total1');
+    var total2 = document.getElementById('total2');
+    var taxt1 = document.getElementById('taxt1');
+    var taxt2 = document.getElementById('taxt2');
+
+    // Agrega un evento 'change' al elemento <select>
+    selectEnvio.addEventListener('change', function () {
+      // Obtiene el valor seleccionado
+      var selectedValue = selectEnvio.value;
+
+      // Verifica si la opción seleccionada es "Rt" para ocultar o mostrar el mapa
+      if (selectedValue === 'Rt') {
+        // Oculta el contenedor del mapa
+
+        rtcontainer.style.display = 'block';
+
+        total1.style.display = 'block';
+        total2.style.display = 'none';
+        taxt1.style.display = 'block';
+        taxt2.style.display = 'none';
+      } else if (selectedValue === '') {
+
+
+        rtcontainer.style.display = 'none';
+
+        total1.style.display = 'block';
+        total2.style.display = 'none';
+        taxt1.style.display = 'block';
+        taxt2.style.display = 'none';
+      } else {
+
+        rtcontainer.style.display = 'none';
+
+        total1.style.display = 'none';
+        total2.style.display = 'block';
+        taxt1.style.display = 'none';
+        taxt2.style.display = 'block';
+      }
+    });
+  });
+
+
+
+</script>
+
+
+{% endblock %}

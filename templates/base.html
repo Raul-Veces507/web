@@ -6,55 +6,312 @@
 <html lang="en">
 
 <head>
-    <meta charset="utf-8">
-    <meta http-equiv="pragma" content="no-cache" />
-    <meta http-equiv="cache-control" content="max-age=604800" />
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta charset="utf-8">
+  <meta http-equiv="pragma" content="no-cache" />
+  <meta http-equiv="cache-control" content="max-age=604800" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-    <title>Supermecado Riba Smith</title>
-    <script>
-        
-    </script>
-    
-    <link rel='stylesheet' href='https://cdn-uicons.flaticon.com/uicons-thin-rounded/css/uicons-thin-rounded.css'>
-    <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css"
+  <title>Supermecado Riba Smith</title>
+
+  <link rel="shortcut icon" href="{% static 'src/images/icons/favicon.ico' %}">
+  <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css"
     integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous" />
-    <script src="{% static 'src/js/glider.min.js' %}"></script>
-    <script src="https://kit.fontawesome.com/79eb049729.js" crossorigin="anonymous"></script>
-    <link rel="stylesheet" href="{% static 'src/css/glider.min.css' %}">
-    <link rel="stylesheet" type="text/css"
- 
-    {% compress css %}
-    <link rel="stylesheet" href="{% static 'src/output.css' %}">
+  <link rel="stylesheet" href=" {% static 'src/css/uicons-thin-rounded.css' %} ">
+  <link rel="stylesheet" href=" {% static 'src/css/sweetalert2.css' %} ">
+  <script src="{% static 'src/js/glider.min.js' %}"></script>
+  <script src="https://unpkg.com/scrollreveal"></script>
+  <script src=" {% static 'src/js/fontawesome.js' %} " crossorigin="anonymous"></script>
+  <link rel="stylesheet" href="{% static 'src/css/glider.min.css' %}">
 
 
-  
-    {% endcompress %}
-   
-    
+  {% compress css %}
+  <link rel="stylesheet" href="{% static 'src/output.css' %}">
+
+
+
+  {% endcompress %}
+
+
 </head>
 
 <body>
 
 
-    {% include 'includes/navbar.html' %}
-  
 
+
+  <style>
+    .hide-on-load {
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity 0.5s ease-in-out, visibility 0.5s ease-in-out;
+    }
+
+    /* Aplicar estilos para mostrar elementos gradualmente */
+    .show-on-load {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    /* Estilo para la capa de fondo */
+    #overlay {
+      transition: opacity 0.3s ease-in-out;
+    }
+  </style>
+
+
+  {% include 'includes/navbar.html' %}
+
+
+
+
+  <div class="hide-on-load">
     {% block content %}
 
     {%endblock%}
 
-
-
-    {% include 'includes/footer.html' %}
-
-
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/1.8.1/flowbite.min.js"></script>
-    <script
-    src="{% static 'src/tw-element/js/tw-elements.umd.min.js' %}"
-    type="text/javascript"></script>
-   
+    {% include 'includes/modaladd.html' %}
     
+    <div id="overlay" class="fixed inset-0 bg-black opacity-40 pointer-events-none z-40 hidden"></div>
+
+
+
+
+
+
+
+
+
+    <div id="alert"
+      class=" transition-opacity duration-500 ease-in-out fixed inset-0 flex items-center justify-center z-50 hidden p-4">
+      <div class="relative w-full max-w-md">
+        <div class="relative bg-white rounded-lg shadow dark:bg-gray-700">
+
+          <div class="p-6 text-center">
+
+            <h3 class="mb-5 text-lg font-normal text-gray-500 dark:text-gray-400">Como es su Metodo de envio?</h3>
+            <button type="button" data-modal-target="crypto-modal" data-modal-toggle="crypto-modal"
+              class="text-gray-900 bg-white hover:bg-gray-100 border border-gray-200 focus:ring-4 focus:outline-none focus:ring-gray-100 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center dark:focus:ring-gray-600 dark:bg-gray-800 dark:border-gray-700 dark:text-white dark:hover:bg-gray-700">
+              <svg class="w-4 h-4 mr-2" xmlns="http://www.w3.org/2000/svg" id="Outline" viewBox="0 0 24 24" width="512"
+                height="512">
+                <path
+                  d="M24,10a.988.988,0,0,0-.024-.217l-1.3-5.868A4.968,4.968,0,0,0,17.792,0H6.208a4.968,4.968,0,0,0-4.88,3.915L.024,9.783A.988.988,0,0,0,0,10v1a3.984,3.984,0,0,0,1,2.643V19a5.006,5.006,0,0,0,5,5H18a5.006,5.006,0,0,0,5-5V13.643A3.984,3.984,0,0,0,24,11ZM2,10.109l1.28-5.76A2.982,2.982,0,0,1,6.208,2H7V5A1,1,0,0,0,9,5V2h6V5a1,1,0,0,0,2,0V2h.792A2.982,2.982,0,0,1,20.72,4.349L22,10.109V11a2,2,0,0,1-2,2H19a2,2,0,0,1-2-2,1,1,0,0,0-2,0,2,2,0,0,1-2,2H11a2,2,0,0,1-2-2,1,1,0,0,0-2,0,2,2,0,0,1-2,2H4a2,2,0,0,1-2-2ZM18,22H6a3,3,0,0,1-3-3V14.873A3.978,3.978,0,0,0,4,15H5a3.99,3.99,0,0,0,3-1.357A3.99,3.99,0,0,0,11,15h2a3.99,3.99,0,0,0,3-1.357A3.99,3.99,0,0,0,19,15h1a3.978,3.978,0,0,0,1-.127V19A3,3,0,0,1,18,22Z" />
+              </svg>
+
+              Retiro en Tienda
+            </button>
+
+            <button type="button" data-modal-target="crypto-modal" data-modal-toggle="crypto-modal"
+              class="text-gray-900 bg-white hover:bg-gray-100 border border-gray-200 focus:ring-4 focus:outline-none focus:ring-gray-100 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center dark:focus:ring-gray-600 dark:bg-gray-800 dark:border-gray-700 dark:text-white dark:hover:bg-gray-700">
+              <svg class="w-4 h-4 mr-2" xmlns="http://www.w3.org/2000/svg" id="Layer_1" data-name="Layer 1"
+                viewBox="0 0 24 24" width="512" height="512">
+                <path
+                  d="M19,5H17V4a3,3,0,0,0-3-3H3A3,3,0,0,0,0,4V19H2.041A3.465,3.465,0,0,0,2,19.5a3.5,3.5,0,0,0,7,0,3.465,3.465,0,0,0-.041-.5h6.082a3.465,3.465,0,0,0-.041.5,3.5,3.5,0,0,0,7,0,3.465,3.465,0,0,0-.041-.5H24V10A5.006,5.006,0,0,0,19,5Zm0,2a3,3,0,0,1,3,3v1H17V7ZM7,19.5a1.5,1.5,0,0,1-3,0,1.418,1.418,0,0,1,.093-.5H6.907A1.418,1.418,0,0,1,7,19.5ZM15,17H2V4A1,1,0,0,1,3,3H14a1,1,0,0,1,1,1Zm5,2.5a1.5,1.5,0,0,1-3,0,1.41,1.41,0,0,1,.093-.5h2.814A1.41,1.41,0,0,1,20,19.5ZM17,17V13h5v4Z" />
+              </svg>
+
+
+              Domicilio
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+    <div id="crypto-modal" tabindex="-1" aria-hidden="true"
+      class="fixed top-0 left-0 right-0 z-50 hidden w-full p-4 overflow-x-hidden overflow-y-auto md:inset-0 h-[calc(100%-1rem)] max-h-full">
+      <div class="relative w-full max-w-md max-h-full">
+        <!-- Modal content -->
+        <div class="relative bg-white rounded-lg shadow dark:bg-gray-700">
+
+          <!-- Modal header -->
+          <div class="px-6 py-4 border-b rounded-t dark:border-gray-600">
+            <h3 class="text-base font-semibold text-gray-900 lg:text-xl dark:text-white">
+              Selecciona una tienda
+            </h3>
+          </div>
+          <!-- Modal body -->
+          <div class="p-6">
+            <select id="miSelect" data-te-select-init>
+              <option selected>Seleccione una tienda</option>
+              <option value="1" data-nombre="Market Plaza">Market Plaza</option>
+              <option value="100200" data-nombre="Costa del Este">Costa del Este</option>
+              <option value="3" data-nombre="Transistmica">Transistmica</option>
+              <option value="4" data-nombre="Brisas del golf">Brisas del golf</option>
+              <option value="5" data-nombre="Five">Five</option>
+            </select>
+          </div>
+
+          <!-- Modal footer (Botón "Continuar" centrado) -->
+          <div class="flex justify-center items-center  mb-7 space-x-3 ">
+            <button id="continuarButton" data-modal-hide="alert" type="button"
+              class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">Continuar</button>
+            <button data-modal-hide="crypto-modal" type="button"
+              class="focus:outline-none text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-900">Cancelar</button>
+
+
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+  </div>
+
+
+
+
+
+  {% include 'includes/footer.html' %}
+  <div id="toast" class="hidden">
+    Producto Agregado Con Exito
+  </div>
+  <script src="https://unpkg.com/flowbite-datepicker@1.2.2/dist/js/datepicker-full.js"></script>
+
+  <script src="{% static 'src/js/flowbite.min.js' %}"></script>
+  <script src="{% static 'src/tw-element/js/tw-elements.umd.min.js' %}" type="text/javascript"></script>
+  <script src=" {% static 'src/js/sweetalert2.js' %}"></script>
+  <script src=" {% static 'src/js/jquery.js' %}"></script>
+  <script src="{% static 'src/js/javascrip.js' %}" type="text/javascript"></script>
+  <script>
+    document.addEventListener("DOMContentLoaded", function () {
+      const hiddenElements = document.querySelectorAll('.hide-on-load');
+      hiddenElements.forEach(function (element) {
+        element.classList.add('show-on-load');
+      });
+    });
+  </script>
+  <script>
+    document.addEventListener("DOMContentLoaded", function () {
+      const alertElement = document.getElementById("alert");
+      const overlayElement = document.getElementById("overlay");
+      const closeAlertButton = document.getElementById("closeAlert");
+
+      // Función para mostrar la alerta y oscurecer el fondo
+      function showAlert() {
+        alertElement.classList.remove("hidden");
+        overlayElement.classList.remove("hidden");
+      }
+
+      // Función para ocultar la alerta y restaurar el fondo
+      function hideAlert() {
+        alertElement.classList.add("hidden");
+        overlayElement.classList.add("hidden");
+      }
+
+      // Verificar si hay un valor guardado en sessionStorage
+      const storedValue = "{{ request.session.valor_seleccionado }}".trim(); // Elimina espacios en blanco alrededor del valor
+      // Mostrar la alerta solo si no hay un valor en sessionStorage
+      if (storedValue === "") {
+        // Mostrar la alerta automáticamente después de 3 segundos
+        setTimeout(showAlert, 1000); // 3000 milisegundos (3 segundos)
+      }
+      // Cerrar la alerta al hacer clic en el botón de cierre
+      closeAlertButton.addEventListener("click", hideAlert);
+    });
+
+  </script>
+
+
+  <script>
+    // Obtener una referencia al elemento <select> por su ID
+    const miSelect = document.getElementById("miSelect");
+
+    // Obtener una referencia al elemento donde mostrar el valor seleccionado
+    const valorSeleccionado = document.getElementById("valorSeleccionado");
+
+    // Obtener una referencia al botón "Continuar"
+    const continuarButton = document.getElementById("continuarButton");
+
+    // Función para guardar el valor en sessionStorage
+
+    function guardarValorEnSesion() {
+      const selectedValue = miSelect.value; // Obtén el valor seleccionado
+      const selectedText = miSelect.options[miSelect.selectedIndex].text; // Obtén el texto de la opción seleccionada
+      var csrfToken = getCookie("csrftoken");
+
+
+      function getCookie(name) {
+        var cookieValue = null;
+        if (document.cookie && document.cookie !== "") {
+          var cookies = document.cookie.split(";");
+          for (var i = 0; i < cookies.length; i++) {
+            var cookie = cookies[i].trim();
+            if (cookie.substring(0, name.length + 1) === name + "=") {
+              cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+              break;
+            }
+          }
+        }
+        return cookieValue;
+      }
+      $.ajax({
+        type: "POST",
+        url: "{% url 'guardar_valor_en_sesion' %}", // Asegúrate de especificar la URL correcta
+        data: {
+          selected_value: selectedValue,
+          selected_text: selectedText
+        },
+        headers: {
+          "X-CSRFToken": csrfToken  // Agrega el token CSRF como encabezado
+        },
+        success: function (data) {
+          // Manejar la respuesta del servidor si es necesario
+        },
+        error: function (error) {
+          // Manejar errores si es necesario
+        }
+      });
+    }
+
+    // function guardarValorEnSesion() {
+    //   const selectedValue = miSelect.value;
+    //   const selectedText = miSelect.options[miSelect.selectedIndex].text; // Obtener el texto de la opción seleccionada
+    //   sessionStorage.setItem("valorSeleccionado", selectedValue);
+    //   sessionStorage.setItem("nombreTienda", selectedText); // Guardar el nombre de la tienda
+    // }
+
+    // Función para mostrar el valor seleccionado
+    function mostrarValor() {
+      const storedValue = "{{request.session.valor_seleccionado}}"
+      const storedNombreTienda = "{{request.session.nombre_tienda}}"
+
+      if (storedValue) {
+        miSelect.value = storedValue;
+        valorSeleccionado.textContent = storedValue;
+
+        // Mostrar el nombre de la tienda en un input
+        const nombreTiendaInput = document.getElementById("nombreTiendaInput");
+        if (nombreTiendaInput) {
+          nombreTiendaInput.value = storedNombreTienda;
+        }
+      }
+    }
+
+    // Agregar un evento de cambio (change) al elemento <select>
+    miSelect.addEventListener("change", function () {
+      guardarValorEnSesion();
+    });
+
+    // Agregar un evento clic al botón "Continuar"
+    continuarButton.addEventListener("click", function () {
+      // Guardar el valor en sessionStorage antes de cerrar el modal
+      guardarValorEnSesion();
+
+      // Ocultar la alerta principal
+      const alertElement = document.getElementById("alert");
+      alertElement.classList.add("hidden");
+
+      // Recargar la página
+      location.reload();
+    });
+
+    // Mostrar el valor seleccionado al cargar la página si no hay un valor en sessionStorage
+    mostrarValor();
+
+
+
+  </script>
+  <script src="https://unpkg.com/scrollreveal@4.0.0/dist/scrollreveal.min.js"></script>
 </body>
 
 </html>

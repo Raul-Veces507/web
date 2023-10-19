@@ -68,3 +68,229 @@
         max-width: 1320px
     }
 }
+
+#toast {
+    position: fixed;
+    bottom: 31px;
+    right: 64px;
+    background-color: #2b742e;
+    color: white;
+    padding: 10px 20px;
+    border-radius: 5px;
+    display: none;
+}
+
+
+/* css de store */
+
+.text-limit {
+    white-space: nowrap;
+    /* Evita el salto de línea */
+    overflow: hidden;
+    /* Oculta el exceso de texto */
+    text-overflow: ellipsis;
+    /* Agrega puntos suspensivos (...) al final del texto truncado */
+    max-width: 15ch;
+    /* Limita el ancho máximo a 15 caracteres (aproximadamente) */
+    display: inline-block;
+    /* Permite que el elemento ocupe solo el espacio necesario */
+}
+
+.box ul {
+    position: relative;
+    background: #fff;
+}
+
+.box ul li {
+    list-style: none;
+    padding: 10px;
+    width: 100%;
+    background: #fff;
+
+    transition: transform 0.5s;
+}
+
+.box ul li:hover {
+    transform: scale(1.1);
+    z-index: 100;
+    background: #25bcff;
+
+    color: #fff;
+}
+.p-discountstore {
+
+    width: 65px;
+    height: 24px;
+    color: #ffffff;
+    background-color: #006eff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 0.7rem;
+    letter-spacing: 1px;
+    margin-top: 20px;
+    margin-left: 20px;
+    border-radius: 3px;
+
+
+}
+.p-discountsinstore {
+
+width: 65px;
+height: 24px;
+color: #ffffff;
+display: flex;
+justify-content: center;
+align-items: center;
+font-size: 0.7rem;
+letter-spacing: 1px;
+margin-top: 20px;
+margin-left: 20px;
+border-radius: 3px;
+
+
+}
+
+
+
+/* css de product_detail */
+
+.product input {
+    width: 50px;
+    height: 40px;
+    padding-left: 10px;
+    font-size: 16px;
+    margin-right: 10px;
+    border-radius: 10px;
+}
+
+.contenedor {
+    margin-top: 10px;
+    width: 100%;
+    height: auto;
+    background-color: rgb(255, 255, 255);
+    border: 1px;
+    border-radius: 5px;
+
+}
+
+.submenuproduct {
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+    align-items: baseline;
+}
+
+.productpage {
+    display: flex;
+    flex-wrap: nowrap;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-around;
+}
+
+/* Estilo base para el contenedor */
+.container2 {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+
+/* Estilo para pantallas pequeñas, como móviles */
+@media screen and (max-width: 768px) {
+    .container2 {
+        flex-direction: column;
+        /* Columnas una debajo de la otra */
+    }
+}
+
+/* Estilo para pantallas medianas, como tabletas */
+@media screen and (min-width: 769px) and (max-width: 1024px) {
+    .column {
+        width: 48%;
+        /* Dos columnas en tabletas */
+    }
+}
+
+/* Estilo para pantallas grandes, como monitores */
+@media screen and (min-width: 1025px) {
+    .column {
+        width: 30%;
+        /* Tres columnas en monitores */
+    }
+}
+
+/* Estilos adicionales para las columnas y el contenedor */
+.column {
+
+    padding: 10px;
+    margin-bottom: 10px;
+}
+
+.alertaproduct {
+    width: 90%;
+    height: 50px;
+    border-radius: 5px;
+    background-color: rgb(255, 235, 240);
+    color: rgb(193, 59, 85);
+    display: flex;
+    justify-content: space-evenly;
+}
+
+.alertasecure {
+    width: 90%;
+    height: 200px;
+    border-radius: 5px;
+    background-color: rgb(246, 247, 252);
+
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.btn-menos {
+    background-color: rgb(235, 234, 242);
+    width: 50px;
+    height: 50px;
+    border-radius: 20px;
+}
+
+.btn-mas {
+    background-color: rgb(235, 234, 242);
+    width: 50px;
+    height: 50px;
+    border-radius: 20px;
+}
+
+.selector-input {
+    width: 60px;
+    height: 49px;
+    border-radius: 10px;
+}
+
+.btn-favorite {
+    width: 171px;
+    height: 43px;
+
+    border-radius: 20px;
+    border: 1px solid black;
+}
+
+.p-discount {
+    position: relative;
+    display: flex;
+    right: auto;
+    top: 20px;
+    width: 65px;
+    height: 24px;
+    color: #ffffff;
+    background-color: #006eff;
+    justify-content: center;
+    align-items: center;
+    font-size: 0.7rem;
+    letter-spacing: 1px;
+    z-index: 100;
+    border-radius: 3px;
+
+
+}
+

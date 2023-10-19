@@ -1,165 +1,61 @@
 {% extends 'base.html' %}
 {% block content %}
-<style>
-    .sproduct input {
-        width: 50px;
-        height: 40px;
-        padding-left: 10px;
-        font-size: 16px;
-        margin-right: 10px;
-        border-radius: 10px;
-    }
 
-    .contenedor {
-        margin-top: 10px;
-        width: 100%;
-        height: auto;
-        background-color: rgb(255, 255, 255);
-        border: 1px;
-        border-radius: 5px;
-
-    }
-
-    .submenuproduct {
-        display: flex;
-        flex-wrap: wrap;
-        flex-direction: row;
-        align-items: baseline;
-    }
-
-    .productpage {
-        display: flex;
-        flex-wrap: nowrap;
-        flex-direction: row;
-        align-items: center;
-        justify-content: space-around;
-    }
-
-    /* Estilo base para el contenedor */
-    .container {
-        display: flex;
-        flex-wrap: wrap;
-        justify-content: space-between;
-    }
-
-    /* Estilo para pantallas pequeñas, como móviles */
-    @media screen and (max-width: 768px) {
-        .container {
-            flex-direction: column;
-            /* Columnas una debajo de la otra */
-        }
-    }
-
-    /* Estilo para pantallas medianas, como tabletas */
-    @media screen and (min-width: 769px) and (max-width: 1024px) {
-        .column {
-            width: 48%;
-            /* Dos columnas en tabletas */
-        }
-    }
-
-    /* Estilo para pantallas grandes, como monitores */
-    @media screen and (min-width: 1025px) {
-        .column {
-            width: 30%;
-            /* Tres columnas en monitores */
-        }
-    }
-
-    /* Estilos adicionales para las columnas y el contenedor */
-    .column {
-
-        padding: 10px;
-        margin-bottom: 10px;
-    }
-
-    .alertaproduct {
-        width: 90%;
-        height: 50px;
-        border-radius: 5px;
-        background-color: rgb(255, 235, 240);
-        color: rgb(193, 59, 85);
-        display: flex;
-        justify-content: space-evenly;
-    }
-
-    .alertasecure {
-        width: 90%;
-        height: 200px;
-        border-radius: 5px;
-        background-color: rgb(246, 247, 252);
-
-        display: flex;
-        flex-wrap: wrap;
-    }
-
-    .btn-menos {
-        background-color: rgb(235, 234, 242);
-        width: 50px;
-        height: 50px;
-        border-radius: 20px;
-    }
-
-    .btn-mas {
-        background-color: rgb(235, 234, 242);
-        width: 50px;
-        height: 50px;
-        border-radius: 20px;
-    }
-
-    .selector-input {
-        width: 49px;
-        height: 49px;
-        border-radius: 10px;
-    }
-    .btn-favorite{
-        width: 171px;
-    height: 43px;
-
-    border-radius: 20px;
-    border: 1px solid black;
-    }
-</style>
-
+{% if productos %}
 
 <section class="container bg-white ">
 
-<nav class="flex mt-10" aria-label="Breadcrumb">
-    <ol class="inline-flex items-center space-x-1 md:space-x-3">
-      <li class="inline-flex items-center">
-        <a href="{% url 'home' %}" class="inline-flex items-center text-sm font-medium text-gray-700 hover:text-blue-600 dark:text-gray-400 dark:hover:text-white">
-          <svg class="w-3 h-3 mr-2.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
-            <path d="m19.707 9.293-2-2-7-7a1 1 0 0 0-1.414 0l-7 7-2 2a1 1 0 0 0 1.414 1.414L2 10.414V18a2 2 0 0 0 2 2h3a1 1 0 0 0 1-1v-4a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v4a1 1 0 0 0 1 1h3a2 2 0 0 0 2-2v-7.586l.293.293a1 1 0 0 0 1.414-1.414Z"/>
-          </svg>
-          Home
-        </a>
-      </li>
-      <li>
-        <div class="flex items-center">
-          <svg class="w-3 h-3 text-gray-400 mx-1" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 6 10">
-            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 9 4-4-4-4"/>
-          </svg>
-          <a href="#" class="ml-1 text-sm font-medium text-gray-700 hover:text-blue-600 md:ml-2 dark:text-gray-400 dark:hover:text-white">{{ single_product.categrorianame }}</a>
-        </div>
-      </li>
-      <li aria-current="page">
-        <div class="flex items-center">
-          <svg class="w-3 h-3 text-gray-400 mx-1" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 6 10">
-            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 9 4-4-4-4"/>
-          </svg>
-          <span class="ml-1 text-sm font-medium text-gray-500 md:ml-2 dark:text-gray-400">{{single_product.nombre}}</span>
-        </div>
-      </li>
-    </ol>
-  </nav>
-  
+    <div class="flex mt-10" aria-label="Breadcrumb">
+        <ol class="inline-flex items-center space-x-1 md:space-x-3">
+            <li class="inline-flex items-center">
+                <a href="{% url 'home' %}"
+                    class="inline-flex items-center text-sm font-medium text-gray-700 hover:text-blue-600 dark:text-gray-400 dark:hover:text-white">
+                    <svg class="w-3 h-3 mr-2.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
+                        fill="currentColor" viewBox="0 0 20 20">
+                        <path
+                            d="m19.707 9.293-2-2-7-7a1 1 0 0 0-1.414 0l-7 7-2 2a1 1 0 0 0 1.414 1.414L2 10.414V18a2 2 0 0 0 2 2h3a1 1 0 0 0 1-1v-4a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v4a1 1 0 0 0 1 1h3a2 2 0 0 0 2-2v-7.586l.293.293a1 1 0 0 0 1.414-1.414Z" />
+                    </svg>
+                    Home
+                </a>
+            </li>
+            <li>
+                <div class="flex items-center">
+                    <svg class="w-3 h-3 text-gray-400 mx-1" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
+                        fill="none" viewBox="0 0 6 10">
+                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="m1 9 4-4-4-4" />
+                    </svg>
+                    <a href="{% url 'products_by_category' productos.categoriaid %}"
+                        class="ml-1 text-sm font-medium text-gray-700 hover:text-blue-600 md:ml-2 dark:text-gray-400 dark:hover:text-white">
+                        {{productos.categoria}}
+                    </a>
+
+                </div>
+            </li>
+            <li aria-current="page">
+                <div class="flex items-center">
+                    <svg class="w-3 h-3 text-gray-400 mx-1" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
+                        fill="none" viewBox="0 0 6 10">
+                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="m1 9 4-4-4-4" />
+                    </svg>
+                    <span class="ml-1 text-sm font-medium text-gray-500 md:ml-2 dark:text-gray-400"></span>
+                    {{productos.nombre}}
+                </div>
+            </li>
+        </ol>
+    </div>
+
+
+
 
     <div class="contenedor ">
-        <h1 class=" py-4 mt-10  ml-10 text-2xl font-bold"">
-            {{single_product.nombre}}
+        {% include 'includes/alerts.html' %}
+        <h1 class=" py-4 mt-10  ml-10 text-2xl font-bold">
+            {{productos.nombre}}
         </h1>
         <div class=" submenuproduct">
-            <p class="ml-10">Marca:{{ single_product.Marca}} </p>
+            <p class="ml-10">Marca: {{ productos.Marca}} |</p>
             <!-- estrellas -->
             <div class="flex items-center mt-2.5 mb-5 ml-5">
                 <svg class="w-4 h-4 text-yellow-300 mr-1" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
@@ -191,175 +87,313 @@
                     class="bg-blue-100 text-blue-800 text-xs font-semibold mr-2 px-2.5 py-0.5 rounded dark:bg-blue-200 dark:text-blue-800 ml-3">5.0</span>
             </div>
             <!-- fin de estrellas -->
-            <p class="ml-5">Sku:{{ single_product.sku}}</p>
-    </div>
-
-
-
-
-
-    <div class="container">
-        <div class="column">
-            <img class="img-fluid w-auto pb-1" src="https://riba.app/imgrs/THUMBS 500X500/{{single_product.item}}.jpg"
-                alt="" onerror="this.src='https://www.ribasmith.com/media/catalog/product/placeholder/default/watermark_4.png' ">
+            <p class="ml-5">Sku: {{productos.sku}} </p>
         </div>
 
 
 
 
-        <div class="column">
-            <div class="">
-                <div class="flex items-center">
-                    <p class="text-base  font-medium text-gray-500 line-through dark:text-gray-300">$25.00</p>
-                    <p class="ml-2 text-lg font-semibold text-red-500 dark:text-white">${{ single_product.precio }}
-                    </p>
+
+        <div class="container2">
+
+            <div class="column">
+                {% if promocion %}
+                <span class="p-discount text-right"> -{{porcentaje}}% </span>
+                <img class="img-fluid w-auto pb-1" src="https://riba.app/imgrs/THUMBS 500X500/{{productos.item}}.jpg"
+                    alt=""
+                    onerror="this.src='https://www.ribasmith.com/media/catalog/product/placeholder/default/watermark_4.png' ">
+                {% else %}
+                <img class="img-fluid w-auto pb-1" src="https://riba.app/imgrs/THUMBS 500X500/{{productos.item}}.jpg"
+                    alt=""
+                    onerror="this.src='https://www.ribasmith.com/media/catalog/product/placeholder/default/watermark_4.png' ">
+                {% endif %}
+            </div>
+
+
+
+
+            <div class="column">
+                <div class="">
+                    <div class="flex items-center">
+                        {% if promocion %}
+
+                        <p style="font-size: 20px;"
+                            class="text-base  font-medium text-gray-500 line-through dark:text-gray-300">$
+                            {{productos.precio|floatformat:2 }} </p>
+                        <p style="font-size: 30px;" class="ml-2 text-lg font-semibold text-red-500 dark:text-white">$
+                            {{promocion|floatformat:2}} </p>
+                        {% else %}
+                        <p style="font-size: 30px;" class="ml-2 text-lg font-semibold text-red-500 dark:text-white">$
+                            {{productos.precio|floatformat:2 }}
+                            {% endif %}
+
+                        </p>
+                    </div>
+                    <div class="mt-5">
+
+                        {% if productos.inventarios <= 0 %} <span class=" font-medium text-red-500  dark:text-gray-300">
+                            Out of Stock</span>
+                            {% else %}
+                            <span class=" font-medium text-green-500  dark:text-gray-300">In Stock</span>
+                            {% endif %}
+                    </div>
+
+                    <div class="mt-5">
+                        <span>{{ productos.Detalle }}</span>
+                    </div>
+                    {% if productos.inventarios <= 0 %} <h5 class=" mt-5 text-center text-red-500"> Producto fuera de
+                        stock </h5>
+                        {% else %}
+
+                        <div class="mt-5 flex">
+                            <form action="{% url 'add_cart_detail'  %}" method="POST">
+                                {% csrf_token %}
+                                <button type="button" class="btn-menos" id="rest">-</button>
+                                <input class="selector-input ml-2 text-center" type="number" name="cantidad"
+                                    id="cantidad" value="1" readonly>
+                                <button type="button" class="btn-mas ml-2" id="masbtn">+</button>
+                                <input type="hidden" name="item" id="item" value="{{productos.item}}">
+                                <input type="hidden" name="item2" id="item2" value="{{productos.item}}">
+
+                                <button type="submit"
+                                    class=" agregarCarritodetails  ml-2 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">
+                                    Agregar al carrito
+                                </button>
+                            </form>
+
+                        </div>
+                        {% endif %}
+
+                        {% if request.session.Usuario %}
+
+                        <div class="mt-9">
+                            <button data-modal-target="authentication-modal" data-modal-toggle="authentication-modal"
+                                class="btn-favorite"><i class="far fa-heart"></i> Agregar a lista</button>
+
+                 
+
+
+                        </div>
+                        {% endif %}
+                        <div class="mt-5">
+
+                            <ul class="space-y-4 text-left text-gray-500 dark:text-gray-400">
+                                <li class="flex items-center space-x-3">
+                                    <svg class="flex-shrink-0 w-3.5 h-3.5 text-green-500 dark:text-green-400"
+                                        aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none"
+                                        viewBox="0 0 16 12">
+                                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                                            stroke-width="2" d="M1 5.917 5.724 10.5 15 1.5" />
+                                    </svg>
+                                    <span>Type: Organic</span>
+                                </li>
+                                <li class="flex items-center space-x-3">
+                                    <svg class="flex-shrink-0 w-3.5 h-3.5 text-green-500 dark:text-green-400"
+                                        aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none"
+                                        viewBox="0 0 16 12">
+                                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                                            stroke-width="2" d="M1 5.917 5.724 10.5 15 1.5" />
+                                    </svg>
+                                    <span>MFG: Jun 4.2021</span>
+                                </li>
+                                <li class="flex items-center space-x-3">
+                                    <svg class="flex-shrink-0 w-3.5 h-3.5 text-green-500 dark:text-green-400"
+                                        aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none"
+                                        viewBox="0 0 16 12">
+                                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                                            stroke-width="2" d="M1 5.917 5.724 10.5 15 1.5" />
+                                    </svg>
+                                    <span>LIFE: 30 days</span>
+                                </li>
+
+                            </ul>
+
+
+                        </div>
+                        <div class="mt-10">
+                            <hr>
+                        </div>
+
+
+                        <div class="mt-5">
+
+
+                            <p class="text-base  font-medium text-gray-500  dark:text-gray-300">Categoria: <a
+                                    href="{% url 'products_by_category' productos.categoriaid %}"
+                                    class="ml-1 text-sm font-medium text-gray-700 hover:text-blue-600 md:ml-2 dark:text-gray-400 dark:hover:text-white">
+
+                                    {{productos.categoria}} </a> </p>
+
+
+                        </div>
+
+
+
+
+
                 </div>
-                <div class="mt-5">
-                   
-                    {% if single_product.inventario <= 0 %}
-                    <span class=" font-medium text-red-500  dark:text-gray-300"> Out of Stock</span>
+            </div>
+
+
+
+
+
+            <div class="column">
+                <div class="alertaproduct items-center">
+                    <p class="text-center ">
+                        Covid-19 Info: We keep delivering.</p>
+
+                </div>
+                <div class="alertasecure items-center mt-5">
+
+                    <div class="flex">
+                        <div class="ml-5">
+                            <i style="zoom: 1.5;" class="fas fa-shipping-fast"></i>
+
+                        </div>
+
+                        <span class="ml-10">
+
+                            Free Shipping apply to all orders over $100
+                        </span>
+
+                    </div>
+
+                    <div class="flex">
+                        <div class="ml-5">
+
+                            <i style="zoom: 1.5;" class="fas fa-store"></i>
+
+                        </div>
+
+
+                        <span class="ml-10">
+
+                            Guranteed 100% Organic from natural farmas
+                        </span>
+
+                    </div>
+
+                    <div class="flex">
+                        <div class="ml-5">
+                            <i style="zoom: 1.5;" class="fas fa-coins"></i>
+                        </div>
+                        <span class="ml-10">
+
+                            1 Day Returns if you change your mind
+                        </span>
+
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+
+
+
+
+
+    </div>
+
+
+    <!-- Modal toggle -->
+
+    <!-- Main modal -->
+    <div id="authentication-modal" tabindex="-1" aria-hidden="true"
+        class="fixed top-0 left-0 right-0 z-50 hidden w-full p-4 overflow-x-hidden overflow-y-auto md:inset-0 h-[calc(100%-1rem)] max-h-full">
+        <div class="relative w-full max-w-md max-h-full">
+            <!-- Modal content -->
+            <div class="relative bg-white rounded-lg shadow dark:bg-gray-700">
+                <button type="button"
+                    class="absolute top-3 right-2.5 text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ml-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white"
+                    data-modal-hide="authentication-modal">
+                    <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none"
+                        viewBox="0 0 14 14">
+                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6" />
+                    </svg>
+                    <span class="sr-only">Close modal</span>
+                </button>
+                <div class="px-6 py-6 lg:px-8">
+                    <h3 class="mb-4 text-xl font-medium text-gray-900 dark:text-white">Agregar Producto a Lista De Compra</h3>
+                    {% if lista %}
+                    <form class="space-y-6" >
+                        {% csrf_token %}
+                        <div>
+                            <label for="email"
+                                class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Lista
+                                Disponibles</label>
+                            <select id="idlista" name="idlista"
+                                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required>
+                                <option selected></option>
+                                {% for  item in lista %}
+                                <option value="{{item.id}}">{{item.Detalle}}</option>
+                                {% endfor %}
+                            </select>
+                            <input type="hidden" name="item" id="item" value="{{productos.item}}">
+
+                        </div>
+
+                        <button type="submit"
+                            class="w-full text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Agregar
+                            A Lista</button>
+
+                    </form>
+                
                     {% else %}
-                    <span class=" font-medium text-green-500  dark:text-gray-300">In Stock</span>
+                    <form class="space-y-6" action="{% url 'AgregaraListaNueva' %} " method="POST">
+                        {% csrf_token %}
+                        <div>
+                            <label for="email"
+                                class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Nombre De Lista</label>
+                                <div>
+                                    <input type="text" name="detalle" id="detalle" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" placeholder="Super " required>
+                                </div>
+                            <input type="hidden" name="item" id="item" value="{{productos.item}}">
+
+                        </div>
+
+                        <button type="submit"
+                            class="  w-full text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Agregar
+                            A Lista</button>
+
+                    </form>
+
                     {% endif %}
                 </div>
-
-                <div class="mt-5">
-                    <span>{{ single_product.Detalle }}</span>
-                </div>
-                {% if single_product.inventario <= 0 %}
-                <h5 class=" mt-5 text-center text-red-500" > Producto fuera de stock </h5>
-                {% else %}
-                <div class="mt-5 flex">
-                    <button class="btn-menos">-</button>
-                    <input class="selector-input ml-2 text-center" type="text" disabled value="1">
-                    <button class="btn-mas ml-2">+</button>
-                    <a href="{% url 'add_cart' single_product.id %}" class="ml-2 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">
-                        Agregar al carrito
-                    </a>
-        
-                </div>
-                {% endif %}
-
-                <div class="mt-9">
-                    <button class="btn-favorite"><i class="far fa-heart"></i> Agregar a lista</button>
-
-
-                </div>
-                <div class="mt-5">
-
-                    <ul class="space-y-4 text-left text-gray-500 dark:text-gray-400">
-                        <li class="flex items-center space-x-3">
-                            <svg class="flex-shrink-0 w-3.5 h-3.5 text-green-500 dark:text-green-400" aria-hidden="true"
-                                xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 16 12">
-                                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
-                                    stroke-width="2" d="M1 5.917 5.724 10.5 15 1.5" />
-                            </svg>
-                            <span>Type: Organic</span>
-                        </li>
-                        <li class="flex items-center space-x-3">
-                            <svg class="flex-shrink-0 w-3.5 h-3.5 text-green-500 dark:text-green-400" aria-hidden="true"
-                                xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 16 12">
-                                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
-                                    stroke-width="2" d="M1 5.917 5.724 10.5 15 1.5" />
-                            </svg>
-                            <span>MFG: Jun 4.2021</span>
-                        </li>
-                        <li class="flex items-center space-x-3">
-                            <svg class="flex-shrink-0 w-3.5 h-3.5 text-green-500 dark:text-green-400" aria-hidden="true"
-                                xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 16 12">
-                                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
-                                    stroke-width="2" d="M1 5.917 5.724 10.5 15 1.5" />
-                            </svg>
-                            <span>LIFE: 30 days</span>
-                        </li>
-
-                    </ul>
-
-
-                </div>
-                <div class="mt-10">
-                    <hr>
-                </div>
-
-
-                <div class="mt-5">
-                    <a href="#">
-                        <p class="text-base  font-medium text-gray-500  dark:text-gray-300">Categoria: {{single_product.categrorianame }}</p>
-                    </a>
-                </div>
-
-
-
-
-
             </div>
-        </div>
-
-
-
-
-
-        <div class="column">
-            <div class="alertaproduct items-center">
-                <p class="text-center ">
-                    Covid-19 Info: We keep delivering.</p>
-
-            </div>
-            <div class="alertasecure items-center mt-5">
-
-                <div class="flex">
-                    <div class="ml-5">
-                        <i style="zoom: 1.5;" class="fas fa-shipping-fast"></i>
-
-                    </div>
-
-                    <span class="ml-10">
-
-                        Free Shipping apply to all orders over $100
-                    </span>
-
-                </div>
-
-                <div class="flex">
-                    <div class="ml-5">
-
-                        <i style="zoom: 1.5;" class="fas fa-store"></i>
-
-                    </div>
-
-
-                    <span class="ml-10">
-
-                        Guranteed 100% Organic from natural farmas
-                    </span>
-
-                </div>
-
-                <div class="flex">
-                    <div class="ml-5">
-                        <i style="zoom: 1.5;" class="fas fa-coins"></i>
-                    </div>
-                    <span class="ml-10">
-
-                        1 Day Returns if you change your mind
-                    </span>
-
-                </div>
-
-            </div>
-
         </div>
     </div>
 
-
-
-
-
-    </div>
 
 
 </section>
 
+
+{% endif %}
+
+<script>//funcion de product_detail 
+
+    //contador
+    let numero = 0;
+    masbtn.onclick = () => {
+        numero++;
+        cantidad.value = numero;
+    }
+    
+    rest.onclick = () => {
+    
+        if (numero < 2) {
+    
+        } else {
+            numero--;
+            cantidad.value = numero;
+        }
+    
+    
+    }
+    </script>
 
 
 {% endblock %}
