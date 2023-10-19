@@ -16,7 +16,9 @@ from django.http import JsonResponse
 from django.contrib.auth import logout
 # Create your views here.
 from datetime import datetime
-from ribasmith.settings import GOOGLE_MAPS_API_KEY
+from ribasmith.settings import GOOGLE_MAPS_API_KEY,URL_APIS
+
+
 def register(request):
     form=RegistrationForm()
     if request.method == 'POST':
@@ -73,7 +75,9 @@ def login(request):
 
                  }   
               # Realizar una nueva solicitud a la API para obtener los detalles del producto
-              url = f'http://192.168.88.136:3002/ecommer/rs/login'
+              endpoint = 'login'
+              url = f'{URL_APIS}{endpoint}'
+            #   url = f'http://192.168.88.136:3002/ecommer/rs/login'
     
               response = requests.post(url, json=data)  # Usar json=data en lugar de data=data
     
@@ -193,7 +197,9 @@ def perfil(request):
                  }   
 
               # Realizar una nueva solicitud a la API para obtener los detalles del producto
-              url = f'http://192.168.88.136:3002/ecommer/rs/obtenerperfil'
+              endpoint = 'obtenerperfil'
+              url = f'{URL_APIS}{endpoint}'
+            #   url = f'http://192.168.88.136:3002/ecommer/rs/obtenerperfil'
 
               response = requests.post(url, json=data)  # Usar json=data en lugar de data=data
               data_from_express_api = response.json()
@@ -243,7 +249,9 @@ def EditarPerfil(request):
                     "usuario":session_data['id']
                      }   
                   # Realizar una nueva solicitud a la API para obtener los detalles del producto
-                  url = f'http://192.168.88.136:3002/ecommer/rs/EditarPerfil'
+                  endpoint = 'EditarPerfil'
+                  url = f'{URL_APIS}{endpoint}'
+                #   url = f'http://192.168.88.136:3002/ecommer/rs/EditarPerfil'
     
                   response = requests.post(url, json=data)  # Usar json=data en lugar de data=data
                   data_from_express_api = response.json()
@@ -292,7 +300,9 @@ def direccion(request):
                  }   
 
               # Realizar una nueva solicitud a la API para obtener los detalles del producto
-              url = f'http://192.168.88.136:3002/ecommer/rs/obtenerubicaciones'
+              endpoint = 'obtenerubicaciones'
+              url = f'{URL_APIS}{endpoint}'
+            #   url = f'http://192.168.88.136:3002/ecommer/rs/obtenerubicaciones'
 
               response = requests.post(url, json=data)  # Usar json=data en lugar de data=data
               data_from_express_api = response.json()
@@ -345,8 +355,9 @@ def Agregardireccion(request):
                   else:
                         data["Activa"] = 'No'  # Establece un valor predeterminado si no se seleccionó "Direccionenvio"
                   # Realizar una nueva solicitud a la API para obtener los detalles del producto
-                  print(data)
-                  url = f'http://192.168.88.136:3002/ecommer/rs/AgregarDireccion'
+                  endpoint = 'AgregarDireccion'
+                  url = f'{URL_APIS}{endpoint}'
+                #   url = f'http://192.168.88.136:3002/ecommer/rs/AgregarDireccion'
     
                   response = requests.post(url, json=data)  # Usar json=data en lugar de data=data
                   data_from_express_api = response.json()
@@ -390,8 +401,9 @@ def EliminarDireccion(request,idlista):
                         "idUbicacion" :idlista,
                         "usuario" :session_data['id'],
                      }   
-                  print(data)
-                  url = f'http://192.168.88.136:3002/ecommer/rs/EliminarUbicacion'
+                  endpoint = 'EliminarUbicacion'
+                  url = f'{URL_APIS}{endpoint}'
+                #   url = f'http://192.168.88.136:3002/ecommer/rs/EliminarUbicacion'
     
                   response = requests.post(url, json=data)  # Usar json=data en lugar de data=data
                   data_from_express_api = response.json()
@@ -438,8 +450,9 @@ def EditarDireccion(request,id):
                   else:
                         data["Activa"] = 'No'  # Establece un valor predeterminado si no se seleccionó "Direccionenvio"
                   # Realizar una nueva solicitud a la API para obtener los detalles del producto
-               
-                  url = f'http://192.168.88.136:3002/ecommer/rs/EditarUbicacion'
+                  endpoint = 'EditarUbicacion'
+                  url = f'{URL_APIS}{endpoint}'
+                #   url = f'http://192.168.88.136:3002/ecommer/rs/EditarUbicacion'
     
                   response = requests.post(url, json=data)  # Usar json=data en lugar de data=data
                   data_from_express_api = response.json()
@@ -468,7 +481,9 @@ def EditarDireccion(request,id):
                       "usuario" :session_data['id'],
                         "idUbicacion" :id
                      }   
-                  url = f'http://192.168.88.136:3002/ecommer/rs/verdirecciones'
+                  endpoint = 'verdirecciones'
+                  url = f'{URL_APIS}{endpoint}'
+                #   url = f'http://192.168.88.136:3002/ecommer/rs/verdirecciones'
     
                   response = requests.post(url, json=data)  # Usar json=data en lugar de data=data
                 
@@ -518,8 +533,9 @@ def EditarUbicacion(request):
                   else:
                         data["Activa"] = 'No'  # Establece un valor predeterminado si no se seleccionó "Direccionenvio"
                   # Realizar una nueva solicitud a la API para obtener los detalles del producto
-               
-                  url = f'http://192.168.88.136:3002/ecommer/rs/EditarUbicacion'
+                  endpoint = 'EditarUbicacion'
+                  url = f'{URL_APIS}{endpoint}'
+                #   url = f'http://192.168.88.136:3002/ecommer/rs/EditarUbicacion'
     
                   response = requests.post(url, json=data)  # Usar json=data en lugar de data=data
              
@@ -565,7 +581,9 @@ def ActivarDireccion(request,idlista):
 
 
                      }   
-                  url = f'http://192.168.88.136:3002/ecommer/rs/activarubicacion'
+                  endpoint = 'activarubicacion'
+                  url = f'{URL_APIS}{endpoint}'
+                #   url = f'http://192.168.88.136:3002/ecommer/rs/activarubicacion'
     
                   response = requests.post(url, json=data)  # Usar json=data en lugar de data=data
                   data_from_express_api = response.json()
@@ -604,7 +622,9 @@ def ListaCompra(request):
                  }   
 
               # Realizar una nueva solicitud a la API para obtener los detalles del producto
-              url = f'http://192.168.88.136:3002/ecommer/rs/listafavorito'
+              endpoint = 'listafavorito'
+              url = f'{URL_APIS}{endpoint}'
+            #   url = f'http://192.168.88.136:3002/ecommer/rs/listafavorito'
 
               response = requests.get(url, json=data)  # Usar json=data en lugar de data=data
               data_from_express_api = response.json()
@@ -642,7 +662,9 @@ def Listaproductos(request,id):
                  }   
 
               # Realizar una nueva solicitud a la API para obtener los detalles del producto
-              url = f'http://192.168.88.136:3002/ecommer/rs/listafavoritoviewproduct'
+              endpoint = 'listafavoritoviewproduct'
+              url = f'{URL_APIS}{endpoint}'
+            #   url = f'http://192.168.88.136:3002/ecommer/rs/listafavoritoviewproduct'
 
               response = requests.get(url, json=data)  # Usar json=data en lugar de data=data
               data_from_express_api = response.json()
@@ -690,7 +712,9 @@ def NuevaLista(request):
                     "usuario":session_data['id'],
                      }   
                   # Realizar una nueva solicitud a la API para obtener los detalles del producto
-                  url = f'http://192.168.88.136:3002/ecommer/rs/addlistafavorito'
+                  endpoint = 'addlistafavorito'
+                  url = f'{URL_APIS}{endpoint}'
+                #   url = f'http://192.168.88.136:3002/ecommer/rs/addlistafavorito'
     
                   response = requests.post(url, json=data)  # Usar json=data en lugar de data=data
                   data_from_express_api = response.json()
@@ -731,7 +755,9 @@ def AgregaraLista(request):
                     "item":request.POST['item']
                      }   
                   # Realizar una nueva solicitud a la API para obtener los detalles del producto
-                  url = f'http://192.168.88.136:3002/ecommer/rs/agregarproductolista'
+                  endpoint = 'agregarproductolista'
+                  url = f'{URL_APIS}{endpoint}'
+                #   url = f'http://192.168.88.136:3002/ecommer/rs/agregarproductolista'
     
                   response = requests.post(url, json=data)  # Usar json=data en lugar de data=data
                   data_from_express_api = response.json()
@@ -776,7 +802,9 @@ def AgregaraListaNueva(request):
                     "item":request.POST['item']
                      }   
                   # Realizar una nueva solicitud a la API para obtener los detalles del producto
-                  url = f'http://192.168.88.136:3002/ecommer/rs/agregarlistaProduct'
+                  endpoint = 'agregarlistaProduct'
+                  url = f'{URL_APIS}{endpoint}'
+                #   url = f'http://192.168.88.136:3002/ecommer/rs/agregarlistaProduct'
     
                   response = requests.post(url, json=data)  # Usar json=data en lugar de data=data
                   data_from_express_api = response.json()
@@ -818,7 +846,9 @@ def eliminarLista(request,idlista):
                  }   
 
               # Realizar una nueva solicitud a la API para obtener los detalles del producto
-              url = f'http://192.168.88.136:3002/ecommer/rs/eliminarLista'
+              endpoint = 'eliminarLista'
+              url = f'{URL_APIS}{endpoint}'
+            #   url = f'http://192.168.88.136:3002/ecommer/rs/eliminarLista'
 
               response = requests.post(url, json=data)  # Usar json=data en lugar de data=data
               data_from_express_api = response.json()
@@ -860,7 +890,9 @@ def eliminarProductoListado(request,idlista,item):
                  }   
 
               # Realizar una nueva solicitud a la API para obtener los detalles del producto
-              url = f'http://192.168.88.136:3002/ecommer/rs/eliminarProductoListado'
+              endpoint = 'eliminarProductoListado'
+              url = f'{URL_APIS}{endpoint}'
+            #   url = f'http://192.168.88.136:3002/ecommer/rs/eliminarProductoListado'
 
               response = requests.post(url, json=data)  # Usar json=data en lugar de data=data
               data_from_express_api = response.json()
