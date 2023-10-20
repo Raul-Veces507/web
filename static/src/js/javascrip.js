@@ -120,6 +120,8 @@ function modaldetalle (data){
   resultsHtml += '                class="w-full py-3 ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">No</label>'
   resultsHtml += '        </div>'
   resultsHtml += '    </li>'
+ 
+  
   resultsHtml += '</ul>'
   resultsHtml += '<div class="mt-5 hidden" id="ComentarioText">'
   resultsHtml += '    <label for="message" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Comentario</label>'
@@ -151,13 +153,25 @@ function modaldetalle (data){
   resultsHtml += '    </li>'
 
   resultsHtml += '</ul>'
+  
   resultsHtml += '<div class="mt-5 hidden" id="BuscadorInputs"">'
   resultsHtml += '    <label for="message" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Buscar Producto Remplazo</label>'
   resultsHtml += '<input type="text" id="search-input-modal" class="pl-13 w-full py-3 px-3 mt-5" placeholder="busqueda" autocomplete="off">'
   resultsHtml += '</div>'
   resultsHtml += '<div id="search-results-modal"'
   resultsHtml += 'class="">'
+  
   resultsHtml += '</div>'
+
+  resultsHtml+='<div class=" w-full  bg-gray-100  rounded-lg mt-5 flex justify-center items-center space-x-4">'
+  resultsHtml+='<h1 class="font-bold">Cantidad:</h1>'
+ resultsHtml +='<button type="button" class="btn-mas ml-2" id="masbtn">+</button>'
+
+ resultsHtml+=' <input class="selector-input ml-2 text-center" type="number" name="cantidad" id="cantidad" value="1" readonly>'
+ resultsHtml+=' <button type="button" class="btn-menos" id="rest">-</button>'
+ 
+ resultsHtml+='</div>'
+
 
   Addproductomodal.innerHTML = resultsHtml; // Asume que `resultsHtml` contiene el contenido HTML
   function handleRadioChange(radio, targetId, show) {
@@ -199,6 +213,24 @@ function modaldetalle (data){
 
 
 
+
+
+}
+
+let numero = 0;
+masbtn.onclick = () => {
+    numero++;
+    cantidad.value = numero;
+}
+
+rest.onclick = () => {
+
+    if (numero < 2) {
+
+    } else {
+        numero--;
+        cantidad.value = numero;
+    }
 
 
 }

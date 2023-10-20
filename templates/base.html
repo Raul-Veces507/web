@@ -131,13 +131,9 @@
           </div>
           <!-- Modal body -->
           <div class="p-6">
-            <select id="miSelect" data-te-select-init>
-              <option selected>Seleccione una tienda</option>
-              <option value="1" data-nombre="Market Plaza">Market Plaza</option>
-              <option value="100200" data-nombre="Costa del Este">Costa del Este</option>
-              <option value="3" data-nombre="Transistmica">Transistmica</option>
-              <option value="4" data-nombre="Brisas del golf">Brisas del golf</option>
-              <option value="5" data-nombre="Five">Five</option>
+            <select id="miSelect12" data-te-select-init>
+              
+              
             </select>
           </div>
 
@@ -172,6 +168,7 @@
   <script src=" {% static 'src/js/sweetalert2.js' %}"></script>
   <script src=" {% static 'src/js/jquery.js' %}"></script>
   <script src="{% static 'src/js/javascrip.js' %}" type="text/javascript"></script>
+ 
   <script>
     document.addEventListener("DOMContentLoaded", function () {
       const hiddenElements = document.querySelectorAll('.hide-on-load');
@@ -180,7 +177,9 @@
       });
     });
   </script>
-  <script>
+
+<script>
+   
     document.addEventListener("DOMContentLoaded", function () {
       const alertElement = document.getElementById("alert");
       const overlayElement = document.getElementById("overlay");
@@ -190,12 +189,14 @@
       function showAlert() {
         alertElement.classList.remove("hidden");
         overlayElement.classList.remove("hidden");
+        session();
       }
 
       // Función para ocultar la alerta y restaurar el fondo
       function hideAlert() {
         alertElement.classList.add("hidden");
         overlayElement.classList.add("hidden");
+        
       }
 
       // Verificar si hay un valor guardado en sessionStorage
@@ -204,6 +205,7 @@
       if (storedValue === "") {
         // Mostrar la alerta automáticamente después de 3 segundos
         setTimeout(showAlert, 1000); // 3000 milisegundos (3 segundos)
+       
       }
       // Cerrar la alerta al hacer clic en el botón de cierre
       closeAlertButton.addEventListener("click", hideAlert);
@@ -214,7 +216,7 @@
 
   <script>
     // Obtener una referencia al elemento <select> por su ID
-    const miSelect = document.getElementById("miSelect");
+    const miSelect12 = document.getElementById("miSelect12");
 
     // Obtener una referencia al elemento donde mostrar el valor seleccionado
     const valorSeleccionado = document.getElementById("valorSeleccionado");
@@ -225,8 +227,8 @@
     // Función para guardar el valor en sessionStorage
 
     function guardarValorEnSesion() {
-      const selectedValue = miSelect.value; // Obtén el valor seleccionado
-      const selectedText = miSelect.options[miSelect.selectedIndex].text; // Obtén el texto de la opción seleccionada
+      const selectedValue = miSelect12.value; // Obtén el valor seleccionado
+      const selectedText = miSelect12.options[miSelect12.selectedIndex].text; // Obtén el texto de la opción seleccionada
       var csrfToken = getCookie("csrftoken");
 
 
@@ -244,7 +246,23 @@
         }
         return cookieValue;
       }
-      $.ajax({
+
+
+      
+
+     
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    $.ajax({
         type: "POST",
         url: "{% url 'guardar_valor_en_sesion' %}", // Asegúrate de especificar la URL correcta
         data: {
@@ -276,16 +294,53 @@
       const storedNombreTienda = "{{request.session.nombre_tienda}}"
 
       if (storedValue) {
-        miSelect.value = storedValue;
+        miSelect12.value = storedValue;
         valorSeleccionado.textContent = storedValue;
+        
 
         // Mostrar el nombre de la tienda en un input
         const nombreTiendaInput = document.getElementById("nombreTiendaInput");
         if (nombreTiendaInput) {
           nombreTiendaInput.value = storedNombreTienda;
+          
         }
       }
+
     }
+
+    function session(){
+        $.ajax({
+      url:"{% url 'verbodega'  %}",
+      method: "GET",
+       
+      // Envía los datos como objeto JSON
+      success: function (data) {
+        var select = document.getElementById("miSelect12");
+      
+             
+        // Crea un arreglo de opciones que deseas agregar
+        var opciones = data['message'];
+        // Itera a través del arreglo de opciones y crea elementos <option> para cada una
+        opciones.forEach(function (bodega) {
+         
+          var option = document.createElement("option");
+          option.value = bodega.bodega; // Puedes establecer el valor que desees, como el ID
+          option.text = bodega.nombodega; // El texto de la opción será el nombre del distrito
+
+          // Agrega la opción al elemento <select>
+          select.appendChild(option);
+        });
+
+      }
+    })
+      }
+
+
+
+
+
+
+
 
     // Agregar un evento de cambio (change) al elemento <select>
     miSelect.addEventListener("change", function () {

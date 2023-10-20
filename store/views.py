@@ -16,9 +16,27 @@ def store(request,depar):
     try:
      
         # Realizar una nueva solicitud a la API para obtener los detalles del producto
-        url = f'http://192.168.88.136:3002/ecommer/rs/Detapramento/{depar}/'
-        response = requests.get(url)
+        url = f'http://192.168.88.136:3002/ecommer/rs/Detapramento/'
+        
+        id =request.POST.get('id')
+        session_data = dict(request.session)
+        if "bodega" in requests.session:
+            bodega = requests.session["bodega"]
+
+          
+        else:
+             bodega=114100500
+
+        data={
+            'id':id,
+             "bodega":bodega
+        }
+      
+
+        
+        response = requests.post(url , json=data)
         data_from_express_api = response.json()
+        
 
         if response.status_code == 200:
             

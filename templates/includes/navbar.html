@@ -485,16 +485,63 @@
   class="fixed top-0 left-0 z-40 w-64 h-screen p-4 overflow-y-auto transition-transform -translate-x-full bg-white dark:bg-gray-800"
   tabindex="-1" aria-labelledby="drawer-navigation-label">
   <div id="drawer-navigation-label" class=" text-base font-semibold text-gray-500 uppercase dark:text-gray-400">
-    {% if user.id is None %}
+    {% if request.session.Usuario %}
 
-    <div class="  relative" data-te-dropdown-ref>
+    <div class="relative " data-te-dropdown-ref>
       <button
-        class="flex items-center whitespace-nowrap   px-6 pb-2 pt-1 text-xs font-medium uppercase leading-normal text-black  transition duration-150 ease-in-out hover:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)]"
-        type="button" id="dropdownMenuButton1" data-te-dropdown-toggle-ref aria-expanded="false" data-te-ripple-init
-        data-te-ripple-color="light">
+        class=" rounded-full flex items-center whitespace-nowrap   px-6 pb-2 pt-1 text-xs font-medium uppercase leading-normal text-black border transition duration-150 ease-in-out hover:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)]"
+        type="button" id="dropdownMenuButton1" data-te-dropdown-toggle-ref aria-expanded="false"
+        data-te-ripple-init data-te-ripple-color="light">
+        <span class="mr-2 w-2 mt-1" style="  width: 15px;
+                height: 15px;
+                -moz-border-radius: 50%;
+                -webkit-border-radius: 50%;
+                border-radius: 50%;
+                background: greenyellow">
+
+        </span>
+        <span class="font-bold mt-1">{{request.session.Usuario | capfirst}}</span>
+
+      </button>
+      <ul
+        class="absolute z-[1000] float-left m-0 hidden min-w-max list-none overflow-hidden rounded-lg border-none bg-white bg-clip-padding text-left text-base shadow-lg dark:bg-neutral-700 [&[data-te-dropdown-show]]:block"
+        aria-labelledby="dropdownMenuButton1" data-te-dropdown-menu-ref>
+        <li>
+          <a class="block w-full whitespace-nowrap bg-transparent px-4 py-2 text-sm font-normal text-neutral-700 hover:bg-neutral-100 active:text-neutral-800 active:no-underline disabled:pointer-events-none disabled:bg-transparent disabled:text-neutral-400 dark:text-neutral-200 dark:hover:bg-neutral-600"
+            href="{% url 'logout' %}" data-te-dropdown-item-ref>Salir de sesion</a>
+
+
+
+        </li>
+        <li>
+          <a class="block w-full whitespace-nowrap bg-transparent px-4 py-2 text-sm font-normal text-neutral-700 hover:bg-neutral-100 active:text-neutral-800 active:no-underline disabled:pointer-events-none disabled:bg-transparent disabled:text-neutral-400 dark:text-neutral-200 dark:hover:bg-neutral-600"
+            href="{% url 'dashboard' %}" data-te-dropdown-item-ref>Dashboard</a>
+        </li>
+        <li class="flex">
+
+          <a class="block w-full whitespace-nowrap bg-transparent px-4 py-2 text-sm font-normal text-neutral-700 hover:bg-neutral-100 active:text-neutral-800 active:no-underline disabled:pointer-events-none disabled:bg-transparent disabled:text-neutral-400 dark:text-neutral-200 dark:hover:bg-neutral-600"
+            href="{% url 'ListaCompra' %}" data-te-dropdown-item-ref>Lista de compras</a>
+
+        </li>
+
+        <li>
+          <a class="block w-full whitespace-nowrap bg-transparent px-4 py-2 text-sm font-normal text-neutral-700 hover:bg-neutral-100 active:text-neutral-800 active:no-underline disabled:pointer-events-none disabled:bg-transparent disabled:text-neutral-400 dark:text-neutral-200 dark:hover:bg-neutral-600"
+            href="{% url 'login' %}" data-te-dropdown-item-ref>Mis pedidos</a>
+
+        </li>
+
+      </ul>
+    </div>
+
+    {% else %}
+    <div class="relative" data-te-dropdown-ref>
+      <button
+        class="flex items-center whitespace-nowrap rounded  px-6 pb-2 pt-1 text-xs font-medium uppercase leading-normal text-black border transition duration-150 ease-in-out hover:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)]"
+        type="button" id="dropdownMenuButton1" data-te-dropdown-toggle-ref aria-expanded="false"
+        data-te-ripple-init data-te-ripple-color="light">
         <span class="mr-4 w-2">
-          <svg xmlns="http://www.w3.org/2000/svg" id="Layer_1" data-name="Layer 1" viewBox="0 0 24 24" width="12"
-            height="12">
+          <svg xmlns="http://www.w3.org/2000/svg" id="Layer_1" data-name="Layer 1" viewBox="0 0 24 24"
+            width="12" height="12">
             <path d="M16.043,14H7.957A4.963,4.963,0,0,0,3,18.957V24H21V18.957A4.963,4.963,0,0,0,16.043,14Z" />
             <circle cx="12" cy="6" r="6" />
           </svg>
@@ -520,62 +567,9 @@
 
       </ul>
     </div>
-    <!-- <div class="widget-header">
-        <small class="title text-muted">Bienvenido visitante!</small>
-        <div>
-            <a href="{% url 'login' %}">Login</a> <span class="dark-transp"> | </span>
-            <a href="{% url 'register' %}"> Registrar</a>
-        </div>
-    </div> -->
-    {% else %}
-    <div class="relative" data-te-dropdown-ref>
-      <button
-        class="  flex items-center whitespace-nowrap  px-2  pb-2 pt-1 text-xs font-medium uppercase leading-normal text-black  transition duration-150 ease-in-out "
-        type="button" id="dropdownMenuButton1" data-te-dropdown-toggle-ref aria-expanded="false" data-te-ripple-init
-        data-te-ripple-color="light">
-        <span class="mr-4 w-2 mt-1" style="  width: 15px;
-        height: 15px;
-        -moz-border-radius: 50%;
-        -webkit-border-radius: 50%;
-        border-radius: 50%;
-        background: greenyellow">
-
-        </span>
-        <span class="font-bold mt-1">{{user.first_name | capfirst}} {{user.last_name|capfirst}}</span>
-
-      </button>
-      <ul
-        class="absolute z-[1000] float-left m-0 hidden min-w-max list-none overflow-hidden rounded-lg border-none bg-white bg-clip-padding text-left text-base shadow-lg dark:bg-neutral-700 [&[data-te-dropdown-show]]:block"
-        aria-labelledby="dropdownMenuButton1" data-te-dropdown-menu-ref>
-        <li>
-          <a class="block w-full whitespace-nowrap bg-transparent px-4 py-2 text-sm font-normal text-neutral-700 hover:bg-neutral-100 active:text-neutral-800 active:no-underline disabled:pointer-events-none disabled:bg-transparent disabled:text-neutral-400 dark:text-neutral-200 dark:hover:bg-neutral-600"
-            href="{% url 'logout' %}" data-te-dropdown-item-ref>Salir de sesion</a>
-
-
-
-        </li>
-        <li>
-          <a class="block w-full whitespace-nowrap bg-transparent px-4 py-2 text-sm font-normal text-neutral-700 hover:bg-neutral-100 active:text-neutral-800 active:no-underline disabled:pointer-events-none disabled:bg-transparent disabled:text-neutral-400 dark:text-neutral-200 dark:hover:bg-neutral-600"
-            href="{% url 'login' %}" data-te-dropdown-item-ref>Dashboard</a>
-        </li>
-        <li class="flex">
-
-          <a class="block w-full whitespace-nowrap bg-transparent px-4 py-2 text-sm font-normal text-neutral-700 hover:bg-neutral-100 active:text-neutral-800 active:no-underline disabled:pointer-events-none disabled:bg-transparent disabled:text-neutral-400 dark:text-neutral-200 dark:hover:bg-neutral-600"
-            href="{% url 'login' %}" data-te-dropdown-item-ref>Lista de compras</a>
-
-        </li>
-
-        <li>
-          <a class="block w-full whitespace-nowrap bg-transparent px-4 py-2 text-sm font-normal text-neutral-700 hover:bg-neutral-100 active:text-neutral-800 active:no-underline disabled:pointer-events-none disabled:bg-transparent disabled:text-neutral-400 dark:text-neutral-200 dark:hover:bg-neutral-600"
-            href="{% url 'login' %}" data-te-dropdown-item-ref>Mis pedidos</a>
-
-        </li>
-
-      </ul>
-    </div>
-
 
     {% endif %}
+
     </li>
 
 
@@ -593,6 +587,21 @@
   <div class="py-4 overflow-y-auto">
     <ul class="space-y-2 font-medium">
       <li>
+        <div class=" text-center  flex justify-center items-center">
+          <button type="button" class="  w-full alertboton px-5 py-2.5 text-sm font-medium text-white inline-flex items-center bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 rounded-xl text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+                       <h3 class="font-bold mx-auto">
+                        {{request.session.nombre_tienda}}
+                       </h3> 
+          </button>
+          
+        </div>
+       
+      </li>
+      
+      
+      
+      <li>
+
         <a href="#"
           class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
           <svg

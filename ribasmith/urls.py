@@ -23,10 +23,12 @@ from ribasmith import views
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('' ,views.home, name="home"),
+    path('verbodega/',views.verbodega, name="verbodega"),
     path('store/',include('store.urls')),
    
     path('cart/',include('Cart.urls')),
     path('account/',include('Account.urls')),
+
    
     
    
