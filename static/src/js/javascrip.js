@@ -217,24 +217,6 @@ function modaldetalle (data){
 
 }
 
-let numero = 0;
-masbtn.onclick = () => {
-    numero++;
-    cantidad.value = numero;
-}
-
-rest.onclick = () => {
-
-    if (numero < 2) {
-
-    } else {
-        numero--;
-        cantidad.value = numero;
-    }
-
-
-}
-
 
 
 

@@ -197,16 +197,15 @@ def dashboard(request):
               data_from_express_api = response.json()
 
               if response.status_code == 200:
-                  
                   info=data_from_express_api['user']
-                  info2=data_from_express_api['CarritoDecompra']
-                  info3=data_from_express_api['ubicaciones']
+                  info2=data_from_express_api['CarritoDecompra'],
+                
                   fecha_obj = datetime.strptime(info['Fecha_nacimiento'], '%Y-%m-%dT%H:%M:%S.%fZ')
 
                   context={
                       'detalle':info,
-                      'carrito':info2,
-                      'ubicar':info3,
+                      'carrito':info2[0],
+                    
                       'Fecha_nacimiento': fecha_obj.strftime('%m/%d/%Y')
                   }
                   return render(request,'accounts/dashboard.html',context)
@@ -217,18 +216,16 @@ def dashboard(request):
                    context={
                       'detalle':[]
                   }
-                   return render(request,'accounts/dashboard.html',context)
+                   return render(request,'accounts/perfil.html',context)
             
          except Exception as e:
               print(e)
               context = None
               return redirect('login')
       
-    
     else:
         return redirect('login')
 
-   
 def perfil(request):
     session_data = dict(request.session)
     if session_data:
@@ -276,7 +273,7 @@ def perfil(request):
 def EditarPerfil(request):
       session_data = dict(request.session)
       if session_data:
-            if request.method=='POST':
+            if request.method == 'POST':
                 try:
                   data ={
                     "nombre":request.POST['nombre'],
@@ -289,6 +286,7 @@ def EditarPerfil(request):
                     "Dv":request.POST['Dv'],
                     "usuario":session_data['id']
                      }   
+                  print(data)
                   # Realizar una nueva solicitud a la API para obtener los detalles del producto
                   endpoint = 'EditarPerfil'
                   url = f'{URL_APIS}{endpoint}'
