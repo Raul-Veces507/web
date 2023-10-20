@@ -8,7 +8,7 @@ from django.http import JsonResponse
 from Account.auth import verificar_autenticacion
 import requests
 import json
-from ribasmith.settings import GOOGLE_MAPS_API_KEY
+from ribasmith.settings import GOOGLE_MAPS_API_KEY,URL_APIS
 # Create your views here.
 
 def _cart_id(request):
@@ -30,7 +30,9 @@ def add_cart(request,product_id):
                 }  
                    
              # Realizar una nueva solicitud a la API para obtener los detalles del producto
-             url = f'http://192.168.88.136:3002/ecommer/rs/carrito'
+             endpoint = 'carrito'
+             url = f'{URL_APIS}{endpoint}'
+            #  url = f'http://192.168.88.136:3002/ecommer/rs/carrito'
      
              response = requests.post(url, json=data)  # Usar json=data en lugar de data=data
      
@@ -66,7 +68,9 @@ def add_cart(request,product_id):
                  }  
                     
               # Realizar una nueva solicitud a la API para obtener los detalles del producto
-              url = f'http://192.168.88.136:3002/ecommer/rs/carrito'
+              endpoint = 'carrito'
+              url = f'{URL_APIS}{endpoint}'
+            #   url = f'http://192.168.88.136:3002/ecommer/rs/carrito'
       
               response = requests.post(url, json=data)  # Usar json=data en lugar de data=data
       
@@ -141,9 +145,11 @@ def add_cart_comentatario(request):
                 "Comentario":Comentario,
                 "ItemRemplazo":Newproduct
                  }   
+              endpoint = 'carrito'
+              url = f'{URL_APIS}{endpoint}'
               
               # Realizar una nueva solicitud a la API para obtener los detalles del producto
-              url = f'http://192.168.88.136:3002/ecommer/rs/carrito'
+            #   url = f'http://192.168.88.136:3002/ecommer/rs/carrito'
 
               response = requests.post(url, json=data)  # Usar json=data en lugar de data=data
               data_from_express_api = response.json()
@@ -173,7 +179,9 @@ def add_cart_comentatario(request):
                 "ItemRemplazo":Newproduct
                  }   
               # Realizar una nueva solicitud a la API para obtener los detalles del producto
-              url = f'http://192.168.88.136:3002/ecommer/rs/carrito'
+            #   url = f'http://192.168.88.136:3002/ecommer/rs/carrito'
+              endpoint = 'carrito'
+              url = f'{URL_APIS}{endpoint}'
 
               response = requests.post(url, json=data)  # Usar json=data en lugar de data=data
 
@@ -214,8 +222,9 @@ def add_cart_detail(request):
                 "usuario":session_data['id']
                  }   
               # Realizar una nueva solicitud a la API para obtener los detalles del producto
-              url = f'http://192.168.88.136:3002/ecommer/rs/carrito'
-
+            #   url = f'http://192.168.88.136:3002/ecommer/rs/carrito'
+              endpoint = 'carrito'
+              url = f'{URL_APIS}{endpoint}'
               response = requests.post(url, json=data)  # Usar json=data en lugar de data=data
 
               data_from_express_api = response.json()
@@ -244,7 +253,9 @@ def add_cart_detail(request):
                 "product":item
                  }   
               # Realizar una nueva solicitud a la API para obtener los detalles del producto
-              url = f'http://192.168.88.136:3002/ecommer/rs/carrito'
+            #   url = f'http://192.168.88.136:3002/ecommer/rs/carrito'
+              endpoint = 'carrito'
+              url = f'{URL_APIS}{endpoint}'
 
               response = requests.post(url, json=data)  # Usar json=data en lugar de data=data
 
@@ -273,24 +284,30 @@ def cart(request, total=Decimal("0"), quantity=0, cart_items=None, taxt=Decimal(
     if session_data:
         try:
             cart=_cart_id(request)
+  
+            if "valor_seleccionado" in session_data:
+                bodega = session_data['valor_seleccionado']
+            else:
+                 bodega=114100500
             data ={
              "cart":cart,
-             "usuario":session_data['id']
+             "usuario":session_data['id'],
+              "bodega":bodega
                }        
             # Realizar una nueva solicitud a la API para obtener los detalles del producto
-            url = f'http://192.168.88.136:3002/ecommer/rs/viewcart'
+            endpoint = 'viewcart'
+            url = f'{URL_APIS}{endpoint}'
+            # url = f'http://192.168.88.136:3002/ecommer/rs/viewcart'
     
             response = requests.post(url, json=data)  # Usar json=data en lugar de data=data
-    
+   
     
             if response.status_code == 200:
                 data_from_express_api = response.json()
                 cart_items = data_from_express_api['carrito']
-    
-                for cart_item in cart_items:
-                    Descuento = Decimal(str(cart_item['Descuento'])) 
+                for cart_item in cart_items:   
+                    Descuento = Decimal(str(cart_item['precio'])) 
                     total += (Descuento * cart_item['quantity'])
-    
                 taxt = (Decimal("2") * total) / Decimal("100")
                 grand_total = total + taxt 
             
@@ -301,6 +318,7 @@ def cart(request, total=Decimal("0"), quantity=0, cart_items=None, taxt=Decimal(
                     'taxt': taxt.quantize(Decimal("0.00")),
                     'grand_total': grand_total.quantize(Decimal("0.00"))
                 }
+         
               
                 return render(request, 'store/cart.html', context)
     
@@ -317,11 +335,19 @@ def cart(request, total=Decimal("0"), quantity=0, cart_items=None, taxt=Decimal(
     else:
         try:
             cart=_cart_id(request)
+            if "valor_seleccionado" in session_data:
+                bodega = session_data['valor_seleccionado']
+            else:
+                 bodega=114100500
             data ={
              "cart":cart,
+             "bodega":bodega
                }        
             # Realizar una nueva solicitud a la API para obtener los detalles del producto
-            url = f'http://192.168.88.136:3002/ecommer/rs/viewcart'
+            
+            # url = f'http://192.168.88.136:3002/ecommer/rs/viewcart'
+            endpoint = 'viewcart'
+            url = f'{URL_APIS}{endpoint}'
     
             response = requests.post(url, json=data)  # Usar json=data en lugar de data=data
     
@@ -329,12 +355,9 @@ def cart(request, total=Decimal("0"), quantity=0, cart_items=None, taxt=Decimal(
             if response.status_code == 200:
                 data_from_express_api = response.json()
                 cart_items = data_from_express_api['carrito']
-    
-                for cart_item in cart_items:
-    
-                    Descuento = Decimal(str(cart_item['Descuento'])) 
+                for cart_item in cart_items:   
+                    Descuento = Decimal(str(cart_item['precio'])) 
                     total += (Descuento * cart_item['quantity'])
-    
                 taxt = (Decimal("2") * total) / Decimal("100")
                 grand_total = total + taxt 
             
@@ -390,26 +413,29 @@ def viewfiltcart(request, total=Decimal("0"), quantity=0, cart_items=None, taxt=
     if session_data:
         try:
             cart=_cart_id(request)
+            if "valor_seleccionado" in session_data:
+                bodega = session_data['valor_seleccionado']
+            else:
+                 bodega=114100500
             data ={
              "cart":cart,
-             "usuario":session_data['id']
+             "usuario":session_data['id'],
+             "bodega":bodega
                }        
             # Realizar una nueva solicitud a la API para obtener los detalles del producto
-            url = f'http://192.168.88.136:3002/ecommer/rs/viewcart'
-    
+            # url = f'http://192.168.88.136:3002/ecommer/rs/viewcart'
+            endpoint = 'viewcart'
+            url = f'{URL_APIS}{endpoint}'   
             response = requests.post(url, json=data)  # Usar json=data en lugar de data=data
+            
             if response.status_code == 200:
                 data_from_express_api = response.json()
                 cart_items = data_from_express_api['carrito']
-             
-                for cart_item in cart_items:
-                    Descuento = Decimal(str(cart_item['Descuento'])) 
+                for cart_item in cart_items:   
+                    Descuento = Decimal(str(cart_item['precio'])) 
                     total += (Descuento * cart_item['quantity'])
-                    
-    
-    
                 taxt = (Decimal("2") * total) / Decimal("100")
-                grand_total = total + taxt + delivery
+                grand_total = total + taxt 
             
                 context = {
                     'total': total,
@@ -442,25 +468,27 @@ def viewfiltcart(request, total=Decimal("0"), quantity=0, cart_items=None, taxt=
     else:
         try:
             cart=_cart_id(request)
+            if "valor_seleccionado" in session_data:
+                bodega = session_data['valor_seleccionado']
+            else:
+                 bodega=114100500
             data ={
              "cart":cart,
+             "bodega":bodega
                }        
             # Realizar una nueva solicitud a la API para obtener los detalles del producto
-            url = f'http://192.168.88.136:3002/ecommer/rs/viewcart'
-    
+            # url = f'http://192.168.88.136:3002/ecommer/rs/viewcart'
+            endpoint = 'viewcart'
+            url = f'{URL_APIS}{endpoint}'    
             response = requests.post(url, json=data)  # Usar json=data en lugar de data=data
             if response.status_code == 200:
                 data_from_express_api = response.json()
                 cart_items = data_from_express_api['carrito']
-             
-                for cart_item in cart_items:
-                    Descuento = Decimal(str(cart_item['Descuento'])) 
+                for cart_item in cart_items:   
+                    Descuento = Decimal(str(cart_item['precio'])) 
                     total += (Descuento * cart_item['quantity'])
-                    
-    
-    
                 taxt = (Decimal("2") * total) / Decimal("100")
-                grand_total = total + taxt + delivery
+                grand_total = total + taxt 
             
                 context = {
                     'total': total,

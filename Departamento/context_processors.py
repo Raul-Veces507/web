@@ -4,9 +4,11 @@ from itertools import zip_longest
 from .models import Departamento
 from store.models import  Product
 import requests
-
+from ribasmith.settings import URL_APIS
 def menu_links(request):
-    url='http://192.168.88.136:3002/ecommer/rs/Detapramentos'
+    endpoint = 'Detapramentos'
+    url = f'{URL_APIS}{endpoint}'
+    # url='http://192.168.88.136:3002/ecommer/rs/Detapramentos'
     try:
         response = requests.get(url)
     

@@ -11,24 +11,26 @@ from django.http import HttpResponse
 from django.db.models import Q
 import requests
 from Account.views import ListaCompra
+from ribasmith.settings import URL_APIS
 # Create your views here.
 def store(request,depar):
     try:
+        endpoint = 'Detapramento'
+        url = f'{URL_APIS}{endpoint}'
      
         # Realizar una nueva solicitud a la API para obtener los detalles del producto
-        url = f'http://192.168.88.136:3002/ecommer/rs/Detapramento/'
+        # url = f'http://192.168.88.136:3002/ecommer/rs/Detapramento/'
         
-        id =request.POST.get('id')
+        # id =request.POST.get('id')
+        # session_data = dict(request.session)
         session_data = dict(request.session)
-        if "bodega" in requests.session:
-            bodega = requests.session["bodega"]
-
-          
+  
+        if "valor_seleccionado" in session_data:
+            bodega = session_data['valor_seleccionado']
         else:
              bodega=114100500
-
         data={
-            'id':id,
+            'id':depar,
              "bodega":bodega
         }
       
@@ -36,7 +38,7 @@ def store(request,depar):
         
         response = requests.post(url , json=data)
         data_from_express_api = response.json()
-        
+
 
         if response.status_code == 200:
             
@@ -71,12 +73,26 @@ def store(request,depar):
 
 def product_detail(request,product):
     try:
-   
+        endpoint = 'Product'
+        url = f'{URL_APIS}{endpoint}'
+        session_data = dict(request.session)
+  
+        if "valor_seleccionado" in session_data:
+            bodega = session_data['valor_seleccionado']
+        else:
+             bodega=114100500
+        data={
+            'id':product,
+             "bodega":bodega
+        }
+    
         # Realizar una nueva solicitud a la API para obtener los detalles del producto
-        url = f'http://192.168.88.136:3002/ecommer/rs/Product/{product}/'
-        response = requests.get(url)
+        # url = f'http://192.168.88.136:3002/ecommer/rs/Product/{product}/'
+        response = requests.post(url,json=data)
+ 
         data_from_express_api = response.json()
         promocion=data_from_express_api['promocion']
+     
         preciodes=0
         if promocion == 0:
             descuentoobject=0
@@ -97,8 +113,9 @@ def product_detail(request,product):
                 "usuario":session_data['id']
                  }   
 
-              # Realizar una nueva solicitud a la API para obtener los detalles del producto
-                 url = f'http://192.168.88.136:3002/ecommer/rs/listafavorito'
+                 endpoint = 'listafavorito'
+                 url = f'{URL_APIS}{endpoint}'
+                #  url = f'http://192.168.88.136:3002/ecommer/rs/listafavorito'
    
                  response = requests.get(url, json=data)  # Usar json=data en lugar de data=data
                  resp = response.json()
@@ -210,11 +227,23 @@ def product_detail(request,product):
 def products_by_category(request,category_slug):
 
     try:
+        endpoint = 'Filtradoxcategoria'
+        url = f'{URL_APIS}{endpoint}'
+        session_data = dict(request.session)
+  
+        if "valor_seleccionado" in session_data:
+            bodega = session_data['valor_seleccionado']
+        else:
+             bodega=114100500
+        data={
+            'id':category_slug,
+             "bodega":bodega
+        }
    
         # Realizar una nueva solicitud a la API para obtener los detalles del producto
-        url = f'http://192.168.88.136:3002/ecommer/rs/Filtradoxcategoria/{category_slug}'
+        # url = f'http://192.168.88.136:3002/ecommer/rs/Filtradoxcategoria/{category_slug}'
 
-        response = requests.get(url)
+        response = requests.post(url,json=data)
         data_from_express_api = response.json()
 
         if response.status_code == 200:
@@ -253,12 +282,23 @@ def products_by_category(request,category_slug):
 
 def products_by_category_marca(request,category_slug,Marca_slug):
     try:
+
+        endpoint = 'Filtradoxmarca'
+        url = f'{URL_APIS}{endpoint}'
+        session_data = dict(request.session)
+  
+        if "valor_seleccionado" in session_data:
+            bodega = session_data['valor_seleccionado']
+        else:
+             bodega=114100500
+     
         data ={
          "id":category_slug,
-          "marca":Marca_slug
+          "marca":Marca_slug,
+          "bodega":bodega
            }
         # Realizar una nueva solicitud a la API para obtener los detalles del producto
-        url = f'http://192.168.88.136:3002/ecommer/rs/Filtradoxmarca'
+        # url = f'http://192.168.88.136:3002/ecommer/rs/Filtradoxmarca'
 
         response = requests.post(url, json=data)  # Usar json=data en lugar de data=data
 
@@ -343,36 +383,26 @@ def upload_excel(request):
     return render(request, 'admin/upload_excel.html', {'form': form})
 
 
-
-
 def precios_especiales(request,seccion):
 
     try:
-        url = f'http://192.168.88.136:3002/ecommer/rs/seccionesid/{seccion}/'
-        response = requests.get(url)
+        endpoint = 'seccionesid'
+        url = f'{URL_APIS}{endpoint}'
+        session_data = dict(request.session)
+  
+        if "valor_seleccionado" in session_data:
+            bodega = session_data['valor_seleccionado']
+        else:
+             bodega=114100500
+     
+        data ={
+            'id':seccion,
+             "bodega":bodega
+           }
+        # url = f'http://192.168.88.136:3002/ecommer/rs/seccionesid/'
+        response = requests.post(url,json=data)
         data_from_express_api = response.json()
         if response.status_code == 200:
-        #    productos_con_descuento = []
-        #    for elemento in data_from_express_api['productos']:
-        #     id = elemento['id']
-        #     nombre = elemento['nombre']
-        #     item = elemento['item']
-        #     sku = elemento['sku']
-        #     precio = elemento['precio']
-        #     descuento = elemento['Descuento']
-        #     preciodes = precio - (precio * (descuento / 100))
-            
-        #     # Agregar el producto con precio calculado a la lista
-        #     productos_con_descuento.append({
-        #         'id': id,
-        #         'nombre': nombre,
-        #         'item': item,
-        #         'sku': sku,
-        #         'descuento':descuento,
-        #         'precio': precio,
-        #         'preciodes': preciodes
-        #     })
-            
            paginator=Paginator(data_from_express_api['productos'],36)
            page=request.GET.get('page')
            paged_prducts=paginator.get_page(page)
