@@ -246,22 +246,7 @@
         }
         return cookieValue;
       }
-
-
-      
-
-     
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
+        
     $.ajax({
         type: "POST",
         url: "{% url 'guardar_valor_en_sesion' %}", // Asegúrate de especificar la URL correcta
@@ -343,7 +328,7 @@
 
 
     // Agregar un evento de cambio (change) al elemento <select>
-    miSelect.addEventListener("change", function () {
+    miSelect12.addEventListener("change", function () {
       guardarValorEnSesion();
     });
 

@@ -183,11 +183,52 @@ def activate(request,uidb64,token):
 def dashboard(request):
     session_data = dict(request.session)
     if session_data:
-         return render(request,'accounts/dashboard.html')
+         try:
+              data ={
+                "usuario":session_data['id']
+                 }   
+
+              # Realizar una nueva solicitud a la API para obtener los detalles del producto
+              endpoint = 'obtenerperfil'
+              url = f'{URL_APIS}{endpoint}'
+            #   url = f'http://192.168.88.136:3002/ecommer/rs/obtenerperfil'
+
+              response = requests.post(url, json=data)  # Usar json=data en lugar de data=data
+              data_from_express_api = response.json()
+
+              if response.status_code == 200:
+                  
+                  info=data_from_express_api['user']
+                  info2=data_from_express_api['CarritoDecompra']
+                  info3=data_from_express_api['ubicaciones']
+                  fecha_obj = datetime.strptime(info['Fecha_nacimiento'], '%Y-%m-%dT%H:%M:%S.%fZ')
+
+                  context={
+                      'detalle':info,
+                      'carrito':info2,
+                      'ubicar':info3,
+                      'Fecha_nacimiento': fecha_obj.strftime('%m/%d/%Y')
+                  }
+                  return render(request,'accounts/dashboard.html',context)
+                  # return redirect('home')
+         
+          
+              else:
+                   context={
+                      'detalle':[]
+                  }
+                   return render(request,'accounts/dashboard.html',context)
+            
+         except Exception as e:
+              print(e)
+              context = None
+              return redirect('login')
+      
     
     else:
         return redirect('login')
 
+   
 def perfil(request):
     session_data = dict(request.session)
     if session_data:
