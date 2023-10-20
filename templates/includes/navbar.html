@@ -932,7 +932,7 @@
 
 
   document.addEventListener("DOMContentLoaded", function () {
-
+    session()
     $(document).on("click", ".alertboton", function () {
       showAlert()
     })
@@ -951,6 +951,35 @@
       overlayElement.classList.add("hidden");
     }
   })
+
+
+  function session(){
+        $.ajax({
+      url:"{% url 'verbodega'  %}",
+      method: "GET",
+       
+      // Envía los datos como objeto JSON
+      success: function (data) {
+        var select = document.getElementById("miSelect12");
+      
+             
+        // Crea un arreglo de opciones que deseas agregar
+        var opciones = data['message'];
+        // Itera a través del arreglo de opciones y crea elementos <option> para cada una
+        opciones.forEach(function (bodega) {
+         
+          var option = document.createElement("option");
+          option.value = bodega.bodega; // Puedes establecer el valor que desees, como el ID
+          option.text = bodega.nombodega; // El texto de la opción será el nombre del distrito
+
+          // Agrega la opción al elemento <select>
+          select.appendChild(option);
+        });
+
+      }
+    })
+      }
+
 
 </script>
 
