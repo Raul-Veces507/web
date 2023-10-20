@@ -12,7 +12,7 @@
         <h1 class="mt-5">Dirección de envío predeterminada</h1>
         {% for ubic in detalle %}
 
-        {% if ubic.Is_active == 1%}
+        {% if ubic.is_active == 1%}
         <a href="{% url 'EditarDireccion' ubic.id %}"
             class="block  p-6 bg-white border border-gray-200 rounded-lg shadow hover:bg-gray-100 dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700 mt-5">
 
@@ -25,7 +25,7 @@
                     </div>
                     <div class="flex flex-col py-1">
                         <dt class="mb-1 text-gray-500 md:text-lg dark:text-gray-400">Dirección</dt>
-                        <dd class="text-lg font-semibold">{{ubic.Detalle}}</dd>
+                        <dd class="text-lg font-semibold">{{ubic.Direccion}}</dd>
                     </div>
                     <div class="flex flex-col pt-1">
                         <dt class="mb-1 text-gray-500 md:text-lg dark:text-gray-400">Celular </dt>
@@ -91,7 +91,7 @@
                 <thead class="text-xs text-gray-700  bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
                     <tr>
                         <th scope="col" class="px-6 py-3">
-                            Nombre
+                            Persona a Recibir
                         </th>
                         <th scope="col" class="px-6 py-3">
                             Direccion
@@ -106,18 +106,19 @@
                 </thead>
                 <tbody>
                     {% for ubic in detalle %}
+                    
                     <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
                         <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                            {{request.session.Usuario | capfirst}}
+                            {{ubic.Recibidor | capfirst}}
                         </th>
                         <td class="px-6 py-4">
-                            {{ubic.Detalle}}
+                            {{ubic.Direccion}}
                         </td>
                         <td class="px-6 py-4">
-                            {{ubic.Celular}}
+                            {{ubic.TelefonoRecibidor}}
                         </td>
                         <td class="px-6 py-4">
-                            {% if ubic.Is_active == 1 %}
+                            {% if ubic.is_active == 1 %}
                             <button id="dropdownLeftButton" data-dropdown-toggle="dropdownLeft"
                                 data-dropdown-placement="left"
                                 class="inline-flex items-center p-2 text-sm font-medium text-center text-gray-900 bg-white rounded-lg hover:bg-gray-100 focus:ring-4 focus:outline-none dark:text-white focus:ring-gray-50 dark:bg-gray-800 dark:hover:bg-gray-700 dark:focus:ring-gray-600"
