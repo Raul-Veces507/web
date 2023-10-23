@@ -53,6 +53,7 @@ def store(request,depar):
                 'productos':paged_prducts,
                 'products_count':product_count,
                 'Categoria':data_from_express_api['categorias'],
+                'img':data_from_express_api['departamento']['img'],
                 'Marca':data_from_express_api['Marca'],
                 'filtradoCategoria':False,
                 'start_page': start_page,
