@@ -206,8 +206,10 @@ def add_cart_comentatario(request):
 
 def add_cart_detail(request):
    if request.method=='POST':
-      
-      
+      if 'Comentario' in request.POST:
+          Comentario=request.POST['Comentario']
+      else:
+          Comentario=''
       
       cantidad=request.POST['cantidad']
       item=request.POST['item']
@@ -219,7 +221,8 @@ def add_cart_detail(request):
                "cart":cart,
                 "quantity":cantidad,
                 "product":item,
-                "usuario":session_data['id']
+                "usuario":session_data['id'],
+                "Comentario":Comentario
                  }   
               # Realizar una nueva solicitud a la API para obtener los detalles del producto
             #   url = f'http://192.168.88.136:3002/ecommer/rs/carrito'

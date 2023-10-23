@@ -38,6 +38,7 @@
 
         <!-- shipping carts -->
         {% for cart_item in cart_items %}
+        
         <div class="space-y-4">
             <!-- single cart -->
             <div
@@ -84,11 +85,13 @@
                 </div>
                 <!-- cart quantity end -->
                 <div class="ml-auto md:ml-0">
-                    <p class="text-primary text-lg font-semibold">${{cart_item.total|floatformat:2}}</p>
-                    {% if cart_item.Descuento == None %}
+
+                    {% if cart_item.flagoferta == 1 %}
+                    <p class="text-primary text-lg font-semibold">${{cart_item.precioOferta|floatformat:2}}</p>
                     <p>${{cart_item.precio|floatformat:2}} cada uno</p>
                     {% else %}
-                    <p>${{cart_item.Descuento|floatformat:2}} cada uno</p>
+                    <p class="text-primary text-lg font-semibold">${{cart_item.precioNormal|floatformat:2}}</p>
+                    <p>${{cart_item.precioRegular|floatformat:2}} cada uno</p>
                     {% endif %}
            
                   

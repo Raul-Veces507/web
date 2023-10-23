@@ -1,5 +1,6 @@
 from django.shortcuts import get_object_or_404, render,redirect
 from django.contrib import messages
+from Cart.views import _cart_id
 from Departamento.models import Departamento
 from category.models import categorias
 from .models import Product
@@ -39,7 +40,6 @@ def store(request,depar):
         response = requests.post(url , json=data)
         data_from_express_api = response.json()
 
-
         if response.status_code == 200:
             
            paginator=Paginator(data_from_express_api['productos'],36)
@@ -76,35 +76,35 @@ def product_detail(request,product):
         endpoint = 'Product'
         url = f'{URL_APIS}{endpoint}'
         session_data = dict(request.session)
-  
+        cart=_cart_id(request)
+
         if "valor_seleccionado" in session_data:
             bodega = session_data['valor_seleccionado']
         else:
              bodega=114100500
-        data={
-            'id':product,
-             "bodega":bodega
+
+        if session_data:
+             data={
+             'id':product,
+             "bodega":bodega,
+             "cartid":cart,
+             "userid":session_data['id'],
         }
     
+        else:
+             data={
+            'id':product,
+             "bodega":bodega,
+             "cartid":cart,
+        }
+    
+  
+
         # Realizar una nueva solicitud a la API para obtener los detalles del producto
         # url = f'http://192.168.88.136:3002/ecommer/rs/Product/{product}/'
         response = requests.post(url,json=data)
  
         data_from_express_api = response.json()
-        promocion=data_from_express_api['promocion']
-     
-        preciodes=0
-        if promocion == 0:
-            descuentoobject=0
-            promocion = []
-        else:
-            promocion=promocion
-            
-            precio=data_from_express_api['productos'][0]['precio']
-            descuentoobject=int(promocion*100)
-            preciodes = precio - (precio * promocion)
-
-   
 
         if response.status_code == 200:
             session_data = dict(request.session)
@@ -124,8 +124,9 @@ def product_detail(request,product):
                      existingCart=resp['existingCart']
                      context={
                          'productos':data_from_express_api['productos'][0],
-                         'promocion':preciodes,
-                         'porcentaje':descuentoobject,
+                          'Agregado':data_from_express_api['Agregado'],
+  
+                    
                          'lista':existingCart
                            }
 
@@ -134,15 +135,17 @@ def product_detail(request,product):
                  else:
                       context={
                          'productos':data_from_express_api['productos'][0],
-                         'promocion':preciodes,
-                         'porcentaje':descuentoobject,
+                          'Agregado':data_from_express_api['Agregado'],
+                   
+              
                          'lista':[]
                       }
             else:
                 context={
                'productos':data_from_express_api['productos'][0],
-               'promocion':preciodes,
-               'porcentaje':descuentoobject,
+               'Agregado':data_from_express_api['Agregado'],
+          
+           
                'list':[]
                
                 }

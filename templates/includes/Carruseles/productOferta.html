@@ -260,6 +260,7 @@ top: 0;
             <div class="glider">
 
                 {% for item in productos %}
+
                 <div class="product-box1 ">
                     <!-- <span class="p-discounts"> -{{item.porcentaje}}% </span> -->
 
@@ -322,12 +323,12 @@ top: 0;
                         <!-- fin de estrellas -->
 
 
-                        {% if item.Descuento %}
+                        {% if item.flagoferta == 1 %}
                         <div class=" mt-10">
                             <span class="text-base text-red-700  font-medium line-through dark:text-gray-300">$
-                                {{item.precio|floatformat:2}}</span>
+                                {{item.precioRegular |floatformat:2}}</span>
                             <span
-                                class="text-lg font-semibold text-gray-900 dark:text-white ">${{item.Descuento|floatformat:2}}
+                                class="text-lg font-semibold text-gray-900 dark:text-white ">${{item.precio|floatformat:2}}
                             </span>
                         </div>
                         {% else %}
