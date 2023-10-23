@@ -286,7 +286,7 @@ def EditarPerfil(request):
                     "Dv":request.POST['Dv'],
                     "usuario":session_data['id']
                      }   
-                  print(data)
+                  
                   # Realizar una nueva solicitud a la API para obtener los detalles del producto
                   endpoint = 'EditarPerfil'
                   url = f'{URL_APIS}{endpoint}'
@@ -817,9 +817,14 @@ def Listaproductos(request,id):
       session_data = dict(request.session)
       if session_data:
             try:
+              if "valor_seleccionado" in session_data:
+                bodega = session_data['valor_seleccionado']
+              else:
+                bodega=114100500
               data ={
                 "usuario":session_data['id'],
-                "idlista":id
+                "idlista":id,
+                "bodega":bodega
                  }   
 
               # Realizar una nueva solicitud a la API para obtener los detalles del producto

@@ -325,10 +325,13 @@ function modaldetalle (data){
 
       // Inicia un nuevo temporizador
       typingTimer = setTimeout(function () {
+        const bodega = storedValue
+        console.log(storedValue);
         if (query.length >= 2) { // Evitar búsquedas vacías o muy cortas
-          var requestData = { "busqueda": query };
+        
+          var requestData = { "busqueda": query,"bodega":bodega };
           $.ajax({
-            url: 'http://192.168.88.136:3002/ecommer/rs/buscador',
+            url: 'http://192.168.88.136:3005/ecommer/rs/buscador',
             method: 'POST',
             contentType: 'application/json',
             data: JSON.stringify(requestData),

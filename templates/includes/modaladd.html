@@ -38,8 +38,7 @@
  
 
 <script>
-
-
+    var storedValue= "{{ request.session.valor_seleccionado }}".trim();
     var ValidarCarrito="{% url 'ValidarCarrito' %}"
     var agregarCarritoUrl="{% url 'add_cart_comentatario' %}"
 </script>

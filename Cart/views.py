@@ -794,7 +794,7 @@ def checkout(request, total=Decimal("0"), quantity=0, cart_items=None, taxt=Deci
               
                 
                 for cart_item in cart_items:
-                    Descuento = Decimal(str(cart_item['Descuento'])) 
+                    Descuento = Decimal(str(cart_item['precio'])) 
                     total += (Descuento * cart_item['quantity'])
     
                 taxt = (Decimal("2") * total) / Decimal("100")
@@ -840,14 +840,13 @@ def checkout(request, total=Decimal("0"), quantity=0, cart_items=None, taxt=Deci
             # url = f'http://192.168.88.136:3002/ecommer/rs/viewcart'
     
             response = requests.post(url, json=data)  # Usar json=data en lugar de data=data
-    
-    
+           
             if response.status_code == 200:
                 data_from_express_api = response.json()
                 cart_items = data_from_express_api['carrito']
                 
                 for cart_item in cart_items:
-                    Descuento = Decimal(str(cart_item['Descuento'])) 
+                    Descuento = Decimal(str(cart_item['precio'])) 
                     total += (Descuento * cart_item['quantity'])
     
     
@@ -1006,7 +1005,7 @@ def ValidarCarrito(request):
             #   url = f'http://192.168.88.136:3002/ecommer/rs/validarCarrito'
 
               response = requests.post(url, json=data)  # Usar json=data en lugar de data=data
-              print(response)
+           
               data_from_express_api = response.json()
               referer = request.META.get('HTTP_REFERER')
               if response.status_code == 200:
