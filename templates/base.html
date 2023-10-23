@@ -140,8 +140,12 @@
           <!-- Modal footer (Botón "Continuar" centrado) -->
           <div class="flex justify-center items-center  mb-7 space-x-3 ">
             <button id="continuarButton" data-modal-hide="alert" type="button"
-              class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">Continuar</button>
-            <button data-modal-hide="crypto-modal" type="button"
+              class="   text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">Continuar</button>
+            
+            
+            
+            
+              <button data-modal-hide="crypto-modal" type="button"
               class="focus:outline-none text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-900">Cancelar</button>
 
 
@@ -154,6 +158,39 @@
   </div>
 
 
+
+  <div id="defaultModal" tabindex="-1" aria-hidden="true" class="fixed top-0 left-0 right-0 z-50 hidden w-full p-4 overflow-x-hidden overflow-y-auto md:inset-0 h-[calc(100%-1rem)] max-h-full">
+    <div class="relative w-full max-w-2xl max-h-full">
+        <!-- Modal content -->
+        <div class="relative bg-white rounded-lg shadow dark:bg-gray-700">
+            <!-- Modal header -->
+            <div class="flex items-start justify-between p-4 border-b rounded-t dark:border-gray-600">
+                <h3 class="text-xl font-semibold text-gray-900 dark:text-white">
+                    Advertencia
+                </h3>
+                <button type="button" class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ml-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white" data-modal-hide="defaultModal">
+                    <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
+                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"/>
+                    </svg>
+                    <span class="sr-only">Close modal</span>
+                </button>
+            </div>
+            <!-- Modal body -->
+            <div class="p-6 space-y-6">
+                <p class="text-base leading-relaxed text-gray-500 dark:text-gray-400">
+                    Si cambia de tienda su carrito sera eliminado                </p>
+                <p class="text-base leading-relaxed text-gray-500 dark:text-gray-400">
+                    The European Union’s General Data Protection Regulation (G.D.P.R.) goes into effect on May 25 and is meant to ensure a common set of data rights in the European Union. It requires organizations to notify users as soon as possible of high-risk data breaches that could personally affect them.
+                </p>
+            </div>
+            <!-- Modal footer -->
+            <div class="flex items-center p-6 space-x-2 border-t border-gray-200 rounded-b dark:border-gray-600">
+                <button data-modal-hide="defaultModal" type="button" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">I accept</button>
+                <button data-modal-hide="defaultModal" type="button" class="text-gray-500 bg-white hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-blue-300 rounded-lg border border-gray-200 text-sm font-medium px-5 py-2.5 hover:text-gray-900 focus:z-10 dark:bg-gray-700 dark:text-gray-300 dark:border-gray-500 dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-gray-600">Decline</button>
+            </div>
+        </div>
+    </div>
+</div>
 
 
 
@@ -184,6 +221,7 @@
       const alertElement = document.getElementById("alert");
       const overlayElement = document.getElementById("overlay");
       const closeAlertButton = document.getElementById("closeAlert");
+      
 
       // Función para mostrar la alerta y oscurecer el fondo
       function showAlert() {
@@ -205,7 +243,6 @@
       if (storedValue === "") {
         // Mostrar la alerta automáticamente después de 3 segundos
         setTimeout(showAlert, 1000); // 3000 milisegundos (3 segundos)
-       
       }
       // Cerrar la alerta al hacer clic en el botón de cierre
       closeAlertButton.addEventListener("click", hideAlert);
@@ -335,19 +372,32 @@
     // Agregar un evento clic al botón "Continuar"
     continuarButton.addEventListener("click", function () {
       // Guardar el valor en sessionStorage antes de cerrar el modal
-      guardarValorEnSesion();
+      const storedValue = "{{request.session.valor_seleccionado}}"
 
-      // Ocultar la alerta principal
-      const alertElement = document.getElementById("alert");
+      if (storedValue){
+      alerta2();  
+      }else{
+        guardarValorEnSesion();
+        const alertElement = document.getElementById("alert");
       alertElement.classList.add("hidden");
 
       // Recargar la página
       location.reload();
+      }
+      
+
+      // Ocultar la alerta principal
+    
     });
 
     // Mostrar el valor seleccionado al cargar la página si no hay un valor en sessionStorage
     mostrarValor();
 
+
+    function alerta2(){
+      const alert2 = document.getElementById("alert2")
+      alert2.classList.remove("hidden");
+    }
 
 
   </script>

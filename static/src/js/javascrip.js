@@ -154,21 +154,48 @@ function modaldetalle (data){
 
   resultsHtml += '</ul>'
   
-  resultsHtml += '<div class="mt-5 hidden" id="BuscadorInputs"">'
-  resultsHtml += '    <label for="message" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Buscar Producto Remplazo</label>'
-  resultsHtml += '<input type="text" id="search-input-modal" class="pl-13 w-full py-3 px-3 mt-5" placeholder="busqueda" autocomplete="off">'
+  resultsHtml += '<div class="mt-5 hidden rounded-xl" id="BuscadorInputs"">'
+  resultsHtml += '    <label for="message" class="block mb-2 text-sm font-bold text-gray-900 dark:text-white">Buscar Producto Remplazo</label>'
+  resultsHtml += '<input type="text" id="search-input-modal" class="pl-13 w-full py-3 px-3 mt-5 rounded-xl" placeholder="busqueda" autocomplete="off">'
+  resultsHtml += '<div class="  w-full mt-4  mb-2" >'
+ 
+  resultsHtml+='<h3 class="mb-4 font-semibold text-gray-900 dark:text-white">Filtros</h3>'
+  resultsHtml+='<ul class=" flex items-center w-full text-sm font-medium text-gray-900 bg-white border border-gray-200 rounded-lg sm:flex dark:bg-gray-700 dark:border-gray-600 dark:text-white">'
+  resultsHtml+=' <li class="w-full border-b border-gray-200 sm:border-b-0 sm:border-r dark:border-gray-600">'
+  resultsHtml+=' <div class="flex items-center pl-3">'
+  resultsHtml+=' <input id="vue-checkbox-list" type="checkbox" value="" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 dark:focus:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500">'
+  resultsHtml+=' <label for="vue-checkbox-list" class="w-full py-3 ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">Vue JS</label>'
+  resultsHtml+='</div>'
+  resultsHtml+=' </li>'
+  resultsHtml+=' <li class="w-full border-b border-gray-200 sm:border-b-0 sm:border-r dark:border-gray-600">'
+  resultsHtml+=' <div class="flex items-center pl-3">'
+  resultsHtml+=' <input id="vue-checkbox-list" type="checkbox" value="" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 dark:focus:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500">'
+  resultsHtml+=' <label for="vue-checkbox-list" class="w-full py-3 ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">Vue JS</label>'
+  resultsHtml+='</div>'
+  resultsHtml+=' </li>'
+  resultsHtml+=' <li class="w-full border-b border-gray-200 sm:border-b-0 sm:border-r dark:border-gray-600">'
+  resultsHtml+=' <div class="flex items-center pl-3">'
+  resultsHtml+=' <input id="vue-checkbox-list" type="checkbox" value="" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 dark:focus:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500">'
+  resultsHtml+=' <label for="vue-checkbox-list" class="w-full py-3 ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">Vue JS</label>'
+  resultsHtml+='</div>'
+  resultsHtml+=' </li>'
+  
+  
+  
+  
+  resultsHtml+='</ul>'
+
+
+  
+
+
+  resultsHtml += '</div>'
   resultsHtml += '</div>'
   resultsHtml += '<div id="search-results-modal"'
   resultsHtml += 'class="">'
   
   resultsHtml += '</div>'
 
-  resultsHtml+='<div class=" w-full  bg-gray-100  rounded-lg mt-5 flex justify-center items-center space-x-4">'
-  resultsHtml+='<h1 class="font-bold">Cantidad:</h1>'
- resultsHtml +='<button type="button" class="btn-mas ml-2" id="masbtn">+</button>'
-
- resultsHtml+=' <input class="selector-input ml-2 text-center" type="number" name="cantidad" id="cantidad" value="1" readonly>'
- resultsHtml+=' <button type="button" class="btn-menos" id="rest">-</button>'
  
  resultsHtml+='</div>'
 
