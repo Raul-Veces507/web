@@ -304,13 +304,13 @@
                         class="uppercase font-medium text-lg mb-2 text-gray-800 hover:text-primary transition  text-limit">
                         {{product.nombre}}
                     </h4>
-                  
+           
 
                     <div class="flex items-baseline mb-1 space-x-2">
-                        {% if product.Descuento %}
-                        <p class="text-sm text-red-700  font-roboto line-through">$ {{product.precio|floatformat:2}}</p>
-                        <p class="text-xl  text-gray-900 font-roboto font-semibold">$
-                            {{product.Descuento|floatformat:2}}</p>
+                        {% if product.flagoferta == 1 %}
+                        <p class="text-sm  text-gray-900 font-roboto line-through">$ {{product.precioRegular|floatformat:2}}</p>
+                        <p class="text-xl   text-red-700   font-roboto font-semibold">$
+                            {{product.precio|floatformat:2}}</p>
                         {% else %}
                         <p class="text-xl  text-gray-900 font-roboto font-semibold">$ {{product.precio|floatformat:2}}
                         </p>
