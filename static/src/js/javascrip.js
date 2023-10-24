@@ -7,6 +7,9 @@ $(document).ready(function () {
 
 
     var itemproducts = $(this).data("product-id")
+    var inventario = $(this).data("product-id2")
+   
+   
 
     var csrfToken = $("input[name=csrfmiddlewaretoken]").val();
     var postData = {
@@ -23,11 +26,17 @@ $(document).ready(function () {
       success: function (data) {
 
         if (data.status === "success") {
-          modaldetalle(itemproducts)
+          if(inventario<10){
+            modaldetalle(itemproducts)
+            obtener(itemproducts)
+          }else{
+            Agregarlocal(itemproducts)
+          }
 
-        }  else if (data.status === "warning"){
+
+        } else if (data.status === "warning") {
           Agregarlocal(itemproducts)
-        }else{
+        } else {
           alert(data);
         }
       }
@@ -35,7 +44,7 @@ $(document).ready(function () {
 
   })
 
-  function Agregarlocal(data){
+  function Agregarlocal(data) {
 
 
     var product_id = data
@@ -90,165 +99,387 @@ $(document).ready(function () {
   }
 
 
-function modaldetalle (data){
-  const addproduct = document.getElementById("addproduct");
-  const overlayElement = document.getElementById("overlay");
+  function modaldetalle(data) {
 
-  addproduct.classList.remove("hidden");
-  overlayElement.classList.remove("hidden");
+    const addproduct = document.getElementById("addproduct");
+    const overlayElement = document.getElementById("overlay");
 
-
-  var product_id = data
-  const Addproductomodal = document.getElementById("Addproductomodal");
-
-  var resultsHtml ='<h3 class="mb-4 font-semibold text-gray-900 dark:text-white">Comentario</h3>'
-  resultsHtml += '<ul class="items-center w-full text-sm font-medium text-gray-900 bg-white border border-gray-200 rounded-lg sm:flex dark:bg-gray-700 dark:border-gray-600 dark:text-white">'
-  resultsHtml += '    <li class="w-full border-b border-gray-200 sm:border-b-0 sm:border-r dark:border-gray-600">'
-  resultsHtml += '        <div class="flex items-center pl-3">'
-  resultsHtml += '            <input id="ComentarioSi" type="radio" value="" name="list-radio2"'
-  resultsHtml += '                class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 dark:focus:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500">'
-  resultsHtml += '            <label for="ComentarioSi"'
-  resultsHtml += '                class="w-full py-3 ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">Si'
-  resultsHtml += '            </label>'
-  resultsHtml += '        </div>'
-  resultsHtml += '    </li>'
-  resultsHtml += '    <li class="w-full border-b border-gray-200 sm:border-b-0 sm:border-r dark:border-gray-600">'
-  resultsHtml += '        <div class="flex items-center pl-3">'
-  resultsHtml += '            <input id="ComentarioNo" type="radio" value="" name="list-radio2" checked'
-  resultsHtml += '                class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 dark:focus:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500">'
-  resultsHtml += '            <label for="ComentarioNo"'
-  resultsHtml += '                class="w-full py-3 ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">No</label>'
-  resultsHtml += '        </div>'
-  resultsHtml += '    </li>'
- 
-  
-  resultsHtml += '</ul>'
-  resultsHtml += '<div class="mt-5 hidden" id="ComentarioText">'
-  resultsHtml += '    <label for="message" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Comentario</label>'
-  resultsHtml += `    <input type="hidden" name="itemproducts" id="itemproducts" value="${product_id}">`
-
-  resultsHtml += '    <textarea id="message" rows="4" name="message" maxlength="130" '
-  resultsHtml += '        class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"'
-  resultsHtml += '        placeholder="Ingrese un Comentario para el producto..."></textarea>'
-  resultsHtml += '</div>'
-  resultsHtml += '<h3 class="mb-4 font-semibold text-gray-900 dark:text-white mt-5">Remplazar Producto</h3>'
-  resultsHtml += '<p class="text-sm font-normal text-gray-500 dark:text-gray-400">Desea Remplazar El Producto Si No Se Encuentra?</p>'
-  resultsHtml += '<ul  class="items-center w-full text-sm font-medium text-gray-900 bg-white border border-gray-200 rounded-lg sm:flex dark:bg-gray-700 dark:border-gray-600 dark:text-white mt-5">'
-  resultsHtml += '    <li class="w-full border-b border-gray-200 sm:border-b-0 sm:border-r dark:border-gray-600">'
-  resultsHtml += '        <div class="flex items-center pl-3">'
-  resultsHtml += '            <input id="BuscadorSi" type="radio" value="" name="list-radio1"'
-  resultsHtml += '                class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 dark:focus:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500">'
-  resultsHtml += '            <label for="BuscadorSi"'
-  resultsHtml += '                class="w-full py-3 ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">Si'
-  resultsHtml += '            </label>'
-  resultsHtml += '        </div>'
-  resultsHtml += '    </li>'
-  resultsHtml += '    <li class="w-full border-b border-gray-200 sm:border-b-0 sm:border-r dark:border-gray-600">'
-  resultsHtml += '        <div class="flex items-center pl-3">'
-  resultsHtml += '            <input id="BuscadorNo" type="radio" value="" name="list-radio1" checked'
-  resultsHtml += '                class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 dark:focus:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500">'
-  resultsHtml += '            <label for="BuscadorNo"'
-  resultsHtml += '                class="w-full py-3 ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">No</label>'
-  resultsHtml += '        </div>'
-  resultsHtml += '    </li>'
-
-  resultsHtml += '</ul>'
-  
-  resultsHtml += '<div class="mt-5 hidden rounded-xl" id="BuscadorInputs"">'
-  resultsHtml += '    <label for="message" class="block mb-2 text-sm font-bold text-gray-900 dark:text-white">Buscar Producto Remplazo</label>'
-  resultsHtml += '<input type="text" id="search-input-modal" class="pl-13 w-full py-3 px-3 mt-5 rounded-xl" placeholder="busqueda" autocomplete="off">'
-  resultsHtml += '<div class="  w-full mt-4  mb-2" >'
- 
-  resultsHtml+='<h3 class="mb-4 font-semibold text-gray-900 dark:text-white">Filtros</h3>'
-  resultsHtml+='<ul class=" flex items-center w-full text-sm font-medium text-gray-900 bg-white border border-gray-200 rounded-lg sm:flex dark:bg-gray-700 dark:border-gray-600 dark:text-white">'
-  resultsHtml+=' <li class="w-full border-b border-gray-200 sm:border-b-0 sm:border-r dark:border-gray-600">'
-  resultsHtml+=' <div class="flex items-center pl-3">'
-  resultsHtml+=' <input id="vue-checkbox-list" type="checkbox" value="" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 dark:focus:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500">'
-  resultsHtml+=' <label for="vue-checkbox-list" class="w-full py-3 ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">Vue JS</label>'
-  resultsHtml+='</div>'
-  resultsHtml+=' </li>'
-  resultsHtml+=' <li class="w-full border-b border-gray-200 sm:border-b-0 sm:border-r dark:border-gray-600">'
-  resultsHtml+=' <div class="flex items-center pl-3">'
-  resultsHtml+=' <input id="vue-checkbox-list" type="checkbox" value="" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 dark:focus:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500">'
-  resultsHtml+=' <label for="vue-checkbox-list" class="w-full py-3 ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">Vue JS</label>'
-  resultsHtml+='</div>'
-  resultsHtml+=' </li>'
-  resultsHtml+=' <li class="w-full border-b border-gray-200 sm:border-b-0 sm:border-r dark:border-gray-600">'
-  resultsHtml+=' <div class="flex items-center pl-3">'
-  resultsHtml+=' <input id="vue-checkbox-list" type="checkbox" value="" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 dark:focus:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500">'
-  resultsHtml+=' <label for="vue-checkbox-list" class="w-full py-3 ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">Vue JS</label>'
-  resultsHtml+='</div>'
-  resultsHtml+=' </li>'
-  
-  
-  
-  
-  resultsHtml+='</ul>'
+    addproduct.classList.remove("hidden");
+    overlayElement.classList.remove("hidden");
 
 
-  
+    var product_id = data
+    const Addproductomodal = document.getElementById("Addproductomodal");
+
+    var resultsHtml = '<h3 class="mb-4 font-semibold text-gray-900 dark:text-white mt-5">Remplazar Producto</h3>'
+    resultsHtml += '<p class="text-sm font-normal text-gray-500 dark:text-gray-400">Desea Remplazar El Producto Si No Se Encuentra?</p>'
+
+    resultsHtml += `<input type="hidden" value="${product_id}" name="itemproducts" id="itemproducts">`
+    resultsHtml += '<div class="flex mt-5">'
+    resultsHtml += '  <ul class="grid w-full gap-6 md:grid-cols-2">'
+    resultsHtml += '  <li>'
+    resultsHtml += '      <input type="radio" id="BuscadorSi" name="hosting"  class="hidden peer" required>'
+    resultsHtml += '      <label for="BuscadorSi" class="inline-flex items-center justify-between w-full p-5 text-gray-500 bg-white border border-gray-200 rounded-lg cursor-pointer dark:hover:text-gray-300 dark:border-gray-700 dark:peer-checked:text-blue-500 peer-checked:border-blue-600 peer-checked:text-blue-600 hover:text-gray-600 hover:bg-gray-100 dark:text-gray-400 dark:bg-gray-800 dark:hover:bg-gray-700">                           '
+    resultsHtml += '          <div class="block">'
+    resultsHtml += '              <div class="w-full text-lg font-semibold">Si</div>'
+    resultsHtml += '              <div class="w-full">Deseo Remplazar El Producto </div>'
+    resultsHtml += '          </div>'
+    resultsHtml += '      </label>'
+    resultsHtml += '  </li>'
+    resultsHtml += '  <li>'
+    resultsHtml += '      <input type="radio" id="BuscadorNo" name="hosting"  class="hidden peer" checked>'
+    resultsHtml += '      <label for="BuscadorNo" class="inline-flex items-center justify-between w-full p-5 text-gray-500 bg-white border border-gray-200 rounded-lg cursor-pointer dark:hover:text-gray-300 dark:border-gray-700 dark:peer-checked:text-blue-500 peer-checked:border-blue-600 peer-checked:text-blue-600 hover:text-gray-600 hover:bg-gray-100 dark:text-gray-400 dark:bg-gray-800 dark:hover:bg-gray-700">'
+    resultsHtml += '          <div class="block">'
+    resultsHtml += '              <div class="w-full text-lg font-semibold">No</div>'
+    resultsHtml += '              <div class="w-full">No Deseo Remplazar El Producto</div>'
+    resultsHtml += '          </div>'
+    resultsHtml += '      </label>'
+    resultsHtml += '  </li>'
+    resultsHtml += '</ul>'
+    resultsHtml += '  </div>'
+    resultsHtml += '<div class="mt-5 hidden rounded-xl" id="BuscadorInputs"">'
+    resultsHtml += '<div class="relative overflow-x-auto shadow-md sm:rounded-lg">'
+    resultsHtml += '    <div class="flex items-center justify-between pb-4 bg-white dark:bg-gray-900">'
+    resultsHtml += '        <label for="table-search" class="sr-only">Search</label>'
+    resultsHtml += '        <div class="relative">'
+    resultsHtml += '            <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">'
+    resultsHtml += '                <svg class="w-4 h-4 text-gray-500 dark:text-gray-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">'
+    resultsHtml += '                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z"/>'
+    resultsHtml += '                </svg>'
+    resultsHtml += '            </div>'
+    resultsHtml += '            <input type="text" id="table-search-users" class="block p-2 pl-10 text-sm text-gray-900 border border-gray-300 rounded-lg w-80 bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Buscar Producto">'
+    resultsHtml += '        </div>'
+    resultsHtml += '    </div>'
+    resultsHtml += '<div  id="Marcaschecbock">'
+    resultsHtml += ' </div>'
+
+    resultsHtml += '<div class="container grid lg:grid-cols-4 gap-6 pt-4 pb-16 items-start relative " id="productos">'
+    resultsHtml += ' </div>'
+
+    resultsHtml += '<div class="mt-5" id="botonoesnav">'
+    resultsHtml += '<nav class="flex items-center justify-between pt-4 mb-4 mx-4" aria-label="Table navigation">'
+    resultsHtml += '    <span class="text-sm font-normal text-gray-500 dark:text-gray-400" id="resultados-span"></span>'
+    resultsHtml += '    <ul class="inline-flex -space-x-px text-sm h-8">'
+    resultsHtml += '        <li>'
+    resultsHtml += '            <button id="previous-page" class="flex items-center justify-center px-3 h-8 ml-0 leading-tight text-gray-500 bg-white border border-gray-300 rounded-l-lg hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">Anterior</button>'
+    resultsHtml += '        </li>'
+
+    resultsHtml += '        <li>'
+    resultsHtml += '            <button id="next-page" class="flex items-center justify-center px-3 h-8 leading-tight text-gray-500 bg-white border border-gray-300 rounded-r-lg hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">Siguiente</button>'
+    resultsHtml += '        </li>'
+    resultsHtml += '     </ul>'
+    resultsHtml += ' </nav>'
+    resultsHtml += '</div>'
+
+    resultsHtml += '</div>'
 
 
-  resultsHtml += '</div>'
-  resultsHtml += '</div>'
-  resultsHtml += '<div id="search-results-modal"'
-  resultsHtml += 'class="">'
-  
-  resultsHtml += '</div>'
-
- 
- resultsHtml+='</div>'
 
 
-  Addproductomodal.innerHTML = resultsHtml; // Asume que `resultsHtml` contiene el contenido HTML
-  function handleRadioChange(radio, targetId, show) {
-    const target = document.getElementById(targetId);
-    if (radio.checked) {
-      if (show) {
-        target.classList.remove("hidden");
-      } else {
-        target.classList.add("hidden");
+    Addproductomodal.innerHTML = resultsHtml; // Asume que `resultsHtml` contiene el contenido HTML
+    function handleRadioChange(radio, targetId, show) {
+      const target = document.getElementById(targetId);
+      if (radio.checked) {
+        if (show) {
+          target.classList.remove("hidden");
+        } else {
+          target.classList.add("hidden");
+        }
       }
     }
+
+    const type3 = document.getElementById("BuscadorSi");
+    const type4 = document.getElementById("BuscadorNo");
+
+
+    type3.addEventListener("change", () => {
+      handleRadioChange(type3, "BuscadorInputs", true);
+    });
+
+    type4.addEventListener("change", () => {
+      handleRadioChange(type4, "BuscadorInputs", false);
+    });
+
+
+
+
+
+
+
   }
 
-  const type1 = document.getElementById("ComentarioSi");
-  const type2 = document.getElementById("ComentarioNo");
-  const type3 = document.getElementById("BuscadorSi");
-  const type4 = document.getElementById("BuscadorNo");
-
-  type1.addEventListener("change", () => {
-    handleRadioChange(type1, "ComentarioText", true);
-    
-  });
-
-  type2.addEventListener("change", () => {
-    handleRadioChange(type2, "ComentarioText", false);
-    const textarea = document.getElementById("message");
-    textarea.value = ""; // Esto vaciará el contenido del textarea
-  });
-
-  type3.addEventListener("change", () => {
-    handleRadioChange(type3, "BuscadorInputs", true);
-  });
-
-  type4.addEventListener("change", () => {
-    handleRadioChange(type4, "BuscadorInputs", false);
-  });
+  function obtener(data) {
 
 
+    const productosslide = document.getElementById("productos");
+    const Marcaschecbock = document.getElementById("Marcaschecbock");
+
+    var itemproducts = data
+
+    var csrfToken = $("input[name=csrfmiddlewaretoken]").val();
+    var postData = {
+      item: itemproducts,
+    };
+    $.ajax({
+      url: obtenerinfoproduct,
+      method: "POST",
+      dataType: "json",
+      headers: {
+        "X-CSRFToken": csrfToken  // Agrega el token CSRF como encabezado
+      },
+      data: postData, // Envía los datos como objeto JSON
+      success: function (data) {
+
+        const productos = data['productos'].productos
+        const Marcas = data['productos'].MarcaUnicas
+
+        // const productos = data['productos'].productos;
+        const resultadosPorPagina = 12; // Número de resultados por página
+        let paginaActual = 1; // Página actual
+
+        // Dividir la lista de productos en páginas
+        const paginas = [];
+        for (let i = 0; i < productos.length; i += resultadosPorPagina) {
+          paginas.push(productos.slice(i, i + resultadosPorPagina));
+        }
+        mostrarResultados()
+
+        function mostrarResultados() {
+
+          const resultadosMostrados = (paginaActual - 1) * resultadosPorPagina + 1;
+          const resultadosFinales = Math.min(paginaActual * resultadosPorPagina, productos.length);
+          const totalResultados = productos.length;
+
+          const resultadosSpan = document.getElementById('resultados-span'); // Reemplaza 'resultados-span' con el ID o clase correcta
+          resultadosSpan.textContent = `Showing ${resultadosMostrados}-${resultadosFinales} of ${totalResultados}`;
+
+          const productosPagina = paginas[paginaActual - 1];
+          // Recorre los datos y agrégalos a la tabla
+
+
+          var resp2 = '<div class="scroll-container space-x-2 mb-4" style=" height: 60px;   width: 100%; overflow-x: auto; white-space: nowrap; display: inline-block;">';
+          resp2 += `<input id="Todos" checked type="radio" value="Todos" name="radiocheck" class=" radiocheck w-4 h-4 text-red-600 bg-gray-100 border-gray-300 focus:ring-red-500 dark:focus:ring-red-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">`;
+          resp2 += `<label for="Todos" class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">Todos</label>`;
+          Marcas.forEach((Marca) => {
+ 
+            resp2 += '<div class="item" style="display: inline-block;">';
+            resp2 += `<input id="${Marca.name}" type="radio" value="${Marca.name}" name="radiocheck" class=" radiocheck w-4 h-4 text-red-600 bg-gray-100 border-gray-300 focus:ring-red-500 dark:focus:ring-red-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">`;
+            resp2 += `<label for="${Marca.name}" class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">${Marca.name}</label>`;
+            resp2 += '</div>';
+          });
+
+          resp2 += '</div>';
+          Marcaschecbock.innerHTML = resp2;
+
+
+          var resp = '<div >'
+
+          productosPagina.forEach((producto) => {
+
+            resp += ' <div class="w-auto md:w-56 h-auto group rounded bg-white shadow overflow-hidden">'
+            resp += `          <img src=" https://riba.app/imgrs/THUMBS 500X500/${producto.item}.jpg " class=" justify-center mx-auto w-16 h-16 rounded-full>"`
+
+            resp += '     <div class="pt-4 pb-3 px-4 ">'
+            resp += `        <h4 class="mt-4 justify-center font-medium  mb-2 text-gray-800 transition  text-limit">  ${producto.nombre}        </h4>`
+            resp += '         <div class="flex items-baseline mb-1 space-x-2 justify-center  content-center">'
+            if (producto.flagoferta == 1) {
+              resp += `       <p class="text-sm text-red-700  font-roboto line-through">$ ${producto.precioRegular}</p>`
+              resp += `             <p class="text-xl  text-gray-900 font-roboto font-semibold">$ ${producto.precio}</p>`
+            } else {
+
+              resp += `             <p class="text-xl  text-gray-900 font-roboto font-semibold">$ ${producto.precio}`
+              resp += '             </p>'
+            }
+
+            resp += '           </div>'
+            resp += '    <div class="flex justify-center mx-auto mb-4 h-5">'
+            resp += `        <input id="${producto.item}" value="${producto.item}" name="productBuscador" type="radio" value="" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 dark:focus:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500">`
+            resp += '    </div>'
+            resp += '       </div>'
+
+
+            resp += '       </div>'
+          });
+          resp += '      </div>'
+
+          productosslide.innerHTML = resp;
+
+
+          ///filtrar por marca 
+          // Agrega un evento de escucha a los elementos de radio
+          const elementosRadioConjunto1 = document.querySelectorAll('input[name="radiocheck"]');
+          elementosRadioConjunto1.forEach((radio) => {
+            radio.addEventListener("change", function () {
+              const elementoSeleccionado = this.value;
+              
+
+              const divdisable = document.getElementById("botonoesnav");
+             
+          
+              if(elementoSeleccionado=='Todos'){
+                divdisable.style.display = "block";
+                paginaActual = 1;
+                mostrarResultados();
+              }else{
+                divdisable.style.display = "none";
+                filtrarElementos(elementoSeleccionado);
+              }
+         
+              // filtrarElementosConjunto1(elementoSeleccionado);
+            });
+          });
+          function filtrarElementos(terminoBusqueda) {
+            // Filtra los elementos basados en el término de búsqueda
+            const elementosFiltrados = productos.filter((Marca) =>
+              Marca.Marca.toLowerCase().includes(terminoBusqueda.toLowerCase())
+            );
+            
+          
+            // Muestra los elementos filtrados en el registro
+          
+            mostrarElementos(elementosFiltrados);
+          }
+
+          function mostrarElementos(elementos) {
+            var resp = '<div >'
+
+            elementos.forEach((producto) => {
+
+            resp += ' <div class="w-auto md:w-56 h-auto group rounded bg-white shadow overflow-hidden">'
+            resp += `          <img src=" https://riba.app/imgrs/THUMBS 500X500/${producto.item}.jpg " class=" justify-center mx-auto w-16 h-16 rounded-full>"`
+
+            resp += '     <div class="pt-4 pb-3 px-4 ">'
+            resp += `        <h4 class="mt-4 justify-center font-medium  mb-2 text-gray-800 transition  text-limit">  ${producto.nombre}        </h4>`
+            resp += '         <div class="flex items-baseline mb-1 space-x-2 justify-center  content-center">'
+            if (producto.flagoferta == 1) {
+              resp += `       <p class="text-sm text-red-700  font-roboto line-through">$ ${producto.precioRegular}</p>`
+              resp += `             <p class="text-xl  text-gray-900 font-roboto font-semibold">$ ${producto.precio}</p>`
+            } else {
+
+              resp += `             <p class="text-xl  text-gray-900 font-roboto font-semibold">$ ${producto.precio}`
+              resp += '             </p>'
+            }
+
+            resp += '           </div>'
+            resp += '    <div class="flex justify-center mx-auto mb-4 h-5">'
+            resp += `        <input id="${producto.item}" value="${producto.item}" name="productBuscador" type="radio" value="" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 dark:focus:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500">`
+            resp += '    </div>'
+            resp += '       </div>'
+
+
+            resp += '       </div>'
+          });
+          resp += '      </div>'
+
+          productosslide.innerHTML = resp;
+          }
+          
+          
+
+          ///buscador 
+
+          const campoBusqueda = document.getElementById("table-search-users");
+          campoBusqueda.addEventListener("input", function () {
+            const filtro = campoBusqueda.value.toLowerCase();
+            if (filtro === "") {
+              // El campo de búsqueda está vacío, restablece la página a 1 y muestra resultados
+              paginaActual = 1;
+              mostrarResultados();
+            } else {
+              // Filtra los productos según el criterio de búsqueda
+              const productosFiltrados = productos.filter((producto) => {
+                const productoNombre = producto.nombre.toLowerCase();
+                return productoNombre.includes(filtro);
+              });
+
+              var resp = '  <div class="grid grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 sm:grid-cols-3 gap-6">'
+
+              productosFiltrados.forEach((producto) => {
+
+                resp += ' <div class="w-auto md:w-56 h-auto group rounded bg-white shadow overflow-hidden">'
+                resp += `          <img src=" https://riba.app/imgrs/THUMBS 500X500/${producto.item}.jpg " class=" justify-center mx-auto w-16 h-16 rounded-full>"`
+
+                resp += '     <div class="pt-4 pb-3 px-4 ">'
+                resp += `        <h4 class="mt-4 justify-center font-medium  mb-2 text-gray-800 transition  text-limit">  ${producto.nombre}        </h4>`
+                resp += '         <div class="flex items-baseline mb-1 space-x-2 justify-center  content-center">'
+                if (producto.flagoferta == 1) {
+                  resp += `       <p class="text-sm text-red-700  font-roboto line-through">$ ${producto.precioRegular}</p>`
+                  resp += `             <p class="text-xl  text-gray-900 font-roboto font-semibold">$ ${producto.precio}</p>`
+                } else {
+
+                  resp += `             <p class="text-xl  text-gray-900 font-roboto font-semibold">$ ${producto.precio}`
+                  resp += '             </p>'
+                }
+
+                resp += '           </div>'
+                resp += '    <div class="flex justify-center mx-auto mb-4 h-5">'
+                resp += `        <input id="${producto.item}" value="${producto.item}" name="productBuscador" type="radio" value="" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 dark:focus:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500">`
+                resp += '    </div>'
+                resp += '       </div>'
+
+
+                resp += '       </div>'
+              });
+              resp += '      </div>'
+
+              productosslide.innerHTML = resp;
 
 
 
 
 
-}
+            }
+
+
+
+          });
+
+        }
+
+
+
+        const previousPageButton = document.getElementById('previous-page');
+        const nextPageButton = document.getElementById('next-page');
+
+        previousPageButton.addEventListener('click', () => {
+          if (paginaActual > 1) {
+            paginaActual--;
+            mostrarResultados();
+
+          }
+        });
+
+        nextPageButton.addEventListener('click', () => {
+          if (paginaActual < paginas.length) {
+            paginaActual++;
+            mostrarResultados();
+          }
+        });
+
+
+
+
+
+      }
+    })
+
+
+
+    // Accede a la tabla por su ID
+
+
+
+
+
+
+
+  }
 
 
 
 
   $(".agregarCarritoProduct").click(function () {
-    
+
     var itemproducts = $("#itemproducts").val();
     var productMessage = $("#message").val();
     var NewselectedProduct = $("input[name='productBuscador']:checked").val();
@@ -259,6 +490,7 @@ function modaldetalle (data){
       Comentario: productMessage,
       Newproduct: NewselectedProduct
     };
+
     $.ajax({
       url: agregarCarritoUrl,
       method: "POST",
@@ -280,7 +512,7 @@ function modaldetalle (data){
               }, 1500);
               const addproduct = document.getElementById("addproduct");
               const overlayElement = document.getElementById("overlay");
-          
+
               addproduct.classList.add("hidden");
               overlayElement.classList.add("hidden");
               var cartCountElement = document.getElementById("cart-count");
@@ -301,7 +533,7 @@ function modaldetalle (data){
           }, 1500);
           const addproduct = document.getElementById("addproduct");
           const overlayElement = document.getElementById("overlay");
-      
+
           addproduct.classList.add("hidden");
           overlayElement.classList.add("hidden");
           var cartCountElement = document.getElementById("cart-count");
@@ -353,10 +585,10 @@ function modaldetalle (data){
       // Inicia un nuevo temporizador
       typingTimer = setTimeout(function () {
         const bodega = storedValue
-        console.log(storedValue);
+
         if (query.length >= 2) { // Evitar búsquedas vacías o muy cortas
-        
-          var requestData = { "busqueda": query,"bodega":bodega };
+
+          var requestData = { "busqueda": query, "bodega": bodega };
           $.ajax({
             url: 'http://192.168.88.136:3005/ecommer/rs/buscador',
             method: 'POST',
@@ -364,7 +596,7 @@ function modaldetalle (data){
             data: JSON.stringify(requestData),
 
             success: function (data) {
-              console.log(data);
+
               // Procesa los datos de la API y muestra los resultados
 
               var datos = data['productos'];
@@ -416,7 +648,7 @@ function modaldetalle (data){
 
 
 
-  ////eliminar Productos del carrito
+  //eliminar Productos del carrito
 
 
   function carritomodal() {
@@ -446,12 +678,12 @@ function modaldetalle (data){
             resultsHtml += '                 <h3>';
             resultsHtml += `                   <a href="#">${data.nombre.slice(0, 12)}...</a>`;
             resultsHtml += '                 </h3>';
-            resultsHtml += `                <p class="ml-4 text-indigo-600">$ ${Number(data.precio)*Number(data.quantity)}</p>`;
+            resultsHtml += `                <p class="ml-4 text-indigo-600">$ ${Number(data.precio) * Number(data.quantity)}</p>`;
             resultsHtml += '               </div>';
-            
-              resultsHtml += `                 <p class="mt-2 text-sm text-gray-500">Precio ${Number(data.precio).toFixed(2)}</p>`
-        
-           
+
+            resultsHtml += `                 <p class="mt-2 text-sm text-gray-500">Precio ${Number(data.precio).toFixed(2)}</p>`
+
+
             resultsHtml += '             </div>';
             resultsHtml += '  <div class="flex w-28 border border-gray-300 text-gray-600 divide-x divide-gray-300 mt-5">';
             resultsHtml += `  <a  class="h-8 w-8 text-xl flex items-center justify-center cursor-pointer select-none restar" id="restar" data-product-id="${data.item}">-</a>`;
@@ -527,10 +759,10 @@ function modaldetalle (data){
             resultsHtml += '                 <h3>';
             resultsHtml += `                   <a href="#">${data.nombre.slice(0, 12)}...</a>`;
             resultsHtml += '                 </h3>';
-            resultsHtml += `                <p class="ml-4 text-indigo-600">$ ${Number(data.precio)*Number(data.quantity)}</p>`;
+            resultsHtml += `                <p class="ml-4 text-indigo-600">$ ${Number(data.precio) * Number(data.quantity)}</p>`;
             resultsHtml += '               </div>';
-              resultsHtml += `                 <p class="mt-2 text-sm text-gray-500">Precio ${Number(data.precio).toFixed(2)}</p>`
-           
+            resultsHtml += `                 <p class="mt-2 text-sm text-gray-500">Precio ${Number(data.precio).toFixed(2)}</p>`
+
             resultsHtml += '             </div>';
             resultsHtml += '  <div class="flex w-28 border border-gray-300 text-gray-600 divide-x divide-gray-300 mt-5">';
             resultsHtml += `  <a  class="h-8 w-8 text-xl flex items-center justify-center cursor-pointer select-none restar" id="restar" data-product-id="${data.item}">-</a>`;

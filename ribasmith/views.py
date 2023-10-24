@@ -51,7 +51,7 @@ def verbodega(request):
         # Realizar una nueva solicitud a la API para obtener los detalles del producto
         url = f'http://192.168.88.136:3005/ecommer/rs/obtenerbodega'
         response = requests.get(url)
-        print(response)
+
         if response.status_code == 200:
            data_from_express_api = response.json()
            return JsonResponse({'status': 'obtenido', 'message': data_from_express_api['bodega']})

@@ -8,7 +8,7 @@ from django.core.paginator import EmptyPage, PageNotAnInteger, Paginator
 from .forms import ExcelUploadForm
 import pandas as pd
 from io import BytesIO
-from django.http import HttpResponse
+from django.http import HttpResponse, JsonResponse
 from django.db.models import Q
 import requests
 from Account.views import ListaCompra
@@ -340,6 +340,48 @@ def products_by_category_marca(request,category_slug,Marca_slug):
  
 
 
+def obtenerinfoproduct(request):
+
+        session_data = dict(request.session)
+        try:
+            if request.method=='POST':
+                if "valor_seleccionado" in session_data:
+                    bodega = session_data['valor_seleccionado']
+                else:
+                     bodega=114100500
+                data ={
+                 "item":request.POST['item'],
+                 "bodega":bodega
+                   }        
+             
+            # Realizar una nueva solicitud a la API para obtener los detalles del producto
+            # url = f'http://192.168.88.136:3002/ecommer/rs/viewcart'
+            endpoint = 'obtenerinfoproduct'
+            url = f'{URL_APIS}{endpoint}'   
+            response = requests.post(url, json=data)  # Usar json=data en lugar de data=data
+        
+            
+            if response.status_code == 200:
+                data_from_express_api = response.json()
+                context = {
+                    'productos':data_from_express_api
+                }
+                                
+                return JsonResponse(context)
+
+            else:
+                context = {
+                    
+                }
+                
+                return JsonResponse(context)
+    
+    
+        except Exception as e:
+          
+            context = None
+            return JsonResponse(context)
+    
 
 #Administrador
 
