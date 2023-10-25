@@ -19,12 +19,44 @@ from datetime import datetime
 from ribasmith.settings import GOOGLE_MAPS_API_KEY,URL_APIS
 
 
+def wishlistProduct(request):
 
-def  wishlistProduct(request):
-    return render(request,'accounts/wishlistProduct.html')
+    try:       
+        endpoint = 'seccionesid'
+        url = f'{URL_APIS}{endpoint}'
+        session_data = dict(request.session)
+  
+        if "valor_seleccionado" in session_data:
+            bodega = session_data['valor_seleccionado']
+        else:
+             bodega=114100500
+     
+        data ={
+            'id':1,
+             "bodega":bodega
+           }
+        # Realizar una nueva solicitud a la API para obtener los detalles del producto
+        # url = f'http://192.168.88.136:3002/ecommer/rs/seccionesid/1'
+        response = requests.post(url,json=data)
+        if response.status_code == 200:
+           data_from_express_api = response.json()
+           productos=data_from_express_api['productos'][:10]
+          
+  
+           context = {
+                'productos': productos
+            }
+           
+        else:
+            # Manejar el caso en el que el producto no exista o haya un error en la API
+            context = None
 
+    except Exception as e:
+        print(e)
+        context = None
 
-
+    return render(request, 'WishlistProduct',context) 
+  
 
 
 
