@@ -4,6 +4,7 @@ from . import views
 
 urlpatterns=[
     path('register/',views.register, name='register'),
+    path('wishlistProduct/',views.wishlistProduct,name="wishlistProduct"),
     path('login/',views.login, name='login'),
     path('logout/',views.logout, name='logout'),
     path('guardar_valor_en_sesion/',views.guardar_valor_en_sesion, name='guardar_valor_en_sesion'),
@@ -27,7 +28,7 @@ urlpatterns=[
     path('AgregaraListaNueva/',views.AgregaraListaNueva,name='AgregaraListaNueva'),
     path('eliminarLista/<str:idlista>',views.eliminarLista,name='eliminarLista'),
     path('eliminarProductoListado/<str:idlista>/<str:item>',views.eliminarProductoListado,name='eliminarProductoListado'),
-
+    
 
     
     
