@@ -165,6 +165,166 @@ def product_detail(request,product):
 
 
 
+def search(request):
+    
+    if 'keyword' in request.GET:
+        keyword=request.GET['keyword']
+    try:
+      
+        endpoint = 'buscador'
+        url = f'{URL_APIS}{endpoint}'
+        session_data = dict(request.session)
+  
+        if "valor_seleccionado" in session_data:
+            bodega = session_data['valor_seleccionado']
+        else:
+             bodega=114100500
+        requestData = { "busqueda": keyword,"bodega":bodega }
+      
+
+        
+        response = requests.post(url , json=requestData)
+        data_from_express_api = response.json()
+
+        if response.status_code == 200:
+            
+           paginator=Paginator(data_from_express_api['productos'],36)
+           page=request.GET.get('page')
+           paged_prducts=paginator.get_page(page)
+           product_count = len(data_from_express_api['productos'])
+           current_page = paged_prducts.number
+           start_page = max(current_page - 4, 1)  # Establece el rango de páginas visibles
+           end_page = min(current_page + 4,paged_prducts.paginator.num_pages)
+           context={
+                'productos':paged_prducts,
+                'products_count':product_count,
+                'Categoria':data_from_express_api['categorias'],
+                'Marca':data_from_express_api['Marca'],
+                'filtradoCategoria':False,
+                'search':keyword,
+                'start_page': start_page,
+                'end_page': end_page,
+                }
+         
+        else:
+            # Manejar el caso en el que el producto no exista o haya un error en la API
+            context = None
+
+    except Exception as e:
+        print(e)
+        context = None
+
+    return render(request, 'store/Search.html', context) 
+
+def searchfillCategoria(request):
+    if 'keyword' in request.GET:
+        search=request.GET['keyword']
+        categoria=request.GET['Cat']
+    try:
+      
+        endpoint = 'fillbuscador'
+        url = f'{URL_APIS}{endpoint}'
+        session_data = dict(request.session)
+  
+        if "valor_seleccionado" in session_data:
+            bodega = session_data['valor_seleccionado']
+        else:
+             bodega=114100500
+        requestData = { "busqueda": search,"bodega":bodega,"category":categoria }
+      
+
+        
+        response = requests.post(url , json=requestData)
+        data_from_express_api = response.json()
+
+        if response.status_code == 200:
+            
+           paginator=Paginator(data_from_express_api['productos'],36)
+           page=request.GET.get('page')
+           paged_prducts=paginator.get_page(page)
+           product_count = len(data_from_express_api['productos'])
+           current_page = paged_prducts.number
+           start_page = max(current_page - 4, 1)  # Establece el rango de páginas visibles
+           end_page = min(current_page + 4,paged_prducts.paginator.num_pages)
+           context={
+                'productos':paged_prducts,
+                'products_count':product_count,
+                'Categoria':data_from_express_api['categorias'],
+                'Marca':data_from_express_api['Marca'],
+                'filtradoCategoria':True,
+                'start_page': start_page,
+                'search':search,
+                'end_page': end_page,
+                }
+         
+        else:
+            # Manejar el caso en el que el producto no exista o haya un error en la API
+            context = None
+
+    except Exception as e:
+        print(e)
+        context = None
+
+    return render(request, 'store/Search.html', context) 
+
+def searchfillmarca(request):
+
+
+    if 'keyword' in request.GET:
+        search=request.GET['keyword']
+        marca=request.GET['marca']
+    try:
+      
+        endpoint = 'fillbuscador'
+        url = f'{URL_APIS}{endpoint}'
+        session_data = dict(request.session)
+  
+        if "valor_seleccionado" in session_data:
+            bodega = session_data['valor_seleccionado']
+        else:
+             bodega=114100500
+        requestData = { "busqueda": search,"bodega":bodega,"Marcasearch":marca }
+      
+
+        
+        response = requests.post(url , json=requestData)
+        data_from_express_api = response.json()
+ 
+        if response.status_code == 200:
+            
+           paginator=Paginator(data_from_express_api['productos'],36)
+           page=request.GET.get('page')
+           paged_prducts=paginator.get_page(page)
+           product_count = len(data_from_express_api['productos'])
+           current_page = paged_prducts.number
+           start_page = max(current_page - 4, 1)  # Establece el rango de páginas visibles
+           end_page = min(current_page + 4,paged_prducts.paginator.num_pages)
+           context={
+                'productos':paged_prducts,
+                'products_count':product_count,
+                'Categoria':data_from_express_api['categorias'],
+                'Marca':data_from_express_api['Marca'],
+                'filtradoMarca':True,
+                'start_page': start_page,
+                'search':search,
+                'end_page': end_page,
+                }
+         
+        else:
+            # Manejar el caso en el que el producto no exista o haya un error en la API
+            context = None
+
+    except Exception as e:
+        print(e)
+        context = None
+
+    return render(request, 'store/Search.html', context) 
+
+
+
+
+
+
 # def store(request,category_slug=None):
 #       products=None
 #       if category_slug!=None:

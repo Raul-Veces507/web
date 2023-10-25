@@ -183,10 +183,28 @@ document.querySelector('#agregarTodoButton').addEventListener('click', function(
     if (productosSeleccionados.length === 0) {
         console.log("Debes seleccionar productos");
     } else {
+        alert('hola')
+
         var postData= {
           productosSeleccionados:productosSeleccionados
         }
-        var csrfToken = getCookie("csrfToken");
+        console.log(postData);
+        var csrfToken = getCookie("csrftoken");
+            function getCookie(name) {
+        var cookieValue = null;
+        if (document.cookie && document.cookie !== "") {
+          var cookies = document.cookie.split(";");
+          for (var i = 0; i < cookies.length; i++) {
+            var cookie = cookies[i].trim();
+            if (cookie.substring(0, name.length + 1) === name + "=") {
+              cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+              break;
+            }
+          }
+        }
+        return cookieValue;
+      }
+        console.log(csrfToken)
         $.ajax({
         method: "POST",
         url: "{% url 'wishlistProduct' %}",
@@ -210,20 +228,7 @@ document.querySelector('#agregarTodoButton').addEventListener('click', function(
     });
 
 
-    function getCookie(name) {
-        var cookieValue = null;
-        if (document.cookie && document.cookie !== "") {
-          var cookies = document.cookie.split(";");
-          for (var i = 0; i < cookies.length; i++) {
-            var cookie = cookies[i].trim();
-            if (cookie.substring(0, name.length + 1) === name + "=") {
-              cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
-              break;
-            }
-          }
-        }
-        return cookieValue;
-      }
+
 
 
 
