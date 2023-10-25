@@ -12,15 +12,11 @@ def home(request):
         endpoint = 'seccionesid'
         url = f'{URL_APIS}{endpoint}'
         session_data = dict(request.session)
-  
-        if "valor_seleccionado" in session_data:
-            bodega = session_data['valor_seleccionado']
-        else:
-             bodega=114100500
-     
+        usuario=session_data['usuario']
         data ={
             'id':1,
-             "bodega":bodega
+             "usuario":usuario,
+             "cart":cart
            }
         # Realizar una nueva solicitud a la API para obtener los detalles del producto
         # url = f'http://192.168.88.136:3002/ecommer/rs/seccionesid/1'
