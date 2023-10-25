@@ -180,4 +180,4 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 SESSION_EXPIRE_AT_BROWSER_CLOSE = True
 GOOGLE_MAPS_API_KEY = 'AIzaSyCdjCuB5DCVSeqwvAbek3aEpWB2tFTnMRU'
 
-URL_APIS="http://192.168.88.136:3005/ecommer/rs/"
+URL_APIS="http://localhost:3005/ecommer/rs/"

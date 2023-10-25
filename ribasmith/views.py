@@ -49,7 +49,9 @@ def home(request):
 def verbodega(request):
      try:
         # Realizar una nueva solicitud a la API para obtener los detalles del producto
-        url = f'http://192.168.88.136:3005/ecommer/rs/obtenerbodega'
+        endpoint = 'obtenerbodega'
+        url = f'{URL_APIS}{endpoint}'
+        # url = f'http://192.168.88.136:3005/ecommer/rs/obtenerbodega'
         response = requests.get(url)
 
         if response.status_code == 200:

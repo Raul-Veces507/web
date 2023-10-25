@@ -9,7 +9,7 @@ $(document).ready(function () {
     var itemproducts = $(this).data("product-id")
     var inventario = $(this).data("product-id2")
    
-   
+
 
     var csrfToken = $("input[name=csrfmiddlewaretoken]").val();
     var postData = {
@@ -135,8 +135,12 @@ $(document).ready(function () {
     resultsHtml += '          </div>'
     resultsHtml += '      </label>'
     resultsHtml += '  </li>'
+    
     resultsHtml += '</ul>'
     resultsHtml += '  </div>'
+
+    
+
     resultsHtml += '<div class="mt-5 hidden rounded-xl" id="BuscadorInputs"">'
     resultsHtml += '<div class="relative overflow-x-auto shadow-md sm:rounded-lg">'
     resultsHtml += '    <div class="flex items-center justify-between pb-4 bg-white dark:bg-gray-900">'
@@ -257,7 +261,7 @@ $(document).ready(function () {
           // Recorre los datos y agrégalos a la tabla
 
 
-          var resp2 = '<div class="scroll-container space-x-2 mb-4" style=" height: 60px;   width: 100%; overflow-x: auto; white-space: nowrap; display: inline-block;">';
+          var resp2 = '<div class="scroll-container space-x-2 mb-4 mt-5" style=" height: 60px;   width: 100%; overflow-x: auto; white-space: nowrap; display: inline-block;">';
           resp2 += `<input id="Todos" checked type="radio" value="Todos" name="radiocheck" class=" radiocheck w-4 h-4 text-red-600 bg-gray-100 border-gray-300 focus:ring-red-500 dark:focus:ring-red-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">`;
           resp2 += `<label for="Todos" class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">Todos</label>`;
           Marcas.forEach((Marca) => {
@@ -277,8 +281,9 @@ $(document).ready(function () {
           productosPagina.forEach((producto) => {
 
             resp += ' <div class="w-auto md:w-56 h-auto group rounded bg-white shadow overflow-hidden">'
+            resp += `<input type="radio" id="${producto.item}" value="${producto.item}" name="productBuscador" class="hidden peer" required>`
+            resp += ` <label for="${producto.item}" class="flex flex-col flex-wrap content-stretch w-full p-5 text-gray-500 bg-white border border-gray-200 rounded-lg cursor-pointer dark:hover:text-gray-300 dark:border-gray-700 dark:peer-checked:text-blue-500 peer-checked:border-blue-600 peer-checked:text-blue-600 hover:text-gray-600 hover:bg-gray-100 dark:text-gray-400 dark:bg-gray-800 dark:hover:bg-gray-700"> `
             resp += `          <img src=" https://riba.app/imgrs/THUMBS 500X500/${producto.item}.jpg " class=" justify-center mx-auto w-16 h-16 rounded-full>"`
-
             resp += '     <div class="pt-4 pb-3 px-4 ">'
             resp += `        <h4 class="mt-4 justify-center font-medium  mb-2 text-gray-800 transition  text-limit">  ${producto.nombre}        </h4>`
             resp += '         <div class="flex items-baseline mb-1 space-x-2 justify-center  content-center">'
@@ -292,10 +297,8 @@ $(document).ready(function () {
             }
 
             resp += '           </div>'
-            resp += '    <div class="flex justify-center mx-auto mb-4 h-5">'
-            resp += `        <input id="${producto.item}" value="${producto.item}" name="productBuscador" type="radio" value="" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 dark:focus:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500">`
-            resp += '    </div>'
             resp += '       </div>'
+             resp += '</label>'
 
 
             resp += '       </div>'
@@ -345,31 +348,30 @@ $(document).ready(function () {
 
             elementos.forEach((producto) => {
 
-            resp += ' <div class="w-auto md:w-56 h-auto group rounded bg-white shadow overflow-hidden">'
-            resp += `          <img src=" https://riba.app/imgrs/THUMBS 500X500/${producto.item}.jpg " class=" justify-center mx-auto w-16 h-16 rounded-full>"`
-
-            resp += '     <div class="pt-4 pb-3 px-4 ">'
-            resp += `        <h4 class="mt-4 justify-center font-medium  mb-2 text-gray-800 transition  text-limit">  ${producto.nombre}        </h4>`
-            resp += '         <div class="flex items-baseline mb-1 space-x-2 justify-center  content-center">'
-            if (producto.flagoferta == 1) {
-              resp += `       <p class="text-sm text-red-700  font-roboto line-through">$ ${producto.precioRegular}</p>`
-              resp += `             <p class="text-xl  text-gray-900 font-roboto font-semibold">$ ${producto.precio}</p>`
-            } else {
-
-              resp += `             <p class="text-xl  text-gray-900 font-roboto font-semibold">$ ${producto.precio}`
-              resp += '             </p>'
-            }
-
-            resp += '           </div>'
-            resp += '    <div class="flex justify-center mx-auto mb-4 h-5">'
-            resp += `        <input id="${producto.item}" value="${producto.item}" name="productBuscador" type="radio" value="" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 dark:focus:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500">`
-            resp += '    </div>'
-            resp += '       </div>'
-
-
-            resp += '       </div>'
-          });
-          resp += '      </div>'
+              resp += ' <div class="w-auto md:w-56 h-auto group rounded bg-white shadow overflow-hidden">'
+              resp += `<input type="radio" id="${producto.item}" value="${producto.item}" name="productBuscador" class="hidden peer" required>`
+              resp += ` <label for="${producto.item}" class="flex flex-col flex-wrap content-stretch w-full p-5 text-gray-500 bg-white border border-gray-200 rounded-lg cursor-pointer dark:hover:text-gray-300 dark:border-gray-700 dark:peer-checked:text-blue-500 peer-checked:border-blue-600 peer-checked:text-blue-600 hover:text-gray-600 hover:bg-gray-100 dark:text-gray-400 dark:bg-gray-800 dark:hover:bg-gray-700"> `
+              resp += `          <img src=" https://riba.app/imgrs/THUMBS 500X500/${producto.item}.jpg " class=" justify-center mx-auto w-16 h-16 rounded-full>"`
+              resp += '     <div class="pt-4 pb-3 px-4 ">'
+              resp += `        <h4 class="mt-4 justify-center font-medium  mb-2 text-gray-800 transition  text-limit">  ${producto.nombre}        </h4>`
+              resp += '         <div class="flex items-baseline mb-1 space-x-2 justify-center  content-center">'
+              if (producto.flagoferta == 1) {
+                resp += `       <p class="text-sm text-red-700  font-roboto line-through">$ ${producto.precioRegular}</p>`
+                resp += `             <p class="text-xl  text-gray-900 font-roboto font-semibold">$ ${producto.precio}</p>`
+              } else {
+  
+                resp += `             <p class="text-xl  text-gray-900 font-roboto font-semibold">$ ${producto.precio}`
+                resp += '             </p>'
+              }
+  
+              resp += '           </div>'
+              resp += '       </div>'
+               resp += '</label>'
+  
+  
+              resp += '       </div>'
+            });
+            resp += '      </div>'
 
           productosslide.innerHTML = resp;
           }
@@ -397,8 +399,9 @@ $(document).ready(function () {
               productosFiltrados.forEach((producto) => {
 
                 resp += ' <div class="w-auto md:w-56 h-auto group rounded bg-white shadow overflow-hidden">'
+                resp += `<input type="radio" id="${producto.item}" value="${producto.item}" name="productBuscador" class="hidden peer" required>`
+                resp += ` <label for="${producto.item}" class="flex flex-col flex-wrap content-stretch w-full p-5 text-gray-500 bg-white border border-gray-200 rounded-lg cursor-pointer dark:hover:text-gray-300 dark:border-gray-700 dark:peer-checked:text-blue-500 peer-checked:border-blue-600 peer-checked:text-blue-600 hover:text-gray-600 hover:bg-gray-100 dark:text-gray-400 dark:bg-gray-800 dark:hover:bg-gray-700"> `
                 resp += `          <img src=" https://riba.app/imgrs/THUMBS 500X500/${producto.item}.jpg " class=" justify-center mx-auto w-16 h-16 rounded-full>"`
-
                 resp += '     <div class="pt-4 pb-3 px-4 ">'
                 resp += `        <h4 class="mt-4 justify-center font-medium  mb-2 text-gray-800 transition  text-limit">  ${producto.nombre}        </h4>`
                 resp += '         <div class="flex items-baseline mb-1 space-x-2 justify-center  content-center">'
@@ -406,18 +409,16 @@ $(document).ready(function () {
                   resp += `       <p class="text-sm text-red-700  font-roboto line-through">$ ${producto.precioRegular}</p>`
                   resp += `             <p class="text-xl  text-gray-900 font-roboto font-semibold">$ ${producto.precio}</p>`
                 } else {
-
+    
                   resp += `             <p class="text-xl  text-gray-900 font-roboto font-semibold">$ ${producto.precio}`
                   resp += '             </p>'
                 }
-
+    
                 resp += '           </div>'
-                resp += '    <div class="flex justify-center mx-auto mb-4 h-5">'
-                resp += `        <input id="${producto.item}" value="${producto.item}" name="productBuscador" type="radio" value="" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 dark:focus:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500">`
-                resp += '    </div>'
                 resp += '       </div>'
-
-
+                 resp += '</label>'
+    
+    
                 resp += '       </div>'
               });
               resp += '      </div>'
@@ -590,7 +591,7 @@ $(document).ready(function () {
 
           var requestData = { "busqueda": query, "bodega": bodega };
           $.ajax({
-            url: 'http://192.168.88.136:3005/ecommer/rs/buscador',
+            url: 'http://localhost:3005/ecommer/rs/buscador',
             method: 'POST',
             contentType: 'application/json',
             data: JSON.stringify(requestData),
@@ -1016,67 +1017,6 @@ $(document).ready(function () {
       tarjetaFormulario.style.display = "block"; // Muestra el formulario de tarjeta
     }
   });
-
-
-
-  ///inicia el mapa del checkout
-  function initMap() {
-    if ("geolocation" in navigator) {
-      // El navegador soporta geolocalización
-      navigator.geolocation.getCurrentPosition(function (position) {
-        // Se ha obtenido la ubicación del usuario
-        var latitud = position.coords.latitude;
-        var longitud = position.coords.longitude;
-
-        // Crea un objeto de mapa de Google Maps y lo muestra en el elemento con el ID "map"
-        var map = new google.maps.Map(document.getElementById('map'), {
-          center: { lat: latitud, lng: longitud },
-          zoom: 15 // Nivel de zoom
-        });
-
-        // Crea un marcador inicial en la ubicación del usuario
-        var marker = new google.maps.Marker({
-          position: { lat: latitud, lng: longitud },
-          map: map,
-          draggable: true // Permite que el marcador sea movible
-        });
-
-        // Agrega un evento para escuchar cuando se arrastra el marcador
-        marker.addListener('dragend', function (event) {
-          var newLatitud = event.latLng.lat();
-          var newLongitud = event.latLng.lng();
-
-          // Actualiza la posición del marcador en la página
-          document.getElementById('coordenadas').textContent = "Latitud: " + newLatitud + ", Longitud: " + newLongitud;
-        });
-
-        // También puedes mostrar las coordenadas en la página
-        document.getElementById('coordenadas').textContent = "Latitud: " + latitud + ", Longitud: " + longitud;
-      }, function (error) {
-        // Manejar errores de geolocalización
-        switch (error.code) {
-          case error.PERMISSION_DENIED:
-            console.error("El usuario ha denegado la solicitud de geolocalización.");
-            break;
-          case error.POSITION_UNAVAILABLE:
-            console.error("La información de ubicación no está disponible.");
-            break;
-          case error.TIMEOUT:
-            console.error("Se ha agotado el tiempo de espera para obtener la ubicación.");
-            break;
-          case error.UNKNOWN_ERROR:
-            console.error("Se ha producido un error desconocido.");
-            break;
-        }
-      });
-    } else {
-      // El navegador no soporta geolocalización
-      console.error("La geolocalización no es compatible en este navegador.");
-    }
-  }
-
-
-  initMap();
 
 
 

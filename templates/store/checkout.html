@@ -30,8 +30,11 @@
                   <div class="w-48">
                     <span class="text-gray-600 font-semibold">Direccion de entrega:</span>
                   </div>
-                  <div class="flex-grow pl-3">
-                    <label for="">{{Direccion.Detalle}}</label>
+                  <div class="">
+                    <label for="">{{Direccion.provincia}}</label>,
+                    <label for="">{{Direccion.distrito}}</label>,
+                    <label for="">{{Direccion.corregimiento}}</label>,
+                    <label for="">{{Direccion.direccion}}</label>
                   </div>
                 </div>
                 <div class="w-full flex items-center mt-5">
@@ -216,6 +219,7 @@
               <div class="w-full mx-auto text-gray-800 font-light mb-6 border-b border-gray-200 pb-6"
                 style=" max-height: 300px; overflow-y: auto;">
                 {% for item in cart_items %}
+        
 
 
                 <div class="w-full flex items-center mt-5">
@@ -225,9 +229,15 @@
                   <div class="flex-grow pl-3">
                     <h6 class="font-semibold uppercase text-gray-600">{{item.nombre}}</h6>
                     <p class="text-gray-400">Cantidad: {{item.quantity}}</p>
+                    <p class="text-gray-400">Precio: {{item.precio|floatformat:2}}</p>
                   </div>
                   <div>
-                    <span class="font-semibold text-gray-600 text-xl">${{item.total|floatformat:2}}</span></span>
+                    {%  if item.flagoferta == 1 %}
+                    <span class="font-semibold text-gray-600 text-xl">${{item.precioOferta|floatformat:2}}</span></span>
+                    {% else %}
+                    <span class="font-semibold text-gray-600 text-xl">${{item.precioNormal|floatformat:2}}</span></span>
+
+                    {% endif %}
                   </div>
                 </div>
                 {% endfor %}

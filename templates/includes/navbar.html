@@ -856,7 +856,7 @@
         if (query.length >= 2) { // Evitar búsquedas vacías o muy cortas
           var requestData = { "busqueda": query,"bodega":storedValue };
           $.ajax({
-            url: 'http://192.168.88.136:3005/ecommer/rs/buscador',
+            url: 'http://localhost:3005/ecommer/rs/buscador',
             method: 'POST',
             contentType: 'application/json',
             data: JSON.stringify(requestData),

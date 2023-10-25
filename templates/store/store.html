@@ -265,7 +265,7 @@
                 <span class="p-discountsinstore"> </span>
                 {% endif %}
               
-                {% if product.Catindadinv <= 5 %} 
+                {% if product.Catindadinv <= 10 %} 
                 <img  class="w-5 h-5 mx-4 "  src="{% static 'src/images/ban/sun.png'%}" alt="">
 
                 <a href="{%  url 'product_detail' product.item %}">
