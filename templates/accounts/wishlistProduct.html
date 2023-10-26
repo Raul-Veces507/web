@@ -176,6 +176,7 @@ document.querySelector('#agregarTodoButton').addEventListener('click', function(
     // Seleccionar todos los checkboxes cuando se hace clic en "Agregar todo"
     
     $('#agregarSeleccionButton').on('click', function() {
+        var dataS="{% url 'cart' %}"
     const checkboxes = $('.product-checkbox:checked');
 
     if (checkboxes.length === 0) {
@@ -216,7 +217,20 @@ document.querySelector('#agregarTodoButton').addEventListener('click', function(
                 "X-CSRFToken": csrfToken
             },
             success: function (data) {
-                console.log("Productos seleccionados agregados correctamente");
+               if (data.status === "success") {
+                 window.location.href = dataS
+         
+               }else{
+                var elemento = document.getElementById("toasterror");
+                console.log(elemento);
+                // Asigna un nuevo texto al elemento
+                elemento.textContent = "Error No Se pudo Agregar Al Carrito";
+                elemento.style.display = "block";
+                setTimeout(function () {
+                elemento.style.display = "none";
+                }, 1500);
+               }
+
             },
             error: function (error) {
                 console.log("Error al agregar productos seleccionados:", error);

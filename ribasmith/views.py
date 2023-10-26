@@ -12,11 +12,15 @@ def home(request):
         endpoint = 'seccionesid'
         url = f'{URL_APIS}{endpoint}'
         session_data = dict(request.session)
-        usuario=session_data['usuario']
+
+        if "valor_seleccionado" in session_data:
+            bodega = session_data['valor_seleccionado']
+        else:
+             bodega=114100500
         data ={
-            'id':1,
-             "usuario":usuario,
-             "cart":cart
+            'nombre':'Precios Especiales',
+             "bodega":bodega
+             
            }
         # Realizar una nueva solicitud a la API para obtener los detalles del producto
         # url = f'http://192.168.88.136:3002/ecommer/rs/seccionesid/1'
@@ -24,10 +28,12 @@ def home(request):
         if response.status_code == 200:
            data_from_express_api = response.json()
            productos=data_from_express_api['productos'][:10]
+           Seccion=data_from_express_api['Seccion']
           
   
            context = {
-                'productos': productos
+                'productos': productos,
+                'Seccion':Seccion
             }
            
         else:

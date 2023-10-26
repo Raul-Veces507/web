@@ -3153,10 +3153,6 @@ input[type="range"]:active::-webkit-slider-thumb{
   border-top-width: 0px;
 }
 
-.border-l-2{
-  border-left-width: 2px;
-}
-
 .\!border-solid{
   border-style: solid !important;
 }
@@ -3275,11 +3271,6 @@ input[type="range"]:active::-webkit-slider-thumb{
 
 .border-t-transparent{
   border-top-color: transparent;
-}
-
-.border-l-gray-50{
-  --tw-border-opacity: 1;
-  border-left-color: rgb(249 250 251 / var(--tw-border-opacity));
 }
 
 .\!bg-\[\#858585\]{
@@ -4842,6 +4833,17 @@ input[type="range"]:active::-webkit-slider-thumb{
   display: none;
 }
 
+#toasterror {
+  position: fixed;
+  bottom: 31px;
+  right: 64px;
+  background-color: #742b2b;
+  color: white;
+  padding: 10px 20px;
+  border-radius: 5px;
+  display: none;
+}
+
 /* css de store */
 
 .text-limit {
@@ -6156,16 +6158,6 @@ input[type="range"]:active::-webkit-slider-thumb{
   opacity: 0.6;
 }
 
-.peer:checked ~ .peer-checked\:border-blue-600{
-  --tw-border-opacity: 1;
-  border-color: rgb(28 100 242 / var(--tw-border-opacity));
-}
-
-.peer:checked ~ .peer-checked\:text-blue-600{
-  --tw-text-opacity: 1;
-  color: rgb(28 100 242 / var(--tw-text-opacity));
-}
-
 .peer:focus ~ .peer-focus\:-translate-y-\[0\.75rem\]{
   --tw-translate-y: -0.75rem;
   transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
@@ -6674,11 +6666,6 @@ input[type="range"]:active::-webkit-slider-thumb{
   border-color: transparent;
 }
 
-:is(.dark .dark\:border-l-gray-700){
-  --tw-border-opacity: 1;
-  border-left-color: rgb(55 65 81 / var(--tw-border-opacity));
-}
-
 :is(.dark .dark\:\!bg-neutral-600){
   --tw-bg-opacity: 1 !important;
   background-color: rgb(82 82 82 / var(--tw-bg-opacity)) !important;
@@ -7183,11 +7170,6 @@ input[type="range"]:active::-webkit-slider-thumb{
 :is(.dark .group[data-te-datepicker-cell-disabled] .dark\:group-\[\[data-te-datepicker-cell-disabled\]\]\:text-neutral-500){
   --tw-text-opacity: 1;
   color: rgb(115 115 115 / var(--tw-text-opacity));
-}
-
-:is(.dark .peer:checked ~ .dark\:peer-checked\:text-blue-500){
-  --tw-text-opacity: 1;
-  color: rgb(63 131 248 / var(--tw-text-opacity));
 }
 
 :is(.dark .peer:focus ~ .dark\:peer-focus\:text-gray-200){

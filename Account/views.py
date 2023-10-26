@@ -40,18 +40,17 @@ def  wishlistProduct(request):
             "usuario":session_data['id']
              
            }
-        print(data)
+     
         # Realizar una nueva solicitud a la API para obtener los detalles del producto
         # url = f'http://192.168.88.136:3002/ecommer/rs/seccionesid/1'
         response = requests.post(url,json=data)
+        referer = request.META.get('HTTP_REFERER')
         if response.status_code == 200:
-           data_from_express_api = response.json()
            
-           pass
+           return JsonResponse({'status': 'success'})
            
         else:
-            # Manejar el caso en el que el producto no exista o haya un error en la API
-            context = None
+            return redirect(referer)
 
     except Exception as e:
         print(e)

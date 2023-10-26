@@ -1,0 +1,522 @@
+{% extends 'base.html' %}
+{% block content %}
+{% load static %}
+
+
+
+
+
+<section class="container bg-white ">
+    <nav class="flex mt-5" aria-label="Breadcrumb">
+        <ol class="inline-flex items-center space-x-1 md:space-x-3">
+            <li class="inline-flex items-center">
+                <a href="{% url 'home' %}"
+                    class="inline-flex items-center text-sm font-medium text-gray-700 hover:text-blue-600 dark:text-gray-400 dark:hover:text-white">
+                    <svg class="w-3 h-3 mr-2.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
+                        fill="currentColor" viewBox="0 0 20 20">
+                        <path
+                            d="m19.707 9.293-2-2-7-7a1 1 0 0 0-1.414 0l-7 7-2 2a1 1 0 0 0 1.414 1.414L2 10.414V18a2 2 0 0 0 2 2h3a1 1 0 0 0 1-1v-4a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v4a1 1 0 0 0 1 1h3a2 2 0 0 0 2-2v-7.586l.293.293a1 1 0 0 0 1.414-1.414Z" />
+                    </svg>
+                    Home
+                </a>
+            </li>
+            <li>
+                <div class="flex items-center">
+                    <svg class="w-3 h-3 text-gray-400 mx-1" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
+                        fill="none" viewBox="0 0 6 10">
+                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="m1 9 4-4-4-4" />
+                    </svg>
+                    <a class="ml-1 text-sm font-medium text-gray-700 dark:text-gray-400 dark:hover:text-white">Store</a>
+                </div>
+            </li>
+
+        </ol>
+    </nav>
+</section>
+
+
+
+<!-- shop wrapper -->
+<div class="container grid lg:grid-cols-4 gap-6 pt-4 pb-16 items-start relative">
+    <!-- sidebar -->
+    <div
+        class="col-span-1  bg-white px-4 pt-4 pb-6 shadow rounded overflow-hidden absolute lg:static left-4 top-16 w-72 lg:w-full lg:block sidebar hidden">
+        <div class="divide-gray-200 divide-y space-y-5 relative">
+            <!-- category filter -->
+            <div class="relative ">
+                <div class="lg:hidden text-gray-400 hover:text-primary text-lg absolute right-0 top-0 cursor-pointer"
+                    id="cerrar">
+                    <i class="fas fa-times "></i>
+                </div>
+                <h3 class="text-xl text-gray-800 mb-3 uppercase font-medium">Categorias</h3>
+                <div class="space-y-2">
+                    <!-- single category -->
+
+
+
+                    <div class="flex items-center">
+                        <div class="p-5 border border-b-0 border-gray-200 dark:border-gray-700 w-full "
+                            style=" max-height: 300px; overflow-y: auto;">
+                            <div class="box">
+                                <ul>
+                                    {% if filtradoCategoria == True %}
+                                    {% for cat in Categoria %}
+                                    <a href="{% url 'Seccion'  seccion %}">
+                                        <span style="color: red;">{{ cat.name }} <i class="fas fa-times"></i></span>
+                                    </a>
+                                    {% endfor %}
+                                </ul>
+                                {% else %}
+                                {% for cat in Categoria %}
+                                <li>
+                                    
+                                    <a href="{% url 'SeccionfillCategoria' seccion cat.id  %}">
+                                        <span>{{cat.name}}</span>
+                                    </a>
+                                </li>
+
+                                {% endfor %}
+                                {% endif %}
+
+                                </ul>
+                            </div>
+                        </div>
+
+
+                    </div>
+                    <!-- single category end -->
+
+
+                </div>
+            </div>
+            <!-- category filter end -->
+            <!-- Marca filter -->
+            <div class="pt-4">
+                <h3 class="text-xl text-gray-800 mb-3 uppercase font-medium">Marcas</h3>
+                <div class="space-y-2">
+                    <!-- single brand name -->
+                    <div class="flex items-center">
+                        <div class="p-5 border border-b-0 border-gray-200 dark:border-gray-700 w-full "
+                            style=" max-height: 300px; overflow-y: auto;">
+                            <div class="box">
+
+                                <ul>
+                                    {% if filtradoMarca == True %}
+
+                                    {% for product in Marca %}
+                                    <a href="{% url 'Seccion'  seccion %}">
+                                        <span style="color: red;">{{ product.name }} <i class="fas fa-times"></i></span>
+                                    </a>
+                                    {% endfor %}
+                                    {% else %}
+                                    {% for product in Marca %}
+                                    <li>
+                                        {% if product.name %}
+                                        <a
+                                            href="{% url 'Seccionfillmarca' seccion product.name %}">
+                                            <span>{{product.name}}</span>
+
+                                        </a>
+                                        {% else %}
+                                        <!-- Manejo de casos donde product.Marca está vacío -->
+                                        <span>{{ product.Categoria }}<span>
+                                                {% endif %}
+                                    </li>
+                                    {% endfor %}
+                                    {% endif %}
+                                </ul>
+                            </div>
+                            <ul>
+                                <!-- Agregar contenido adicional aquí si es necesario -->
+                            </ul>
+                        </div>
+                    </div>
+                    <!-- single brand name end -->
+
+                </div>
+            </div>
+            <!-- Marca filter end -->
+            <!-- price filter -->
+            <div class="pt-4">
+                <h3 class="text-xl text-gray-800 mb-3 uppercase font-medium">Price</h3>
+                <div class="mt-4 flex items-center">
+                    <input type="text"
+                        class="w-full border-gray-300 focus:ring-0 focus:border-primary px-3 py-1 text-gray-600 text-sm shadow-sm rounded"
+                        placeholder="min">
+                    <span class="mx-3 text-gray-500">-</span>
+                    <input type="text"
+                        class="w-full border-gray-300 focus:ring-0 focus:border-primary px-3 py-1 text-gray-600 text-sm shadow-sm rounded"
+                        placeholder="mix">
+                </div>
+            </div>
+            <!-- price filter end -->
+
+        </div>
+    </div>
+    <!-- sidebar end -->
+
+    <!-- products -->
+    <div class="col-span-3">
+        <!-- sorting -->
+        <div class="mb-2  md:mb-4  flex items-center">
+                      <img src="{{img}}" alt="">
+
+           
+        </div>
+        <div class="flex md:hidden mb-2 bg-gray-100 justify-between">
+          <div>
+            <button
+            class=" bg-transparent border text-black  px-10 py-3 font-medium rounded uppercase hover:bg-transparent hover:text-primary transition lg:hidden text-sm mr-3 focus:outline-none toggle-filter-button">
+            Filter
+        </button>
+          </div>
+          <div class="text-black">
+            2
+          </div>
+           
+          
+
+        </div>
+        <div class="bg-gray-100 mb-2 rounded-xl">
+            <div class="flex justify-between">
+                <div class="  hidden md:flex space-x-3 mx-3 mt-4">
+                    <a id="mostrarUno" href="#">
+                        <svg xmlns="http://www.w3.org/2000/svg" id="Outline" viewBox="0 0 24 24" width="20" height="20"><rect y="11" width="24" height="2" rx="1"/><rect y="4" width="24" height="2" rx="1"/><rect y="18" width="24" height="2" rx="1"/></svg>
+
+                            
+                    </a>
+             <a href="#">
+                <svg xmlns="http://www.w3.org/2000/svg" id="Layer_1" data-name="Layer 1" viewBox="0 0 24 24" width="20" height="20"><g id="_05_list" data-name="05 list"><rect x="7" y="4" width="17" height="2"/><rect x="7" y="11" width="17" height="2"/><rect x="7" y="18" width="17" height="2"/><circle cx="2" cy="5" r="2"/><circle cx="2" cy="12" r="2"/><circle cx="2" cy="19" r="2"/></g></svg>
+
+             </a>
+             <a id="mostrarDos" href="#">
+                <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" id="Capa_1" x="0px" y="0px" viewBox="0 0 512 512" style="enable-background:new 0 0 512 512;" xml:space="preserve" width="20" height="20">
+                    <g>
+                        <path d="M85.333,0h64c47.128,0,85.333,38.205,85.333,85.333v64c0,47.128-38.205,85.333-85.333,85.333h-64   C38.205,234.667,0,196.462,0,149.333v-64C0,38.205,38.205,0,85.333,0z"/>
+                        <path d="M362.667,0h64C473.795,0,512,38.205,512,85.333v64c0,47.128-38.205,85.333-85.333,85.333h-64   c-47.128,0-85.333-38.205-85.333-85.333v-64C277.333,38.205,315.538,0,362.667,0z"/>
+                        <path d="M85.333,277.333h64c47.128,0,85.333,38.205,85.333,85.333v64c0,47.128-38.205,85.333-85.333,85.333h-64   C38.205,512,0,473.795,0,426.667v-64C0,315.538,38.205,277.333,85.333,277.333z"/>
+                        <path d="M362.667,277.333h64c47.128,0,85.333,38.205,85.333,85.333v64C512,473.795,473.795,512,426.667,512h-64   c-47.128,0-85.333-38.205-85.333-85.333v-64C277.333,315.538,315.538,277.333,362.667,277.333z"/>
+                    </g> 
+                    
+                    </svg>
+             </a>
+             <a id="mostrarTres" href="#">
+                <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" id="Capa_1" x="0px" y="0px" viewBox="0 0 512 512" style="enable-background:new 0 0 512 512;" xml:space="preserve" width="20" height="20">
+                    <g>
+                        <path d="M42.667,373.333H96c23.564,0,42.667,19.103,42.667,42.667v53.333C138.667,492.898,119.564,512,96,512H42.667   C19.103,512,0,492.898,0,469.333V416C0,392.436,19.103,373.333,42.667,373.333z"/>
+                        <path d="M416,373.333h53.333C492.898,373.333,512,392.436,512,416v53.333C512,492.898,492.898,512,469.333,512H416   c-23.564,0-42.667-19.102-42.667-42.667V416C373.333,392.436,392.436,373.333,416,373.333z"/>
+                        <path d="M42.667,186.667H96c23.564,0,42.667,19.103,42.667,42.667v53.333c0,23.564-19.103,42.667-42.667,42.667H42.667   C19.103,325.333,0,306.231,0,282.667v-53.333C0,205.769,19.103,186.667,42.667,186.667z"/>
+                        <path d="M416,186.667h53.333c23.564,0,42.667,19.103,42.667,42.667v53.333c0,23.564-19.102,42.667-42.667,42.667H416   c-23.564,0-42.667-19.103-42.667-42.667v-53.333C373.333,205.769,392.436,186.667,416,186.667z"/>
+                        <path d="M42.667,0H96c23.564,0,42.667,19.103,42.667,42.667V96c0,23.564-19.103,42.667-42.667,42.667H42.667   C19.103,138.667,0,119.564,0,96V42.667C0,19.103,19.103,0,42.667,0z"/>
+                        <path d="M229.333,373.333h53.333c23.564,0,42.667,19.103,42.667,42.667v53.333c0,23.564-19.103,42.667-42.667,42.667h-53.333   c-23.564,0-42.667-19.102-42.667-42.667V416C186.667,392.436,205.769,373.333,229.333,373.333z"/>
+                        <path d="M229.333,186.667h53.333c23.564,0,42.667,19.103,42.667,42.667v53.333c0,23.564-19.103,42.667-42.667,42.667h-53.333   c-23.564,0-42.667-19.103-42.667-42.667v-53.333C186.667,205.769,205.769,186.667,229.333,186.667z"/>
+                        <path d="M229.333,0h53.333c23.564,0,42.667,19.103,42.667,42.667V96c0,23.564-19.103,42.667-42.667,42.667h-53.333   c-23.564,0-42.667-19.103-42.667-42.667V42.667C186.667,19.103,205.769,0,229.333,0z"/>
+                        <path d="M416,0h53.333C492.898,0,512,19.103,512,42.667V96c0,23.564-19.102,42.667-42.667,42.667H416   c-23.564,0-42.667-19.103-42.667-42.667V42.667C373.333,19.103,392.436,0,416,0z"/>
+                    </g>
+                    
+                    </svg>
+                    
+             </a>
+
+
+                </div>
+                <div class=" flex space-x-3 mx-3">
+                    <select
+                    class=" mt-2 mb-2 bg-transparent  border-none  w-auto text-sm text-black font-bold px-4    ">
+                    <option>Default sorting</option>
+                    <option>Price low-high</option>
+                    <option>Price high-low</option>
+                    <option>Latest product</option>
+                </select>
+    
+                <select
+                class=" mt-2 mb-2 bg-transparent  border-none  w-32 text-sm text-black font-bold px-4    ">
+                <option>Show 12</option>
+                <option>Price low-high</option>
+                <option>Price high-low</option>
+                <option>Latest product</option>
+            </select>
+                </div>
+                         </div>
+           
+        </div>
+
+
+
+
+        <header class="border-b mb-4 pb-3">
+            <div class="form-inline">
+                <span class="mr-auto"><b>{{ products_count }}</b> Productos Encontrados</span>
+            </div>
+        </header>
+        {% include 'includes/alerts.html' %}
+        <!-- sorting end -->
+        <!-- product wrapper -->
+        {% if productos %}
+        <div class="grid grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 sm:grid-cols-3 gap-6" id="productosContainer">
+            <!-- single product -->
+            {% for product in productos %}
+            <div class="w-40 md:w-56 h-auto group rounded bg-white shadow overflow-hidden producto">
+                <!-- product image -->
+                {% if product.porcentaje %}
+                <span class="p-discountstore"> -{{product.porcentaje}}% </span>
+                {% else %}
+                <span class="p-discountsinstore"> </span>
+                {% endif %}
+              
+                {% if product.Catindadinv <= 10 %} 
+                <img  class="w-5 h-5 mx-4 "  src="{% static 'src/images/ban/sun.png'%}" alt="">
+
+                <a href="{%  url 'product_detail' product.item %}">
+                    <img src=" https://riba.app/imgrs/THUMBS 500X500/{{product.item}}.jpg " class="w-full"
+                        onerror="this.src='https://www.ribasmith.com/media/catalog/product/placeholder/default/watermark_4.png' ">
+                </a>
+              
+                  
+               
+               
+        
+            
+                    {% else %}
+                    <a href="{%  url 'product_detail' product.item %}">
+                        <img  class="w-5 h-5 mx-4 "  src="{% static 'src/images/ban/food.png'%}" alt="">
+                        <img src=" https://riba.app/imgrs/THUMBS 500X500/{{product.item}}.jpg " class="w-full"
+                            onerror="this.src='https://www.ribasmith.com/media/catalog/product/placeholder/default/watermark_4.png' ">
+                    </a>
+                  
+                      
+
+                   
+                    {% endif %}
+               
+
+                <!-- product image end -->
+                <!-- product content -->
+                <div class="pt-4 pb-3 px-4">
+                    <div class="mt-5">
+
+                        
+                    
+                    </div>
+
+                    <h4
+                        class="uppercase font-medium text-lg mb-2 text-gray-800 hover:text-primary transition  text-limit">
+                        {{product.nombre}}
+                    </h4>
+           
+
+                    <div class="flex items-baseline mb-1 space-x-2">
+                        {% if product.flagoferta == 1 %}
+                        <p class="text-sm  text-gray-900 font-roboto line-through">$ {{product.precioRegular|floatformat:2}}</p>
+                        <p class="text-xl   text-red-700   font-roboto font-semibold">$
+                            {{product.precio|floatformat:2}}</p>
+                        {% else %}
+                        <p class="text-xl  text-gray-900 font-roboto font-semibold">$ {{product.precio|floatformat:2}}
+                        </p>
+                        {% endif %}
+                    </div>
+                    <!-- estrellas -->
+                    <div class="flex items-center mt-5 mb-5">
+                        <svg class="w-4 h-4 text-yellow-300 mr-1" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
+                            fill="currentColor" viewBox="0 0 22 20">
+                            <path
+                                d="M20.924 7.625a1.523 1.523 0 0 0-1.238-1.044l-5.051-.734-2.259-4.577a1.534 1.534 0 0 0-2.752 0L7.365 5.847l-5.051.734A1.535 1.535 0 0 0 1.463 9.2l3.656 3.563-.863 5.031a1.532 1.532 0 0 0 2.226 1.616L11 17.033l4.518 2.375a1.534 1.534 0 0 0 2.226-1.617l-.863-5.03L20.537 9.2a1.523 1.523 0 0 0 .387-1.575Z" />
+                        </svg>
+                        <svg class="w-4 h-4 text-yellow-300 mr-1" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
+                            fill="currentColor" viewBox="0 0 22 20">
+                            <path
+                                d="M20.924 7.625a1.523 1.523 0 0 0-1.238-1.044l-5.051-.734-2.259-4.577a1.534 1.534 0 0 0-2.752 0L7.365 5.847l-5.051.734A1.535 1.535 0 0 0 1.463 9.2l3.656 3.563-.863 5.031a1.532 1.532 0 0 0 2.226 1.616L11 17.033l4.518 2.375a1.534 1.534 0 0 0 2.226-1.617l-.863-5.03L20.537 9.2a1.523 1.523 0 0 0 .387-1.575Z" />
+                        </svg>
+                        <svg class="w-4 h-4 text-yellow-300 mr-1" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
+                            fill="currentColor" viewBox="0 0 22 20">
+                            <path
+                                d="M20.924 7.625a1.523 1.523 0 0 0-1.238-1.044l-5.051-.734-2.259-4.577a1.534 1.534 0 0 0-2.752 0L7.365 5.847l-5.051.734A1.535 1.535 0 0 0 1.463 9.2l3.656 3.563-.863 5.031a1.532 1.532 0 0 0 2.226 1.616L11 17.033l4.518 2.375a1.534 1.534 0 0 0 2.226-1.617l-.863-5.03L20.537 9.2a1.523 1.523 0 0 0 .387-1.575Z" />
+                        </svg>
+                        <svg class="w-4 h-4 text-yellow-300 mr-1" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
+                            fill="currentColor" viewBox="0 0 22 20">
+                            <path
+                                d="M20.924 7.625a1.523 1.523 0 0 0-1.238-1.044l-5.051-.734-2.259-4.577a1.534 1.534 0 0 0-2.752 0L7.365 5.847l-5.051.734A1.535 1.535 0 0 0 1.463 9.2l3.656 3.563-.863 5.031a1.532 1.532 0 0 0 2.226 1.616L11 17.033l4.518 2.375a1.534 1.534 0 0 0 2.226-1.617l-.863-5.03L20.537 9.2a1.523 1.523 0 0 0 .387-1.575Z" />
+                        </svg>
+                        <svg class="w-4 h-4 text-gray-200 dark:text-gray-600" aria-hidden="true"
+                            xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 22 20">
+                            <path
+                                d="M20.924 7.625a1.523 1.523 0 0 0-1.238-1.044l-5.051-.734-2.259-4.577a1.534 1.534 0 0 0-2.752 0L7.365 5.847l-5.051.734A1.535 1.535 0 0 0 1.463 9.2l3.656 3.563-.863 5.031a1.532 1.532 0 0 0 2.226 1.616L11 17.033l4.518 2.375a1.534 1.534 0 0 0 2.226-1.617l-.863-5.03L20.537 9.2a1.523 1.523 0 0 0 .387-1.575Z" />
+                        </svg>
+                        <span
+                            class="bg-blue-100 text-blue-800 text-xs font-semibold mr-2 px-2.5 py-0.5 rounded dark:bg-blue-200 dark:text-blue-800 ml-3">5.0</span>
+                    </div>
+                    <!-- fin de estrellas -->
+                    <!-- <div class="flex items-center">
+                        <div class="flex gap-1 text-sm text-yellow-400">
+                            <span:key="n"><i class="fas fa-star"></i></span>
+                                <span:key="n"><i class="fas fa-star"></i></span>
+                                    <span:key="n"><i class="fas fa-star"></i></span>
+                                        <span:key="n"><i class="fas fa-star"></i></span>
+                                            <span:key="n"><i class="fas fa-star"></i></span>
+                        </div>
+                        <div class="text-xs text-gray-500 ml-3">(150)</div>
+                    </div> -->
+                </div>
+                <!-- product content end -->
+                <!-- product button -->
+             
+                <form method="post">
+                    {% csrf_token %}
+                    <div
+                        class="text-center mt-1 absolute lg:static left-4 top-16 w-72 lg:w-full lg:block sidebar hidden">
+                        <a class="text-white bg-yellow-300 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300
+                        font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800 add-to-cart-button"
+                        data-product-id2="{{product.Catindadinv}}" data-product-id="{{product.item}}">
+                            Agregar al carrito
+                            <i class="fa fa-cart-arrow-down"></i>
+                        </a>
+                    </div>
+                </form>
+                <form method="post">
+                    {% csrf_token %}
+                    <div class="text-center mt-1 lg:hidden block">
+                        <a class="text-white bg-yellow-300 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300
+                        font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800 add-to-cart-button"
+                        data-product-id2="{{product.Catindadinv}}" data-product-id="{{product.item}}">
+                            Agregar
+                            <i class="fa fa-cart-arrow-down"></i>
+                        </a>
+                    </div>
+                </form>
+                <div class="mt-10">
+
+                </div>
+
+                <!-- product button end -->
+            </div>
+
+            {% endfor %}
+            <!-- single product end -->
+
+        </div>
+        <!-- product wrapper end -->
+        {% else %}
+    </div>
+    <div class="text-center mt-3">
+        <h2>No se encontraron resultados. Intente después.</h2>
+    </div>
+
+    {% endif %}
+
+    <div class="container mt-15">
+        <nav aria-label="Page navigation example" class="mt-20">
+            {% if productos.has_other_pages %}
+            <ul class="inline-flex -space-x-px text-sm">
+                {% if productos.has_previous %}
+                <li>
+                    <a href="?page={{ productos.previous_page_number }}"
+                        class="flex items-center justify-center px-3 h-8 ml-0 leading-tight text-gray-500 bg-white border border-gray-300 rounded-l-lg
+                         hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">Anterior</a>
+                </li>
+                {% else %}
+                <li>
+                    <a href="#"
+                        class="disabled flex items-center justify-center px-3 h-8 ml-0 leading-tight text-gray-500 bg-white border border-gray-300 rounded-l-lg
+                         hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">Anterior</a>
+                </li>
+                {% endif %}
+
+                <!-- Mostrar las páginas en el rango visible -->
+                {% for i in productos.paginator.page_range %}
+                {% if i >= start_page and i <= end_page %} {% if productos.number == i %} <li>
+                    <a href="?page={{ i }}" aria-current="page"
+                        class="flex items-center justify-center px-3 h-8 text-blue-600 border border-gray-300 bg-blue-50 hover:bg-blue-100 hover:text-blue-700 dark:border-gray-700 dark:bg-gray-700 dark:text-white">{{i}}</a>
+                    </li>
+                    {% else %}
+                    <li>
+                        <a href="?page={{ i }}"
+                            class="flex items-center justify-center px-3 h-8 leading-tight text-gray-500 bg-white border border-gray-300
+                             hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">{{i}}</a>
+                    </li>
+                    {% endif %}
+                    {% endif %}
+                    {% endfor %}
+
+                    {% if productos.has_next %}
+                    <li>
+                        <a href="?page={{ productos.next_page_number }}"
+                            class="flex items-center justify-center px-3 h-8 leading-tight text-gray-500 bg-white border border-gray-300 rounded-r-lg hover-bg-gray-100 hover:text-gray-700
+                             dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">Siguiente</a>
+                    </li>
+                    {% else %}
+                    <li>
+                        <a href="#"
+                            class="disabled flex items-center justify-center px-3 h-8 leading-tight text-gray-500 bg-white border border-gray-300 rounded-r-lg hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">Siguiente</a>
+                    </li>
+                    {% endif %}
+            </ul>
+            {% endif %}
+        </nav>
+
+
+
+    </div>
+</div>
+</div>
+
+
+
+
+
+<!-- <button type="button" data-modal-target="crypto-modal" data-modal-toggle="crypto-modal" class="text-gray-900 bg-white hover:bg-gray-100 border border-gray-200 focus:ring-4 focus:outline-none focus:ring-gray-100 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center dark:focus:ring-gray-600 dark:bg-gray-800 dark:border-gray-700 dark:text-white dark:hover:bg-gray-700">
+    <svg aria-hidden="true" class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1"></path></svg>
+    Connect wallet
+  </button>
+   -->
+<!-- Main modal -->
+
+<script>
+
+    var addToCartUrl = "{% url 'add_cart' 0 %}";
+    var cartoCartUrl = " {% url 'get_cart_count' %}";
+
+</script>
+
+<script>
+    // Obtén los botones y el c// Obtén los botones y el contenedor de productos
+const botonMostrarUno = document.getElementById('mostrarUno');
+const botonMostrarDos = document.getElementById('mostrarDos');
+const botonMostrarTres = document.getElementById('mostrarTres');
+const productosContainer = document.getElementById('productosContainer');
+
+// Función para cambiar la cantidad de productos por fila
+function cambiarCantidadPorFila(cantidadPorFila) {
+    switch (cantidadPorFila) {
+        case 1:
+            productosContainer.className = 'grid grid-cols-1';
+            break;
+        case 2:
+            productosContainer.className = 'grid grid-cols-2';
+            break;
+        case 3:
+            productosContainer.className = 'grid grid-cols-3';
+            break;
+        // Agrega más casos según tus necesidades
+    }
+}
+
+// Asigna eventos a los botones
+botonMostrarUno.addEventListener('click', () => {
+    cambiarCantidadPorFila(1);
+});
+
+botonMostrarDos.addEventListener('click', () => {
+    cambiarCantidadPorFila(2);
+});
+
+botonMostrarTres.addEventListener('click', () => {
+    cambiarCantidadPorFila(3);
+});
+
+// Mostrar 2 productos por fila por defecto al cargar la página
+cambiarCantidadPorFila(4);
+
+    </script>
+
+{% endblock %}

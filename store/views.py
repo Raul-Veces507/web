@@ -589,7 +589,7 @@ def upload_excel(request):
     return render(request, 'admin/upload_excel.html', {'form': form})
 
 
-def precios_especiales(request,seccion):
+def Seccion(request,seccion):
 
     try:
         endpoint = 'seccionesid'
@@ -602,7 +602,7 @@ def precios_especiales(request,seccion):
              bodega=114100500
      
         data ={
-            'id':seccion,
+            'nombre':seccion,
              "bodega":bodega
            }
         # url = f'http://192.168.88.136:3002/ecommer/rs/seccionesid/'
@@ -624,7 +624,7 @@ def precios_especiales(request,seccion):
                 'Marca':data_from_express_api['Marca'],
                 'filtradoCategoria':False,
                 'filtradoMarca':False,
-                'precioEspecial':True,
+                'seccion':seccion,
                 'start_page': start_page,
                 'end_page': end_page,
                 }
@@ -637,4 +637,108 @@ def precios_especiales(request,seccion):
         print(e)
         print('error')
         context = None
-    return render(request,'store/store.html',context)
+    return render(request,'store/Secciones.html',context)
+
+
+
+def SeccionfillCategoria(request,seccion,categoria):
+
+    try:
+      
+        endpoint = 'fillsecciones'
+        url = f'{URL_APIS}{endpoint}'
+        session_data = dict(request.session)
+  
+        if "valor_seleccionado" in session_data:
+            bodega = session_data['valor_seleccionado']
+        else:
+             bodega=114100500
+        requestData = { "seccion": seccion,"bodega":bodega,"category":categoria }
+      
+
+        
+        response = requests.post(url , json=requestData)
+        print(response)
+        data_from_express_api = response.json()
+
+        if response.status_code == 200:
+            
+           paginator=Paginator(data_from_express_api['productos'],36)
+           page=request.GET.get('page')
+           paged_prducts=paginator.get_page(page)
+           product_count = len(data_from_express_api['productos'])
+           current_page = paged_prducts.number
+           start_page = max(current_page - 4, 1)  # Establece el rango de páginas visibles
+           end_page = min(current_page + 4,paged_prducts.paginator.num_pages)
+           context={
+                'productos':paged_prducts,
+                'products_count':product_count,
+                'Categoria':data_from_express_api['categorias'],
+                'Marca':data_from_express_api['Marca'],
+                'filtradoCategoria':True,
+                'start_page': start_page,
+                'seccion':seccion,
+                'end_page': end_page,
+                }
+         
+        else:
+            # Manejar el caso en el que el producto no exista o haya un error en la API
+            context = None
+
+    except Exception as e:
+        print(e)
+        context = None
+
+    return render(request, 'store/Secciones.html', context) 
+
+def Seccionfillmarca(request,seccion,marca):
+
+
+
+    try:
+      
+        endpoint = 'fillsecciones'
+        url = f'{URL_APIS}{endpoint}'
+        session_data = dict(request.session)
+  
+        if "valor_seleccionado" in session_data:
+            bodega = session_data['valor_seleccionado']
+        else:
+             bodega=114100500
+        requestData = { "seccion": seccion,"bodega":bodega,"Marcasearch":marca }
+      
+
+        
+        response = requests.post(url , json=requestData)
+        data_from_express_api = response.json()
+ 
+        if response.status_code == 200:
+            
+           paginator=Paginator(data_from_express_api['productos'],36)
+           page=request.GET.get('page')
+           paged_prducts=paginator.get_page(page)
+           product_count = len(data_from_express_api['productos'])
+           current_page = paged_prducts.number
+           start_page = max(current_page - 4, 1)  # Establece el rango de páginas visibles
+           end_page = min(current_page + 4,paged_prducts.paginator.num_pages)
+           context={
+                'productos':paged_prducts,
+                'products_count':product_count,
+                'Categoria':data_from_express_api['categorias'],
+                'Marca':data_from_express_api['Marca'],
+                'filtradoMarca':True,
+                'start_page': start_page,
+                'seccion':seccion,
+                'end_page': end_page,
+                }
+         
+        else:
+            # Manejar el caso en el que el producto no exista o haya un error en la API
+            context = None
+
+    except Exception as e:
+        print(e)
+        context = None
+
+    return render(request, 'store/Secciones.html', context) 
+
