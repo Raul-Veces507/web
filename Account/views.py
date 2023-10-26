@@ -27,7 +27,7 @@ def  wishlistProduct(request):
    if request.method =='POST':
    
     session_data=dict(request.session)
-    productosSeleccionados = json.loads(request.POST.get('productosSeleccionados'))
+    productosSeleccionados = json.loads(request.POST['productosSeleccionados'])
     
    if session_data:
     try:       
@@ -46,13 +46,8 @@ def  wishlistProduct(request):
         response = requests.post(url,json=data)
         if response.status_code == 200:
            data_from_express_api = response.json()
-           productos=data_from_express_api['productos'][:10]
-          
            
-           context = {
-                'productos': productos
-            }
-           
+           pass
            
         else:
             # Manejar el caso en el que el producto no exista o haya un error en la API
@@ -62,7 +57,7 @@ def  wishlistProduct(request):
         print(e)
         context = None
 
-    return render(request, 'cart.html',context) 
+    return render(request, 'store/cart.html') 
   
 
 
