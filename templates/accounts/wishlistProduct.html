@@ -1,6 +1,7 @@
 {% extends 'base.html' %}
 {% block content %}
 {% include 'includes/sidebarnav.html' %}
+{% load static %}
 
 <div class="col-span-9 mt-6 lg:mt-0 space-y-4">
     {% include 'includes/alerts.html' %}
@@ -15,10 +16,17 @@
     </div>
     {% for item in Productos %}
     <div
-        class="flex items-center md:justify-between gap-4 md:gap-6 p-4 border border-gray-200 rounded flex-wrap md:flex-nowrap">
+    
+        class="  flex items-center md:justify-between gap-4 md:gap-6 p-4 border border-gray-200 rounded flex-wrap md:flex-nowrap">
         <!-- cart image -->
-        <input type="checkbox" name="product_checkbox" value="{{ item.item }}" class="product-checkbox">
-        <div class="w-28 flex-shrink-0">
+        {% if item.Catindadinv <= 5 %}
+        <img src="{% static 'src/images/ban/remove.png' %}" alt="">
+        <input disabled type="checkbox" name="product_checkbox" value="{{ item.item }}" class=" hidden bg-red-600   product-checkbox">
+    {% else %}
+        <input type="checkbox" name="product_checkbox" value="{{ item.item }}" class="disabled product-checkbox">
+    {% endif %}
+    
+               <div class="w-28 flex-shrink-0">
             <img src=" https://riba.app/imgrs/THUMBS 500X500/{{item.item}}.jpg " class="w-full"
                 onerror="this.src='https://www.ribasmith.com/media/catalog/product/placeholder/default/watermark_4.png' ">
         </div>
@@ -35,6 +43,13 @@
                     <p class="text-gray-500 text-sm">Availability: <span class="text-green-600">{{item.Catindadinv}}</span></p>
                     {% endif %}
 
+                                       <button type="button" class="btn-menos" id="rest">-</button>
+                                        <input class="selector-input ml-2 text-center" type="number" name="cantidad"
+                                            id="cantidad" value="1" readonly>
+                                        <button type="button" class="btn-mas ml-2" id="masbtn">+</button>
+                                        <input type="hidden" name="item" id="item" value="{{item.item}}">
+                                        <input type="hidden" name="item2" id="item2" value="{{item.item}}">
+
 
         </div>
         <!-- cart content end -->
@@ -50,10 +65,10 @@
         {% if item.estado_producto == 'Producto agregado' %}
         <p class="text-sm text-purple-400  font-roboto ">En Carrito</p>
         {% else %}
-        {% if item.inventario <= 0 %} 
-        <a href="#" class="ml-auto md:ml-0 block px-6 py-2 text-center text-sm text-white bg-primary border border-primary rounded 
+        {% if item.Catindadinv <= 5 %} 
+        <a href="{% url 'add_cart' item.item %}" disabled class=" bg-red-800 ml-auto md:ml-0 block px-6 py-2 text-center text-sm text-white  border border-primary rounded 
          font-roboto font-medium cursor-not-allowed bg-opacity-80">
-            Agregar al carrito
+            Sin stock
         </a>
       
 
@@ -140,10 +155,14 @@
           </div>
       </div>
   </div>
-  
-
-
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
+    
+    $(document).ready(function() {
+        // Obtener los elementos relevantes
+       
+    });
+    
     // Obtener todos los checkboxes
 const checkboxes = document.querySelectorAll('.product-checkbox');
 
@@ -172,10 +191,31 @@ document.querySelector('#agregarTodoButton').addEventListener('click', function(
     actualizarCantidadSeleccionados();
 });
 
+var cantidadInput = $('#cantidad');
+        var masButton = $('#masbtn');
+        var menosButton = $('#rest');
+    
+        // Manejar el evento de clic en el botón "+"
+        masButton.on('click', function() {
+            var cantidad = parseInt(cantidadInput.val());
+            cantidad = isNaN(cantidad) ? 0 : cantidad;
+            cantidadInput.val(cantidad + 1);
+        });
+    
+        // Manejar el evento de clic en el botón "-"
+        menosButton.on('click', function() {
+            var cantidad = parseInt(cantidadInput.val());
+            cantidad = isNaN(cantidad) ? 0 : cantidad;
+            if (cantidad > 0) {
+                cantidadInput.val(cantidad - 1);
+            }
+        });
+
     
     // Seleccionar todos los checkboxes cuando se hace clic en "Agregar todo"
     
     $('#agregarSeleccionButton').on('click', function() {
+        
         var dataS="{% url 'cart' %}"
     const checkboxes = $('.product-checkbox:checked');
 
@@ -183,12 +223,14 @@ document.querySelector('#agregarTodoButton').addEventListener('click', function(
         console.log("Debes seleccionar productos");
     } else {
         const productosSeleccionados = [];
+        var cantidad = cantidadInput.val();
         checkboxes.each(function() {
             productosSeleccionados.push($(this).val());
         });
 
         var postData = {
-            productosSeleccionados: JSON.stringify(productosSeleccionados) 
+            productosSeleccionados: JSON.stringify(productosSeleccionados) ,
+            cantidad:cantidad
         };
         console.log(postData);
 

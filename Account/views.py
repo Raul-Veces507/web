@@ -28,6 +28,7 @@ def  wishlistProduct(request):
    
     session_data=dict(request.session)
     productosSeleccionados = json.loads(request.POST['productosSeleccionados'])
+    cantidad=request.POST['cantidad']
     
    if session_data:
     try:       
@@ -37,9 +38,12 @@ def  wishlistProduct(request):
         data ={
             "arrayProduct":productosSeleccionados,
             "cart":cart,
+            "quantity":cantidad,
             "usuario":session_data['id']
              
            }
+        
+        print(data)
      
         # Realizar una nueva solicitud a la API para obtener los detalles del producto
         # url = f'http://192.168.88.136:3002/ecommer/rs/seccionesid/1'
