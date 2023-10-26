@@ -1,3 +1,4 @@
+import json
 from django.shortcuts import render,redirect
 
 from Cart.views import _cart_id
@@ -23,19 +24,23 @@ from ribasmith.settings import GOOGLE_MAPS_API_KEY,URL_APIS
 
 
 def  wishlistProduct(request):
-   session_data=dict(request.session)
-  
+   if request.method =='POST':
+   
+    session_data=dict(request.session)
+    productosSeleccionados = json.loads(request.POST.get('productosSeleccionados'))
+    
    if session_data:
     try:       
         endpoint = 'insertarProductosCarrito'
         url = f'{URL_APIS}{endpoint}'
         cart=_cart_id(request)
         data ={
-            
+            "arrayProduct":productosSeleccionados,
             "cart":cart,
             "usuario":session_data['id']
              
            }
+        print(data)
         # Realizar una nueva solicitud a la API para obtener los detalles del producto
         # url = f'http://192.168.88.136:3002/ecommer/rs/seccionesid/1'
         response = requests.post(url,json=data)
@@ -57,7 +62,7 @@ def  wishlistProduct(request):
         print(e)
         context = None
 
-    return render(request, 'wishlistProduct.html',context) 
+    return render(request, 'cart.html',context) 
   
 
 

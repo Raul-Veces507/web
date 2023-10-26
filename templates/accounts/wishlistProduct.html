@@ -174,60 +174,60 @@ document.querySelector('#agregarTodoButton').addEventListener('click', function(
 
     
     // Seleccionar todos los checkboxes cuando se hace clic en "Agregar todo"
+    
     $('#agregarSeleccionButton').on('click', function() {
     const checkboxes = $('.product-checkbox:checked');
-    const productosSeleccionados = checkboxes.toArray().map(function(checkbox) {
-        return checkbox.value;
-    });
 
-    if (productosSeleccionados.length === 0) {
+    if (checkboxes.length === 0) {
         console.log("Debes seleccionar productos");
     } else {
-        alert('hola')
+        const productosSeleccionados = [];
+        checkboxes.each(function() {
+            productosSeleccionados.push($(this).val());
+        });
 
-        var postData= {
-          productosSeleccionados:productosSeleccionados
-        }
+        var postData = {
+            productosSeleccionados: JSON.stringify(productosSeleccionados) 
+        };
         console.log(postData);
+
         var csrfToken = getCookie("csrftoken");
-            function getCookie(name) {
-        var cookieValue = null;
-        if (document.cookie && document.cookie !== "") {
-          var cookies = document.cookie.split(";");
-          for (var i = 0; i < cookies.length; i++) {
-            var cookie = cookies[i].trim();
-            if (cookie.substring(0, name.length + 1) === name + "=") {
-              cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
-              break;
+
+        function getCookie(name) {
+            var cookieValue = null;
+            if (document.cookie && document.cookie !== "") {
+                var cookies = document.cookie.split(";");
+                for (var i = 0; i < cookies.length; i++) {
+                    var cookie = cookies[i].trim();
+                    if (cookie.substring(0, name.length + 1) === name + "=") {
+                        cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                        break;
+                    }
+                }
             }
-          }
+            return cookieValue;
         }
-        return cookieValue;
-      }
-        console.log(csrfToken)
+
         $.ajax({
-        method: "POST",
-        url: "{% url 'wishlistProduct' %}",
-        data:postData,
-         // Asegúrate de especificar la URL correcta
-        headers: {
-          "X-CSRFToken": csrfToken  // Agrega el token CSRF como encabezado
-        },
-
-        
-
-        success: function (data) {
-           console.log("agregado");        },
-        error: function (error) {
-            console.log(error);
-          // Manejar rrores si es necesario
-        }
-      });
+            method: "POST",
+            url: "{% url 'wishlistProduct' %}",
+            data: postData,
+            headers: {
+                "X-CSRFToken": csrfToken
+            },
+            success: function (data) {
+                console.log("Productos seleccionados agregados correctamente");
+            },
+            error: function (error) {
+                console.log("Error al agregar productos seleccionados:", error);
+            }
+        });
     }
-
-    });
-
-
+});
+    
+    
+    
+    
 
 
 
