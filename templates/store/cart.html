@@ -68,7 +68,7 @@
                       
                         
                     </div>
-                      
+                    
                      
                 </div>
                 <!-- cart content end -->
@@ -78,7 +78,7 @@
                     <div class="h-8 w-10 flex items-center justify-center">{{cart_item.quantity}}</div>
                     <form method="post">
                         {% csrf_token %}
-                    <a  class="h-8 w-8 text-xl flex items-center justify-center cursor-pointer select-none add-to-cart-button" data-product-id="{{cart_item.item}}">+</a>
+                    <a  class="h-8 w-8 text-xl flex items-center justify-center cursor-pointer select-none add-to-cart-button" data-product-inv={{cart_item.inventario}} data-product-cant={{cart_item.quantity}}  data-product-id="{{cart_item.item}}">+</a>
 
                 </form>
                 
@@ -86,6 +86,7 @@
                 <!-- cart quantity end -->
                 <div class="ml-auto md:ml-0">
 
+               
                     {% if cart_item.flagoferta == 1 %}
                     <p class="text-primary text-lg font-semibold">${{cart_item.precioOferta|floatformat:2}}</p>
                     <p>${{cart_item.precio|floatformat:2}} cada uno</p>

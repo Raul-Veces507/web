@@ -8,39 +8,133 @@ $(document).ready(function () {
 
     var itemproducts = $(this).data("product-id")
     var inventario = $(this).data("product-id2")
-   
+    var inventioProducto=$(this).data("product-inv")
+    var cantidadAgregada=$(this).data("product-cant")
 
-
-    var csrfToken = $("input[name=csrfmiddlewaretoken]").val();
-    var postData = {
-      item: itemproducts,
-    };
-    $.ajax({
-      url: ValidarCarrito,
-      method: "POST",
-      dataType: "json",
-      headers: {
-        "X-CSRFToken": csrfToken  // Agrega el token CSRF como encabezado
-      },
-      data: postData, // Envía los datos como objeto JSON
-      success: function (data) {
-
-        if (data.status === "success") {
-          if(inventario<10){
-            modaldetalle(itemproducts)
-            obtener(itemproducts)
-          }else{
-            Agregarlocal(itemproducts)
+    if(cantidadAgregada== undefined  || inventioProducto==undefined){
+        var csrfToken = $("input[name=csrfmiddlewaretoken]").val();
+        var postData = {
+          item: itemproducts,
+        };
+        $.ajax({
+          url: ValidarCarrito,
+          method: "POST",
+          dataType: "json",
+          headers: {
+            "X-CSRFToken": csrfToken  // Agrega el token CSRF como encabezado
+          },
+          data: postData, // Envía los datos como objeto JSON
+          success: function (data) {
+    
+            if (data.status == "success") {
+              if(inventario<=10){
+                modaldetalle(itemproducts)
+                obtener(itemproducts)
+              }else{
+                  Agregarlocal(itemproducts)
+             
+  
+              }
+    
+    
+            } else if (data.status == "warning") {
+       
+              if(Number(data.data)>=Number(inventario)){
+                var elemento = document.getElementById("toasterror");
+        
+                // Asigna un nuevo texto al elemento
+                elemento.textContent = "Limite de producto Alcanzado";
+                elemento.style.display = "block";
+                setTimeout(function () {
+                elemento.style.display = "none";
+                }, 1500);
+              }else{
+                Agregarlocal(itemproducts)
+            
+              }
+            } else {
+              var elemento = document.getElementById("toasterror");
+            
+              // Asigna un nuevo texto al elemento
+              elemento.textContent = "Error No Se pudo Agregar Al Carrito";
+              elemento.style.display = "block";
+              setTimeout(function () {
+              elemento.style.display = "none";
+              }, 1500);
+             
+            }
           }
+        })
+        
+    }else{
+      if(cantidadAgregada>=inventioProducto){
 
-
-        } else if (data.status === "warning") {
-          Agregarlocal(itemproducts)
-        } else {
-          alert(data);
+        var elemento = document.getElementById("toasterror");
+  
+        // Asigna un nuevo texto al elemento
+        elemento.textContent = "Limite de producto Alcanzado";
+        elemento.style.display = "block";
+        setTimeout(function () {
+        elemento.style.display = "none";
+        }, 1500);
+      }else{
+      var csrfToken = $("input[name=csrfmiddlewaretoken]").val();
+      var postData = {
+        item: itemproducts,
+      };
+      $.ajax({
+        url: ValidarCarrito,
+        method: "POST",
+        dataType: "json",
+        headers: {
+          "X-CSRFToken": csrfToken  // Agrega el token CSRF como encabezado
+        },
+        data: postData, // Envía los datos como objeto JSON
+        success: function (data) {
+  
+          if (data.status === "success") {
+            if(inventario<=10){
+              modaldetalle(itemproducts)
+              obtener(itemproducts)
+            }else{
+              Agregarlocal(itemproducts)
+            }
+  
+  
+          } else if (data.status == "warning") {
+             if(Number(data.data)>=Number(inventario)){
+               var elemento = document.getElementById("toasterror");
+             
+               // Asigna un nuevo texto al elemento
+               elemento.textContent = "Limite de producto Alcanzado";
+               elemento.style.display = "block";
+               setTimeout(function () {
+               elemento.style.display = "none";
+               }, 1500);
+             }else{
+               Agregarlocal(itemproducts)
+           
+             }
+           } else {
+             var elemento = document.getElementById("toasterror");
+             
+             // Asigna un nuevo texto al elemento
+             elemento.textContent = "Error No Se pudo Agregar Al Carrito";
+             elemento.style.display = "block";
+             setTimeout(function () {
+             elemento.style.display = "none";
+             }, 1500);
+            
+           }
         }
+      })
       }
-    })
+    }
+  
+  
+
+
+
 
   })
 
@@ -573,81 +667,6 @@ $(document).ready(function () {
 
   })
 
-  function BuscadorModal(inputElement, resultElement) {
-    let typingTimer;
-    const delay = 1000; // Tiempo en milisegundos para esperar después de dejar de escribir
-
-    $(document).on('input', inputElement, function () {
-      var query = $(this).val();
-
-      // Borra el temporizador anterior si existe
-      clearTimeout(typingTimer);
-
-      // Inicia un nuevo temporizador
-      typingTimer = setTimeout(function () {
-        const bodega = storedValue
-
-        if (query.length >= 2) { // Evitar búsquedas vacías o muy cortas
-
-          var requestData = { "busqueda": query, "bodega": bodega };
-          $.ajax({
-            url: 'http://localhost:3005/ecommer/rs/buscador',
-            method: 'POST',
-            contentType: 'application/json',
-            data: JSON.stringify(requestData),
-
-            success: function (data) {
-
-              // Procesa los datos de la API y muestra los resultados
-
-              var datos = data['productos'];
-
-              var resultsHtml = '<div class="grid grid-cols-1 sm:grid-cols-4 gap-4">';
-
-              datos.slice(0, 4).forEach(function (product) {
-
-
-                resultsHtml += '<ul class="p-3 space-y-1 text-sm text-gray-700 dark:text-gray-200" aria-labelledby="dropdownHelperRadioButton">'
-                resultsHtml += '<li>'
-                resultsHtml += '  <div class="flex p-2 rounded hover:bg-gray-100 dark:hover:bg-gray-600">'
-                resultsHtml += '    <div class="flex items-center h-5">'
-                resultsHtml += `        <input id="${product.item}" value="${product.item}" name="productBuscador" type="radio" value="" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 dark:focus:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500">`
-                resultsHtml += '    </div>'
-                resultsHtml += '    <div class="flex-shrink-0 ml-5">'
-                resultsHtml += `      <img class="w-8 h-8 rounded-full" src="https://riba.app/imgrs/THUMBS 500X500/${product.item}.jpg" alt="{{product.nombre}}" onerror="this.src='https://www.ribasmith.com/media/catalog/product/placeholder/default/watermark_4.png'">`
-                resultsHtml += '    </div>'
-                resultsHtml += '    <div class="ml-2 text-sm">'
-                resultsHtml += `        <label for="${product.item}" class="font-medium text-gray-900 dark:text-gray-300">`
-                resultsHtml += `          <div>${product.nombre}</div>`
-                resultsHtml += `          <p id="helper-radio-text-4" class="text-xs font-normal text-gray-500 dark:text-gray-300">$ ${product.precio}</p>`
-                resultsHtml += '        </label>'
-                resultsHtml += '    </div>'
-                resultsHtml += '  </div>'
-                resultsHtml += '  </li>'
-                resultsHtml += ' </ul>'
-              });
-
-
-              resultsHtml += '</div>';
-              // Cierra el contenedor con barra de desplazamiento
-              $(resultElement).html(resultsHtml);
-            },
-            error: function () {
-              // Maneja errores de la solicitud AJAX
-              $(resultElement).html('Error en la búsqueda.');
-            }
-          });
-        } else {
-          $(resultElement).html('');
-        }
-      }, delay); // Establece el retraso antes de realizar la búsqueda
-    });
-  }
-
-  // Llama a la función para los campos de búsqueda dentro del modal
-  BuscadorModal('#search-input-modal', '#search-results-modal');
-
-
 
   //eliminar Productos del carrito
 
@@ -662,7 +681,7 @@ $(document).ready(function () {
         } else {
           modalcarrito.style.display = (modalcarrito.style.display === 'none') ? 'block' : 'none';
           var datos = cartData['cart_items'];
-          // console.log(datos);
+         
           var dato2 = Number(cartData['total'])
 
 
@@ -679,7 +698,7 @@ $(document).ready(function () {
             resultsHtml += '                 <h3>';
             resultsHtml += `                   <a href="#">${data.nombre.slice(0, 12)}...</a>`;
             resultsHtml += '                 </h3>';
-            resultsHtml += `                <p class="ml-4 text-indigo-600">$ ${Number(data.precio) * Number(data.quantity)}</p>`;
+            resultsHtml += `                <p class="ml-4 text-indigo-600">$ ${(Number(data.precio) * Number(data.quantity)).toFixed(2)}</p>`;
             resultsHtml += '               </div>';
 
             resultsHtml += `                 <p class="mt-2 text-sm text-gray-500">Precio ${Number(data.precio).toFixed(2)}</p>`
@@ -689,7 +708,7 @@ $(document).ready(function () {
             resultsHtml += '  <div class="flex w-28 border border-gray-300 text-gray-600 divide-x divide-gray-300 mt-5">';
             resultsHtml += `  <a  class="h-8 w-8 text-xl flex items-center justify-center cursor-pointer select-none restar" id="restar" data-product-id="${data.item}">-</a>`;
             resultsHtml += `  <div class="h-8 w-10 flex items-center justify-center">${data.quantity}</div>`;
-            resultsHtml += `  <a  class="h-8 w-8 text-xl flex items-center justify-center cursor-pointer select-none sumar" id="sumar" data-product-id="${data.item}">+</a>`;
+            resultsHtml += `  <a  class="h-8 w-8 text-xl flex items-center justify-center cursor-pointer select-none sumar" id="sumar" data-product-inv=${data.inventario} data-product-cant=${data.quantity}  data-product-id="${data.item}">+</a>`;
             resultsHtml += '  </div>';
             resultsHtml += '             <div class="flex flex-1 items-end justify-between text-sm mt-5">';
             resultsHtml += `               <p class="text-gray-500">Cantidad ${data.quantity}</p>`;
@@ -768,7 +787,7 @@ $(document).ready(function () {
             resultsHtml += '  <div class="flex w-28 border border-gray-300 text-gray-600 divide-x divide-gray-300 mt-5">';
             resultsHtml += `  <a  class="h-8 w-8 text-xl flex items-center justify-center cursor-pointer select-none restar" id="restar" data-product-id="${data.item}">-</a>`;
             resultsHtml += `  <div class="h-8 w-10 flex items-center justify-center">${data.quantity}</div>`;
-            resultsHtml += `  <a  class="h-8 w-8 text-xl flex items-center justify-center cursor-pointer select-none sumar" id="sumar" data-product-id="${data.item}">+</a>`;
+            resultsHtml += `  <a  class="h-8 w-8 text-xl flex items-center justify-center cursor-pointer select-none sumar" id="sumar" data-product-inv=${data.inventario} data-product-cant=${data.quantity}  data-product-id="${data.item}">+</a>`;
             resultsHtml += '  </div>';
             resultsHtml += '             <div class="flex flex-1 items-end justify-between text-sm mt-5">';
             resultsHtml += `               <p class="text-gray-500">Cantidad ${data.quantity}</p>`;
@@ -894,24 +913,39 @@ $(document).ready(function () {
   $(document).on("click", ".sumar", function () {
 
     var product_id = $(this).data("product-id");
-    var urlfinal = addToCartUrl.replace('0', product_id)
-    var csrfToken = $("input[name=csrfmiddlewaretoken]").val();
-
-    $.ajax({
-      url: urlfinal,
-      method: "POST",
-      dataType: "json",
-      headers: {
-        "X-CSRFToken": csrfToken  // Agrega el token CSRF como encabezado
-      },
-      success: function (data) {
-
-        if (data.status === "success") {
-
-          carritomodal2()
+    var inventioProducto=$(this).data("product-inv")
+    var cantidadAgregada=$(this).data("product-cant")
+    if(cantidadAgregada>=inventioProducto){
+      var elemento = document.getElementById("toasterrorCarrito");
+  
+      // Asigna un nuevo texto al elemento
+      elemento.textContent = "Limite de producto Alcanzado";
+      elemento.style.display = "block";
+      setTimeout(function () {
+      elemento.style.display = "none";
+      }, 1500);
+    }else{
+      var urlfinal = addToCartUrl.replace('0', product_id)
+      var csrfToken = $("input[name=csrfmiddlewaretoken]").val();
+  
+      $.ajax({
+        url: urlfinal,
+        method: "POST",
+        dataType: "json",
+        headers: {
+          "X-CSRFToken": csrfToken  // Agrega el token CSRF como encabezado
+        },
+        success: function (data) {
+  
+          if (data.status === "success") {
+  
+            carritomodal2()
+          }
         }
-      }
-    })
+      })
+    }
+
+ 
   })
 
   $(document).on("click", ".restar", function () {

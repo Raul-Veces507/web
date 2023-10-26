@@ -1014,7 +1014,7 @@ def ValidarCarrito(request):
               if response.status_code == 200:
                   return JsonResponse({'status': 'success'})
               elif response.status_code == 201:
-                  return JsonResponse({'status': 'warning'})
+                  return JsonResponse({'status': 'warning','data':data_from_express_api['cantidad']})
               else:
                   return JsonResponse({'status': 'error'})
 

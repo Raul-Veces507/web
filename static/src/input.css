@@ -89,6 +89,18 @@
     border-radius: 5px;
     display: none;
 }
+#toasterrorCarrito {
+    position: fixed;
+    bottom: 31px;
+    right: 64px;
+    background-color: #742b2b;
+    color: white;
+    padding: 10px 20px;
+    border-radius: 5px;
+    display: none;
+}
+
+
 
 /* css de store */
 
