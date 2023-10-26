@@ -43,13 +43,7 @@
                     <p class="text-gray-500 text-sm">Availability: <span class="text-green-600">{{item.Catindadinv}}</span></p>
                     {% endif %}
 
-                                       <button type="button" class="btn-menos" id="rest">-</button>
-                                        <input class="selector-input ml-2 text-center" type="number" name="cantidad"
-                                            id="cantidad" value="1" readonly>
-                                        <button type="button" class="btn-mas ml-2" id="masbtn">+</button>
-                                        <input type="hidden" name="item" id="item" value="{{item.item}}">
-                                        <input type="hidden" name="item2" id="item2" value="{{item.item}}">
-
+                                      
 
         </div>
         <!-- cart content end -->
@@ -88,7 +82,11 @@
            </a>
 
        
-       
+           <button type="button" class="btn-menos" id="minus-{{ item.item }}">-</button>
+           <input class="selector-input ml-2 text-center" type="number" name="cantidad" id="cantidade-{{ item.item }}" value="1" readonly>
+           <button type="button" class="btn-mas ml-2" id="plus-{{ item.item }}">+</button>
+           
+
           
     </div>
     {% endfor %}
@@ -157,11 +155,96 @@
   </div>
   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
-    
-    $(document).ready(function() {
-        // Obtener los elementos relevantes
-       
+// Objeto para rastrear las cantidades
+const cantidadesGuardadas = {};
+
+// Función para inicializar las cantidades guardadas
+function inicializarCantidadesGuardadas() {
+    document.querySelectorAll('.selector-input').forEach((input) => {
+        const itemId = input.id.replace('cantidade-', '');
+        cantidadesGuardadas[itemId] = parseInt(input.value);
     });
+}
+
+// Función para actualizar la cantidad guardada y el campo de entrada
+function actualizarCantidad(itemId, nuevaCantidad) {
+    const input = document.getElementById(`cantidade-${itemId}`);
+    if (input) {
+        input.value = nuevaCantidad;
+        cantidadesGuardadas[itemId] = nuevaCantidad;
+    }
+}
+
+// Agrega un evento clic para el botón "menos"
+document.querySelectorAll('.btn-menos').forEach((button) => {
+    button.addEventListener('click', (event) => {
+        const itemId = event.target.id.replace('minus-', '');
+        if (cantidadesGuardadas[itemId] > 0) {
+            const nuevaCantidad = cantidadesGuardadas[itemId] - 1;
+            actualizarCantidad(itemId, nuevaCantidad);
+        }
+    });
+});
+
+// Agrega un evento clic para el botón "más"
+document.querySelectorAll('.btn-mas').forEach((button) => {
+    button.addEventListener('click', (event) => {
+        const itemId = event.target.id.replace('plus-', '');
+        const nuevaCantidad = cantidadesGuardadas[itemId] + 1;
+        actualizarCantidad(itemId, nuevaCantidad);
+    });
+});
+
+// Inicializa las cantidades guardadas al cargar la página
+inicializarCantidadesGuardadas();
+
+
+
+    // Ahora puedes acceder a los campos de entrada en el arreglo cantidadInputs
+
+
+    // Otra función donde puedes acceder a cantidadInput
+    function otraFuncion() {
+    var dataS = "{% url 'cart' %}";
+    const checkboxes = $('.product-checkbox:checked');
+    
+    if (checkboxes.length === 0) {
+        console.log("Debes seleccionar productos");
+    } else {
+        const productosSeleccionados = [];
+        const cantidadInputs = {};
+
+        checkboxes.each(function() {
+            const productoId = $(this).val();
+            productosSeleccionados.push(productoId);
+            
+            // Obtén la cantidad del objeto cantidadesGuardadas usando el ID del producto
+            cantidadInputs[productoId] = cantidadesGuardadas[productoId];
+        });
+
+        var postData = {
+            productosSeleccionados: JSON.stringify(productosSeleccionados),
+            cantidades: JSON.stringify(cantidadInputs) // Convierte el objeto en una cadena JSON
+        };
+        console.log(postData);
+
+        var csrftoken = getCookie("csrftoken");
+
+        // Resto del código AJAX (sin cambios)
+        // ...
+    }
+}
+
+// Llamar a otraFunción en algún momento
+$('#agregarSeleccionButton').on('click', function() {
+    otraFuncion();
+});
+
+
+
+
+
+
     
     // Obtener todos los checkboxes
 const checkboxes = document.querySelectorAll('.product-checkbox');
@@ -191,96 +274,8 @@ document.querySelector('#agregarTodoButton').addEventListener('click', function(
     actualizarCantidadSeleccionados();
 });
 
-var cantidadInput = $('#cantidad');
-        var masButton = $('#masbtn');
-        var menosButton = $('#rest');
-    
-        // Manejar el evento de clic en el botón "+"
-        masButton.on('click', function() {
-            var cantidad = parseInt(cantidadInput.val());
-            cantidad = isNaN(cantidad) ? 0 : cantidad;
-            cantidadInput.val(cantidad + 1);
-        });
-    
-        // Manejar el evento de clic en el botón "-"
-        menosButton.on('click', function() {
-            var cantidad = parseInt(cantidadInput.val());
-            cantidad = isNaN(cantidad) ? 0 : cantidad;
-            if (cantidad > 0) {
-                cantidadInput.val(cantidad - 1);
-            }
-        });
-
     
     // Seleccionar todos los checkboxes cuando se hace clic en "Agregar todo"
-    
-    $('#agregarSeleccionButton').on('click', function() {
-        
-        var dataS="{% url 'cart' %}"
-    const checkboxes = $('.product-checkbox:checked');
-
-    if (checkboxes.length === 0) {
-        console.log("Debes seleccionar productos");
-    } else {
-        const productosSeleccionados = [];
-        var cantidad = cantidadInput.val();
-        checkboxes.each(function() {
-            productosSeleccionados.push($(this).val());
-        });
-
-        var postData = {
-            productosSeleccionados: JSON.stringify(productosSeleccionados) ,
-            cantidad:cantidad
-        };
-        console.log(postData);
-
-        var csrfToken = getCookie("csrftoken");
-
-        function getCookie(name) {
-            var cookieValue = null;
-            if (document.cookie && document.cookie !== "") {
-                var cookies = document.cookie.split(";");
-                for (var i = 0; i < cookies.length; i++) {
-                    var cookie = cookies[i].trim();
-                    if (cookie.substring(0, name.length + 1) === name + "=") {
-                        cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
-                        break;
-                    }
-                }
-            }
-            return cookieValue;
-        }
-
-        $.ajax({
-            method: "POST",
-            url: "{% url 'wishlistProduct' %}",
-            data: postData,
-            headers: {
-                "X-CSRFToken": csrfToken
-            },
-            success: function (data) {
-               if (data.status === "success") {
-                 window.location.href = dataS
-         
-               }else{
-                var elemento = document.getElementById("toasterror");
-                console.log(elemento);
-                // Asigna un nuevo texto al elemento
-                elemento.textContent = "Error No Se pudo Agregar Al Carrito";
-                elemento.style.display = "block";
-                setTimeout(function () {
-                elemento.style.display = "none";
-                }, 1500);
-               }
-
-            },
-            error: function (error) {
-                console.log("Error al agregar productos seleccionados:", error);
-            }
-        });
-    }
-});
-    
     
     
     
