@@ -62,7 +62,7 @@
                                 <ul>
                                     {% if filtradoCategoria == True %}
                                     {% for cat in Categoria %}
-                                    <a href="{% url 'products_by_departamento' cat.iddepa  %}">
+                                    <a href="{% url 'products_by_departamento'  cat.iddepa  %}">
                                         <span style="color: red;">{{ cat.name }} <i class="fas fa-times"></i></span>
                                     </a>
                                     {% endfor %}
@@ -71,7 +71,7 @@
                                 {% for cat in Categoria %}
                                 <li>
 
-                                    <a href="{% url 'products_by_category' cat.id %}">
+                                    <a href="{% url 'products_by_category' depar cat.id %}">
                                         <span>{{cat.name}}</span>
                                     </a>
                                 </li>
@@ -105,7 +105,7 @@
                                     {% if filtradoMarca == True %}
 
                                     {% for product in Marca %}
-                                    <a href="{% url 'products_by_category' product.idcategoria %}">
+                                    <a href="{% url 'products_by_category' depar product.idcategoria %}">
                                         <span style="color: red;">{{ product.name }} <i class="fas fa-times"></i></span>
                                     </a>
                                     {% endfor %}
@@ -114,7 +114,7 @@
                                     <li>
                                         {% if product.name %}
                                         <a
-                                            href="{% url 'products_by_category_marca' product.idcategoria product.name %}">
+                                            href="{% url 'products_by_category_marca' depar product.idcategoria product.name %}">
                                             <span>{{product.name}}</span>
 
                                         </a>
@@ -140,15 +140,43 @@
             <!-- price filter -->
             <div class="pt-4">
                 <h3 class="text-xl text-gray-800 mb-3 uppercase font-medium">Price</h3>
-                <div class="mt-4 flex items-center">
-                    <input type="text"
-                        class="w-full border-gray-300 focus:ring-0 focus:border-primary px-3 py-1 text-gray-600 text-sm shadow-sm rounded"
-                        placeholder="min">
-                    <span class="mx-3 text-gray-500">-</span>
-                    <input type="text"
-                        class="w-full border-gray-300 focus:ring-0 focus:border-primary px-3 py-1 text-gray-600 text-sm shadow-sm rounded"
-                        placeholder="mix">
+                <div class="space-y-2">
+                    <!-- single brand name -->
+                    <div class="flex items-center">
+                        <div class="p-5 border border-b-0 border-gray-200 dark:border-gray-700 w-full "
+                            style=" max-height: 300px; overflow-y: auto;">
+                            <div class="box">
+
+                                <ul>{% if preciofiltrado == True %}
+                                    <a href="{% url 'products_by_departamento'  depar  %}">
+                                        <span style="color: red;">{{ fill }} <i class="fas fa-times"></i></span>
+                                    </a>
+                                    {% else %}
+                                    {% for item in preciofiltrado %}
+
+
+                                  
+                                        <li>
+                                            <a href="{% url 'FiltrarxPrecioDepartamento' depar item.nombre %}">
+                                                <span>{{item.nombre}}-({{item.cantidad}})</span>
+                                            </a>                                           
+                                        </li>
+                                    
+                                   
+                                    {% endfor %}
+                                    {% endif %}
+                                </ul>
+                            </div>
+                            <ul>
+                                <!-- Agregar contenido adicional aquí si es necesario -->
+                            </ul>
+                        </div>
+                    </div>
+                    <!-- single brand name end -->
+
                 </div>
+
+                
             </div>
             <!-- price filter end -->
 
@@ -171,9 +199,7 @@
             Filter
         </button>
           </div>
-          <div class="text-black">
-            2
-          </div>
+
            
           
 

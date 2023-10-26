@@ -21,9 +21,9 @@
         <!-- cart image -->
         {% if item.Catindadinv <= 5 %}
         <img src="{% static 'src/images/ban/remove.png' %}" alt="">
-        <input disabled type="checkbox" name="product_checkbox" value="{{ item.item }}" class=" hidden bg-red-600   product-checkbox">
+        <input disabled type="checkbox" name="product_checkbox" value="{{ item.item }}" class=" hidden bg-red-600   ">
     {% else %}
-        <input type="checkbox" name="product_checkbox" value="{{ item.item }}" class="disabled product-checkbox">
+        <input type="checkbox" name="product_checkbox" id="{{ item.item }}" value="{{ item.item }}" class="disabled product-checkbox product-checkbox2">
     {% endif %}
     
                <div class="w-28 flex-shrink-0">
@@ -83,7 +83,7 @@
 
        
            <button type="button" class="btn-menos" id="minus-{{ item.item }}">-</button>
-           <input class="selector-input ml-2 text-center" type="number" name="cantidad" id="cantidade-{{ item.item }}" value="1" readonly>
+           <input class="selector-input ml-2 text-center quantity-input" type="number" name="cantidad" id="cantidade-{{ item.item }}" value="1" readonly>
            <button type="button" class="btn-mas ml-2" id="plus-{{ item.item }}">+</button>
            
 
@@ -154,7 +154,37 @@
       </div>
   </div>
   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<script>
+
+
+  <script>
+    const checkboxes = document.querySelectorAll('.product-checkbox2');
+const quantityInputs = document.querySelectorAll('.quantity-input');
+
+// Función para manejar los cambios en los checkboxes y cantidad
+function updateSelectedProducts() {
+  const selectedProducts = [];
+
+  checkboxes.forEach((checkbox, index) => {
+    if (checkbox.checked) {
+      const productId = checkbox.id;
+      const quantity = parseInt(quantityInputs[index].value);
+      selectedProducts.push({ product: productId, cantidad: quantity });
+    }
+  });
+  return selectedProducts
+ 
+}
+
+
+
+
+// Agregar oyentes de eventos a los checkboxes y campos de cantidad
+checkboxes.forEach((checkbox, index) => {
+  checkbox.addEventListener('change', updateSelectedProducts);
+  quantityInputs[index].addEventListener('input', updateSelectedProducts);
+});
+
+
 // Objeto para rastrear las cantidades
 const cantidadesGuardadas = {};
 
@@ -211,26 +241,8 @@ inicializarCantidadesGuardadas();
     if (checkboxes.length === 0) {
         console.log("Debes seleccionar productos");
     } else {
-        const productosSeleccionados = [];
-        const cantidadInputs = {};
-
-        checkboxes.each(function() {
-            const productoId = $(this).val();
-            productosSeleccionados.push(productoId);
-            
-            // Obtén la cantidad del objeto cantidadesGuardadas usando el ID del producto
-            cantidadInputs[productoId] = cantidadesGuardadas[productoId];
-        });
-
-        var postData = {
-            productosSeleccionados: JSON.stringify(productosSeleccionados),
-            cantidades: JSON.stringify(cantidadInputs) // Convierte el objeto en una cadena JSON
-        };
-        console.log(postData);
-
-        var csrftoken = getCookie("csrftoken");
-
-        // Resto del código AJAX (sin cambios)
+        const datos=updateSelectedProducts()
+      console.log(datos);
         // ...
     }
 }
@@ -244,10 +256,6 @@ $('#agregarSeleccionButton').on('click', function() {
 
 
 
-
-    
-    // Obtener todos los checkboxes
-const checkboxes = document.querySelectorAll('.product-checkbox');
 
 // Función para actualizar la cantidad de productos seleccionados
 function actualizarCantidadSeleccionados() {
@@ -274,28 +282,8 @@ document.querySelector('#agregarTodoButton').addEventListener('click', function(
     actualizarCantidadSeleccionados();
 });
 
-    
-    // Seleccionar todos los checkboxes cuando se hace clic en "Agregar todo"
-    
-    
-    
+  </script>
 
-
-
-
-
-    // Mostrar los valores de los productos seleccionados en la consola
-    
-
-    
-
-        
-        // Enviar productosSeleccionados al servidor (por ejemplo, mediante una solicitud AJAX)
-        // Aquí puedes usar JavaScript puro o jQuery para enviar la solicitud al servidor
-        // ...
-
-    </script>
-    
 
     {% endblock %}
 

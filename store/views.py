@@ -39,6 +39,7 @@ def store(request,depar):
         
         response = requests.post(url , json=data)
         data_from_express_api = response.json()
+      
 
         if response.status_code == 200:
             
@@ -49,6 +50,8 @@ def store(request,depar):
            current_page = paged_prducts.number
            start_page = max(current_page - 4, 1)  # Establece el rango de páginas visibles
            end_page = min(current_page + 4,paged_prducts.paginator.num_pages)
+
+                   
            context={
                 'productos':paged_prducts,
                 'products_count':product_count,
@@ -58,6 +61,9 @@ def store(request,depar):
                 'filtradoCategoria':False,
                 'start_page': start_page,
                 'end_page': end_page,
+                'depar':depar,
+                'preciofiltrado':data_from_express_api['preciofiltrado']
+               
                 }
          
         else:
@@ -70,6 +76,69 @@ def store(request,depar):
 
     return render(request, 'store/store.html', context) 
 
+
+def FiltrarxPrecioDepartamento(request,depar,precio):
+    try:
+        endpoint = 'FiltrarxPrecioDepartamento'
+        url = f'{URL_APIS}{endpoint}'
+     
+        # Realizar una nueva solicitud a la API para obtener los detalles del producto
+        # url = f'http://192.168.88.136:3002/ecommer/rs/Detapramento/'
+        
+        # id =request.POST.get('id')
+        # session_data = dict(request.session)
+        session_data = dict(request.session)
+  
+        if "valor_seleccionado" in session_data:
+            bodega = session_data['valor_seleccionado']
+        else:
+             bodega=114100500
+        data={
+            "departamentoid":depar,
+            "precio":precio,
+            "bodega":bodega
+            }
+
+        
+        response = requests.post(url , json=data)
+        data_from_express_api = response.json()
+      
+
+        if response.status_code == 200:
+            
+           paginator=Paginator(data_from_express_api['productos'],36)
+           page=request.GET.get('page')
+           paged_prducts=paginator.get_page(page)
+           product_count = len(data_from_express_api['productos'])
+           current_page = paged_prducts.number
+           start_page = max(current_page - 4, 1)  # Establece el rango de páginas visibles
+           end_page = min(current_page + 4,paged_prducts.paginator.num_pages)
+
+                   
+           context={
+                'productos':paged_prducts,
+                'products_count':product_count,
+                'Categoria':data_from_express_api['categorias'],
+                'img':data_from_express_api['departamento']['img'],
+                'Marca':data_from_express_api['Marca'],
+                'filtradoCategoria':False,
+                'start_page': start_page,
+                'end_page': end_page,
+                'depar':depar,
+                'preciofiltrado':True,
+                'fill':precio
+               
+                }
+         
+        else:
+            # Manejar el caso en el que el producto no exista o haya un error en la API
+            context = None
+
+    except Exception as e:
+        print(e)
+        context = None
+
+    return render(request, 'store/store.html', context) 
 
 
 def product_detail(request,product):
@@ -388,7 +457,7 @@ def searchfillmarca(request):
 
 
 
-def products_by_category(request,category_slug):
+def products_by_category(request,depar,category_slug):
 
     try:
         endpoint = 'Filtradoxcategoria'
@@ -426,6 +495,7 @@ def products_by_category(request,category_slug):
                 'Marca':data_from_express_api['Marca'],
                 'filtradoCategoria':True,
                 'start_page': start_page,
+                'depar':depar,
                 'end_page': end_page,
                 }
          
@@ -444,7 +514,7 @@ def products_by_category(request,category_slug):
 
 
 
-def products_by_category_marca(request,category_slug,Marca_slug):
+def products_by_category_marca(request,depar,category_slug,Marca_slug):
     try:
 
         endpoint = 'Filtradoxmarca'
@@ -485,6 +555,7 @@ def products_by_category_marca(request,category_slug,Marca_slug):
                 'filtradoCategoria':True,
                 'filtradoMarca':True,
                 'start_page': start_page,
+                'depar':depar,
                 'end_page': end_page,
                 }
          
