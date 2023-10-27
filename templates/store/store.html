@@ -61,22 +61,85 @@
                             <div class="box">
                                 <ul>
                                     {% if filtradoCategoria == True %}
+
+                                    {% if filtradoMarcaCat == True %}
                                     {% for cat in Categoria %}
-                                    <a href="{% url 'products_by_departamento'  cat.iddepa  %}">
+                                    <a href="{% url 'products_by_category' depar %}?Marca={{Marcafill|urlencode}}">
                                         <span style="color: red;">{{ cat.name }} <i class="fas fa-times"></i></span>
                                     </a>
                                     {% endfor %}
+                                    {% elif filtradoCatPrecio == True %}
+                                    
+
+                                    {% for cat in Categoria %}
+                                    <a href="{% url 'products_by_category' depar %}?precio={{fill}}">
+                                        <span style="color: red;">{{ cat.name }} <i class="fas fa-times"></i></span>
+                                    </a>
+                                    {% endfor %}
+                                    
+                                    {% elif filtraTodo == True %}
+                                    
+
+                                    {% for cat in Categoria %}
+                                    <a href="{% url 'products_by_category' depar %}?Marca={{Marcafill|urlencode}}&precio={{fill}}">
+                                        <span style="color: red;">{{ cat.name }} <i class="fas fa-times"></i></span>
+                                    </a>
+                                    {% endfor %}
+
+                                    {% else %}
+                                    {% for cat in Categoria %}
+                                    <a href="{% url 'products_by_departamento' 1  %}">
+                                        <span style="color: red;">{{ cat.name }} <i class="fas fa-times"></i></span>
+                                    </a>
+                                    {% endfor %}
+                                    {% endif %}
+                                
                                 </ul>
                                 {% else %}
+                                {% if filtrado2 == True %}
                                 {% for cat in Categoria %}
                                 <li>
 
-                                    <a href="{% url 'products_by_category' depar cat.id %}">
+                                    <a
+                                    href="{% url 'products_by_category' depar %}?categoria={{cat.id }}&Marca={{Marcafill|urlencode}}">
                                         <span>{{cat.name}}</span>
                                     </a>
                                 </li>
 
                                 {% endfor %}
+                                {% elif FiltradoMarcaCat  == True %}
+                                {% for cat in Categoria %}
+                                <li>
+
+                                    <a href="{% url 'products_by_category' depar %}?categoria={{cat.id }}&Marca={{Marcafill|urlencode}}&precio={{fill}}">
+                                        <span>{{cat.name}}</span>
+                                    </a>
+                                </li>
+
+                                {% endfor %}
+                                {% elif filtrado3 == True %}
+                                {% for cat in Categoria %}
+                                <li>
+
+                                    <a href="{% url 'products_by_category' depar %}?categoria={{cat.id }}&precio={{fill}}">
+                                        <span>{{cat.name}}</span>
+                                    </a>
+                                </li>
+
+                                {% endfor %}
+
+                                {% else  %}
+                                {% for cat in Categoria %}
+                                <li>
+
+                                    <a href="{% url 'products_by_category' depar %}?categoria={{cat.id }}">
+                                        <span>{{cat.name}}</span>
+                                    </a>
+                                </li>
+
+                                {% endfor %}
+                                {% endif %}
+
                                 {% endif %}
 
                                 </ul>
@@ -104,20 +167,81 @@
                                 <ul>
                                     {% if filtradoMarca == True %}
 
+                                    {% if filtradoMarcaCat == True %}
                                     {% for product in Marca %}
-                                    <a href="{% url 'products_by_category' depar product.idcategoria %}">
+                                    <a
+                                    href="{% url 'products_by_category' depar %}?categoria={{category_slug}}">
+                                    <span style="color: red;">{{ product.name }} <i class="fas fa-times"></i></span>
+                                 
+
+                                </a>
+                                {% endfor %}
+                                {% elif FiltradoMarcaCat == True %}
+                                {% for product in Marca %}
+                                <a
+                                href="{% url 'products_by_category' depar %}?precio={{fill}}">
+                                <span style="color: red;">{{ product.name }} <i class="fas fa-times"></i></span>
+                             
+
+                            </a>
+                            {% endfor %}
+                                
+                                  
+                                    {% elif filtraTodo == True %}
+                                    {% for product in Marca %}
+                                    <a
+                                    href="{% url 'products_by_category' depar %}?categoria={{category_slug}}&precio={{fill}}">
+                                    <span style="color: red;">{{ product.name }} <i class="fas fa-times"></i></span>
+                                 
+
+                                </a>
+                                {% endfor %}
+
+                                    {% else %}
+
+                                   
+
+                                    {% for product in Marca %}
+                                    <a href="{% url 'products_by_departamento'  depar  %}">
                                         <span style="color: red;">{{ product.name }} <i class="fas fa-times"></i></span>
                                     </a>
                                     {% endfor %}
+                                    {% endif %}
                                     {% else %}
                                     {% for product in Marca %}
                                     <li>
                                         {% if product.name %}
+
+                                        {% if filtrado1 == True %}
                                         <a
-                                            href="{% url 'products_by_category_marca' depar product.idcategoria product.name %}">
+                                            href="{% url 'products_by_category' depar %}?categoria={{category_slug}}&Marca={{product.name|urlencode}}">
                                             <span>{{product.name}}</span>
 
                                         </a>
+                                        
+                                        
+                                        {% elif filtradoPrecio == True %}
+                                        {% if category_slug is None %}
+                                        
+                                        <a
+                                        href="{% url 'products_by_category' depar %}?Marca={{product.name|urlencode}}&precio={{fill}}">
+                                        <span>{{product.name}}</span>
+
+                                    </a>
+                                        {% else %}
+                                        <a
+                                        href="{% url 'products_by_category' depar %}?categoria={{category_slug}}&Marca={{product.name|urlencode}}&precio={{fill}}">
+                                        <span>{{product.name}}</span>
+
+                                    </a>
+                                        {% endif %}
+                                    
+                                        {% else %}
+                                        <a
+                                            href="{% url 'products_by_category' depar %}?Marca={{product.name|urlencode}}">
+                                            <span>{{product.name}}</span>
+                                        </a>
+                                        {% endif %}
                                         {% else %}
                                         <!-- Manejo de casos donde product.Marca está vacío -->
                                         <span>{{ product.Categoria }}<span>
@@ -147,23 +271,66 @@
                             style=" max-height: 300px; overflow-y: auto;">
                             <div class="box">
 
-                                <ul>{% if preciofiltrado == True %}
-                                    <a href="{% url 'products_by_departamento'  depar  %}">
-                                        <span style="color: red;">{{ fill }} <i class="fas fa-times"></i></span>
-                                    </a>
+                                <ul>
+                                    {% if filtradoPrecio == True %}
+
+                                    <li>
+                                        <a href="{% url 'products_by_departamento' depar %}">
+                                          
+                                            <span style="color: red;">{{ fill }} <i class="fas fa-times"></i></span>
+                                        </a>                                           
+                                    </li>
+                                    
+                                    
+                                    {% elif FiltradoMarcaCat == True %}
+                                    <li>
+                                        <a href="{% url 'products_by_category' depar %}?Marca={{Marcafill|urlencode}}">
+                                          
+                                            <span style="color: red;">{{ fill }} <i class="fas fa-times"></i></span>
+                                        </a>                                           
+                                    </li>
+                                    {% elif filtraTodo == True %}
+                                    <li>
+                                        <a href="{% url 'products_by_category' depar %}?categoria={{category_slug}}&Marca={{Marcafill|urlencode}}">
+                                          
+                                            <span style="color: red;">{{ fill }} <i class="fas fa-times"></i></span>
+                                        </a>                                           
+                                    </li>
+
+                                    {% else %}
+
+                                    {% if  filtrado1 == True %}
+                                    {% for item in preciofiltrado %}
+                                        <li>
+                                            <a href="{% url 'products_by_category' depar %}?categoria={{category_slug}}&precio={{item.nombre}}">
+                                                <span>{{item.nombre}}-({{item.cantidad}})</span>
+                                            </a>                                           
+                                        </li>
+                                    {% endfor %}
+                                    {% elif filtradoMarcaCat == True %}
+
+                                    {% for item in preciofiltrado %}
+                                    <li>
+                                        <a href="{% url 'products_by_category' depar %}?categoria={{category_slug}}&Marca={{Marcafill|urlencode}}&precio={{item.nombre}}">
+                                            <span>{{item.nombre}}-({{item.cantidad}})</span>
+                                        </a>                                           
+                                    </li>
+                                {% endfor %}
                                     {% else %}
                                     {% for item in preciofiltrado %}
 
 
                                   
-                                        <li>
-                                            <a href="{% url 'FiltrarxPrecioDepartamento' depar item.nombre %}">
-                                                <span>{{item.nombre}}-({{item.cantidad}})</span>
-                                            </a>                                           
-                                        </li>
-                                    
-                                   
-                                    {% endfor %}
+                                    <li>
+                                        <a href="{% url 'products_by_category' depar %}?precio={{item.nombre}}">
+                                            <span>{{item.nombre}}-({{item.cantidad}})</span>
+                                        </a>                                           
+                                    </li>
+                                
+                               
+                                {% endfor %}
+                                    {% endif %}
+
                                     {% endif %}
                                 </ul>
                             </div>

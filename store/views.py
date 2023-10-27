@@ -77,68 +77,6 @@ def store(request,depar):
     return render(request, 'store/store.html', context) 
 
 
-def FiltrarxPrecioDepartamento(request,depar,precio):
-    try:
-        endpoint = 'FiltrarxPrecioDepartamento'
-        url = f'{URL_APIS}{endpoint}'
-     
-        # Realizar una nueva solicitud a la API para obtener los detalles del producto
-        # url = f'http://192.168.88.136:3002/ecommer/rs/Detapramento/'
-        
-        # id =request.POST.get('id')
-        # session_data = dict(request.session)
-        session_data = dict(request.session)
-  
-        if "valor_seleccionado" in session_data:
-            bodega = session_data['valor_seleccionado']
-        else:
-             bodega=114100500
-        data={
-            "departamentoid":depar,
-            "precio":precio,
-            "bodega":bodega
-            }
-
-        
-        response = requests.post(url , json=data)
-        data_from_express_api = response.json()
-      
-
-        if response.status_code == 200:
-            
-           paginator=Paginator(data_from_express_api['productos'],36)
-           page=request.GET.get('page')
-           paged_prducts=paginator.get_page(page)
-           product_count = len(data_from_express_api['productos'])
-           current_page = paged_prducts.number
-           start_page = max(current_page - 4, 1)  # Establece el rango de páginas visibles
-           end_page = min(current_page + 4,paged_prducts.paginator.num_pages)
-
-                   
-           context={
-                'productos':paged_prducts,
-                'products_count':product_count,
-                'Categoria':data_from_express_api['categorias'],
-                'img':data_from_express_api['departamento']['img'],
-                'Marca':data_from_express_api['Marca'],
-                'filtradoCategoria':False,
-                'start_page': start_page,
-                'end_page': end_page,
-                'depar':depar,
-                'preciofiltrado':True,
-                'fill':precio
-               
-                }
-         
-        else:
-            # Manejar el caso en el que el producto no exista o haya un error en la API
-            context = None
-
-    except Exception as e:
-        print(e)
-        context = None
-
-    return render(request, 'store/store.html', context) 
 
 
 def product_detail(request,product):
@@ -195,8 +133,7 @@ def product_detail(request,product):
                      context={
                          'productos':data_from_express_api['productos'][0],
                           'Agregado':data_from_express_api['Agregado'],
-  
-                    
+                          'departamento':data_from_express_api['departamento'],
                          'lista':existingCart
                            }
 
@@ -205,17 +142,15 @@ def product_detail(request,product):
                  else:
                       context={
                          'productos':data_from_express_api['productos'][0],
-                          'Agregado':data_from_express_api['Agregado'],
-                   
-              
+                         'Agregado':data_from_express_api['Agregado'],
+                         'departamento':data_from_express_api['departamento'],
                          'lista':[]
                       }
             else:
                 context={
                'productos':data_from_express_api['productos'][0],
                'Agregado':data_from_express_api['Agregado'],
-          
-           
+               'departamento':data_from_express_api['departamento'],
                'list':[]
                
                 }
@@ -273,6 +208,7 @@ def search(request):
                 'search':keyword,
                 'start_page': start_page,
                 'end_page': end_page,
+                'preciofiltrado':data_from_express_api['preciofiltrado']
                 }
          
         else:
@@ -287,48 +223,360 @@ def search(request):
 
 def searchfillCategoria(request):
     if 'keyword' in request.GET:
-        search=request.GET['keyword']
-        categoria=request.GET['Cat']
+        search=request.GET.get('keyword',None)
+        categoria=request.GET.get('Cat',None)
+        Marca = request.GET.get('Marca', None)
+        precio = request.GET.get('precio', None)
+    
     try:
-      
-        endpoint = 'fillbuscador'
-        url = f'{URL_APIS}{endpoint}'
-        session_data = dict(request.session)
-  
-        if "valor_seleccionado" in session_data:
-            bodega = session_data['valor_seleccionado']
-        else:
-             bodega=114100500
-        requestData = { "busqueda": search,"bodega":bodega,"category":categoria }
-      
-
-        
-        response = requests.post(url , json=requestData)
-        data_from_express_api = response.json()
-
-        if response.status_code == 200:
-            
-           paginator=Paginator(data_from_express_api['productos'],36)
-           page=request.GET.get('page')
-           paged_prducts=paginator.get_page(page)
-           product_count = len(data_from_express_api['productos'])
-           current_page = paged_prducts.number
-           start_page = max(current_page - 4, 1)  # Establece el rango de páginas visibles
-           end_page = min(current_page + 4,paged_prducts.paginator.num_pages)
-           context={
-                'productos':paged_prducts,
-                'products_count':product_count,
-                'Categoria':data_from_express_api['categorias'],
-                'Marca':data_from_express_api['Marca'],
-                'filtradoCategoria':True,
-                'start_page': start_page,
-                'search':search,
-                'end_page': end_page,
-                }
+         # filtra solo categoria
+        if categoria is not None and Marca is None and precio is None:
+         endpoint = 'fillbuscador'
+         url = f'{URL_APIS}{endpoint}'
+         session_data = dict(request.session)
+   
+         if "valor_seleccionado" in session_data:
+             bodega = session_data['valor_seleccionado']
+         else:
+              bodega=114100500
+         requestData = { "busqueda": search,"bodega":bodega,"category":categoria }
+       
+ 
          
-        else:
-            # Manejar el caso en el que el producto no exista o haya un error en la API
-            context = None
+         response = requests.post(url , json=requestData)
+         data_from_express_api = response.json()
+ 
+         if response.status_code == 200:
+             
+            paginator=Paginator(data_from_express_api['productos'],36)
+            page=request.GET.get('page')
+            paged_prducts=paginator.get_page(page)
+            product_count = len(data_from_express_api['productos'])
+            current_page = paged_prducts.number
+            start_page = max(current_page - 4, 1)  # Establece el rango de páginas visibles
+            end_page = min(current_page + 4,paged_prducts.paginator.num_pages)
+            context={
+                 'productos':paged_prducts,
+                 'products_count':product_count,
+                 'Categoria':data_from_express_api['categorias'],
+                 'Marca':data_from_express_api['Marca'],
+                 'filtradoCategoria':True,
+                 'filtrado1':True,
+                 'categoria':categoria,
+                 'start_page': start_page,
+                 'search':search,
+                 'end_page': end_page,
+                 
+                 'preciofiltrado':data_from_express_api['preciofiltrado']
+                 }
+          
+         else:
+             # Manejar el caso en el que el producto no exista o haya un error en la API
+             context = None
+        
+        # filtra solo marca
+        elif categoria is  None and Marca is not None and precio is None:
+         endpoint = 'fillbuscador'
+         url = f'{URL_APIS}{endpoint}'
+         session_data = dict(request.session)
+   
+         if "valor_seleccionado" in session_data:
+             bodega = session_data['valor_seleccionado']
+         else:
+              bodega=114100500
+         requestData = { "busqueda": search,"bodega":bodega,"Marcasearch":Marca }
+       
+ 
+         
+         response = requests.post(url , json=requestData)
+         data_from_express_api = response.json()
+  
+         if response.status_code == 200:
+             
+            paginator=Paginator(data_from_express_api['productos'],36)
+            page=request.GET.get('page')
+            paged_prducts=paginator.get_page(page)
+            product_count = len(data_from_express_api['productos'])
+            current_page = paged_prducts.number
+            start_page = max(current_page - 4, 1)  # Establece el rango de páginas visibles
+            end_page = min(current_page + 4,paged_prducts.paginator.num_pages)
+            context={
+                 'productos':paged_prducts,
+                 'products_count':product_count,
+                 'Categoria':data_from_express_api['categorias'],
+                 'Marca':data_from_express_api['Marca'],
+                 'filtradoMarca':True,
+                 'Marcafill':Marca,
+                 'start_page': start_page,
+                 'search':search,
+                 'end_page': end_page,
+                 'preciofiltrado':data_from_express_api['preciofiltrado']
+                 }
+          
+         else:
+             # Manejar el caso en el que el producto no exista o haya un error en la API
+             context = None
+
+        # filtra solo precio
+        elif categoria is  None and Marca is  None and precio is not None:
+         endpoint = 'fillbuscador'
+         url = f'{URL_APIS}{endpoint}'
+         session_data = dict(request.session)
+   
+         if "valor_seleccionado" in session_data:
+             bodega = session_data['valor_seleccionado']
+         else:
+              bodega=114100500
+         requestData = { "busqueda": search,"bodega":bodega,"precio":precio }
+       
+ 
+         
+         response = requests.post(url , json=requestData)
+         data_from_express_api = response.json()
+  
+         if response.status_code == 200:
+             
+            paginator=Paginator(data_from_express_api['productos'],36)
+            page=request.GET.get('page')
+            paged_prducts=paginator.get_page(page)
+            product_count = len(data_from_express_api['productos'])
+            current_page = paged_prducts.number
+            start_page = max(current_page - 4, 1)  # Establece el rango de páginas visibles
+            end_page = min(current_page + 4,paged_prducts.paginator.num_pages)
+            context={
+                 'productos':paged_prducts,
+                 'products_count':product_count,
+                 'Categoria':data_from_express_api['categorias'],
+                 'Marca':data_from_express_api['Marca'],
+                 
+                 'filtradoPrecio':True,
+                 'fill':precio,
+                 'start_page': start_page,
+                 'search':search,
+                 'end_page': end_page,
+                'preciofiltrado':data_from_express_api['preciofiltrado']
+                 }
+          
+         else:
+             # Manejar el caso en el que el producto no exista o haya un error en la API
+             context = None
+        
+        # filtra categoria y marca
+        elif categoria is not None and Marca is not None and precio is  None:
+          endpoint = 'fillbuscadorGlobal'
+          url = f'{URL_APIS}{endpoint}'
+          session_data = dict(request.session)
+    
+          if "valor_seleccionado" in session_data:
+              bodega = session_data['valor_seleccionado']
+          else:
+               bodega=114100500
+
+          data={
+              'id':categoria,
+              'busqueda': search,
+              'marca':Marca,
+               "bodega":bodega
+          } 
+          # Realizar una nueva solicitud a la API para obtener los detalles del producto
+          # url = f'http://192.168.88.136:3002/ecommer/rs/Filtradoxcategoria/{category_slug}'
+  
+          response = requests.post(url,json=data)
+          data_from_express_api = response.json()
+  
+          if response.status_code == 200:
+              
+             paginator=Paginator(data_from_express_api['productos'],36)
+             page=request.GET.get('page')
+             paged_prducts=paginator.get_page(page)
+             product_count = len(data_from_express_api['productos'])
+             current_page = paged_prducts.number
+             start_page = max(current_page - 4, 1)  # Establece el rango de páginas visibles
+             end_page = min(current_page + 4,paged_prducts.paginator.num_pages)
+             context={
+                  'productos':paged_prducts,
+                  'products_count':product_count,
+                  'Categoria':data_from_express_api['categorias'],
+                  'Marca':data_from_express_api['Marca'],
+                  'filtradoCategoria':True,
+                  'filtradoMarca':True,
+                  'filtradoMarcaCat':True,
+                  'Marcafill':Marca,
+                  'search':search,
+                  'start_page': start_page,
+                  'category_slug':categoria,
+                  'end_page': end_page,
+                  'preciofiltrado':data_from_express_api['preciofiltrado']
+                  }
+           
+          else:
+              # Manejar el caso en el que el producto no exista o haya un error en la API
+              context = None
+        
+        # filtra categoria y precio
+        elif categoria is not None and Marca is  None and precio is not None:
+          endpoint = 'fillbuscadorGlobal'
+          url = f'{URL_APIS}{endpoint}'
+          session_data = dict(request.session)
+    
+          if "valor_seleccionado" in session_data:
+              bodega = session_data['valor_seleccionado']
+          else:
+               bodega=114100500
+
+          data={
+              'id':categoria,
+              'busqueda': search,
+              'precio':precio,
+               "bodega":bodega
+          }
+          # Realizar una nueva solicitud a la API para obtener los detalles del producto
+          # url = f'http://192.168.88.136:3002/ecommer/rs/Filtradoxcategoria/{category_slug}'
+  
+          response = requests.post(url,json=data)
+          data_from_express_api = response.json()
+  
+          if response.status_code == 200:
+              
+             paginator=Paginator(data_from_express_api['productos'],36)
+             page=request.GET.get('page')
+             paged_prducts=paginator.get_page(page)
+             product_count = len(data_from_express_api['productos'])
+             current_page = paged_prducts.number
+             start_page = max(current_page - 4, 1)  # Establece el rango de páginas visibles
+             end_page = min(current_page + 4,paged_prducts.paginator.num_pages)
+             context={
+                  'productos':paged_prducts,
+                  'products_count':product_count,
+                  'Categoria':data_from_express_api['categorias'],
+                  'Marca':data_from_express_api['Marca'],
+                  'filtradoCategoria':True,
+                  
+                  'filtradoCatPrecio':True,
+                  'search':search,
+                  'fill':precio,
+                  'start_page': start_page,
+                  'category_slug':categoria,
+                  'end_page': end_page,
+                  'preciofiltrado':data_from_express_api['preciofiltrado']
+                  }
+           
+          else:
+              # Manejar el caso en el que el producto no exista o haya un error en la API
+              context = None
+        
+        # filtra precio marca y precio
+        elif categoria is  None and Marca is not None and precio is not None:
+          endpoint = 'fillbuscadorGlobal'
+          url = f'{URL_APIS}{endpoint}'
+          session_data = dict(request.session)
+    
+          if "valor_seleccionado" in session_data:
+              bodega = session_data['valor_seleccionado']
+          else:
+               bodega=114100500
+
+          data={
+              'busqueda': search,
+              'marca':Marca,
+              'precio':precio,
+               "bodega":bodega
+          }
+          # Realizar una nueva solicitud a la API para obtener los detalles del producto
+          # url = f'http://192.168.88.136:3002/ecommer/rs/Filtradoxcategoria/{category_slug}'
+  
+          response = requests.post(url,json=data)
+          data_from_express_api = response.json()
+  
+          if response.status_code == 200:
+              
+             paginator=Paginator(data_from_express_api['productos'],36)
+             page=request.GET.get('page')
+             paged_prducts=paginator.get_page(page)
+             product_count = len(data_from_express_api['productos'])
+             current_page = paged_prducts.number
+             start_page = max(current_page - 4, 1)  # Establece el rango de páginas visibles
+             end_page = min(current_page + 4,paged_prducts.paginator.num_pages)
+             context={
+                  'productos':paged_prducts,
+                  'products_count':product_count,
+                  'Categoria':data_from_express_api['categorias'],
+                  'Marca':data_from_express_api['Marca'],
+                  'FiltradoMarcaCat':True,
+                  'filtradoMarca':True,
+                  'filtradoMarcaPrecio':True,
+                  'Marcafill':Marca,
+                  'fill':precio,
+                  'filtrado1':True,
+                  'start_page': start_page,
+                  'search':search,
+                  'category_slug':categoria,
+                  'end_page': end_page,
+                  'preciofiltrado':data_from_express_api['preciofiltrado']
+                  }
+           
+          else:
+              # Manejar el caso en el que el producto no exista o haya un error en la API
+              context = None
+
+        # filtra los 3 
+        elif categoria is not  None and Marca is not None and precio is not None:
+          endpoint = 'fillbuscadorGlobal'
+          url = f'{URL_APIS}{endpoint}'
+          session_data = dict(request.session)
+    
+          if "valor_seleccionado" in session_data:
+              bodega = session_data['valor_seleccionado']
+          else:
+               bodega=114100500
+
+          data={
+              'id':categoria,
+              'busqueda': search,
+              'marca':Marca,
+              'precio':precio,
+               "bodega":bodega
+          }
+          # Realizar una nueva solicitud a la API para obtener los detalles del producto
+          # url = f'http://192.168.88.136:3002/ecommer/rs/Filtradoxcategoria/{category_slug}'
+  
+          response = requests.post(url,json=data)
+          data_from_express_api = response.json()
+  
+          if response.status_code == 200:
+              
+             paginator=Paginator(data_from_express_api['productos'],36)
+             page=request.GET.get('page')
+             paged_prducts=paginator.get_page(page)
+             product_count = len(data_from_express_api['productos'])
+             current_page = paged_prducts.number
+             start_page = max(current_page - 4, 1)  # Establece el rango de páginas visibles
+             end_page = min(current_page + 4,paged_prducts.paginator.num_pages)
+             context={
+                  'productos':paged_prducts,
+                  'products_count':product_count,
+                  'Categoria':data_from_express_api['categorias'],
+                  'Marca':data_from_express_api['Marca'],
+                  'filtradoCategoria':True,
+                  'filtradoTotal':True,
+                  'filtradoMarca':True,
+                  'filtraTodo':True,
+                  
+                  'start_page': start_page,
+                  'search':search,
+                  'Marcafill':Marca,
+                  'category_slug':categoria,
+                  'fill':precio,
+                  'end_page': end_page,
+                  'preciofiltrado':data_from_express_api['preciofiltrado']
+                  }
+           
+          else:
+              # Manejar el caso en el que el producto no exista o haya un error en la API
+              context = None
+        
+
+
 
     except Exception as e:
         print(e)
@@ -390,118 +638,377 @@ def searchfillmarca(request):
     return render(request, 'store/Search.html', context) 
 
 
-
-
-
-
-# def store(request,category_slug=None):
-#       products=None
-#       if category_slug!=None:
-        
-#         departamento=get_object_or_404(Departamento,id=category_slug)
-#         products = Product.objects.filter(grupo__categoria__departamento_id=departamento.id)
-#         categoriasfill = categorias.objects.filter(	departamento_id=departamento.id).order_by('id')
-#         # print(products)
-     
-#         Marcas = set()
-#         for product in products:
-#            Marca = product.Marca
-#            categoria = product.grupo.categoria.name
-#            products_count=Product.objects.filter(Marca=Marca)
-#            cantidad=products_count.count()
-#            if Marca is not None and categoria is not None:
-
-#              Marcas.add((Marca, categoria,cantidad))
-
-#         marcas_lista = [{'Marca': Marca, 'Categoria': categoria,'Cantidad':cantidad} for Marca, categoria,cantidad in Marcas]
-
-#         paginator=Paginator(products,36)
-#         page=request.GET.get('page')
-#         paged_prducts=paginator.get_page(page)
-#         product_count=products.count()
-#         current_page = paged_prducts.number
-#         start_page = max(current_page - 4, 1)  # Establece el rango de páginas visibles
-#         end_page = min(current_page + 4,paged_prducts.paginator.num_pages)
-#       else:
-#         categoriasfill = categorias.objects.all()
-#         products=Product.objects.all().order_by('id')
-#         Marcas = set()
-#         for product in products:
-#            Marca = product.Marca
-#            categoria = product.grupo.categoria.name
-#            if Marca is not None and categoria is not None:
-
-#              Marcas.add((Marca, categoria))
-
-#         marcas_lista = [{'Marca': Marca, 'Categoria': categoria,'Cantidad':cantidad} for Marca, categoria,cantidad in Marcas]
-#         paginator=Paginator(products,36)
-#         page=request.GET.get('page')
-#         paged_prducts=paginator.get_page(page)
-#         product_count=products.count()
-#         current_page = paged_prducts.number
-#         start_page = max(current_page - 4, 1)  # Establece el rango de páginas visibles
-#         end_page = min(current_page + 4,paged_prducts.paginator.num_pages)
-        
-#       content={
-#         'productos':paged_prducts,
-#         'products_count':product_count,
-#         'Marcas':marcas_lista,
-#         'filtrado':False,
-#         'start_page': start_page,
-#         'end_page': end_page,
-#         'categoriasfill':categoriasfill
-            
-#        }
-#       return render(request,'store/store.html',content)
-             
-
-
-
-def products_by_category(request,depar,category_slug):
+def products_by_category(request,depar):
 
     try:
-        endpoint = 'Filtradoxcategoria'
-        url = f'{URL_APIS}{endpoint}'
-        session_data = dict(request.session)
+        category_slug = request.GET.get('categoria', None)
+        Marca = request.GET.get('Marca', None)
+        precio = request.GET.get('precio', None)
+         # filtra solo categoria
+        if category_slug is not None and Marca is None and precio is None:
+          endpoint = 'Filtradoxcategoria'
+          url = f'{URL_APIS}{endpoint}'
+          session_data = dict(request.session)
+    
+          if "valor_seleccionado" in session_data:
+              bodega = session_data['valor_seleccionado']
+          else:
+               bodega=114100500
+          data={
+              'id':category_slug,
+              'departamentoid': depar,
+               "bodega":bodega
+          }
+          # Realizar una nueva solicitud a la API para obtener los detalles del producto
+          # url = f'http://192.168.88.136:3002/ecommer/rs/Filtradoxcategoria/{category_slug}'
   
-        if "valor_seleccionado" in session_data:
-            bodega = session_data['valor_seleccionado']
-        else:
-             bodega=114100500
-        data={
-            'id':category_slug,
-             "bodega":bodega
-        }
-   
-        # Realizar una nueva solicitud a la API para obtener los detalles del producto
-        # url = f'http://192.168.88.136:3002/ecommer/rs/Filtradoxcategoria/{category_slug}'
+          response = requests.post(url,json=data)
+          data_from_express_api = response.json()
+  
+          if response.status_code == 200:
+              
+             paginator=Paginator(data_from_express_api['productos'],36)
+             page=request.GET.get('page')
+             paged_prducts=paginator.get_page(page)
+             product_count = len(data_from_express_api['productos'])
+             current_page = paged_prducts.number
+             start_page = max(current_page - 4, 1)  # Establece el rango de páginas visibles
+             end_page = min(current_page + 4,paged_prducts.paginator.num_pages)
+             context={
+                  'productos':paged_prducts,
+                  'products_count':product_count,
+                  'Categoria':data_from_express_api['categorias'],
+                  'Marca':data_from_express_api['Marca'],
+                  'filtradoCategoria':True,
+                  'filtrado1':True,
+                  'start_page': start_page,
+                  'depar':depar,
+                  'category_slug':category_slug,
+                  'end_page': end_page,
+                  'preciofiltrado':data_from_express_api['preciofiltrado']
+                  }
+           
+          else:
+              # Manejar el caso en el que el producto no exista o haya un error en la API
+              context = None
+        
+        # filtra solo marca
+        elif category_slug is  None and Marca is not None and precio is None:
+          endpoint = 'Filtradoxmarca'
+          url = f'{URL_APIS}{endpoint}'
+          session_data = dict(request.session)
+    
+          if "valor_seleccionado" in session_data:
+              bodega = session_data['valor_seleccionado']
+          else:
+               bodega=114100500
+       
+          data ={
+            'departamentoid': depar,
+            "marca":Marca,
+            "bodega":bodega
+             }
+          # Realizar una nueva solicitud a la API para obtener los detalles del producto
+          # url = f'http://192.168.88.136:3002/ecommer/rs/Filtradoxmarca'
+  
+          response = requests.post(url, json=data)  # Usar json=data en lugar de data=data
+  
+          data_from_express_api = response.json()
+  
+          if response.status_code == 200:
+              
+             paginator=Paginator(data_from_express_api['productos'],36)
+             page=request.GET.get('page')
+             paged_prducts=paginator.get_page(page)
+             product_count = len(data_from_express_api['productos'])
+             current_page = paged_prducts.number
+             start_page = max(current_page - 4, 1)  # Establece el rango de páginas visibles
+             end_page = min(current_page + 4,paged_prducts.paginator.num_pages)
+             context={
+                  'productos':paged_prducts,
+                  'products_count':product_count,
+                  'Categoria':data_from_express_api['categorias'],
+                  'Marca':data_from_express_api['Marca'],
+                  'filtradoMarca':True,
+                  'Marcafill':Marca,
+                  'filtrado2':True,
+                  'start_page': start_page,
+                  'depar':depar,
+                  'end_page': end_page,
+                  'preciofiltrado':data_from_express_api['preciofiltrado']
+                  }
+           
+          else:
+              # Manejar el caso en el que el producto no exista o haya un error en la API
+              context = None
 
-        response = requests.post(url,json=data)
-        data_from_express_api = response.json()
+        # filtra solo precio
+        elif category_slug is  None and Marca is  None and precio is not None:
+            endpoint = 'FiltrarxPrecioDepartamento'
+            url = f'{URL_APIS}{endpoint}'
 
-        if response.status_code == 200:
-            
-           paginator=Paginator(data_from_express_api['productos'],36)
-           page=request.GET.get('page')
-           paged_prducts=paginator.get_page(page)
-           product_count = len(data_from_express_api['productos'])
-           current_page = paged_prducts.number
-           start_page = max(current_page - 4, 1)  # Establece el rango de páginas visibles
-           end_page = min(current_page + 4,paged_prducts.paginator.num_pages)
-           context={
-                'productos':paged_prducts,
-                'products_count':product_count,
-                'Categoria':data_from_express_api['categorias'],
-                'Marca':data_from_express_api['Marca'],
-                'filtradoCategoria':True,
-                'start_page': start_page,
-                'depar':depar,
-                'end_page': end_page,
+            session_data = dict(request.session)
+    
+            if "valor_seleccionado" in session_data:
+                bodega = session_data['valor_seleccionado']
+            else:
+                 bodega=114100500
+            data={
+                "departamentoid":depar,
+                "precio":precio,
+                "bodega":bodega
                 }
-         
-        else:
-            # Manejar el caso en el que el producto no exista o haya un error en la API
-            context = None
+
+
+            response = requests.post(url , json=data)
+            data_from_express_api = response.json()
+
+
+            if response.status_code == 200:
+
+               paginator=Paginator(data_from_express_api['productos'],36)
+               page=request.GET.get('page')
+               paged_prducts=paginator.get_page(page)
+               product_count = len(data_from_express_api['productos'])
+               current_page = paged_prducts.number
+               start_page = max(current_page - 4, 1)  # Establece el rango de páginas visibles
+               end_page = min(current_page + 4,paged_prducts.paginator.num_pages)
+
+
+               context={
+                    'productos':paged_prducts,
+                    'products_count':product_count,
+                    'Categoria':data_from_express_api['categorias'],
+                    'img':data_from_express_api['departamento']['img'],
+                    'Marca':data_from_express_api['Marca'],
+                    'filtradoPrecio':True,
+                    'filtrado3':True,
+                    'start_page': start_page,
+                    'end_page': end_page,
+                    'depar':depar,
+                    'preciofiltrado':True,
+                    'fill':precio,
+                    'category_slug':category_slug,
+                    'preciofiltrado':data_from_express_api['preciofiltrado']
+                    }
+
+            else:
+                # Manejar el caso en el que el producto no exista o haya un error en la API
+                context = None
+        
+        # filtra categoria y marca
+        elif category_slug is not None and Marca is not None and precio is  None:
+          
+          endpoint = 'filtradoGloblaDepartamento'
+          url = f'{URL_APIS}{endpoint}'
+          session_data = dict(request.session)
+    
+          if "valor_seleccionado" in session_data:
+              bodega = session_data['valor_seleccionado']
+          else:
+               bodega=114100500
+          data={
+              'id':category_slug,
+              'departamentoid': depar,
+              'marca':Marca,
+              "bodega":bodega
+          }
+          # Realizar una nueva solicitud a la API para obtener los detalles del producto
+          # url = f'http://192.168.88.136:3002/ecommer/rs/Filtradoxcategoria/{category_slug}'
+  
+          response = requests.post(url,json=data)
+          data_from_express_api = response.json()
+  
+          if response.status_code == 200:
+              
+             paginator=Paginator(data_from_express_api['productos'],36)
+             page=request.GET.get('page')
+             paged_prducts=paginator.get_page(page)
+             product_count = len(data_from_express_api['productos'])
+             current_page = paged_prducts.number
+             start_page = max(current_page - 4, 1)  # Establece el rango de páginas visibles
+             end_page = min(current_page + 4,paged_prducts.paginator.num_pages)
+             context={
+                  'productos':paged_prducts,
+                  'products_count':product_count,
+                  'Categoria':data_from_express_api['categorias'],
+                  'Marca':data_from_express_api['Marca'],
+                  'filtradoCategoria':True,
+                  'filtradoMarca':True,
+                  'filtradoMarcaCat':True,
+                  'Marcafill':Marca,
+               
+                  'start_page': start_page,
+                  'depar':depar,
+                  'category_slug':category_slug,
+                  'end_page': end_page,
+                  'preciofiltrado':data_from_express_api['preciofiltrado']
+                  }
+           
+          else:
+              # Manejar el caso en el que el producto no exista o haya un error en la API
+              context = None
+        
+        # filtra categoria y precio
+        elif category_slug is not None and Marca is  None and precio is not None:
+          endpoint = 'filtradoGloblaDepartamento'
+          url = f'{URL_APIS}{endpoint}'
+          session_data = dict(request.session)
+    
+          if "valor_seleccionado" in session_data:
+              bodega = session_data['valor_seleccionado']
+          else:
+               bodega=114100500
+          data={
+              'id':category_slug,
+              'departamentoid': depar,
+              'precio':precio,
+               "bodega":bodega
+          }
+          # Realizar una nueva solicitud a la API para obtener los detalles del producto
+          # url = f'http://192.168.88.136:3002/ecommer/rs/Filtradoxcategoria/{category_slug}'
+  
+          response = requests.post(url,json=data)
+          data_from_express_api = response.json()
+  
+          if response.status_code == 200:
+              
+             paginator=Paginator(data_from_express_api['productos'],36)
+             page=request.GET.get('page')
+             paged_prducts=paginator.get_page(page)
+             product_count = len(data_from_express_api['productos'])
+             current_page = paged_prducts.number
+             start_page = max(current_page - 4, 1)  # Establece el rango de páginas visibles
+             end_page = min(current_page + 4,paged_prducts.paginator.num_pages)
+             context={
+                  'productos':paged_prducts,
+                  'products_count':product_count,
+                  'Categoria':data_from_express_api['categorias'],
+                  'Marca':data_from_express_api['Marca'],
+                  'filtradoCategoria':True,
+                  'filtradoPrecio':True,
+                  'filtradoCatPrecio':True,
+                  'fill':precio,
+                  'start_page': start_page,
+                  'depar':depar,
+                  'category_slug':category_slug,
+                  'end_page': end_page,
+                  'preciofiltrado':data_from_express_api['preciofiltrado']
+                  }
+           
+          else:
+              # Manejar el caso en el que el producto no exista o haya un error en la API
+              context = None
+        
+        # filtra precio marca y precio
+        elif category_slug is  None and Marca is not None and precio is not None:
+          endpoint = 'filtradoGloblaDepartamento'
+          url = f'{URL_APIS}{endpoint}'
+          session_data = dict(request.session)
+    
+          if "valor_seleccionado" in session_data:
+              bodega = session_data['valor_seleccionado']
+          else:
+               bodega=114100500
+          data={
+              'departamentoid': depar,
+              'marca':Marca,
+              'precio':precio,
+               "bodega":bodega
+          }
+          # Realizar una nueva solicitud a la API para obtener los detalles del producto
+          # url = f'http://192.168.88.136:3002/ecommer/rs/Filtradoxcategoria/{category_slug}'
+  
+          response = requests.post(url,json=data)
+          data_from_express_api = response.json()
+  
+          if response.status_code == 200:
+              
+             paginator=Paginator(data_from_express_api['productos'],36)
+             page=request.GET.get('page')
+             paged_prducts=paginator.get_page(page)
+             product_count = len(data_from_express_api['productos'])
+             current_page = paged_prducts.number
+             start_page = max(current_page - 4, 1)  # Establece el rango de páginas visibles
+             end_page = min(current_page + 4,paged_prducts.paginator.num_pages)
+             context={
+                  'productos':paged_prducts,
+                  'products_count':product_count,
+                  'Categoria':data_from_express_api['categorias'],
+                  'Marca':data_from_express_api['Marca'],
+                  'FiltradoMarcaCat':True,
+                  'filtradoMarca':True,
+                  'filtradoMarcaPrecio':True,
+                  'Marcafill':Marca,
+                  'fill':precio,
+                  'filtrado1':True,
+                  'start_page': start_page,
+                  'depar':depar,
+                  'category_slug':category_slug,
+                  'end_page': end_page,
+                  'preciofiltrado':data_from_express_api['preciofiltrado']
+                  }
+           
+          else:
+              # Manejar el caso en el que el producto no exista o haya un error en la API
+              context = None
+
+        # filtra los 3 
+        elif category_slug is not  None and Marca is not None and precio is not None:
+          endpoint = 'filtradoGloblaDepartamento'
+          url = f'{URL_APIS}{endpoint}'
+          session_data = dict(request.session)
+    
+          if "valor_seleccionado" in session_data:
+              bodega = session_data['valor_seleccionado']
+          else:
+               bodega=114100500
+          data={
+              'id':category_slug,
+              'departamentoid': depar,
+              'marca':Marca,
+              'precio':precio,
+               "bodega":bodega
+          }
+          # Realizar una nueva solicitud a la API para obtener los detalles del producto
+          # url = f'http://192.168.88.136:3002/ecommer/rs/Filtradoxcategoria/{category_slug}'
+  
+          response = requests.post(url,json=data)
+          data_from_express_api = response.json()
+  
+          if response.status_code == 200:
+              
+             paginator=Paginator(data_from_express_api['productos'],36)
+             page=request.GET.get('page')
+             paged_prducts=paginator.get_page(page)
+             product_count = len(data_from_express_api['productos'])
+             current_page = paged_prducts.number
+             start_page = max(current_page - 4, 1)  # Establece el rango de páginas visibles
+             end_page = min(current_page + 4,paged_prducts.paginator.num_pages)
+             context={
+                  'productos':paged_prducts,
+                  'products_count':product_count,
+                  'Categoria':data_from_express_api['categorias'],
+                  'Marca':data_from_express_api['Marca'],
+                  'filtradoCategoria':True,
+                  'filtradoMarca':True,
+                  'filtraTodo':True,
+                  
+                  'start_page': start_page,
+                  'depar':depar,
+                  'Marcafill':Marca,
+                  'category_slug':category_slug,
+                  'fill':precio,
+                  'end_page': end_page,
+                  'preciofiltrado':data_from_express_api['preciofiltrado']
+                  }
+           
+          else:
+              # Manejar el caso en el que el producto no exista o haya un error en la API
+              context = None
+        
+
+
 
     except Exception as e:
         print(e)
@@ -510,65 +1017,6 @@ def products_by_category(request,depar,category_slug):
 
 
 
-
-
-
-
-def products_by_category_marca(request,depar,category_slug,Marca_slug):
-    try:
-
-        endpoint = 'Filtradoxmarca'
-        url = f'{URL_APIS}{endpoint}'
-        session_data = dict(request.session)
-  
-        if "valor_seleccionado" in session_data:
-            bodega = session_data['valor_seleccionado']
-        else:
-             bodega=114100500
-     
-        data ={
-         "id":category_slug,
-          "marca":Marca_slug,
-          "bodega":bodega
-           }
-        # Realizar una nueva solicitud a la API para obtener los detalles del producto
-        # url = f'http://192.168.88.136:3002/ecommer/rs/Filtradoxmarca'
-
-        response = requests.post(url, json=data)  # Usar json=data en lugar de data=data
-
-        data_from_express_api = response.json()
-
-        if response.status_code == 200:
-            
-           paginator=Paginator(data_from_express_api['productos'],36)
-           page=request.GET.get('page')
-           paged_prducts=paginator.get_page(page)
-           product_count = len(data_from_express_api['productos'])
-           current_page = paged_prducts.number
-           start_page = max(current_page - 4, 1)  # Establece el rango de páginas visibles
-           end_page = min(current_page + 4,paged_prducts.paginator.num_pages)
-           context={
-                'productos':paged_prducts,
-                'products_count':product_count,
-                'Categoria':data_from_express_api['categorias'],
-                'Marca':data_from_express_api['Marca'],
-                'filtradoCategoria':True,
-                'filtradoMarca':True,
-                'start_page': start_page,
-                'depar':depar,
-                'end_page': end_page,
-                }
-         
-        else:
-            # Manejar el caso en el que el producto no exista o haya un error en la API
-            context = None
-
-    except Exception as e:
-        print(e)
-        context = None
-    return render(request,'store/store.html',context)
-
- 
 
 
 def obtenerinfoproduct(request):
@@ -613,7 +1061,6 @@ def obtenerinfoproduct(request):
             context = None
             return JsonResponse(context)
     
-
 #Administrador
 
 def upload_excel(request):
