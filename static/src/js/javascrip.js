@@ -13,6 +13,7 @@ $(document).ready(function () {
 
     if(cantidadAgregada== undefined  || inventioProducto==undefined){
         var csrfToken = $("input[name=csrfmiddlewaretoken]").val();
+        console.log(csrfToken);
         var postData = {
           item: itemproducts,
         };
