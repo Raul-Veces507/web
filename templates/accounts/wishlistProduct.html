@@ -243,6 +243,44 @@ inicializarCantidadesGuardadas();
     } else {
         const datos=updateSelectedProducts()
       console.log(datos);
+      var csrftoken = getCookie("csrftoken");
+
+function getCookie(name) {
+    var cookieValue = null;
+    if (document.cookie && document.cookie !== "") {
+        var cookies = document.cookie.split(";");
+        for (var i = 0; i < cookies.length; i++) {
+            var cookie = cookies[i].trim();
+            if (cookie.substring(0, name.length + 1) === name + "=") {
+                cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                break;
+            }
+        }
+    }
+    return cookieValue;
+}
+
+const requestData = {
+    selectedProducts: datos
+};
+      $.ajax({
+      method: "POST",
+      url:"{% url 'wishlistProduct' %}",
+      data:JSON.stringify(requestData),
+      headers: {
+        "X-CSRFtoken": csrftoken
+    },
+      success: function(response) {
+        // Manejar la respuesta del servidor si es necesario
+        console.log("Solicitud exitosa:", response);
+        window.location.href = dataS;
+      },
+      error: function(err) {
+        // Manejar errores si es necesario
+        console.error("Error en la solicitud:", err);
+      }
+    });
+
         // ...
     }
 }

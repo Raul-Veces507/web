@@ -27,8 +27,8 @@ def  wishlistProduct(request):
    if request.method =='POST':
    
     session_data=dict(request.session)
-    productosSeleccionados = json.loads(request.POST['productosSeleccionados'])
-    cantidad=request.POST['cantidad']
+    data = json.loads(request.body)
+    selectedProducts = data['selectedProducts']
     
    if session_data:
     try:       
@@ -36,9 +36,8 @@ def  wishlistProduct(request):
         url = f'{URL_APIS}{endpoint}'
         cart=_cart_id(request)
         data ={
-            "arrayProduct":productosSeleccionados,
+            "arrayProduct":selectedProducts,
             "cart":cart,
-            "quantity":cantidad,
             "usuario":session_data['id']
              
            }
@@ -60,7 +59,7 @@ def  wishlistProduct(request):
         print(e)
         context = None
 
-    return render(request, 'store/cart.html') 
+   return render('store/cart.html',request) 
   
 
 
