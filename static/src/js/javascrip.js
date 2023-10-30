@@ -13,7 +13,6 @@ $(document).ready(function () {
 
     if(cantidadAgregada== undefined  || inventioProducto==undefined){
         var csrfToken = $("input[name=csrfmiddlewaretoken]").val();
-        console.log(csrfToken);
         var postData = {
           item: itemproducts,
         };
@@ -359,29 +358,35 @@ $(document).ready(function () {
           var resp = '<div >'
 
           productosPagina.forEach((producto) => {
+            if(producto.inventario>10){
 
-            resp += ' <div class="w-auto md:w-56 h-auto group rounded bg-white shadow overflow-hidden">'
-            resp += `<input type="radio" id="${producto.item}" value="${producto.item}" name="productBuscador" class="hidden peer" required>`
-            resp += ` <label for="${producto.item}" class="flex flex-col flex-wrap content-stretch w-full p-5 text-gray-500 bg-white border border-gray-200 rounded-lg cursor-pointer dark:hover:text-gray-300 dark:border-gray-700 dark:peer-checked:text-blue-500 peer-checked:border-blue-600 peer-checked:text-blue-600 hover:text-gray-600 hover:bg-gray-100 dark:text-gray-400 dark:bg-gray-800 dark:hover:bg-gray-700"> `
-            resp += `          <img src=" https://riba.app/imgrs/THUMBS 500X500/${producto.item}.jpg " class=" justify-center mx-auto w-16 h-16 rounded-full>"`
-            resp += '     <div class="pt-4 pb-3 px-4 ">'
-            resp += `        <h4 class="mt-4 justify-center font-medium  mb-2 text-gray-800 transition  text-limit">  ${producto.nombre}        </h4>`
-            resp += '         <div class="flex items-baseline mb-1 space-x-2 justify-center  content-center">'
-            if (producto.flagoferta == 1) {
-              resp += `       <p class="text-sm text-red-700  font-roboto line-through">$ ${producto.precioRegular}</p>`
-              resp += `             <p class="text-xl  text-gray-900 font-roboto font-semibold">$ ${producto.precio}</p>`
-            } else {
-
-              resp += `             <p class="text-xl  text-gray-900 font-roboto font-semibold">$ ${producto.precio}`
-              resp += '             </p>'
+            
+              resp += ' <div class="w-auto md:w-56 h-auto group rounded bg-white shadow overflow-hidden">'
+              resp += `<input type="radio" id="${producto.item}" value="${producto.item}" name="productBuscador" class="hidden peer" required>`
+              resp += ` <label for="${producto.item}" class="flex flex-col flex-wrap content-stretch w-full p-5 text-gray-500 bg-white border border-gray-200 rounded-lg cursor-pointer dark:hover:text-gray-300 dark:border-gray-700 dark:peer-checked:text-blue-500 peer-checked:border-blue-600 peer-checked:text-blue-600 hover:text-gray-600 hover:bg-gray-100 dark:text-gray-400 dark:bg-gray-800 dark:hover:bg-gray-700"> `
+              resp += `          <img src=" https://riba.app/imgrs/THUMBS 500X500/${producto.item}.jpg " class=" justify-center mx-auto w-16 h-16 rounded-full>"`
+              resp += '     <div class="pt-4 pb-3 px-4 ">'
+              resp += `        <h4 class="mt-4 justify-center font-medium  mb-2 text-gray-800 transition  text-limit">  ${producto.nombre}        </h4>`
+              resp += '         <div class="flex items-baseline mb-1 space-x-2 justify-center  content-center">'
+              if (producto.flagoferta == 1) {
+                resp += `       <p class="text-sm text-red-700  font-roboto line-through">$ ${producto.precioRegular}</p>`
+                resp += `             <p class="text-xl  text-gray-900 font-roboto font-semibold">$ ${producto.precio}</p>`
+              } else {
+  
+                resp += `             <p class="text-xl  text-gray-900 font-roboto font-semibold">$ ${producto.precio}`
+                resp += '             </p>'
+              }
+  
+              resp += '           </div>'
+              resp += '       </div>'
+               resp += '</label>'
+  
+  
+              resp += '       </div>'
             }
-
-            resp += '           </div>'
-            resp += '       </div>'
-             resp += '</label>'
+      
 
 
-            resp += '       </div>'
           });
           resp += '      </div>'
 
@@ -427,29 +432,32 @@ $(document).ready(function () {
             var resp = '<div >'
 
             elementos.forEach((producto) => {
+              if(producto.inventario>10){
 
-              resp += ' <div class="w-auto md:w-56 h-auto group rounded bg-white shadow overflow-hidden">'
-              resp += `<input type="radio" id="${producto.item}" value="${producto.item}" name="productBuscador" class="hidden peer" required>`
-              resp += ` <label for="${producto.item}" class="flex flex-col flex-wrap content-stretch w-full p-5 text-gray-500 bg-white border border-gray-200 rounded-lg cursor-pointer dark:hover:text-gray-300 dark:border-gray-700 dark:peer-checked:text-blue-500 peer-checked:border-blue-600 peer-checked:text-blue-600 hover:text-gray-600 hover:bg-gray-100 dark:text-gray-400 dark:bg-gray-800 dark:hover:bg-gray-700"> `
-              resp += `          <img src=" https://riba.app/imgrs/THUMBS 500X500/${producto.item}.jpg " class=" justify-center mx-auto w-16 h-16 rounded-full>"`
-              resp += '     <div class="pt-4 pb-3 px-4 ">'
-              resp += `        <h4 class="mt-4 justify-center font-medium  mb-2 text-gray-800 transition  text-limit">  ${producto.nombre}        </h4>`
-              resp += '         <div class="flex items-baseline mb-1 space-x-2 justify-center  content-center">'
-              if (producto.flagoferta == 1) {
-                resp += `       <p class="text-sm text-red-700  font-roboto line-through">$ ${producto.precioRegular}</p>`
-                resp += `             <p class="text-xl  text-gray-900 font-roboto font-semibold">$ ${producto.precio}</p>`
-              } else {
-  
-                resp += `             <p class="text-xl  text-gray-900 font-roboto font-semibold">$ ${producto.precio}`
-                resp += '             </p>'
+                resp += ' <div class="w-auto md:w-56 h-auto group rounded bg-white shadow overflow-hidden">'
+                resp += `<input type="radio" id="${producto.item}" value="${producto.item}" name="productBuscador" class="hidden peer" required>`
+                resp += ` <label for="${producto.item}" class="flex flex-col flex-wrap content-stretch w-full p-5 text-gray-500 bg-white border border-gray-200 rounded-lg cursor-pointer dark:hover:text-gray-300 dark:border-gray-700 dark:peer-checked:text-blue-500 peer-checked:border-blue-600 peer-checked:text-blue-600 hover:text-gray-600 hover:bg-gray-100 dark:text-gray-400 dark:bg-gray-800 dark:hover:bg-gray-700"> `
+                resp += `          <img src=" https://riba.app/imgrs/THUMBS 500X500/${producto.item}.jpg " class=" justify-center mx-auto w-16 h-16 rounded-full>"`
+                resp += '     <div class="pt-4 pb-3 px-4 ">'
+                resp += `        <h4 class="mt-4 justify-center font-medium  mb-2 text-gray-800 transition  text-limit">  ${producto.nombre}        </h4>`
+                resp += '         <div class="flex items-baseline mb-1 space-x-2 justify-center  content-center">'
+                if (producto.flagoferta == 1) {
+                  resp += `       <p class="text-sm text-red-700  font-roboto line-through">$ ${producto.precioRegular}</p>`
+                  resp += `             <p class="text-xl  text-gray-900 font-roboto font-semibold">$ ${producto.precio}</p>`
+                } else {
+    
+                  resp += `             <p class="text-xl  text-gray-900 font-roboto font-semibold">$ ${producto.precio}`
+                  resp += '             </p>'
+                }
+    
+                resp += '           </div>'
+                resp += '       </div>'
+                 resp += '</label>'
+    
+    
+                resp += '       </div>'
               }
-  
-              resp += '           </div>'
-              resp += '       </div>'
-               resp += '</label>'
-  
-  
-              resp += '       </div>'
+
             });
             resp += '      </div>'
 

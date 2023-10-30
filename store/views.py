@@ -118,9 +118,9 @@ def product_detail(request,product):
             session_data = dict(request.session)
             if session_data:
                  data ={
-                "usuario":session_data['id']
+                "usuario":session_data['id'],
+                "item":product
                  }   
-
                  endpoint = 'listafavorito'
                  url = f'{URL_APIS}{endpoint}'
                 #  url = f'http://192.168.88.136:3002/ecommer/rs/listafavorito'
@@ -130,11 +130,18 @@ def product_detail(request,product):
    
                  if response.status_code == 200:
                      existingCart=resp['existingCart']
+    
+                     contador_nulos = 0
+                 
+                     for item in existingCart:
+                         if item['item_producto'] is None:
+                             contador_nulos += 1
                      context={
                          'productos':data_from_express_api['productos'][0],
                           'Agregado':data_from_express_api['Agregado'],
                           'departamento':data_from_express_api['departamento'],
-                         'lista':existingCart
+                         'lista':existingCart,
+                         'contador_nulos':contador_nulos
                            }
 
             

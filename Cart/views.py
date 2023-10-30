@@ -19,6 +19,10 @@ def _cart_id(request):
 
 def add_cart(request,product_id):
         session_data = dict(request.session)
+        if "valor_seleccionado" in session_data:
+            bodega = session_data['valor_seleccionado']
+        else:
+            bodega=114100500
         if session_data:
          try:
              cart=_cart_id(request)
@@ -26,6 +30,7 @@ def add_cart(request,product_id):
               "cart":cart,
                "quantity":1,
                "product":product_id,
+               "bodega":bodega,
                "usuario":session_data['id']
                 }  
                    
@@ -64,6 +69,7 @@ def add_cart(request,product_id):
               data ={
                "cart":cart,
                 "quantity":1,
+                "bodega":bodega,
                 "product":product_id
                  }  
                     
@@ -134,11 +140,16 @@ def add_cart_comentatario(request):
           
       item=request.POST['item']
       session_data = dict(request.session)
+      if "valor_seleccionado" in session_data:
+            bodega = session_data['valor_seleccionado']
+      else:
+            bodega=114100500
       if session_data:
             try:
               cart=_cart_id(request)
               data ={
                "cart":cart,
+               "bodega":bodega,
                 "quantity":1,
                 "product":item,
                 "usuario":session_data['id'],
@@ -174,6 +185,7 @@ def add_cart_comentatario(request):
               data ={
                "cart":cart,
                 "quantity":1,
+                "bodega":bodega,
                 "product":item,
                 "Comentario":Comentario,
                 "ItemRemplazo":Newproduct
@@ -206,24 +218,30 @@ def add_cart_comentatario(request):
 
 def add_cart_detail(request):
    if request.method=='POST':
-      if 'Comentario' in request.POST:
-          Comentario=request.POST['Comentario']
+      if 'comentario' in request.POST:
+          Comentario=request.POST['comentario']
       else:
           Comentario=''
       
       cantidad=request.POST['cantidad']
       item=request.POST['item']
       session_data = dict(request.session)
+      if "valor_seleccionado" in session_data:
+            bodega = session_data['valor_seleccionado']
+      else:
+            bodega=114100500
       if session_data:
             try:
               cart=_cart_id(request)
               data ={
                "cart":cart,
+               "bodega":bodega,
                 "quantity":cantidad,
                 "product":item,
                 "usuario":session_data['id'],
                 "Comentario":Comentario
                  }   
+              print(data)
               # Realizar una nueva solicitud a la API para obtener los detalles del producto
             #   url = f'http://192.168.88.136:3002/ecommer/rs/carrito'
               endpoint = 'carrito'
@@ -253,6 +271,8 @@ def add_cart_detail(request):
               data ={
                "cart":cart,
                 "quantity":cantidad,
+                "bodega":bodega,
+                "Comentario":Comentario,
                 "product":item
                  }   
               # Realizar una nueva solicitud a la API para obtener los detalles del producto
@@ -279,6 +299,86 @@ def add_cart_detail(request):
               context = None
               return JsonResponse({'status': 'error', 'message': 'Error interno del servidor'})
           
+
+def addComentario(request):
+     if request.method=='POST':
+      if 'comentario' in request.POST:
+          Comentario=request.POST['comentario']
+      else:
+          Comentario=''
+      
+      item=request.POST['item']
+      session_data = dict(request.session)
+      if "valor_seleccionado" in session_data:
+            bodega = session_data['valor_seleccionado']
+      else:
+            bodega=114100500
+      if session_data:
+            try:
+              cart=_cart_id(request)
+              data ={
+                "cart":cart,
+                "product":item,
+                "bodega":bodega,
+                "usuario":session_data['id'],
+                "Comentario":Comentario
+                 }   
+              # Realizar una nueva solicitud a la API para obtener los detalles del producto
+            #   url = f'http://192.168.88.136:3002/ecommer/rs/carrito'
+              endpoint = 'addcomentarioCarrito'
+              url = f'{URL_APIS}{endpoint}'
+              response = requests.post(url, json=data)  # Usar json=data en lugar de data=data
+
+              data_from_express_api = response.json()
+              referer = request.META.get('HTTP_REFERER')
+
+
+              if response.status_code == 200:
+                  messages.success(request,'Comentario Actualizado')
+                  return redirect(referer)
+
+              else:
+                messages.error(request,'Error Al Actualizar Comentario')
+                return redirect(referer)
+
+            except Exception as e:
+            
+              context = None
+              messages.success(request,'Comentario Actualizado')
+              return redirect(referer)
+      else:
+            try:
+              cart=_cart_id(request)
+              data ={
+               "cart":cart,
+                "Comentario":Comentario,
+                "bodega":bodega,
+                "product":item
+                 }   
+              # Realizar una nueva solicitud a la API para obtener los detalles del producto
+            #   url = f'http://192.168.88.136:3002/ecommer/rs/carrito'
+              endpoint = 'addcomentarioCarrito'
+              url = f'{URL_APIS}{endpoint}'
+
+              response = requests.post(url, json=data)  # Usar json=data en lugar de data=data
+
+              data_from_express_api = response.json()
+              referer = request.META.get('HTTP_REFERER')
+
+
+              if response.status_code == 200:
+                  messages.success(request,'Comentario Actualizado')
+                  return redirect(referer)
+
+              else:
+                messages.error(request,'Error Al Actualizar Comentario')
+                return redirect(referer)
+
+            except Exception as e:
+            
+              context = None
+              messages.success(request,'Comentario Actualizado')
+              return redirect(referer)
 
 
 def cart(request, total=Decimal("0"), quantity=0, cart_items=None, taxt=Decimal("0"), grand_total=Decimal("0"), delivery=Decimal("3.50")):

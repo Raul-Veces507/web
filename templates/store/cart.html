@@ -2,7 +2,20 @@
 {% load static %}
 
 {% block content %}
+<style>
+    .extra-details.hidden {
+        display: none;
+    }
 
+
+    .morecontent span {
+        display: none;
+    }
+
+    .morelink {
+        display: block;
+    }
+</style>
 <!-- breadcrum -->
 <div class="py-4 container flex gap-3 items-center">
     <a href="{% url 'home' %}" class="text-primary text-base">
@@ -19,11 +32,14 @@
 <div class="text-center">
     <h2> El Carrito de compras esta vacio</h2>
     <div class="mt-10">
-        <a href="{% url 'home' %}" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">Continua Comprando</a>
+        <a href="{% url 'home' %}"
+            class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">Continua
+            Comprando</a>
     </div>
-   
+
 </div>
 {% else %}
+{% include 'includes/alerts.html' %}
 <div class="container lg:grid grid-cols-12 gap-6 items-start pb-16 pt-4">
     <!-- product cart -->
     <div class="xl:col-span-9 lg:col-span-8">
@@ -32,20 +48,22 @@
             <p class="text-gray-600 text-center">Productos</p>
             <p class="text-gray-600 text-center ml-auto mr-16 xl:mr-24">Cantidad</p>
             <p class="text-gray-600 text-center">Total</p>
-            
+
         </div>
         <!-- cart title end -->
 
         <!-- shipping carts -->
         {% for cart_item in cart_items %}
-        
+
+
+        {% if cart_item.item_a_reemplazar == None %}
         <div class="space-y-4">
             <!-- single cart -->
             <div
                 class="flex items-center md:justify-between gap-4 md:gap-6 p-4 border border-gray-200 rounded flex-wrap md:flex-nowrap">
                 <!-- cart image -->
                 <div class="w-32 flex-shrink-0">
-                    <img src="https://riba.app/imgrs/THUMBS 500X500/{{cart_item.item}}.jpg" class="w-full">
+                    <img src="https://riba.app/imgrs/THUMBS 500X500/{{cart_item.item}}.jpg"  class="w-full"  onerror="this.src='https://www.ribasmith.com/media/catalog/product/placeholder/default/watermark_4.png' ">
                 </div>
                 <!-- cart image end -->
                 <!-- cart content -->
@@ -53,40 +71,82 @@
                     <h2 class="text-gray-800 mb-3 xl:text-xl textl-lg font-medium uppercase">
                         {{cart_item.nombre}}
                     </h2>
-                       
+
                     <p class="text-gray-500">Cantidad: {{cart_item.quantity}}</p>
-                    
-                    <div class="  rounded-sm  w-auto  " >
-                        
+
+                    <div class="  rounded-sm mt-5  w-auto  ">
+
                         {% if cart_item.Comentario %}
-                        <p class="more w-auto mx-2 text-gray-800 font-thin">
+
+                        <form action="{% url 'addComentario' %}" method="post">
+                            {% csrf_token %}
+
+                            <div class="flex items-center px-3 py-2 mt-5 rounded-lg bg-gray-50 dark:bg-gray-700">
+                                <input type="hidden" name="item" value="{{cart_item.item}}">
+                                <textarea id="chat" name="comentario" rows="1"
+                                    class="block mx-4 p-2.5 w-full text-sm text-gray-900 bg-white rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-800 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                    placeholder="Escribir un comentario"> {{ cart_item.Comentario|capfirst }}</textarea>
+                                <button type="submit"
+                                    class="inline-flex justify-center p-2 text-blue-600 rounded-full cursor-pointer hover:bg-blue-100 dark:text-blue-500 dark:hover:bg-gray-600">
+                                    <svg class="w-5 h-5 rotate-90" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
+                                        fill="currentColor" viewBox="0 0 18 20">
+                                        <path
+                                            d="m17.914 18.594-8-18a1 1 0 0 0-1.828 0l-8 18a1 1 0 0 0 1.157 1.376L8 18.281V9a1 1 0 0 1 2 0v9.281l6.758 1.689a1 1 0 0 0 1.156-1.376Z" />
+                                    </svg>
+
+                                </button>
+                            </div>
+                        </form>
+                        <!-- <p class="more w-auto mx-2 text-gray-800 font-thin">
                           {{ cart_item.Comentario|capfirst }}
-                        </p>
-                      {% else %}
-                        <p>Sin comentarios</p>
-                      {% endif %}
-                      
-                        
+                        </p> -->
+                        {% else %}
+
+                        <form action="{% url 'addComentario' %}" method="post">
+                            {% csrf_token %}
+                            <div class="flex items-center px-3 py-2 mt-5 rounded-lg bg-gray-50 dark:bg-gray-700">
+                                <input type="hidden" name="item" value="{{cart_item.item}}">
+                                <textarea id="chat" name="comentario" rows="1"
+                                    class="block mx-4 p-2.5 w-full text-sm text-gray-900 bg-white rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-800 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                    placeholder="Escribir un comentario"></textarea>
+                                <button type="submit"
+                                    class="inline-flex justify-center p-2 text-blue-600 rounded-full cursor-pointer hover:bg-blue-100 dark:text-blue-500 dark:hover:bg-gray-600">
+                                    <svg class="w-5 h-5 rotate-90" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
+                                        fill="currentColor" viewBox="0 0 18 20">
+                                        <path
+                                            d="m17.914 18.594-8-18a1 1 0 0 0-1.828 0l-8 18a1 1 0 0 0 1.157 1.376L8 18.281V9a1 1 0 0 1 2 0v9.281l6.758 1.689a1 1 0 0 0 1.156-1.376Z" />
+                                    </svg>
+
+                                </button>
+                            </div>
+                        </form>
+
+                        {% endif %}
+
+
                     </div>
-                    
-                     
+
+
                 </div>
                 <!-- cart content end -->
                 <!-- cart quantity -->
                 <div class="flex border border-gray-300 text-gray-600 divide-x divide-gray-300">
-                    <a href="{% url 'remove_cart' cart_item.item %}" class="h-8 w-8 text-xl flex items-center justify-center cursor-pointer select-none">-</a>
+                    <a href="{% url 'remove_cart' cart_item.item %}"
+                        class="h-8 w-8 text-xl flex items-center justify-center cursor-pointer select-none">-</a>
                     <div class="h-8 w-10 flex items-center justify-center">{{cart_item.quantity}}</div>
                     <form method="post">
                         {% csrf_token %}
-                    <a  class="h-8 w-8 text-xl flex items-center justify-center cursor-pointer select-none add-to-cart-button" data-product-inv={{cart_item.inventario}} data-product-cant={{cart_item.quantity}}  data-product-id="{{cart_item.item}}">+</a>
+                        <a class="h-8 w-8 text-xl flex items-center justify-center cursor-pointer select-none add-to-cart-button"
+                            data-product-inv={{cart_item.inventario}} data-product-cant={{cart_item.quantity}}
+                            data-product-id="{{cart_item.item}}">+</a>
 
-                </form>
-                
+                    </form>
+
                 </div>
                 <!-- cart quantity end -->
                 <div class="ml-auto md:ml-0">
 
-               
+
                     {% if cart_item.flagoferta == 1 %}
                     <p class="text-primary text-lg font-semibold">${{cart_item.precioOferta|floatformat:2}}</p>
                     <p>${{cart_item.precio|floatformat:2}} cada uno</p>
@@ -94,18 +154,165 @@
                     <p class="text-primary text-lg font-semibold">${{cart_item.precioNormal|floatformat:2}}</p>
                     <p>${{cart_item.precioRegular|floatformat:2}} cada uno</p>
                     {% endif %}
-           
-                  
+
+
+                </div>
+
+                <div class="text-gray-600 hover:text-primary cursor-pointer">
+                    <a href="{% url 'remove_cart_item' cart_item.item %}"
+                        class="focus:outline-none text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-900">
+                        Eliminar</a>
+
                 </div>
                 
-                <div class="text-gray-600 hover:text-primary cursor-pointer">
-                    <a href="{% url 'remove_cart_item' cart_item.item %}" class="focus:outline-none text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-900"> Eliminar</a>
-                    
-                </div>
             </div>
+       
             <!-- single cart end -->
 
         </div>
+        {% else %}
+          
+        <div class="space-y-4">
+            <!-- single cart -->
+            <div
+                class="flex items-center md:justify-between gap-4 md:gap-6 p-4 border border-gray-200 rounded flex-wrap md:flex-nowrap cardcollapse">
+               
+                <!-- cart image -->
+                <div class="w-32 flex-shrink-0">
+                    <img src="https://riba.app/imgrs/THUMBS 500X500/{{cart_item.item}}.jpg" class="w-full"  onerror="this.src='https://www.ribasmith.com/media/catalog/product/placeholder/default/watermark_4.png' ">
+                    
+                </div>
+                <!-- cart image end -->
+                <!-- cart content -->
+                <div class="md:w-1/3 w-full">
+                    <h2 class="text-gray-800 mb-3 xl:text-xl textl-lg font-medium uppercase">
+                        {{cart_item.nombre}}
+                    </h2>
+
+                    <p class="text-gray-500">Cantidad: {{cart_item.quantity}}</p>
+
+                    <div class="  rounded-sm  w-auto mt-5  ">
+
+                        {% if cart_item.Comentario %}
+
+                        <form action="{% url 'addComentario' %}" method="post">
+                            {% csrf_token %}
+
+                            <div class="flex items-center px-3 py-2 mt-5 rounded-lg bg-gray-50 dark:bg-gray-700">
+                                <input type="hidden" name="item" value="{{cart_item.item}}">
+                                <textarea id="chat" name="comentario" rows="1"
+                                    class="block mx-4 p-2.5 w-full text-sm text-gray-900 bg-white rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-800 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                    placeholder="Escribir un comentario"> {{ cart_item.Comentario|capfirst }}</textarea>
+                                <button type="submit"
+                                    class="inline-flex justify-center p-2 text-blue-600 rounded-full cursor-pointer hover:bg-blue-100 dark:text-blue-500 dark:hover:bg-gray-600">
+                                    <svg class="w-5 h-5 rotate-90" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
+                                        fill="currentColor" viewBox="0 0 18 20">
+                                        <path
+                                            d="m17.914 18.594-8-18a1 1 0 0 0-1.828 0l-8 18a1 1 0 0 0 1.157 1.376L8 18.281V9a1 1 0 0 1 2 0v9.281l6.758 1.689a1 1 0 0 0 1.156-1.376Z" />
+                                    </svg>
+
+                                </button>
+                            </div>
+                        </form>
+                        <!-- <p class="more w-auto mx-2 text-gray-800 font-thin">
+                          {{ cart_item.Comentario|capfirst }}
+                        </p> -->
+                        {% else %}
+
+                        <form action="{% url 'addComentario' %}" method="post">
+                            {% csrf_token %}
+                            <div class="flex items-center px-3 py-2 mt-5 rounded-lg bg-gray-50 dark:bg-gray-700">
+                                <input type="hidden" name="item" value="{{cart_item.item}}">
+                                <textarea id="chat" name="comentario" rows="1"
+                                    class="block mx-4 p-2.5 w-full text-sm text-gray-900 bg-white rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-800 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                    placeholder="Escribir un comentario"></textarea>
+                                <button type="submit"
+                                    class="inline-flex justify-center p-2 text-blue-600 rounded-full cursor-pointer hover:bg-blue-100 dark:text-blue-500 dark:hover:bg-gray-600">
+                                    <svg class="w-5 h-5 rotate-90" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
+                                        fill="currentColor" viewBox="0 0 18 20">
+                                        <path
+                                            d="m17.914 18.594-8-18a1 1 0 0 0-1.828 0l-8 18a1 1 0 0 0 1.157 1.376L8 18.281V9a1 1 0 0 1 2 0v9.281l6.758 1.689a1 1 0 0 0 1.156-1.376Z" />
+                                    </svg>
+
+                                </button>
+                            </div>
+                        </form>
+
+                        {% endif %}
+
+
+                    </div>
+                    <div class="text-gray-600 hover:text-primary cursor-pointer mt-5">
+                        <div class="card">
+                            <!-- Contenido de la tarjeta 1 -->
+                            <button class="toggle-button">
+                                <div class="flex">
+                                    <p>Producto Remplazado Por:</p>
+                                    <img class="w-7" src="https://riba.app/imgrs/THUMBS 500X500/{{cart_item.item_a_reemplazar}}.jpg" alt=""  onerror="this.src='https://www.ribasmith.com/media/catalog/product/placeholder/default/watermark_4.png' ">
+
+                                </div>
+                                </button>
+                            <div class="extra-details hidden mt-5">
+                                <div class="flex">
+                                   <img class="w-12" src="https://riba.app/imgrs/THUMBS 500X500/{{cart_item.item_a_reemplazar}}.jpg" alt=""  onerror="this.src='https://www.ribasmith.com/media/catalog/product/placeholder/default/watermark_4.png' ">
+                                   <p>{{cart_item.nombre_a_reemplazar}}</p>
+                   
+                                </div>
+                               </div>
+                        </div>
+                    </div>
+
+                </div>
+                <!-- cart content end -->
+                <!-- cart quantity -->
+                <div class="flex border border-gray-300 text-gray-600 divide-x divide-gray-300">
+                    <a href="{% url 'remove_cart' cart_item.item %}"
+                        class="h-8 w-8 text-xl flex items-center justify-center cursor-pointer select-none">-</a>
+                    <div class="h-8 w-10 flex items-center justify-center">{{cart_item.quantity}}</div>
+                    <form method="post">
+                        {% csrf_token %}
+                        <a class="h-8 w-8 text-xl flex items-center justify-center cursor-pointer select-none add-to-cart-button"
+                            data-product-inv={{cart_item.inventario}} data-product-cant={{cart_item.quantity}}
+                            data-product-id="{{cart_item.item}}">+</a>
+
+                    </form>
+
+                </div>
+                <!-- cart quantity end -->
+                <div class="ml-auto md:ml-0">
+
+
+                    {% if cart_item.flagoferta == 1 %}
+                    <p class="text-primary text-lg font-semibold">${{cart_item.precioOferta|floatformat:2}}</p>
+                    <p>${{cart_item.precio|floatformat:2}} cada uno</p>
+                    {% else %}
+                    <p class="text-primary text-lg font-semibold">${{cart_item.precioNormal|floatformat:2}}</p>
+                    <p>${{cart_item.precioRegular|floatformat:2}} cada uno</p>
+                    {% endif %}
+
+
+                </div>
+
+                <div class="text-gray-600 hover:text-primary cursor-pointer">
+                    <a href="{% url 'remove_cart_item' cart_item.item %}"
+                        class="focus:outline-none text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-900">
+                        Eliminar</a>
+
+                </div>
+             
+            </div>
+
+       
+            <!-- single cart end -->
+
+        </div>
+
+        {% endif %}
+        
+
+    
+
+  
         {% endfor %}
         <!-- shipping carts end -->
     </div>
@@ -129,7 +336,7 @@
             <h4>$ {{grand_total|floatformat:2}}</h4>
         </div>
         <div class="text-center mb-3 ml-14 mt-5">
-            <img src="{% static 'src/images/misc/payments.png' %}"  width="150" height="26">
+            <img src="{% static 'src/images/misc/payments.png' %}" width="150" height="26">
 
         </div>
 
@@ -141,76 +348,79 @@
         </a>
         <a href="{% url 'home' %}" class="mt-5 bg-gray-400 border border-gray-400 text-white px-4 py-3 font-medium rounded-md uppercase hover:bg-transparent
         hover:text-blue-600 transition text-sm w-full block text-center">
-           Continuar Compando
-       </a>
+            Continuar Compando
+        </a>
         <!-- checkout end -->
     </div>
     <!-- order summary end -->
 </div>
 
 {% endif %}
-<style>
-   
-    .morecontent span {
-    display: none;
-}
-.morelink {
-    display: block;
-}
-
-
-
-</style>
 
 <script>
-   $(document).ready(function() {
-    // Configure/customize these variables.
-    var showChar = 50;  // How many characters are shown by default
-    var ellipsestext = "...";
-    var moretext = "Ver Mas ";
-    var lesstext = "Ver Menos";
-    
-
-    $('.more').each(function() {
-        var content = $(this).html();
- 
-        if(content.length > showChar) {
- 
-            var c = content.substr(0, showChar);
-            var h = content.substr(showChar, content.length - showChar);
- 
-            var html = c + '<span class="moreellipses">' + ellipsestext+ '&nbsp;</span><span class="morecontent"><span>' + h + '</span>&nbsp;&nbsp;<a href="" class="morelink">' + moretext + '</a></span>';
- 
-            $(this).html(html);
-        }
- 
+    document.addEventListener('DOMContentLoaded', function () {
+        const toggleButtons = document.querySelectorAll('.toggle-button');
+        
+        toggleButtons.forEach(function (button) {
+            button.addEventListener('click', function () {
+                const card = button.closest('.cardcollapse');
+                const extraDetails = card.querySelector('.extra-details');
+                console.log(extraDetails);
+                extraDetails.classList.toggle('hidden');
+            });
+        });
     });
- 
-    $(".morelink").click(function(){
-        if($(this).hasClass("less")) {
-            $(this).removeClass("less");
-            $(this).html(moretext);
-        } else {
-            $(this).addClass("less");
-            $(this).html(lesstext);
-        }
-        $(this).parent().prev().toggle();
-        $(this).prev().toggle();
-        return false;
-    });
-}); 
 </script>
 
 
 <script>
     
+    $(document).ready(function () {
+        // Configure/customize these variables.
+        var showChar = 50;  // How many characters are shown by default
+        var ellipsestext = "...";
+        var moretext = "Ver Mas ";
+        var lesstext = "Ver Menos";
+
+
+        $('.more').each(function () {
+            var content = $(this).html();
+
+            if (content.length > showChar) {
+
+                var c = content.substr(0, showChar);
+                var h = content.substr(showChar, content.length - showChar);
+
+                var html = c + '<span class="moreellipses">' + ellipsestext + '&nbsp;</span><span class="morecontent"><span>' + h + '</span>&nbsp;&nbsp;<a href="" class="morelink">' + moretext + '</a></span>';
+
+                $(this).html(html);
+            }
+
+        });
+
+        $(".morelink").click(function () {
+            if ($(this).hasClass("less")) {
+                $(this).removeClass("less");
+                $(this).html(moretext);
+            } else {
+                $(this).addClass("less");
+                $(this).html(lesstext);
+            }
+            $(this).parent().prev().toggle();
+            $(this).prev().toggle();
+            return false;
+        });
+    }); 
+</script>
+
+
+<script>
+
     var addToCartUrl = "{% url 'add_cart' 0 %}";
     var cartoCartUrl = " {% url 'get_cart_count' %}";
     var carrito = " {% url 'cart' %}";
-   
+
 </script>
 
 
-  {% endblock %}
-
-  
+{% endblock %}

@@ -2470,6 +2470,11 @@ input[type="range"]:active::-webkit-slider-thumb{
   transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
 }
 
+.rotate-90{
+  --tw-rotate: 90deg;
+  transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
+}
+
 .scale-0{
   --tw-scale-x: 0;
   --tw-scale-y: 0;
@@ -3081,6 +3086,11 @@ input[type="range"]:active::-webkit-slider-thumb{
 .rounded-t-lg{
   border-top-left-radius: 0.5rem;
   border-top-right-radius: 0.5rem;
+}
+
+.rounded-t-xl{
+  border-top-left-radius: 0.75rem;
+  border-top-right-radius: 0.75rem;
 }
 
 .\!border-0{
@@ -3924,6 +3934,10 @@ input[type="range"]:active::-webkit-slider-thumb{
 
 .pt-\[6px\]{
   padding-top: 6px;
+}
+
+.pl-5{
+  padding-left: 1.25rem;
 }
 
 .text-left{
@@ -5065,6 +5079,43 @@ input[type="range"]:active::-webkit-slider-thumb{
   /* Color del borde en estado hover */
 }
 
+/* Estilos para la clase personalizada .custom-card */
+
+.custom-card {
+  /* Propiedades flex */
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  align-content: stretch;
+  /* Tamaño y espaciado */
+  width: 100%;
+  padding: 5px;
+  /* Colores y bordes */
+  color: #5a5a5a;
+  /* Cambia el valor de color a tu preferencia */
+  background-color: #ffffff;
+  /* Cambia el valor de fondo a tu preferencia */
+  border: 1px solid #c8c8c8;
+  /* Cambia el valor del borde a tu preferencia */
+  border-radius: 8px;
+  /* Puntero del cursor */
+  cursor: pointer;
+  /* Estilos en modo oscuro */
+  .dark:hover {
+    color: #4c4c4c;
+    /* Cambia el valor del color en modo oscuro */
+    border: 1px solid #474747;
+    /* Cambia el valor del borde en modo oscuro */
+  }
+  /* Estilos cuando está seleccionado */
+  .dark:peer-checked {
+    color: #0070d2;
+    /* Cambia el color cuando está seleccionado en modo oscuro */
+    border: 1px solid #005aaf;
+    /* Cambia el borde cuando está seleccionado en modo oscuro */
+  }
+}
+
 .selection\:bg-transparent *::-moz-selection{
   background-color: transparent;
 }
@@ -6165,6 +6216,16 @@ input[type="range"]:active::-webkit-slider-thumb{
   opacity: 0.6;
 }
 
+.peer:checked ~ .peer-checked\:border-blue-600{
+  --tw-border-opacity: 1;
+  border-color: rgb(28 100 242 / var(--tw-border-opacity));
+}
+
+.peer:checked ~ .peer-checked\:text-blue-600{
+  --tw-text-opacity: 1;
+  color: rgb(28 100 242 / var(--tw-text-opacity));
+}
+
 .peer:focus ~ .peer-focus\:-translate-y-\[0\.75rem\]{
   --tw-translate-y: -0.75rem;
   transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
@@ -7115,6 +7176,11 @@ input[type="range"]:active::-webkit-slider-thumb{
   --tw-ring-color: rgb(119 29 29 / var(--tw-ring-opacity));
 }
 
+:is(.dark .dark\:focus\:ring-gray-800:focus){
+  --tw-ring-opacity: 1;
+  --tw-ring-color: rgb(31 41 55 / var(--tw-ring-opacity));
+}
+
 :is(.dark .dark\:focus\:before\:shadow-\[0px_0px_0px_13px_rgba\(255\2c 255\2c 255\2c 0\.4\)\]:focus)::before{
   content: var(--tw-content);
   --tw-shadow: 0px 0px 0px 13px rgba(255,255,255,0.4);
@@ -7177,6 +7243,11 @@ input[type="range"]:active::-webkit-slider-thumb{
 :is(.dark .group[data-te-datepicker-cell-disabled] .dark\:group-\[\[data-te-datepicker-cell-disabled\]\]\:text-neutral-500){
   --tw-text-opacity: 1;
   color: rgb(115 115 115 / var(--tw-text-opacity));
+}
+
+:is(.dark .peer:checked ~ .dark\:peer-checked\:text-blue-500){
+  --tw-text-opacity: 1;
+  color: rgb(63 131 248 / var(--tw-text-opacity));
 }
 
 :is(.dark .peer:focus ~ .dark\:peer-focus\:text-gray-200){
@@ -7882,3 +7953,4 @@ input[type="range"]:active::-webkit-slider-thumb{
 .\[\&\[data-te-dropdown-show\]\]\:block[data-te-dropdown-show]{
   display: block;
 }
+  

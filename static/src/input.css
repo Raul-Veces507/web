@@ -321,3 +321,39 @@ border-radius: 3px;
     background-color: #F5F5F5; /* Color de fondo en estado hover */
     border-color: #C5C5C5; /* Color del borde en estado hover */
   }
+
+
+  /* Estilos para la clase personalizada .custom-card */
+.custom-card {
+    /* Propiedades flex */
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    align-content: stretch;
+  
+    /* Tamaño y espaciado */
+    width: 100%;
+    padding: 5px;
+  
+    /* Colores y bordes */
+    color: #5a5a5a; /* Cambia el valor de color a tu preferencia */
+    background-color: #ffffff; /* Cambia el valor de fondo a tu preferencia */
+    border: 1px solid #c8c8c8; /* Cambia el valor del borde a tu preferencia */
+    border-radius: 8px;
+  
+    /* Puntero del cursor */
+    cursor: pointer;
+  
+    /* Estilos en modo oscuro */
+    .dark:hover {
+      color: #4c4c4c; /* Cambia el valor del color en modo oscuro */
+      border: 1px solid #474747; /* Cambia el valor del borde en modo oscuro */
+    }
+  
+    /* Estilos cuando está seleccionado */
+    .dark:peer-checked {
+      color: #0070d2; /* Cambia el color cuando está seleccionado en modo oscuro */
+      border: 1px solid #005aaf; /* Cambia el borde cuando está seleccionado en modo oscuro */
+    }
+  }
+  

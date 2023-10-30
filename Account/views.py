@@ -41,8 +41,6 @@ def  wishlistProduct(request):
             "usuario":session_data['id']
              
            }
-        
-        print(data)
      
         # Realizar una nueva solicitud a la API para obtener los detalles del producto
         # url = f'http://192.168.88.136:3002/ecommer/rs/seccionesid/1'
