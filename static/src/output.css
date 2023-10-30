@@ -3485,11 +3485,6 @@ input[type="range"]:active::-webkit-slider-thumb{
   background-color: rgb(200 30 30 / var(--tw-bg-opacity));
 }
 
-.bg-red-800{
-  --tw-bg-opacity: 1;
-  background-color: rgb(155 28 28 / var(--tw-bg-opacity));
-}
-
 .bg-slate-100{
   --tw-bg-opacity: 1;
   background-color: rgb(241 245 249 / var(--tw-bg-opacity));
@@ -3542,10 +3537,6 @@ input[type="range"]:active::-webkit-slider-thumb{
 
 .bg-opacity-75{
   --tw-bg-opacity: 0.75;
-}
-
-.bg-opacity-80{
-  --tw-bg-opacity: 0.8;
 }
 
 .bg-none{

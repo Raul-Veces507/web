@@ -207,37 +207,22 @@ $(document).ready(function () {
 
     var resultsHtml = '<h3 class="mb-4 font-semibold text-gray-900 dark:text-white mt-5">Remplazar Producto</h3>'
     resultsHtml += '<p class="text-sm font-normal text-gray-500 dark:text-gray-400">Desea Remplazar El Producto Si No Se Encuentra?</p>'
-
+    resultsHtml+='<div class="flex  items-center mx-4 space-x-2 ">'
+   resultsHtml+='<div class="flex items-center ">'
+   resultsHtml+=' <input id="BuscadorSi" name="hosting" type="radio" value=""  class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">'
+   resultsHtml+=' <label for="default-radio-1" class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">Si</label>'
+   resultsHtml+='</div>'
+   resultsHtml+='<div class="flex items-center">'
+   resultsHtml+='<input   type="radio" value="" id="BuscadorNo" name="hosting" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">'
+   resultsHtml+='<label for="default-radio-2" class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">No</label>'
+   resultsHtml+='</div>'
+   
+   
+    resultsHtml+='</div>'
     resultsHtml += `<input type="hidden" value="${product_id}" name="itemproducts" id="itemproducts">`
-    resultsHtml += '<div class="flex mt-5">'
-    resultsHtml += '  <ul class="grid w-full gap-6 md:grid-cols-2">'
-    resultsHtml += '  <li>'
-    resultsHtml += '      <input type="radio" id="BuscadorSi" name="hosting"  class="hidden peer" required>'
-    resultsHtml += '      <label for="BuscadorSi" class="inline-flex items-center justify-between w-full p-5 text-gray-500 bg-white border border-gray-200 rounded-lg cursor-pointer dark:hover:text-gray-300 dark:border-gray-700 dark:peer-checked:text-blue-500 peer-checked:border-blue-600 peer-checked:text-blue-600 hover:text-gray-600 hover:bg-gray-100 dark:text-gray-400 dark:bg-gray-800 dark:hover:bg-gray-700 radio-label-hover">                           '
-    resultsHtml += '          <div class="block">'
-    resultsHtml += '              <div class="w-full text-lg font-semibold">Si</div>'
-    resultsHtml += '              <div class="w-full">Deseo Remplazar El Producto </div>'
-    resultsHtml += '          </div>'
-    resultsHtml += '      </label>'
-    resultsHtml += '  </li>'
-    resultsHtml += '  <li>'
-    resultsHtml += '      <input type="radio" id="BuscadorNo" name="hosting"  class="hidden peer" checked>'
-    resultsHtml += '      <label for="BuscadorNo" class="inline-flex items-center justify-between w-full p-5 text-gray-500 bg-white border border-gray-200 rounded-lg cursor-pointer dark:hover:text-gray-300 dark:border-gray-700 dark:peer-checked:text-blue-500 peer-checked:border-blue-600 peer-checked:text-blue-600 hover:text-gray-600 hover:bg-gray-100 dark:text-gray-400 dark:bg-gray-800 dark:hover:bg-gray-700 radio-label-hover">'
-    resultsHtml += '          <div class="block">'
-    resultsHtml += '              <div class="w-full text-lg font-semibold">No</div>'
-    resultsHtml += '              <div class="w-full">No Deseo Remplazar El Producto</div>'
-    resultsHtml += '          </div>'
-    resultsHtml += '      </label>'
-    resultsHtml += '  </li>'
-    
-    resultsHtml += '</ul>'
-    resultsHtml += '  </div>'
-
-    
-
-    resultsHtml += '<div class="mt-5 hidden rounded-xl" id="BuscadorInputs"">'
+     resultsHtml += '<div class="mt-5 hidden rounded-xl" id="BuscadorInputs"">'
     resultsHtml += '<div class="relative overflow-x-auto shadow-md sm:rounded-lg">'
-    resultsHtml += '    <div class="flex items-center justify-between pb-4 bg-white dark:bg-gray-900">'
+    resultsHtml += '    <div class=" pb-4 bg-white dark:bg-gray-900">'
     resultsHtml += '        <label for="table-search" class="sr-only">Search</label>'
     resultsHtml += '        <div class="relative">'
     resultsHtml += '            <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">'
