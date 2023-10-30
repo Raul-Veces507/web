@@ -126,13 +126,13 @@
           <!-- Modal header -->
           <div class="px-6 py-4 border-b rounded-t dark:border-gray-600">
             <h3 class="text-base font-semibold text-gray-900 lg:text-xl dark:text-white">
-              Selecciona una tienda
+              Selecciona una bodega
             </h3>
           </div>
           <!-- Modal body -->
           <div class="p-6">
             <select id="miSelect12" data-te-select-init>
-              
+            <option>selecciona una bodega</option>              
               
             </select>
           </div>
@@ -378,16 +378,16 @@
       // Guardar el valor en sessionStorage antes de cerrar el modal
       const storedValue = "{{request.session.valor_seleccionado}}"
 
-      if (storedValue){
-      alerta2();  
-      }else{
+      // if (storedValue){
+      // alerta2();  
+      // }else{
         guardarValorEnSesion();
         const alertElement = document.getElementById("alert");
       alertElement.classList.add("hidden");
 
       // Recargar la página
       location.reload();
-      }
+      
       
 
       // Ocultar la alerta principal
@@ -398,10 +398,19 @@
     mostrarValor();
 
 
-    function alerta2(){
-      const alert2 = document.getElementById("alert2")
-      alert2.classList.remove("hidden");
-    }
+    function alerta2() {
+  const alert2 = document.getElementById("alert2");
+  if (alert2) {
+    alert2.classList.remove("hidden");
+  } else {
+    console.error("El elemento con ID 'alert2' no se encontró en el DOM.");
+  }
+}
+
+document.addEventListener("DOMContentLoaded", function () {
+  // Coloca aquí el resto de tu código que se ejecutará después de que la página se cargue.
+});
+
 
 
   </script>

@@ -342,7 +342,7 @@ $(document).ready(function () {
 
 
           var resp2 = '<div class="scroll-container space-x-2 mb-4 mt-5" style=" height: 60px;   width: 100%; overflow-x: auto; white-space: nowrap; display: inline-block;">';
-          resp2 += `<input id="Todos" checked type="radio" value="Todos" name="radiocheck" class=" radiocheck w-4 h-4 text-red-600 bg-gray-100 border-gray-300 focus:ring-red-500 dark:focus:ring-red-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">`;
+          resp2 += `<input id="Todos"  checked type="radio" value="Todos" name="radiocheck" class=" radiocheck w-4 h-4 text-red-600 bg-gray-100 border-gray-300 focus:ring-red-500 dark:focus:ring-red-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">`;
           resp2 += `<label for="Todos" class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">Todos</label>`;
           Marcas.forEach((Marca) => {
  
