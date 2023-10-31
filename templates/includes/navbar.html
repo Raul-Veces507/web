@@ -960,19 +960,41 @@
     })
     const alertElement = document.getElementById("alert");
     const overlayElement = document.getElementById("overlay");
-    const botton23 = document.getElementById("botton23");
+    const boton1 = document.getElementById("continuarButton");
+    const boton2 = document.getElementById("boton2");
 
     function showAlert() {
-      alertElement.classList.remove("hidden");
-      overlayElement.classList.remove("hidden");
-      botton23.classList.remove("hidden");
+      const storedValue = "{{ request.session.valor_seleccionado }}".trim(); // Elimina espacios en blanco alrededor del valor
+      console.log(storedValue);
+      if (storedValue === "") {
+      
+        boton1.classList.remove("hidden");
+        alertElement.classList.remove("hidden");
+        overlayElement.classList.remove("hidden");
+        session();
+      }else{
+        boton2.classList.remove("hidden");
+        alertElement.classList.remove("hidden");
+        overlayElement.classList.remove("hidden");
+        session();
+      }
+
     }
 
     // Función para ocultar la alerta y restaurar el fondo
     function hideAlert() {
-      alertElement.classList.add("hidden");
-      overlayElement.classList.add("hidden");
-      botton23.classList.add("hidden");
+      const storedValue = "{{ request.session.valor_seleccionado }}".trim(); // Elimina espacios en blanco alrededor del valor
+      // Mostrar la alerta solo si no hay un valor en sessionStorage
+      if (storedValue === "") {
+        boton2.classList.add("hidden");
+        alertElement.classList.add("hidden");
+        overlayElement.classList.add("hidden");
+      }else{
+        boton1.classList.add("hidden");
+        alertElement.classList.add("hidden");
+        overlayElement.classList.add("hidden");
+      }
+
     }
   })
 

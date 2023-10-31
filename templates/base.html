@@ -139,12 +139,11 @@
 
           <!-- Modal footer (Botón "Continuar" centrado) -->
           <div class="flex justify-center items-center  mb-7 space-x-3 ">
-
-              <button data-modal-target="default-modal" data-modal-toggle="default-modal" id="botton22"  class="   text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mb-2 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800" type="button">
-                Continuar1
-              </button>
-              <button data-modal-target="default-modal" data-modal-toggle="default-modal" id="botton23" class="   text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mb-2 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800" type="button">
-                Continuar 2
+            <button  id="continuarButton" data-modal-hide="alert" type="button"
+              class=" hidden  text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">Continuar</button>
+            
+              <button id="boton2" data-modal-target="default-modal" data-modal-toggle="default-modal" class="hidden text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mb-2 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800" type="button">
+                Continuar
               </button>
               
             
@@ -190,8 +189,8 @@
             </div>
             <!-- Modal footer -->
             <div class="flex items-center p-6 space-x-2 border-t border-gray-200 rounded-b dark:border-gray-600">
-                <button id="continuar2" type="button" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">I accept</button>
-                <button data-modal-hide="default-modal" type="button" class="text-gray-500 bg-white hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-blue-300 rounded-lg border border-gray-200 text-sm font-medium px-5 py-2.5 hover:text-gray-900 focus:z-10 dark:bg-gray-700 dark:text-gray-300 dark:border-gray-500 dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-gray-600">Decline</button>
+                <button id="continuar2" type="button" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Aceptar</button>
+                <button data-modal-hide="default-modal" type="button" class="text-gray-500 bg-white hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-blue-300 rounded-lg border border-gray-200 text-sm font-medium px-5 py-2.5 hover:text-gray-900 focus:z-10 dark:bg-gray-700 dark:text-gray-300 dark:border-gray-500 dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-gray-600">Cancelar</button>
             </div>
         </div>
     </div>
@@ -230,23 +229,34 @@
       const alertElement = document.getElementById("alert");
       const overlayElement = document.getElementById("overlay");
       const closeAlertButton = document.getElementById("closeAlert");
-      const botton22 = document.getElementById("botton22");
-
-
-      ///Aaa
+      const boton1 = document.getElementById("continuarButton");
+      const boton2 = document.getElementById("boton2");
       // Función para mostrar la alerta y oscurecer el fondo
       function showAlert() {
+        const storedValue = "{{request.session.valor_seleccionado}}";
+        console.log(storedValue);
+        if (storedValue === "") {
+     
+        boton1.classList.remove("hidden");
+      }else{
+        boton2.classList.remove("hidden");
+      }
         alertElement.classList.remove("hidden");
         overlayElement.classList.remove("hidden");
-        botton22.classList.remove("hidden");
         session();
       }
 
       // Función para ocultar la alerta y restaurar el fondo
       function hideAlert() {
+        const storedValue = "{{request.session.valor_seleccionado}}";
+        if (storedValue === "") {
+     
+        boton1.classList.remove("hidden");
+      }else{
+        boton2.classList.remove("hidden");
+      }
         alertElement.classList.add("hidden");
         overlayElement.classList.add("hidden");
-        botton22.classList.add("hidden");
         
       }
 
@@ -259,7 +269,16 @@
       }
       // Cerrar la alerta al hacer clic en el botón de cierre
       closeAlertButton.addEventListener("click", hideAlert);
+
+      boton1.addEventListener("click",function(){
+       sesion2();
+       location.reload();
+      
+      });
     });
+
+
+ 
 
   </script>
 
@@ -273,7 +292,6 @@
 
     // Obtener una referencia al botón "Continuar"
     const continuarButton = document.getElementById("continuarButton");
-    const continuar22 =document.getElementById("default-modal");
 
     // Función para guardar el valor en sessionStorage
 
@@ -332,7 +350,7 @@
       if (storedValue) {
         miSelect12.value = storedValue;
         valorSeleccionado.textContent = storedValue;
-        continuarButton.style.display = "block";
+        
 
         // Mostrar el nombre de la tienda en un input
         const nombreTiendaInput = document.getElementById("nombreTiendaInput");
@@ -392,7 +410,7 @@
         var csrftoken = getCookie("csrftoken");
         const selectedValue = miSelect12.value
 
-      
+             const storedValue = "{{request.session.valor_seleccionado}}"
         $.ajax({
         type: "POST",
         url: "{% url 'cambiarbodegas' %}", // Asegúrate de especificar la URL correcta
@@ -410,38 +428,13 @@
           // Manejar errores si es necesario
         }
       });
-
-      
-
-
       }
-
-     
 
       continuar2.addEventListener("click",function(){
        sesion2();
        location.reload();
-       
       
       });
-      
-
-     // Coloca esta parte fuera del evento "click" para definir storedValue
-
-   continuarButton.addEventListener("click", function () {
-  
-  guardarValorEnSesion();
-  const alertElement = document.getElementById("alert");
-  
-  
-  // Recargar la página
-  location.reload();
-});
-
-
-
-      
-
 
 
 
@@ -456,14 +449,26 @@
     });
 
     // Agregar un evento clic al botón "Continuar"
-   
+    continuarButton.addEventListener("click", function () {
+
+    guardarValorEnSesion();
+    const alertElement = document.getElementById("alert");
+    alertElement.classList.add("hidden");
+
+    // Recargar la página
+    location.reload();
+
+});
 
     // Mostrar el valor seleccionado al cargar la página si no hay un valor en sessionStorage
     mostrarValor();
 
 
     function alerta2() {
-     
+      continuarButton.document.getElementById("continuarButton")
+      continuarButton.classList.add("hidden")
+      const defaul = document.getElementById("default-modal");
+      defaul.classList.remove("hidden")
 }
 
 document.addEventListener("DOMContentLoaded", function () {
