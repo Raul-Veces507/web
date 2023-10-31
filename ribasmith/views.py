@@ -1,6 +1,7 @@
 from itertools import zip_longest
 from django.http import JsonResponse
-from django.shortcuts import render
+from django.shortcuts import redirect, render
+from Cart.views import _cart_id
 from category.models import categorias
 import requests
 from store.models import Banner, Product
@@ -47,6 +48,63 @@ def home(request):
     return render(request, 'home.html',context) 
   
   
+
+def  cambiarbodegas(request):
+   if request.method =='POST':
+   
+    session_data=dict(request.session)
+    
+    data= request.POST['selectedValue']    
+   if session_data:
+    try:       
+        endpoint = 'cambiarbodega'
+        url = f'{URL_APIS}{endpoint}'
+        cart=_cart_id(request)
+        data ={
+            "bodega":data,
+            "cart":cart,
+            "usuario":session_data['id']
+             
+           }
+        print(data)
+     
+        # Realizar una nueva solicitud a la API para obtener los detalles del producto
+        # url = f'http://192.168.88.136:3002/ecommer/rs/seccionesid/1'
+        response = requests.post(url,json=data)
+        referer = request.META.get('HTTP_REFERER')
+        if response.status_code == 200:
+           
+           return JsonResponse({'status': 'success'})
+           
+        else:
+            return redirect(referer)
+
+    except Exception as e:
+        print(e)
+        context = None
+
+   return render('store/cart.html',request) 
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 def verbodega(request):
      try:

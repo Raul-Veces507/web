@@ -25,7 +25,7 @@ urlpatterns = [
     path('' ,views.home, name="home"),
     path('verbodega/',views.verbodega, name="verbodega"),
     path('store/',include('store.urls')),
-   
+     path('cambiarbodegas/', views.cambiarbodegas , name="cambiarbodegas"),
     path('cart/',include('Cart.urls')),
     path('account/',include('Account.urls')),
 
