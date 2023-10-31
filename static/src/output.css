@@ -1929,6 +1929,10 @@ input[type="range"]:active::-webkit-slider-thumb{
   height: 2.25rem;
 }
 
+.h-96{
+  height: 24rem;
+}
+
 .h-\[0\.9375rem\]{
   height: 0.9375rem;
 }
@@ -2031,10 +2035,6 @@ input[type="range"]:active::-webkit-slider-thumb{
 
 .h-screen{
   height: 100vh;
-}
-
-.h-96{
-  height: 24rem;
 }
 
 .max-h-60{

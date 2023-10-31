@@ -139,11 +139,11 @@
 
           <!-- Modal footer (Botón "Continuar" centrado) -->
           <div class="flex justify-center items-center  mb-7 space-x-3 ">
-            <button id="continuarButton" data-modal-hide="alert" type="button"
-              class=" hidden  text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">Continuar</button>
+            <button  id="continuarButton" data-modal-hide="alert" type="button"
+              class=" text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">Continuar2</button>
             
-              <button data-modal-target="default-modal" data-modal-toggle="default-modal" class=" text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mb-2 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800" type="button">
-                Continuar
+              <button data-modal-target="default-modal" data-modal-toggle="default-modal" class="   text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mb-2 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800" type="button">
+                Continuar1
               </button>
               
             
@@ -268,6 +268,7 @@
 
     // Obtener una referencia al botón "Continuar"
     const continuarButton = document.getElementById("continuarButton");
+    const continuar22 =document.getElementById("default-modal");
 
     // Función para guardar el valor en sessionStorage
 
@@ -326,7 +327,7 @@
       if (storedValue) {
         miSelect12.value = storedValue;
         valorSeleccionado.textContent = storedValue;
-        
+        continuarButton.style.display = "block";
 
         // Mostrar el nombre de la tienda en un input
         const nombreTiendaInput = document.getElementById("nombreTiendaInput");
@@ -386,7 +387,7 @@
         var csrftoken = getCookie("csrftoken");
         const selectedValue = miSelect12.value
 
-             const storedValue = "{{request.session.valor_seleccionado}}"
+      
         $.ajax({
         type: "POST",
         url: "{% url 'cambiarbodegas' %}", // Asegúrate de especificar la URL correcta
@@ -404,13 +405,38 @@
           // Manejar errores si es necesario
         }
       });
+
+      
+
+
       }
+
+     
 
       continuar2.addEventListener("click",function(){
        sesion2();
        location.reload();
+       
       
       });
+      
+
+     // Coloca esta parte fuera del evento "click" para definir storedValue
+
+   continuarButton.addEventListener("click", function () {
+  
+  guardarValorEnSesion();
+  const alertElement = document.getElementById("alert");
+  
+  
+  // Recargar la página
+  location.reload();
+});
+
+
+
+      
+
 
 
 
@@ -425,42 +451,14 @@
     });
 
     // Agregar un evento clic al botón "Continuar"
-    continuarButton.addEventListener("click", function () {
-  // Obtener el valor del sessionStorage
-  const storedValue = "{{request.session.valor_seleccionado}}";
-
-  if (storedValue) {
-    // Si hay algo en el sessionStorage, muestra una alerta
-    const defaul= document.getElementById("default-modal")
-    defaul.classList.remove("hidden")
-    
-    
-  } else {
-    continuarButton=document.getElementById("continuarButton");
-    continuarButton.classList.remove("hidden")
-    // Si no hay nada en el sessionStorage, continúa con el procedimiento normal
-
-    // Guardar el valor en sessionStorage antes de cerrar el modal
-    guardarValorEnSesion();
-    const alertElement = document.getElementById("alert");
-    alertElement.classList.add("hidden");
-
-    // Recargar la página
-    location.reload();
-
-    // Ocultar la alerta principal
-  }
-});
+   
 
     // Mostrar el valor seleccionado al cargar la página si no hay un valor en sessionStorage
     mostrarValor();
 
 
     function alerta2() {
-      continuarButton.document.getElementById("continuarButton")
-      continuarButton.classList.add("hidden")
-      const defaul = document.getElementById("default-modal");
-      defaul.classList.remove("hidden")
+     
 }
 
 document.addEventListener("DOMContentLoaded", function () {
