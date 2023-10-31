@@ -1,6 +1,189 @@
 $(document).ready(function () {
 
 
+  $(".agregarCarritodetails").click(function () {
+
+    var cantidad = $("#cantidad").val();
+     var comentario = $("#comentario").val();
+     var item = $("#item").val();
+    var inventarioAgregado = $(this).data("product-id6");
+    var inventarioproducto = $(this).data("product-id5");
+    var csrfToken = $("input[name=csrfmiddlewaretoken]").val();
+ 
+    if (inventarioAgregado == 0) {
+
+  
+        if(inventarioproducto<=10){
+
+            modaldetalle(item)
+            obtener(item,comentario,cantidad)
+        }else{
+            var postData = {
+            comentario: comentario,
+            cantidad:cantidad,
+            item:item
+        };
+        $.ajax({
+            url: urladd,
+            method: "POST",
+            dataType: "json",
+            headers: {
+                "X-CSRFToken": csrfToken  // Agrega el token CSRF como encabezado
+            },
+            data: postData, // Envía los datos como objeto JSON
+            success: function (data) {
+
+              if(data.status=='success'){
+                var toast = document.getElementById("toast");
+                toast.style.display = "block";
+                setTimeout(function () {
+                  toast.style.display = "none";
+                }, 1500);
+                window.location.reload()
+
+              }else{
+                var elemento = document.getElementById("toasterror");
+        
+                // Asigna un nuevo texto al elemento
+                elemento.textContent = "Error Al Agregar Al Carrito";
+                elemento.style.display = "block";
+                setTimeout(function () {
+                elemento.style.display = "none";
+                }, 1500);
+                window.location.reload()
+              }
+
+
+
+
+            }
+
+        })
+        }
+
+
+    } else {
+ 
+  
+        if(inventarioAgregado>=inventarioproducto){
+            alerta()
+        }else{
+            var postData = {
+            comentario: comentario,
+            cantidad:cantidad,
+            item:item
+        };
+        $.ajax({
+            url: urladd,
+            method: "POST",
+            dataType: "json",
+            headers: {
+                "X-CSRFToken": csrfToken  // Agrega el token CSRF como encabezado
+            },
+            data: postData, // Envía los datos como objeto JSON
+            success: function (data) {
+              if(data.status=='success'){
+                var toast = document.getElementById("toast");
+                toast.style.display = "block";
+                setTimeout(function () {
+                  toast.style.display = "none";
+                }, 1500);
+                window.location.reload()
+
+              }else{
+                var elemento = document.getElementById("toasterror");
+        
+                // Asigna un nuevo texto al elemento
+                elemento.textContent = "Error Al Agregar Al Carrito";
+                elemento.style.display = "block";
+                setTimeout(function () {
+                elemento.style.display = "none";
+                }, 1500);
+                window.location.reload()
+              }
+
+
+
+
+
+            }
+
+        })
+        
+        }
+        
+
+    }
+
+})
+
+
+
+
+$(".btn-mas").click(function () {
+    const cantidad = document.getElementById("cantidad");
+    let numero = parseInt(cantidad.value) || 0; // Obtén el valor actual o 0 si no hay ninguno
+
+
+    var inventarioAgregado = $(this).data("product-id");
+    var inventarioproducto = $(this).data("product-id2");
+    var resultado=inventarioproducto-inventarioAgregado
+
+
+
+    if (inventarioAgregado == 0) {
+        if (numero < inventarioproducto) {
+            numero++;
+            cantidad.value = numero;
+        } else {
+
+            var elemento = document.getElementById("toasterror");
+
+            // Asigna un nuevo texto al elemento
+            elemento.textContent = "Limite de producto Alcanzado";
+            elemento.style.display = "block";
+            setTimeout(function () {
+                elemento.style.display = "none";
+            }, 1500);
+        }
+    } else {
+        if (inventarioAgregado >= inventarioproducto) {
+            var elemento = document.getElementById("toasterror");
+
+            // Asigna un nuevo texto al elemento
+            elemento.textContent = "Limite de producto Alcanzado";
+            elemento.style.display = "block";
+            setTimeout(function () {
+                elemento.style.display = "none";
+            }, 1500);
+
+        }
+         else if (cantidad.value>= resultado) {
+            alerta()
+     
+
+        }else{
+            numero++;
+            cantidad.value = numero;
+        }
+    }
+
+});
+
+
+
+
+function alerta(){
+
+    var elemento = document.getElementById("toasterror");
+
+// Asigna un nuevo texto al elemento
+elemento.textContent = "Limite de producto Alcanzado";
+elemento.style.display = "block";
+setTimeout(function () {
+elemento.style.display = "none";
+}, 1500);
+}
 
 
   $(".add-to-cart-button").click(function () {
@@ -91,6 +274,7 @@ $(document).ready(function () {
         },
         data: postData, // Envía los datos como objeto JSON
         success: function (data) {
+        
   
           if (data.status === "success") {
             if(inventario<=10){
@@ -349,6 +533,10 @@ $(document).ready(function () {
             resp2 += `<input id="${Marca.name}" type="radio" value="${Marca.name}" name="radiocheck" class=" radiocheck w-4 h-4 text-red-600 bg-gray-100 border-gray-300 focus:ring-red-500 dark:focus:ring-red-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">`;
             resp2 += `<label for="${Marca.name}" class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">${Marca.name}</label>`;
             resp2 += '</div>';
+            resp2 += '<input type="hidden" name="comentario" id="comentario" value="comentario">';
+            resp2 += '<input type="hidden" name="comentario" id="comentario" value="cantidad">';
+            
+            
           });
 
           resp2 += '</div>';
@@ -570,14 +758,17 @@ $(document).ready(function () {
   $(".agregarCarritoProduct").click(function () {
 
     var itemproducts = $("#itemproducts").val();
-    var productMessage = $("#message").val();
+    var productMessage = $("#comentario").val();
+    var cantidad = $("#cantidad").val();
+
     var NewselectedProduct = $("input[name='productBuscador']:checked").val();
 
     var csrfToken = $("input[name=csrfmiddlewaretoken]").val();
     var postData = {
       item: itemproducts,
       Comentario: productMessage,
-      Newproduct: NewselectedProduct
+      Newproduct: NewselectedProduct,
+      cantidad:cantidad
     };
 
     $.ajax({
@@ -589,6 +780,7 @@ $(document).ready(function () {
       },
       data: postData, // Envía los datos como objeto JSON
       success: function (data) {
+        console.log(data);
 
         if (data.status === "success") {
           fetch(cartoCartUrl)
@@ -630,8 +822,24 @@ $(document).ready(function () {
             cartCountElement.textContent = cartData.cart_count;
           }
 
-        } else {
-          alert("Error al agregar el producto al carrito");
+        } else if (data.status == 'detalleproduct') {
+          var toast = document.getElementById("toast");
+          toast.style.display = "block";
+          setTimeout(function () {
+            toast.style.display = "none";
+          }, 1500);
+          window.location.reload()
+
+        }else{
+          var elemento = document.getElementById("toasterror");
+            
+          // Asigna un nuevo texto al elemento
+          elemento.textContent = "Error No Se pudo Agregar Al Carrito";
+          elemento.style.display = "block";
+          setTimeout(function () {
+          elemento.style.display = "none";
+          }, 1500);
+
         }
       }
     })
@@ -682,7 +890,38 @@ $(document).ready(function () {
           var resultsHtml = '     <div class="flow-root">';
           resultsHtml += '       <ul role="list" class="-my-6 divide-y divide-gray-200">';
           datos.forEach(function (data) {
-            if(data.inventario>0){
+            if(data.inventario > 0){
+              resultsHtml += '         <li class="flex py-6">';
+              resultsHtml += '           <div style="    width: 120px; height: 120px;" class="h-24 w-24 flex-shrink-0 overflow-hidden rounded-md border border-gray-200">';
+              resultsHtml += ` <img src="https://riba.app/imgrs/THUMBS 500X500/${data.item}.jpg" alt="not found class="w-full h-full object-cover object-center" onerror="this.src='https://www.ribasmith.com/media/catalog/product/placeholder/default/watermark_4.png' ">`;
+              resultsHtml += '           </div>';
+              resultsHtml += '           <div class="ml-5 flex flex-1 flex-col">';
+              resultsHtml += '             <div>';
+              resultsHtml += '               <div class="flex justify-between text-base font-medium text-gray-900">';
+              resultsHtml += '                 <h3>';
+              resultsHtml += `                   <a href="#">${data.nombre.slice(0, 12)}...</a>`;
+              resultsHtml += '                 </h3>';
+              resultsHtml += `                <p class="ml-4 text-indigo-600">$ ${(Number(data.precio) * Number(data.quantity)).toFixed(2)}</p>`;
+              resultsHtml += '               </div>';
+              resultsHtml += `                 <p class="mt-2 text-sm text-gray-500">Precio ${Number(data.precio).toFixed(2)}</p>`
+  
+              resultsHtml += '             </div>';
+              resultsHtml += '  <div class="flex w-28 border border-gray-300 text-gray-600 divide-x divide-gray-300 mt-5">';
+              resultsHtml += `  <a  class="h-8 w-8 text-xl flex items-center justify-center cursor-pointer select-none restar" id="restar" data-product-id="${data.item}">-</a>`;
+              resultsHtml += `  <div class="h-8 w-10 flex items-center justify-center">${data.quantity}</div>`;
+              resultsHtml += `  <a  class="h-8 w-8 text-xl flex items-center justify-center cursor-pointer select-none sumar" id="sumar" data-product-inv=${data.inventario} data-product-cant=${data.quantity}  data-product-id="${data.item}">+</a>`;
+              resultsHtml += '  </div>';
+              resultsHtml += '             <div class="flex flex-1 items-end justify-between text-sm mt-5">';
+              resultsHtml += `               <p class="text-gray-500">Cantidad ${data.quantity}</p>`;
+              resultsHtml += '               <div class="flex">';
+              resultsHtml += `<button type="submit" id="ElimianrProducto" class="font-medium text-red-700 hover:text-red-400 ElimianrProducto" data-product-id="${data.item}">Eliminar <i class="fas fa-trash"></i></button>`
+              resultsHtml += '               </div>';
+              resultsHtml += '             </div>';
+              resultsHtml += '           </div>';
+              resultsHtml += '         </li>';
+              resultsHtml += '         <hr>';
+            }else if(data.inventario >= 0 && data.item_a_reemplazar != null)  {
+              
               resultsHtml += '         <li class="flex py-6">';
               resultsHtml += '           <div style="    width: 120px; height: 120px;" class="h-24 w-24 flex-shrink-0 overflow-hidden rounded-md border border-gray-200">';
               resultsHtml += ` <img src="https://riba.app/imgrs/THUMBS 500X500/${data.item}.jpg" alt="not found class="w-full h-full object-cover object-center" onerror="this.src='https://www.ribasmith.com/media/catalog/product/placeholder/default/watermark_4.png' ">`;
@@ -789,7 +1028,38 @@ $(document).ready(function () {
           resultsHtml += '       <ul role="list" class="-my-6 divide-y divide-gray-200">';
           datos.forEach(function (data) {
         
-            if(data.inventario>0){
+            if(data.inventario > 0){
+              resultsHtml += '         <li class="flex py-6">';
+              resultsHtml += '           <div style="    width: 120px; height: 120px;" class="h-24 w-24 flex-shrink-0 overflow-hidden rounded-md border border-gray-200">';
+              resultsHtml += ` <img src="https://riba.app/imgrs/THUMBS 500X500/${data.item}.jpg" alt="not found class="w-full h-full object-cover object-center" onerror="this.src='https://www.ribasmith.com/media/catalog/product/placeholder/default/watermark_4.png' ">`;
+              resultsHtml += '           </div>';
+              resultsHtml += '           <div class="ml-5 flex flex-1 flex-col">';
+              resultsHtml += '             <div>';
+              resultsHtml += '               <div class="flex justify-between text-base font-medium text-gray-900">';
+              resultsHtml += '                 <h3>';
+              resultsHtml += `                   <a href="#">${data.nombre.slice(0, 12)}...</a>`;
+              resultsHtml += '                 </h3>';
+              resultsHtml += `                <p class="ml-4 text-indigo-600">$ ${(Number(data.precio) * Number(data.quantity)).toFixed(2)}</p>`;
+              resultsHtml += '               </div>';
+              resultsHtml += `                 <p class="mt-2 text-sm text-gray-500">Precio ${Number(data.precio).toFixed(2)}</p>`
+  
+              resultsHtml += '             </div>';
+              resultsHtml += '  <div class="flex w-28 border border-gray-300 text-gray-600 divide-x divide-gray-300 mt-5">';
+              resultsHtml += `  <a  class="h-8 w-8 text-xl flex items-center justify-center cursor-pointer select-none restar" id="restar" data-product-id="${data.item}">-</a>`;
+              resultsHtml += `  <div class="h-8 w-10 flex items-center justify-center">${data.quantity}</div>`;
+              resultsHtml += `  <a  class="h-8 w-8 text-xl flex items-center justify-center cursor-pointer select-none sumar" id="sumar" data-product-inv=${data.inventario} data-product-cant=${data.quantity}  data-product-id="${data.item}">+</a>`;
+              resultsHtml += '  </div>';
+              resultsHtml += '             <div class="flex flex-1 items-end justify-between text-sm mt-5">';
+              resultsHtml += `               <p class="text-gray-500">Cantidad ${data.quantity}</p>`;
+              resultsHtml += '               <div class="flex">';
+              resultsHtml += `<button type="submit" id="ElimianrProducto" class="font-medium text-red-700 hover:text-red-400 ElimianrProducto" data-product-id="${data.item}">Eliminar <i class="fas fa-trash"></i></button>`
+              resultsHtml += '               </div>';
+              resultsHtml += '             </div>';
+              resultsHtml += '           </div>';
+              resultsHtml += '         </li>';
+              resultsHtml += '         <hr>';
+            }else if(data.inventario >= 0 && data.item_a_reemplazar != null)  {
+              
               resultsHtml += '         <li class="flex py-6">';
               resultsHtml += '           <div style="    width: 120px; height: 120px;" class="h-24 w-24 flex-shrink-0 overflow-hidden rounded-md border border-gray-200">';
               resultsHtml += ` <img src="https://riba.app/imgrs/THUMBS 500X500/${data.item}.jpg" alt="not found class="w-full h-full object-cover object-center" onerror="this.src='https://www.ribasmith.com/media/catalog/product/placeholder/default/watermark_4.png' ">`;
@@ -835,8 +1105,8 @@ $(document).ready(function () {
               resultsHtml += `                 <p class="mt-2 text-sm text-gray-500">Precio ${Number(data.precio).toFixed(2)}</p>`
               resultsHtml += '             </div>';
 
-              resultsHtml += '             <div class="flex flex-1 items-end justify-between text-sm mt-5">';
-              resultsHtml += `               <p class="text-red-500">Status:No Disponible</p>`;
+              resultsHtml += '             <div class="flex flex-1 items-end justify-between text-sm ">';
+              resultsHtml += `               <p class="text-red-500">No Disponible</p>`;
               resultsHtml += '               <div class="flex">';
               resultsHtml += `<button type="submit" id="ElimianrProducto" class="font-medium text-red-700 hover:text-red-400 ElimianrProducto" data-product-id="${data.item}">Eliminar <i class="fas fa-trash"></i></button>`
               resultsHtml += '               </div>';
@@ -845,6 +1115,7 @@ $(document).ready(function () {
               resultsHtml += '         </li>';
               resultsHtml += '         <hr>';
             }
+
 
           });
           resultsHtml += '       </ul>';

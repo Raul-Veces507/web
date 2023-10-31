@@ -136,6 +136,10 @@ def add_cart_comentatario(request):
          Newproduct=request.POST['Newproduct']
       else:
              Newproduct=''
+      if 'cantidad' in request.POST:
+         cantidad=request.POST['cantidad']
+      else:
+             cantidad=1
         
           
       item=request.POST['item']
@@ -150,7 +154,7 @@ def add_cart_comentatario(request):
               data ={
                "cart":cart,
                "bodega":bodega,
-                "quantity":1,
+                "quantity":cantidad,
                 "product":item,
                 "usuario":session_data['id'],
                 "Comentario":Comentario,
@@ -166,10 +170,11 @@ def add_cart_comentatario(request):
               data_from_express_api = response.json()
               referer = request.META.get('HTTP_REFERER')
 
-
               if response.status_code == 200:
-             
-                  return JsonResponse({'status': 'success', 'message': 'Producto agregado al carrito correctamente'})
+                  if referer.startswith('http://127.0.0.1:8000/store/product/'):
+                       return JsonResponse({'status': 'detalleproduct', 'message': 'Producto agregado al carrito correctamente'})
+                  else:
+                        return JsonResponse({'status': 'success', 'message': 'Producto agregado al carrito correctamente'})
               else:
                   return JsonResponse({'status': 'error', 'message': 'Error al agregar el producto al carrito'})
 
@@ -184,7 +189,7 @@ def add_cart_comentatario(request):
               cart=_cart_id(request)
               data ={
                "cart":cart,
-                "quantity":1,
+                "quantity":cantidad,
                 "bodega":bodega,
                 "product":item,
                 "Comentario":Comentario,
@@ -215,7 +220,6 @@ def add_cart_comentatario(request):
               return JsonResponse({'status': 'error', 'message': 'Error interno del servidor'})  
 
 
-
 def add_cart_detail(request):
    if request.method=='POST':
       if 'comentario' in request.POST:
@@ -241,7 +245,6 @@ def add_cart_detail(request):
                 "usuario":session_data['id'],
                 "Comentario":Comentario
                  }   
-              print(data)
               # Realizar una nueva solicitud a la API para obtener los detalles del producto
             #   url = f'http://192.168.88.136:3002/ecommer/rs/carrito'
               endpoint = 'carrito'
@@ -253,9 +256,7 @@ def add_cart_detail(request):
 
 
               if response.status_code == 200:
-                  messages.success(request,' Producto Agregado con exito')
-                  return redirect(referer)
-
+                   return JsonResponse({'status': 'success', 'message': 'Producto Agregado Con Exito'})
               else:
                   return JsonResponse({'status': 'error', 'message': 'Error al agregar el producto al carrito'})
 
@@ -381,7 +382,7 @@ def addComentario(request):
               return redirect(referer)
 
 
-def cart(request, total=Decimal("0"), quantity=0, cart_items=None, taxt=Decimal("0"), grand_total=Decimal("0"), delivery=Decimal("3.50")):
+def cart(request, total=Decimal("0"),total1=Decimal("0"),total2=Decimal("0"), quantity=0, cart_items=None, taxt=Decimal("0"), grand_total=Decimal("0"), delivery=Decimal("3.50")):
     
     session_data = dict(request.session)
     if session_data:
@@ -410,9 +411,13 @@ def cart(request, total=Decimal("0"), quantity=0, cart_items=None, taxt=Decimal(
                 cart_items = data_from_express_api['carrito']
                 for cart_item in cart_items:   
              
-                    if cart_item['inventario'] > 0:
                         Descuento = Decimal(str(cart_item['precio'])) 
-                        total += (Descuento * cart_item['quantity'])
+                        if cart_item['inventario'] >= 0 and cart_item['item_a_reemplazar'] is not None:
+                            total1 += (Descuento * cart_item['quantity'])
+                        elif cart_item['inventario'] > 0:
+                            total2 += (Descuento * cart_item['quantity'])
+                
+                total=total1+total2
                 taxt = (Decimal("2") * total) / Decimal("100")
                 grand_total = total + taxt 
             
@@ -463,7 +468,12 @@ def cart(request, total=Decimal("0"), quantity=0, cart_items=None, taxt=Decimal(
                 for cart_item in cart_items:   
                     if cart_item['inventario'] > 0:
                         Descuento = Decimal(str(cart_item['precio'])) 
-                        total += (Descuento * cart_item['quantity'])
+                        if cart_item['inventario'] >= 0 and cart_item['item_a_reemplazar'] is not None:
+                            total1 += (Descuento * cart_item['quantity'])
+                        elif cart_item['inventario'] > 0:
+                            total2 += (Descuento * cart_item['quantity'])
+                
+                total=total1+total2
                 taxt = (Decimal("2") * total) / Decimal("100")
                 grand_total = total + taxt 
             
@@ -490,7 +500,7 @@ def cart(request, total=Decimal("0"), quantity=0, cart_items=None, taxt=Decimal(
 
 
 
-def viewfiltcart(request, total=Decimal("0"), quantity=0, cart_items=None, taxt=Decimal("0"), grand_total=Decimal("0"), delivery=Decimal("3.50")):
+def viewfiltcart(request, total=Decimal("0"),total1=Decimal("0"),total2=Decimal("0"), quantity=0, cart_items=None, taxt=Decimal("0"), grand_total=Decimal("0"), delivery=Decimal("3.50")):
 
     session_data = dict(request.session)
     if session_data:
@@ -514,10 +524,15 @@ def viewfiltcart(request, total=Decimal("0"), quantity=0, cart_items=None, taxt=
             if response.status_code == 200:
                 data_from_express_api = response.json()
                 cart_items = data_from_express_api['carrito']
-                for cart_item in cart_items:   
-                     if cart_item['inventario'] > 0:
-                        Descuento = Decimal(str(cart_item['precio'])) 
-                        total += (Descuento * cart_item['quantity'])
+                for cart_item in cart_items:  
+            
+                     Descuento = Decimal(str(cart_item['precio'])) 
+                     if cart_item['inventario'] >= 0 and cart_item['item_a_reemplazar'] is not None:
+                         total1 += (Descuento * cart_item['quantity'])
+                     elif cart_item['inventario'] > 0:
+                         total2 += (Descuento * cart_item['quantity'])
+                
+                total=total1+total2
                 taxt = (Decimal("2") * total) / Decimal("100")
                 grand_total = total + taxt 
             
@@ -569,9 +584,13 @@ def viewfiltcart(request, total=Decimal("0"), quantity=0, cart_items=None, taxt=
                 data_from_express_api = response.json()
                 cart_items = data_from_express_api['carrito']
                 for cart_item in cart_items:   
-                     if cart_item['inventario'] > 0:
                         Descuento = Decimal(str(cart_item['precio'])) 
-                        total += (Descuento * cart_item['quantity'])
+                        if cart_item['inventario'] >= 0 and cart_item['item_a_reemplazar'] is not None:
+                            total1 += (Descuento * cart_item['quantity'])
+                        elif cart_item['inventario'] > 0:
+                            total2 += (Descuento * cart_item['quantity'])
+                
+                total=total1+total2
                 taxt = (Decimal("2") * total) / Decimal("100")
                 grand_total = total + taxt 
             
@@ -1093,6 +1112,7 @@ def ValidarCarrito(request):
            
               data_from_express_api = response.json()
               referer = request.META.get('HTTP_REFERER')
+     
               if response.status_code == 200:
                   return JsonResponse({'status': 'success'})
               elif response.status_code == 201:
@@ -1102,6 +1122,7 @@ def ValidarCarrito(request):
 
 
             except Exception as e:
+            
             
               context = None
               return JsonResponse({'status': 'error', 'message': 'Error interno del servidor'})

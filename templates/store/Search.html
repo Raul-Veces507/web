@@ -547,7 +547,8 @@
                 <!-- product content end -->
                 <!-- product button -->
              
-          
+                <form method="post">
+                    {% csrf_token %}
                     <div
                         class="text-center mt-1 absolute lg:static left-4 top-16 w-72 lg:w-full lg:block sidebar hidden">
                          <button type="button"  class="text-white bg-yellow-300 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300
@@ -557,7 +558,9 @@
                             <i class="fa fa-cart-arrow-down"></i>
                         </button>
                     </div>
-             
+                </form>
+                <form method="post">
+                    {% csrf_token %}
              
                     <div class="text-center mt-1 lg:hidden block">
                          <button type="button"  t class="text-white bg-yellow-300 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300
@@ -567,6 +570,7 @@
                             <i class="fa fa-cart-arrow-down"></i>
                         </button>
                     </div>
+                </form>
                 
                 <div class="mt-10">
 

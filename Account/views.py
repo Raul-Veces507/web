@@ -113,12 +113,19 @@ def login(request):
         if request.method== 'POST':
             email=request.POST['email']
             password=request.POST['password']
+            session_data = dict(request.session)
             cart=_cart_id(request)
+
+            if "valor_seleccionado" in session_data:
+                bodega = session_data['valor_seleccionado']
+            else:
+                 bodega=114100500
             try:
               data ={
                "email":email,
                 "password":password,
-                "cart":cart
+                "cart":cart,
+                "bodega":bodega
 
                  }   
               # Realizar una nueva solicitud a la API para obtener los detalles del producto

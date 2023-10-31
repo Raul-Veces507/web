@@ -141,7 +141,8 @@ def product_detail(request,product):
                           'Agregado':data_from_express_api['Agregado'],
                           'departamento':data_from_express_api['departamento'],
                          'lista':existingCart,
-                         'contador_nulos':contador_nulos
+                         'contador_nulos':contador_nulos,
+                         'quantityinv':data_from_express_api['Cartitem']
                            }
 
             
@@ -151,14 +152,16 @@ def product_detail(request,product):
                          'productos':data_from_express_api['productos'][0],
                          'Agregado':data_from_express_api['Agregado'],
                          'departamento':data_from_express_api['departamento'],
-                         'lista':[]
+                         'lista':[],
+                          'quantityinv':data_from_express_api['Cartitem']
                       }
             else:
                 context={
                'productos':data_from_express_api['productos'][0],
                'Agregado':data_from_express_api['Agregado'],
                'departamento':data_from_express_api['departamento'],
-               'list':[]
+               'list':[],
+                'quantityinv':data_from_express_api['Cartitem']
                
                 }
                 

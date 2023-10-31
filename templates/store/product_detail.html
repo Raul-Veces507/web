@@ -86,7 +86,7 @@
             <!-- fin de estrellas -->
             <p class="ml-5">Sku: {{productos.sku}} </p>
         </div>
-              
+
 
         <div class="container2">
             <ul class="grid w-full gap-6 md:grid-cols-2">
@@ -108,7 +108,8 @@
                             {% if productos.flagoferta == 1 %}
 
                             <p style="font-size: 20px;"
-                                class="text-base  font-medium text-gray-500 line-through dark:text-gray-300">${{productos.precioRegular|floatformat:2 }} </p>
+                                class="text-base  font-medium text-gray-500 line-through dark:text-gray-300">
+                                ${{productos.precioRegular|floatformat:2 }} </p>
                             <p style="font-size: 30px;" class="ml-2 text-lg font-semibold text-red-500 dark:text-white">
                                 ${{productos.precio|floatformat:2}} </p>
                             {% else %}
@@ -125,132 +126,133 @@
                                 class=" font-medium text-red-500  dark:text-gray-300">
                                 Out of Stock</span>
                                 {% else %}
-                                <span class=" font-medium text-green-500  dark:text-gray-300">{{productos.Cantidadinv}}</span>
+                                <span
+                                    class=" font-medium text-green-500  dark:text-gray-300">{{productos.Cantidadinv}}</span>
                                 {% endif %}
                         </div>
 
                         <div class="mt-5">
                             <span>{{ productos.Detalle }}</span>
                         </div>
-                        {% if productos.inventarios <= 0 %} <h5 class=" mt-5 text-center text-red-500"> Producto fuera
-                            de
-                            stock </h5>
-                            {% else %}
 
-                            <div class="mt-5 flex">
-                                <form action="{% url 'add_cart_detail'  %}" method="POST">
-                                    {% csrf_token %}
-                                    <div class="mt-3">
+                        <div class="mt-5 flex">
+                            <form>
+                                {% csrf_token %}
+                                <div class="mt-3">
 
-                                        {% if Agregado == 'No' %}
-                                        <textarea id="comentario" name="comentario" rows="4"
-                                            class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                                            placeholder="Comentario para la orden"></textarea>
-                                            <div class="mt-5">
-                                                <button type="button" class="btn-menos" id="rest">-</button>
-                                                <input class="selector-input ml-2 text-center" type="number" name="cantidad"
-                                                    id="cantidad" value="1" readonly>
-                                                <button type="button" class="btn-mas ml-2" id="masbtn">+</button>
-                                                <input type="hidden" name="item" id="item" value="{{productos.item}}">
-                                                <input type="hidden" name="item2" id="item2" value="{{productos.item}}">
-                                        {% else  %}
+                                    {% if Agregado == 'No' %}
+                                    <textarea id="comentario" name="comentario" rows="4"
+                                        class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                        placeholder="Comentario para la orden"></textarea>
+                                    <div class="mt-5">
                                         <button type="button" class="btn-menos" id="rest">-</button>
                                         <input class="selector-input ml-2 text-center" type="number" name="cantidad"
                                             id="cantidad" value="1" readonly>
-                                        <button type="button" class="btn-mas ml-2" id="masbtn">+</button>
+                                        <button type="button" class="btn-mas ml-2" id="masbtn"
+                                            data-product-id2="{{productos.Catindadinv}}"
+                                            data-product-id="{{quantityinv}}">+</button>
+                                        <input type="hidden" name="item" id="item" value="{{productos.item}}">
+                                        <input type="hidden" name="item2" id="item2" value="{{productos.item}}">
+                                        {% else %}
+                                        <button type="button" class="btn-menos" id="rest">-</button>
+                                        <input class="selector-input ml-2 text-center" type="number" name="cantidad"
+                                            id="cantidad" value="1" readonly>
+                                        <button type="button" class="btn-mas ml-2" id="masbtn"
+                                            data-product-id2="{{productos.Catindadinv}}"
+                                            data-product-id="{{quantityinv}}">+</button>
                                         <input type="hidden" name="item" id="item" value="{{productos.item}}">
                                         <input type="hidden" name="item2" id="item2" value="{{productos.item}}">
                                         {% endif %}
 
-                                            </div>
-
-
                                     </div>
 
 
-                                    <div class="mt-5">
-
-                                        <button type="submit"
-                                            class=" agregarCarritodetails  ml-2 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">
-                                            Agregar al carrito
-                                        </button>
-                                      
+                                </div>
 
 
-                                            <a data-modal-target="authentication-modal"
-                                            data-modal-toggle="authentication-modal" class="text-gray-900 bg-white border border-gray-300 focus:outline-none hover:bg-gray-100 focus:ring-4
+                                <div class="mt-5">
+
+                                    <button type="button"
+                                        class=" agregarCarritodetails  ml-2 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800"
+                                        data-product-id5="{{productos.Catindadinv}}" data-product-id6="{{quantityinv}}">
+                                        Agregar al carrito
+                                    </button>
+
+
+
+                                    <a data-modal-target="authentication-modal" data-modal-toggle="authentication-modal"
+                                        class="text-gray-900 bg-white border border-gray-300 focus:outline-none hover:bg-gray-100 focus:ring-4
                                              focus:ring-gray-200 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-gray-800 dark:text-white dark:border-gray-600
-                                              dark:hover:bg-gray-700 dark:hover:border-gray-600 dark:focus:ring-gray-700">  <i
-                                              class="far fa-heart"></i> Agregar a lista</a>
-    
-                                    </div>
+                                              dark:hover:bg-gray-700 dark:hover:border-gray-600 dark:focus:ring-gray-700">
+                                        <i class="far fa-heart"></i> Agregar a lista</a>
 
-                                </form>
+                                </div>
 
-                            </div>
-                            {% endif %}
+                            </form>
 
-                            {% if request.session.Usuario %}
-
-                            <div class="mt-9">
+                        </div>
 
 
+                        {% if request.session.Usuario %}
+
+                        <div class="mt-9">
 
 
-                            </div>
-                            {% endif %}
-                            <div class="mt-5">
-
-                                <ul class="space-y-4 text-left text-gray-500 dark:text-gray-400">
-                                    <li class="flex items-center space-x-3">
-                                        <svg class="flex-shrink-0 w-3.5 h-3.5 text-green-500 dark:text-green-400"
-                                            aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none"
-                                            viewBox="0 0 16 12">
-                                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
-                                                stroke-width="2" d="M1 5.917 5.724 10.5 15 1.5" />
-                                        </svg>
-                                        <span>Type: Organic</span>
-                                    </li>
-                                    <li class="flex items-center space-x-3">
-                                        <svg class="flex-shrink-0 w-3.5 h-3.5 text-green-500 dark:text-green-400"
-                                            aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none"
-                                            viewBox="0 0 16 12">
-                                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
-                                                stroke-width="2" d="M1 5.917 5.724 10.5 15 1.5" />
-                                        </svg>
-                                        <span>MFG: Jun 4.2021</span>
-                                    </li>
-                                    <li class="flex items-center space-x-3">
-                                        <svg class="flex-shrink-0 w-3.5 h-3.5 text-green-500 dark:text-green-400"
-                                            aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none"
-                                            viewBox="0 0 16 12">
-                                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
-                                                stroke-width="2" d="M1 5.917 5.724 10.5 15 1.5" />
-                                        </svg>
-                                        <span>LIFE: 30 days</span>
-                                    </li>
-
-                                </ul>
 
 
-                            </div>
-                            <div class="mt-10">
-                                <hr>
-                            </div>
+                        </div>
+                        {% endif %}
+                        <div class="mt-5">
+
+                            <ul class="space-y-4 text-left text-gray-500 dark:text-gray-400">
+                                <li class="flex items-center space-x-3">
+                                    <svg class="flex-shrink-0 w-3.5 h-3.5 text-green-500 dark:text-green-400"
+                                        aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none"
+                                        viewBox="0 0 16 12">
+                                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                                            stroke-width="2" d="M1 5.917 5.724 10.5 15 1.5" />
+                                    </svg>
+                                    <span>Type: Organic</span>
+                                </li>
+                                <li class="flex items-center space-x-3">
+                                    <svg class="flex-shrink-0 w-3.5 h-3.5 text-green-500 dark:text-green-400"
+                                        aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none"
+                                        viewBox="0 0 16 12">
+                                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                                            stroke-width="2" d="M1 5.917 5.724 10.5 15 1.5" />
+                                    </svg>
+                                    <span>MFG: Jun 4.2021</span>
+                                </li>
+                                <li class="flex items-center space-x-3">
+                                    <svg class="flex-shrink-0 w-3.5 h-3.5 text-green-500 dark:text-green-400"
+                                        aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none"
+                                        viewBox="0 0 16 12">
+                                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                                            stroke-width="2" d="M1 5.917 5.724 10.5 15 1.5" />
+                                    </svg>
+                                    <span>LIFE: 30 days</span>
+                                </li>
+
+                            </ul>
 
 
-                            <div class="mt-5">
+                        </div>
+                        <div class="mt-10">
+                            <hr>
+                        </div>
 
 
-                                <p class="text-base  font-medium text-gray-500  dark:text-gray-300">Categoria: <a
-                                     href="{% url 'products_by_category' departamento %}?categoria={{productos.categoriaid}}"
-                                     
-                                        class="ml-1 text-sm font-medium text-gray-700 hover:text-blue-600 md:ml-2 dark:text-gray-400 dark:hover:text-white">
-
-                                        {{productos.categoria}} </a> </p>
+                        <div class="mt-5">
 
 
-                            </div>
+                            <p class="text-base  font-medium text-gray-500  dark:text-gray-300">Categoria: <a
+                                    href="{% url 'products_by_category' departamento %}?categoria={{productos.categoriaid}}"
+                                    class="ml-1 text-sm font-medium text-gray-700 hover:text-blue-600 md:ml-2 dark:text-gray-400 dark:hover:text-white">
+
+                                    {{productos.categoria}} </a> </p>
+
+
+                        </div>
 
 
 
@@ -266,11 +268,11 @@
 
                 </div>
                 <div class="w-96">
-             
+
                 </div>
             </div>
 
-   
+
 
 
 
@@ -340,7 +342,7 @@
                                 required>
                                 <option selected></option>
                                 {% for item in lista %}
-                                {% if item.item_producto == None  %}
+                                {% if item.item_producto == None %}
 
                                 <option value="{{item.id}}">{{item.Detalle}}</option>
                                 {% endif %}
@@ -393,27 +395,9 @@
 
 {% endif %}
 
-<script>//funcion de product_detail 
 
-    //contador
-    let numero = 0;
-    masbtn.onclick = () => {
-        numero++;
-        cantidad.value = numero;
-    }
-
-    rest.onclick = () => {
-
-        if (numero < 2) {
-
-        } else {
-            numero--;
-            cantidad.value = numero;
-        }
-
-
-    }
+<script>
+     var urladd="{% url 'add_cart_detail' %}"
+     
 </script>
-
-
 {% endblock %}
