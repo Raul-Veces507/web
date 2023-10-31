@@ -33,8 +33,8 @@ def counter(request, total=Decimal("0"), quantity=0, cart_items=None, taxt=Decim
                 cart_items = data_from_express_api['carrito']
             
                 for cart_item in cart_items:
- 
-                    cart_count += cart_item['quantity']
+                    if cart_item['inventario'] > 0: 
+                       cart_count += cart_item['quantity']
 
                 context = {
 
@@ -78,34 +78,15 @@ def counter(request, total=Decimal("0"), quantity=0, cart_items=None, taxt=Decim
                 data_from_express_api = response.json()
                 cart_items = data_from_express_api['carrito']
                 
-                array=[]
+            
                 for cart_item in cart_items:
-                    precio = Decimal(str(cart_item['precio']))  # Convierte a Decimal
-                    Descuento = Decimal(str(cart_item['precio'])) 
-                
-                    totaldes=precio-(Descuento * precio)
-                    total += (totaldes * cart_item['quantity'])
-                    cart_count += cart_item['quantity']
-                    data={
-                        'nombre':cart_item['nombre'],
-                        'precio': precio-(Descuento * precio) ,
-                        'quantity':cart_item['quantity'],
-                        'item':cart_item['item'],
-                        'total':cart_item['total']
-                       
-                    }
-                    array.append(data)
-    
-                taxt = (Decimal("2") * total) / Decimal("100")
-                grand_total = total + taxt + delivery
+                    if cart_item['inventario'] > 0: 
+                       cart_count += cart_item['quantity']
             
                 context = {
-                    'total': total,
-                    'quantity': quantity,
-                    'cart_items': array,
+
                     'cantidad':cart_count,
-                    'taxt': taxt.quantize(Decimal("0.00")),
-                    'grand_total': grand_total.quantize(Decimal("0.00"))
+   
                 }
             else:
                     context = {

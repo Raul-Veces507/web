@@ -409,8 +409,10 @@ def cart(request, total=Decimal("0"), quantity=0, cart_items=None, taxt=Decimal(
                 data_from_express_api = response.json()
                 cart_items = data_from_express_api['carrito']
                 for cart_item in cart_items:   
-                    Descuento = Decimal(str(cart_item['precio'])) 
-                    total += (Descuento * cart_item['quantity'])
+             
+                    if cart_item['inventario'] > 0:
+                        Descuento = Decimal(str(cart_item['precio'])) 
+                        total += (Descuento * cart_item['quantity'])
                 taxt = (Decimal("2") * total) / Decimal("100")
                 grand_total = total + taxt 
             
@@ -459,8 +461,9 @@ def cart(request, total=Decimal("0"), quantity=0, cart_items=None, taxt=Decimal(
                 data_from_express_api = response.json()
                 cart_items = data_from_express_api['carrito']
                 for cart_item in cart_items:   
-                    Descuento = Decimal(str(cart_item['precio'])) 
-                    total += (Descuento * cart_item['quantity'])
+                    if cart_item['inventario'] > 0:
+                        Descuento = Decimal(str(cart_item['precio'])) 
+                        total += (Descuento * cart_item['quantity'])
                 taxt = (Decimal("2") * total) / Decimal("100")
                 grand_total = total + taxt 
             
@@ -485,29 +488,6 @@ def cart(request, total=Decimal("0"), quantity=0, cart_items=None, taxt=Decimal(
             context = None
             return render(request, 'store/cart.html',context)
 
-
-    
-    # try:
-    #     cart=Cart.objects.get(cart_id=_cart_id(request))
-    #     cart_items=CartItem.objects.filter(cart=cart,is_active=True)
-    #     for cart_item in cart_items:
-    #         total +=(cart_item.product.precio*cart_item.quantity)
-    #         quantity +=cart_item.quantity
-
-    #     taxt = (Decimal("2") * total) / Decimal("100")
-    #     grand_total = total + taxt + delivery
-    # except ObjectDoesNotExist :
-    #     pass
-  
-    # context={
-    #     'total':total,
-    #     'quantity':quantity,
-    #     'cart_items':cart_items,
-    #     'taxt':taxt.quantize(Decimal("0.00")),
-    #     'grand_total':grand_total.quantize(Decimal("0.00"))
-
-    # }
-    # return render(request, 'store/cart.html',context)
 
 
 def viewfiltcart(request, total=Decimal("0"), quantity=0, cart_items=None, taxt=Decimal("0"), grand_total=Decimal("0"), delivery=Decimal("3.50")):
@@ -535,8 +515,9 @@ def viewfiltcart(request, total=Decimal("0"), quantity=0, cart_items=None, taxt=
                 data_from_express_api = response.json()
                 cart_items = data_from_express_api['carrito']
                 for cart_item in cart_items:   
-                    Descuento = Decimal(str(cart_item['precio'])) 
-                    total += (Descuento * cart_item['quantity'])
+                     if cart_item['inventario'] > 0:
+                        Descuento = Decimal(str(cart_item['precio'])) 
+                        total += (Descuento * cart_item['quantity'])
                 taxt = (Decimal("2") * total) / Decimal("100")
                 grand_total = total + taxt 
             
@@ -588,8 +569,9 @@ def viewfiltcart(request, total=Decimal("0"), quantity=0, cart_items=None, taxt=
                 data_from_express_api = response.json()
                 cart_items = data_from_express_api['carrito']
                 for cart_item in cart_items:   
-                    Descuento = Decimal(str(cart_item['precio'])) 
-                    total += (Descuento * cart_item['quantity'])
+                     if cart_item['inventario'] > 0:
+                        Descuento = Decimal(str(cart_item['precio'])) 
+                        total += (Descuento * cart_item['quantity'])
                 taxt = (Decimal("2") * total) / Decimal("100")
                 grand_total = total + taxt 
             

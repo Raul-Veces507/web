@@ -682,37 +682,62 @@ $(document).ready(function () {
           var resultsHtml = '     <div class="flow-root">';
           resultsHtml += '       <ul role="list" class="-my-6 divide-y divide-gray-200">';
           datos.forEach(function (data) {
-            resultsHtml += '         <li class="flex py-6">';
-            resultsHtml += '           <div style="    width: 120px; height: 120px;" class="h-24 w-24 flex-shrink-0 overflow-hidden rounded-md border border-gray-200">';
-            resultsHtml += ` <img src="https://riba.app/imgrs/THUMBS 500X500/${data.item}.jpg" alt="not found class="w-full h-full object-cover object-center" onerror="this.src='https://www.ribasmith.com/media/catalog/product/placeholder/default/watermark_4.png' ">`;
-            resultsHtml += '           </div>';
-            resultsHtml += '           <div class="ml-5 flex flex-1 flex-col">';
-            resultsHtml += '             <div>';
-            resultsHtml += '               <div class="flex justify-between text-base font-medium text-gray-900">';
-            resultsHtml += '                 <h3>';
-            resultsHtml += `                   <a href="#">${data.nombre.slice(0, 12)}...</a>`;
-            resultsHtml += '                 </h3>';
-            resultsHtml += `                <p class="ml-4 text-indigo-600">$ ${(Number(data.precio) * Number(data.quantity)).toFixed(2)}</p>`;
-            resultsHtml += '               </div>';
+            if(data.inventario>0){
+              resultsHtml += '         <li class="flex py-6">';
+              resultsHtml += '           <div style="    width: 120px; height: 120px;" class="h-24 w-24 flex-shrink-0 overflow-hidden rounded-md border border-gray-200">';
+              resultsHtml += ` <img src="https://riba.app/imgrs/THUMBS 500X500/${data.item}.jpg" alt="not found class="w-full h-full object-cover object-center" onerror="this.src='https://www.ribasmith.com/media/catalog/product/placeholder/default/watermark_4.png' ">`;
+              resultsHtml += '           </div>';
+              resultsHtml += '           <div class="ml-5 flex flex-1 flex-col">';
+              resultsHtml += '             <div>';
+              resultsHtml += '               <div class="flex justify-between text-base font-medium text-gray-900">';
+              resultsHtml += '                 <h3>';
+              resultsHtml += `                   <a href="#">${data.nombre.slice(0, 12)}...</a>`;
+              resultsHtml += '                 </h3>';
+              resultsHtml += `                <p class="ml-4 text-indigo-600">$ ${(Number(data.precio) * Number(data.quantity)).toFixed(2)}</p>`;
+              resultsHtml += '               </div>';
+              resultsHtml += `                 <p class="mt-2 text-sm text-gray-500">Precio ${Number(data.precio).toFixed(2)}</p>`
+  
+              resultsHtml += '             </div>';
+              resultsHtml += '  <div class="flex w-28 border border-gray-300 text-gray-600 divide-x divide-gray-300 mt-5">';
+              resultsHtml += `  <a  class="h-8 w-8 text-xl flex items-center justify-center cursor-pointer select-none restar" id="restar" data-product-id="${data.item}">-</a>`;
+              resultsHtml += `  <div class="h-8 w-10 flex items-center justify-center">${data.quantity}</div>`;
+              resultsHtml += `  <a  class="h-8 w-8 text-xl flex items-center justify-center cursor-pointer select-none sumar" id="sumar" data-product-inv=${data.inventario} data-product-cant=${data.quantity}  data-product-id="${data.item}">+</a>`;
+              resultsHtml += '  </div>';
+              resultsHtml += '             <div class="flex flex-1 items-end justify-between text-sm mt-5">';
+              resultsHtml += `               <p class="text-gray-500">Cantidad ${data.quantity}</p>`;
+              resultsHtml += '               <div class="flex">';
+              resultsHtml += `<button type="submit" id="ElimianrProducto" class="font-medium text-red-700 hover:text-red-400 ElimianrProducto" data-product-id="${data.item}">Eliminar <i class="fas fa-trash"></i></button>`
+              resultsHtml += '               </div>';
+              resultsHtml += '             </div>';
+              resultsHtml += '           </div>';
+              resultsHtml += '         </li>';
+              resultsHtml += '         <hr>';
+            }else{
+              resultsHtml += '         <li class="flex py-6" style="opacity: 0.5;">';
+              resultsHtml += '           <div style="    width: 120px; height: 120px;" class="h-24 w-24 flex-shrink-0 overflow-hidden rounded-md border border-gray-200">';
+              resultsHtml += ` <img src="https://riba.app/imgrs/THUMBS 500X500/${data.item}.jpg" alt="not found class="w-full h-full object-cover object-center" onerror="this.src='https://www.ribasmith.com/media/catalog/product/placeholder/default/watermark_4.png' ">`;
+              resultsHtml += '           </div>';
+              resultsHtml += '           <div class="ml-5 flex flex-1 flex-col">';
+              resultsHtml += '             <div>';
+              resultsHtml += '               <div class="flex justify-between text-base font-medium text-gray-900">';
+              resultsHtml += '                 <h3>';
+              resultsHtml += `                   <a href="#">${data.nombre.slice(0, 12)}...</a>`;
+              resultsHtml += '                 </h3>';
+              resultsHtml += `                <p class="ml-4 text-indigo-600">$ ${(Number(data.precio) * Number(data.quantity)).toFixed(2)}</p>`;
+              resultsHtml += '               </div>';
+              resultsHtml += `                 <p class="mt-2 text-sm text-gray-500">Precio ${Number(data.precio).toFixed(2)}</p>`
+              resultsHtml += '             </div>';
 
-            resultsHtml += `                 <p class="mt-2 text-sm text-gray-500">Precio ${Number(data.precio).toFixed(2)}</p>`
-
-
-            resultsHtml += '             </div>';
-            resultsHtml += '  <div class="flex w-28 border border-gray-300 text-gray-600 divide-x divide-gray-300 mt-5">';
-            resultsHtml += `  <a  class="h-8 w-8 text-xl flex items-center justify-center cursor-pointer select-none restar" id="restar" data-product-id="${data.item}">-</a>`;
-            resultsHtml += `  <div class="h-8 w-10 flex items-center justify-center">${data.quantity}</div>`;
-            resultsHtml += `  <a  class="h-8 w-8 text-xl flex items-center justify-center cursor-pointer select-none sumar" id="sumar" data-product-inv=${data.inventario} data-product-cant=${data.quantity}  data-product-id="${data.item}">+</a>`;
-            resultsHtml += '  </div>';
-            resultsHtml += '             <div class="flex flex-1 items-end justify-between text-sm mt-5">';
-            resultsHtml += `               <p class="text-gray-500">Cantidad ${data.quantity}</p>`;
-            resultsHtml += '               <div class="flex">';
-            resultsHtml += `<button type="submit" id="ElimianrProducto" class="font-medium text-red-700 hover:text-red-400 ElimianrProducto" data-product-id="${data.item}">Eliminar <i class="fas fa-trash"></i></button>`
-            resultsHtml += '               </div>';
-            resultsHtml += '             </div>';
-            resultsHtml += '           </div>';
-            resultsHtml += '         </li>';
-            resultsHtml += '         <hr>';
+              resultsHtml += '             <div class="flex flex-1 items-end justify-between text-sm ">';
+              resultsHtml += `               <p class="text-red-500">No Disponible</p>`;
+              resultsHtml += '               <div class="flex">';
+              resultsHtml += `<button type="submit" id="ElimianrProducto" class="font-medium text-red-700 hover:text-red-400 ElimianrProducto" data-product-id="${data.item}">Eliminar <i class="fas fa-trash"></i></button>`
+              resultsHtml += '               </div>';
+              resultsHtml += '             </div>';
+              resultsHtml += '           </div>';
+              resultsHtml += '         </li>';
+              resultsHtml += '         <hr>';
+            }
 
           });
           resultsHtml += '       </ul>';
@@ -763,35 +788,64 @@ $(document).ready(function () {
           var resultsHtml = '     <div class="flow-root">';
           resultsHtml += '       <ul role="list" class="-my-6 divide-y divide-gray-200">';
           datos.forEach(function (data) {
-            resultsHtml += '         <li class="flex py-6">';
-            resultsHtml += '           <div style="    width: 120px; height: 120px;" class="h-24 w-24 flex-shrink-0 overflow-hidden rounded-md border border-gray-200">';
-            resultsHtml += ` <img src="https://riba.app/imgrs/THUMBS 500X500/${data.item}.jpg" alt="not found class="w-full h-full object-cover object-center" onerror="this.src='https://www.ribasmith.com/media/catalog/product/placeholder/default/watermark_4.png' ">`;
-            resultsHtml += '           </div>';
-            resultsHtml += '           <div class="ml-5 flex flex-1 flex-col">';
-            resultsHtml += '             <div>';
-            resultsHtml += '               <div class="flex justify-between text-base font-medium text-gray-900">';
-            resultsHtml += '                 <h3>';
-            resultsHtml += `                   <a href="#">${data.nombre.slice(0, 12)}...</a>`;
-            resultsHtml += '                 </h3>';
-            resultsHtml += `                <p class="ml-4 text-indigo-600">$ ${Number(data.precio) * Number(data.quantity)}</p>`;
-            resultsHtml += '               </div>';
-            resultsHtml += `                 <p class="mt-2 text-sm text-gray-500">Precio ${Number(data.precio).toFixed(2)}</p>`
+        
+            if(data.inventario>0){
+              resultsHtml += '         <li class="flex py-6">';
+              resultsHtml += '           <div style="    width: 120px; height: 120px;" class="h-24 w-24 flex-shrink-0 overflow-hidden rounded-md border border-gray-200">';
+              resultsHtml += ` <img src="https://riba.app/imgrs/THUMBS 500X500/${data.item}.jpg" alt="not found class="w-full h-full object-cover object-center" onerror="this.src='https://www.ribasmith.com/media/catalog/product/placeholder/default/watermark_4.png' ">`;
+              resultsHtml += '           </div>';
+              resultsHtml += '           <div class="ml-5 flex flex-1 flex-col">';
+              resultsHtml += '             <div>';
+              resultsHtml += '               <div class="flex justify-between text-base font-medium text-gray-900">';
+              resultsHtml += '                 <h3>';
+              resultsHtml += `                   <a href="#">${data.nombre.slice(0, 12)}...</a>`;
+              resultsHtml += '                 </h3>';
+              resultsHtml += `                <p class="ml-4 text-indigo-600">$ ${(Number(data.precio) * Number(data.quantity)).toFixed(2)}</p>`;
+              resultsHtml += '               </div>';
+              resultsHtml += `                 <p class="mt-2 text-sm text-gray-500">Precio ${Number(data.precio).toFixed(2)}</p>`
+  
+              resultsHtml += '             </div>';
+              resultsHtml += '  <div class="flex w-28 border border-gray-300 text-gray-600 divide-x divide-gray-300 mt-5">';
+              resultsHtml += `  <a  class="h-8 w-8 text-xl flex items-center justify-center cursor-pointer select-none restar" id="restar" data-product-id="${data.item}">-</a>`;
+              resultsHtml += `  <div class="h-8 w-10 flex items-center justify-center">${data.quantity}</div>`;
+              resultsHtml += `  <a  class="h-8 w-8 text-xl flex items-center justify-center cursor-pointer select-none sumar" id="sumar" data-product-inv=${data.inventario} data-product-cant=${data.quantity}  data-product-id="${data.item}">+</a>`;
+              resultsHtml += '  </div>';
+              resultsHtml += '             <div class="flex flex-1 items-end justify-between text-sm mt-5">';
+              resultsHtml += `               <p class="text-gray-500">Cantidad ${data.quantity}</p>`;
+              resultsHtml += '               <div class="flex">';
+              resultsHtml += `<button type="submit" id="ElimianrProducto" class="font-medium text-red-700 hover:text-red-400 ElimianrProducto" data-product-id="${data.item}">Eliminar <i class="fas fa-trash"></i></button>`
+              resultsHtml += '               </div>';
+              resultsHtml += '             </div>';
+              resultsHtml += '           </div>';
+              resultsHtml += '         </li>';
+              resultsHtml += '         <hr>';
+            }else{
+              resultsHtml += '         <li class="flex py-6" style="opacity: 0.5;">';
+              resultsHtml += '           <div style="    width: 120px; height: 120px;" class="h-24 w-24 flex-shrink-0 overflow-hidden rounded-md border border-gray-200">';
+              resultsHtml += ` <img src="https://riba.app/imgrs/THUMBS 500X500/${data.item}.jpg" alt="not found class="w-full h-full object-cover object-center" onerror="this.src='https://www.ribasmith.com/media/catalog/product/placeholder/default/watermark_4.png' ">`;
+              resultsHtml += '           </div>';
+              resultsHtml += '           <div class="ml-5 flex flex-1 flex-col">';
+              resultsHtml += '             <div>';
+              resultsHtml += '               <div class="flex justify-between text-base font-medium text-gray-900">';
+              resultsHtml += '                 <h3>';
+              resultsHtml += `                   <a href="#">${data.nombre.slice(0, 12)}...</a>`;
+              resultsHtml += '                 </h3>';
+              resultsHtml += `                <p class="ml-4 text-indigo-600">$ ${(Number(data.precio) * Number(data.quantity)).toFixed(2)}</p>`;
+              resultsHtml += '               </div>';
+              resultsHtml += `                 <p class="mt-2 text-sm text-gray-500">Precio ${Number(data.precio).toFixed(2)}</p>`
+              resultsHtml += '             </div>';
 
-            resultsHtml += '             </div>';
-            resultsHtml += '  <div class="flex w-28 border border-gray-300 text-gray-600 divide-x divide-gray-300 mt-5">';
-            resultsHtml += `  <a  class="h-8 w-8 text-xl flex items-center justify-center cursor-pointer select-none restar" id="restar" data-product-id="${data.item}">-</a>`;
-            resultsHtml += `  <div class="h-8 w-10 flex items-center justify-center">${data.quantity}</div>`;
-            resultsHtml += `  <a  class="h-8 w-8 text-xl flex items-center justify-center cursor-pointer select-none sumar" id="sumar" data-product-inv=${data.inventario} data-product-cant=${data.quantity}  data-product-id="${data.item}">+</a>`;
-            resultsHtml += '  </div>';
-            resultsHtml += '             <div class="flex flex-1 items-end justify-between text-sm mt-5">';
-            resultsHtml += `               <p class="text-gray-500">Cantidad ${data.quantity}</p>`;
-            resultsHtml += '               <div class="flex">';
-            resultsHtml += `<button type="submit" id="ElimianrProducto" class="font-medium text-red-700 hover:text-red-400 ElimianrProducto" data-product-id="${data.item}">Eliminar <i class="fas fa-trash"></i></button>`
-            resultsHtml += '               </div>';
-            resultsHtml += '             </div>';
-            resultsHtml += '           </div>';
-            resultsHtml += '         </li>';
-            resultsHtml += '         <hr>';
+              resultsHtml += '             <div class="flex flex-1 items-end justify-between text-sm mt-5">';
+              resultsHtml += `               <p class="text-red-500">Status:No Disponible</p>`;
+              resultsHtml += '               <div class="flex">';
+              resultsHtml += `<button type="submit" id="ElimianrProducto" class="font-medium text-red-700 hover:text-red-400 ElimianrProducto" data-product-id="${data.item}">Eliminar <i class="fas fa-trash"></i></button>`
+              resultsHtml += '               </div>';
+              resultsHtml += '             </div>';
+              resultsHtml += '           </div>';
+              resultsHtml += '         </li>';
+              resultsHtml += '         <hr>';
+            }
+
           });
           resultsHtml += '       </ul>';
           resultsHtml += '     </div>';
