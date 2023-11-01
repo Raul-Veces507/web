@@ -965,18 +965,17 @@
 
     function showAlert() {
       const storedValue = "{{ request.session.valor_seleccionado }}".trim(); // Elimina espacios en blanco alrededor del valor
-      console.log(storedValue);
       if (storedValue === "") {
       
         boton1.classList.remove("hidden");
         alertElement.classList.remove("hidden");
         overlayElement.classList.remove("hidden");
-        session();
+      
       }else{
         boton2.classList.remove("hidden");
         alertElement.classList.remove("hidden");
         overlayElement.classList.remove("hidden");
-        session();
+     
       }
 
     }

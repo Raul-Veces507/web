@@ -244,7 +244,7 @@
       }
         alertElement.classList.remove("hidden");
         overlayElement.classList.remove("hidden");
-        session();
+  
       }
 
       // Función para ocultar la alerta y restaurar el fondo
@@ -370,9 +370,10 @@
        
       // Envía los datos como objeto JSON
       success: function (data) {
+        console.log(data);
         var select = document.getElementById("miSelect12");
-      
-             
+
+
         // Crea un arreglo de opciones que deseas agregar
         var opciones = data['message'];
         // Itera a través del arreglo de opciones y crea elementos <option> para cada una
@@ -471,10 +472,6 @@
       const defaul = document.getElementById("default-modal");
       defaul.classList.remove("hidden")
 }
-
-document.addEventListener("DOMContentLoaded", function () {
-  // Coloca aquí el resto de tu código que se ejecutará después de que la página se cargue.
-});
 
 
 
