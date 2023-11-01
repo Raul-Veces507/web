@@ -13,8 +13,7 @@ urlpatterns=[
     
     path('product/<int:product>/',views.product_detail,name='product_detail'),
     path('Seccion/<str:seccion>/',views.Seccion,name='Seccion'),
-    path('Seccion/<str:seccion>/<int:categoria>/',views.SeccionfillCategoria,name='SeccionfillCategoria'),
-    path('Seccion/<str:seccion>/<str:marca>/', views.Seccionfillmarca, name='Seccionfillmarca'),
+    path('SeccionF/<str:seccion>/',views.SeccionfillCategoria,name='SeccionfillCategoria'),
 
     path('upload_excel/', views.upload_excel, name='upload_excel'),
 
