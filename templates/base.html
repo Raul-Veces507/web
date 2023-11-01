@@ -235,7 +235,7 @@
       // Función para mostrar la alerta y oscurecer el fondo
       function showAlert() {
         const storedValue = "{{request.session.valor_seleccionado}}";
-        console.log(storedValue);
+        
         if (storedValue === "") {
      
         boton1.classList.remove("hidden");
@@ -370,7 +370,7 @@
        
       // Envía los datos como objeto JSON
       success: function (data) {
-        console.log(data);
+       
         var select = document.getElementById("miSelect12");
 
 
@@ -423,7 +423,7 @@
           "X-CSRFtoken": csrftoken  // Agrega el token CSRF como encabezado
         },
         success: function (data) {
-         console.log("datos cambiados");
+         
           // Manejar la respuesta del servidor si es necesario
         },
         error: function (error) {

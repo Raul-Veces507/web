@@ -219,10 +219,9 @@
               <div class="w-full mx-auto text-gray-800 font-light mb-6 border-b border-gray-200 pb-6"
                 style=" max-height: 300px; overflow-y: auto;">
                 {% for item in cart_items %}
-        
-
-
-                <div class="w-full flex items-center mt-5">
+                {% if item.item_a_reemplazar == None %}
+                {% if item.inventario <= 0 %}
+                <div class="w-full flex items-center mt-5 " style="opacity: 0.5;">
                   <div class="overflow-hidden rounded-lg w-16 h-16 bg-gray-50 border border-gray-200">
                     <img src="https://riba.app/imgrs/THUMBS 500X500/{{item.item}}.jpg" alt="">
                   </div>
@@ -240,6 +239,67 @@
                     {% endif %}
                   </div>
                 </div>
+                {% else  %}
+                <div class="w-full flex items-center mt-5 ">
+                  <div class="overflow-hidden rounded-lg w-16 h-16 bg-gray-50 border border-gray-200">
+                    <img src="https://riba.app/imgrs/THUMBS 500X500/{{item.item}}.jpg" alt="">
+                  </div>
+                  <div class="flex-grow pl-3">
+                    <h6 class="font-semibold uppercase text-gray-600">{{item.nombre}}</h6>
+                    <p class="text-gray-400">Cantidad: {{item.quantity}}</p>
+                    <p class="text-gray-400">Precio: {{item.precio|floatformat:2}}</p>
+                  </div>
+                  <div>
+                    {%  if item.flagoferta == 1 %}
+                    <span class="font-semibold text-gray-600 text-xl">${{item.precioOferta|floatformat:2}}</span></span>
+                    {% else %}
+                    <span class="font-semibold text-gray-600 text-xl">${{item.precioNormal|floatformat:2}}</span></span>
+
+                    {% endif %}
+                  </div>
+                </div>
+                {% endif %}
+                {% else %}
+                <div class="w-full flex items-center mt-5 ">
+                  <div class="overflow-hidden rounded-lg w-16 h-16 bg-gray-50 border border-gray-200">
+                    <img src="https://riba.app/imgrs/THUMBS 500X500/{{item.item}}.jpg" alt="">
+                  </div>
+                  <div class="flex-grow pl-3">
+                    <h6 class="font-semibold uppercase text-gray-600">{{item.nombre}}</h6>
+                    <p class="text-gray-400">Cantidad: {{item.quantity}}</p>
+                    <p class="text-gray-400">Precio: {{item.precio|floatformat:2}}</p>
+                    <div class="text-gray-600 hover:text-primary cursor-pointer mt-5">
+                      <div class="card2">
+                          <!-- Contenido de la tarjeta 1 -->
+                          <button type="button" class="toggle-button">
+                              <div class="flex">
+                                  <p>Producto Remplazado Por:</p>
+                                  <img class="w-7" src="https://riba.app/imgrs/THUMBS 500X500/{{item.item_a_reemplazar}}.jpg" alt=""  onerror="this.src='https://www.ribasmith.com/media/catalog/product/placeholder/default/watermark_4.png' ">
+
+                              </div>
+                              </button>
+                          <div class="extra-details hidden mt-5">
+                              <div class="flex">
+                                 <img class="w-12" src="https://riba.app/imgrs/THUMBS 500X500/{{item.item_a_reemplazar}}.jpg" alt=""  onerror="this.src='https://www.ribasmith.com/media/catalog/product/placeholder/default/watermark_4.png' ">
+                                 <p>{{item.nombre_a_reemplazar}}</p>
+                 
+                              </div>
+                             </div>
+                      </div>
+                  </div>
+                  </div>
+                  <div>
+                    {%  if item.flagoferta == 1 %}
+                    <span class="font-semibold text-gray-600 text-xl">${{item.precioOferta|floatformat:2}}</span></span>
+                    {% else %}
+                    <span class="font-semibold text-gray-600 text-xl">${{item.precioNormal|floatformat:2}}</span></span>
+
+                    {% endif %}
+                    
+                  </div>
+                  
+                </div>
+                {% endif %}
                 {% endfor %}
               </div>
 
@@ -424,6 +484,20 @@
 
 
 
+</script>
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+      const toggleButtons = document.querySelectorAll('.toggle-button');
+      
+      toggleButtons.forEach(function (button) {
+          button.addEventListener('click', function () {
+              const card = button.closest('.card2');
+              const extraDetails = card.querySelector('.extra-details');
+              console.log(extraDetails);
+              extraDetails.classList.toggle('hidden');
+          });
+      });
+  });
 </script>
 
 

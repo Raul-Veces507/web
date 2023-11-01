@@ -860,7 +860,7 @@ def EliminarCarrtioCompleto(request):
 
 
 
-def checkout(request, total=Decimal("0"), quantity=0, cart_items=None, taxt=Decimal("0"), grand_total=Decimal("0"), delivery=Decimal("3.50")):
+def checkout(request, total=Decimal("0"),total1=Decimal("0"),total2=Decimal("0"), quantity=0, cart_items=None, taxt=Decimal("0"), grand_total=Decimal("0"), delivery=Decimal("3.50")):
         # Verifica la autenticación usando la función personalizada
     resultado_redireccion = verificar_autenticacion(request)
 
@@ -899,8 +899,11 @@ def checkout(request, total=Decimal("0"), quantity=0, cart_items=None, taxt=Deci
                 
                 for cart_item in cart_items:
                     Descuento = Decimal(str(cart_item['precio'])) 
-                    total += (Descuento * cart_item['quantity'])
-    
+                    if cart_item['inventario'] >= 0 and cart_item['item_a_reemplazar'] is not None:
+                         total1 += (Descuento * cart_item['quantity'])
+                    elif cart_item['inventario'] > 0:
+                         total2 += (Descuento * cart_item['quantity'])
+                total=total1+total2
                 taxt = (Decimal("2") * total) / Decimal("100")
                 grand_total = total + taxt + delivery
                 semigrand_total = total + taxt 
@@ -951,9 +954,12 @@ def checkout(request, total=Decimal("0"), quantity=0, cart_items=None, taxt=Deci
                 
                 for cart_item in cart_items:
                     Descuento = Decimal(str(cart_item['precio'])) 
-                    total += (Descuento * cart_item['quantity'])
-    
-    
+                    if cart_item['inventario'] >= 0 and cart_item['item_a_reemplazar'] is not None:
+                         total1 += (Descuento * cart_item['quantity'])
+                    elif cart_item['inventario'] > 0:
+                         total2 += (Descuento * cart_item['quantity'])
+                
+                total=total1+total2
                 taxt = (Decimal("2") * total) / Decimal("100")
                 grand_total = total + taxt + delivery
                 semigrand_total = total + taxt 

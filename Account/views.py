@@ -67,46 +67,48 @@ def  wishlistProduct(request):
 
 
 def register(request):
-    form=RegistrationForm()
+
     if request.method == 'POST':
     
-        form=RegistrationForm(request.POST)
-        if form.is_valid():
-            first_name=form.cleaned_data['first_name']
-            last_name=form.cleaned_data['last_name']
-            phone_number=form.cleaned_data['phone_number']
-            email=form.cleaned_data['email']
-            password=form.cleaned_data['password']
-            username=email.split("@")[0]
-            user=Account.objects.create_user(first_name=first_name,last_name=last_name,email=email,username=username,password=password)
-            user.phone_number=phone_number
-            user.save()
+
+            first_name=request.POST['first_name']
+            last_name=request.POST['last_name']
+            email=request.POST['email']
+            phone_number=request.POST['phone_number']
+            password=request.POST['password']
+            Sexo=request.POST['Sexo']
+            FechaN=request.POST['FechaN']
+
+            data={
+                "Nombre": first_name,
+                "Apellido": last_name,
+                "Email": email,
+                "password": password,
+                "Celular": phone_number,
+                "Fecha_nacimiento": FechaN,
+                "Sexo": Sexo
+            }
+            endpoint = 'createUser'
+            url = f'{URL_APIS}{endpoint}'
+
+            response = requests.post(url, json=data)
+            if response.status_code == 200:
+                messages.success(request,'Usuario Creado Con Exito')
+                return redirect('login')
+                
+            elif response.status_code==300:
+                messages.error(request,'Error Usuario Ya Se Ecuentra Registrado ')
+                return render(request, 'accounts/register.html')
             
-            current_site=get_current_site(request)
-            mail_subject=' Por favor activa tu cuenta en Riba Smith'
-            body= render_to_string('accounts/account_verification_email.html',{
-                'user':user,
-                'domain':current_site,
-                'uid':urlsafe_base64_encode(force_bytes(user.pk)),
-                'token':default_token_generator.make_token(user)
-            })
-
-            to_email=email
-            send_email=EmailMessage(mail_subject,body,to=[to_email])
-            send_email.send()
-
-
-            #messages.success(request,'Se registrio el usuario exitosamente')
-
-            return redirect('/account/login?command=verification&email='+email)
+            else:
+                messages.error(request,'Error Usuario No Registrado ')
+                return render(request, 'accounts/register.html')
+                
+                
 
 
 
-  
-    context={
-        'form':form
-    }
-    return render(request, 'account/register.html',context)
+    return render(request, 'accounts/register.html')
 
 def login(request):
        
@@ -148,14 +150,18 @@ def login(request):
                  request.session.save()
                  return redirect('home') 
 
-              else:
-                  return JsonResponse({'status': 'error', 'message': 'Error al agregar el producto al carrito'})
+              elif response.status_code == 301:
+                messages.error(request,'Usuario No Se Encuentra Activo')
+                return redirect('login')
+              
+              elif response.status_code == 201:
+                messages.error(request,'Credenciales Incorrectas')
+                return redirect('login')
     
 
             except Exception as e:
-              print(e)
-              context = None
-              return JsonResponse({'status': 'error', 'message': 'Error interno del servidor'})
+                messages.error(request,'Credenciales Incorrectas')
+                return redirect('login')
 
         return render(request, 'accounts/login.html')
 
@@ -349,18 +355,35 @@ def EditarPerfil(request):
                   response = requests.post(url, json=data)  # Usar json=data en lugar de data=data
                   data_from_express_api = response.json()
                   referer = request.META.get('HTTP_REFERER')
-    
-                  if response.status_code == 200:
-                        messages.success(request,'Perfil Editado')
-                        return redirect(referer)
-                      # return redirect('home')
-                  elif response.status_code == 201:
-                        messages.error(request,'No Se Pudo Editar El Perfil')
-                        return redirect(referer)
-                
+            
+                  if(referer == 'http://127.0.0.1:8000/account/dashboard/'):
+                      if response.status_code == 200:
+                        
+                            return JsonResponse({'status': 'success', 'message': 'Perfil Editado'})
+                      elif response.status_code == 201:
+                            return JsonResponse({'status': 'error', 'message': 'No Se Pudo Editar El Perfil'})
+                           
+
+                      elif response.status_code == 301:
+                             return JsonResponse({'status': 'error', 'message': 'Usuario No Encontrado'})
+                      
+                      else:
+                      
+                          return JsonResponse({'status': 'error', 'message': 'No Se Pudo Editar El Perfil'})
+                          
+                  
                   else:
-                      messages.error(request,'No Se Pudo Editar El Perfil')
-                      return redirect(referer)
+                      if response.status_code == 200:
+                            messages.success(request,'Perfil Editado')
+                            return redirect(referer)
+                          # return redirect('home')
+                      elif response.status_code == 201:
+                            messages.error(request,'No Se Pudo Editar El Perfil')
+                            return redirect(referer)
+
+                      else:
+                          messages.error(request,'No Se Pudo Editar El Perfil')
+                          return redirect(referer)
 
                 except Exception as e:
                   print(e)
