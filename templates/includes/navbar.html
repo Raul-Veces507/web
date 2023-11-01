@@ -224,10 +224,16 @@
         <form action="{% url 'search'  %}" method="GET">
           <div class="flex">
             <div class="relative w-full">
-              <input type="search" id="search-input" class="block p-2.5 w-full z-20 text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:border-blue-500 text-left" placeholder="Buscar Productos" name="keyword" required>
-              <button type="submit" class="absolute top-0 right-0 h-full p-2.5 text-sm font-medium text-white bg-blue-700 rounded-r-lg border border-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark-bg-blue-600 dark-hover-bg-blue-700 dark-focus-ring-blue-800">
-                <svg class="w-4 h-4" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
-                  <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z"/>
+
+              <input type="search" id="search-input"
+                class="block p-2.5 w-full z-20 text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:border-blue-500 text-left"
+                placeholder="Buscar Productos" name="keyword" required autocomplete="off">
+              <button type="submit"
+                class="absolute top-0 right-0 h-full p-2.5 text-sm font-medium text-white bg-blue-700 rounded-r-lg border border-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark-bg-blue-600 dark-hover-bg-blue-700 dark-focus-ring-blue-800">
+                <svg class="w-4 h-4" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none"
+                  viewBox="0 0 20 20">
+                  <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                    d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z" />
                 </svg>
               </button>
             </div>
@@ -428,7 +434,7 @@
 
 
 
-<div id="small-modal" tabindex="-1"
+<div id="small-modal" tabindex="-1" .
   class="fixed top-0 left-0 right-0 z-50 hidden w-full p-4 overflow-x-hidden overflow-y-auto md:inset-0 h-[calc(100%-1rem)] max-h-full">
   <div class="relative w-full max-w-md max-h-full">
     <!-- Modal content -->
@@ -437,6 +443,8 @@
       <div class="flex items-center justify-between p-5 border-b rounded-t dark:border-gray-600">
         <input type="text" id="search-inputs" class="pl-13 w-full   py-3 px-3 rounded-full " placeholder="busqueda"
           autocomplete="off">
+
+
 
         <button type="button"
           class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ml-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white"
@@ -504,8 +512,8 @@
     <div class="relative " data-te-dropdown-ref>
       <button
         class=" rounded-full flex items-center whitespace-nowrap   px-4 pb-2 pt-1 text-xs font-medium uppercase leading-normal text-black border transition duration-150 ease-in-out hover:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)]"
-        type="button" id="dropdownMenuButton1" data-te-dropdown-toggle-ref aria-expanded="false"
-        data-te-ripple-init data-te-ripple-color="light">
+        type="button" id="dropdownMenuButton1" data-te-dropdown-toggle-ref aria-expanded="false" data-te-ripple-init
+        data-te-ripple-color="light">
         <span class="mr-2 w-2 mt-1" style="  width: 15px;
                 height: 15px;
                 -moz-border-radius: 50%;
@@ -551,11 +559,11 @@
     <div class="relative" data-te-dropdown-ref>
       <button
         class="flex items-center whitespace-nowrap rounded  px-6 pb-2 pt-1 text-xs font-medium uppercase leading-normal text-black border transition duration-150 ease-in-out hover:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)]"
-        type="button" id="dropdownMenuButton1" data-te-dropdown-toggle-ref aria-expanded="false"
-        data-te-ripple-init data-te-ripple-color="light">
+        type="button" id="dropdownMenuButton1" data-te-dropdown-toggle-ref aria-expanded="false" data-te-ripple-init
+        data-te-ripple-color="light">
         <span class="mr-4 w-2">
-          <svg xmlns="http://www.w3.org/2000/svg" id="Layer_1" data-name="Layer 1" viewBox="0 0 24 24"
-            width="12" height="12">
+          <svg xmlns="http://www.w3.org/2000/svg" id="Layer_1" data-name="Layer 1" viewBox="0 0 24 24" width="12"
+            height="12">
             <path d="M16.043,14H7.957A4.963,4.963,0,0,0,3,18.957V24H21V18.957A4.963,4.963,0,0,0,16.043,14Z" />
             <circle cx="12" cy="6" r="6" />
           </svg>
@@ -602,18 +610,19 @@
     <ul class="space-y-2 font-medium">
       <li>
         <div class=" text-center  flex justify-center items-center">
-          <button type="button" class="  w-full alertboton px-5 py-2.5 text-sm font-medium text-white inline-flex items-center bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 rounded-xl text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
-                       <h3 class="font-bold mx-auto">
-                        {{request.session.nombre_tienda}}
-                       </h3> 
+          <button type="button"
+            class="  w-full alertboton px-5 py-2.5 text-sm font-medium text-white inline-flex items-center bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 rounded-xl text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+            <h3 class="font-bold mx-auto">
+              {{request.session.nombre_tienda}}
+            </h3>
           </button>
-          
+
         </div>
-       
+
       </li>
-      
-      
-      
+
+
+
       <li>
 
         <a href="#"
@@ -868,7 +877,7 @@
       typingTimer = setTimeout(function () {
         const storedValue = "{{ request.session.valor_seleccionado }}".trim();
         if (query.length >= 2) { // Evitar búsquedas vacías o muy cortas
-          var requestData = { "busqueda": query,"bodega":storedValue };
+          var requestData = { "busqueda": query, "bodega": storedValue };
           $.ajax({
             url: 'http://localhost:3005/ecommer/rs/buscador',
             method: 'POST',
@@ -879,9 +888,47 @@
               // Procesa los datos de la API y muestra los resultados
 
               var datos = data['productos'];
-              var resultsHtml = '<ul class="max-w-md divide-y divide-gray-200 dark:divide-gray-700">';
 
+
+
+              var categoriesSet = new Set(); // Crear un conjunto para almacenar categorías únicas
+
+              var resultsHtml = ' <div class="divide-y divide-gray-50  mb-4"> ';
+                resultsHtml+='<h1 class="mx-3  font-bold" >';
+                    resultsHtml+= 'Categorias'
+                    resultsHtml+='</h1>'
+
+              datos.slice(0, 3).forEach(function (product) {
+                var categoria = product.categoria;
+
+                // Verificar si la categoría ya está en el conjunto
+               
+                if (!categoriesSet.has(categoria)) {
+                  resultsHtml+='<ul class="max-w-md space-y-1 text-gray-500 list-inside dark:text-gray-400   ">'
+                    resultsHtml += '<a href=" /store/DepartamentoF/'+product.idDepartamento+'/?categoria='+product.categoriaid+'/">';                    resultsHtml += '  <li class="flex items-center mx-3 py-1 space-x-4  mb-2 ">';
+                  resultsHtml+='<svg xmlns="http://www.w3.org/2000/svg" id="Layer_1" data-name="Layer 1" viewBox="0 0 24 24" width="20" height="20"><path d="M21.526,8.284L13.937,.879C13.278,.219,12.33-.104,11.409,.028L4.521,.97c-.547,.075-.93,.579-.855,1.126,.075,.547,.578,.929,1.127,.855l6.889-.942c.306-.042,.622,.063,.851,.292l7.59,7.405c1.045,1.045,1.147,2.68,.323,3.847-.234-.467-.523-.912-.911-1.3l-7.475-7.412c-.658-.658-1.597-.975-2.528-.851l-6.889,.942c-.454,.062-.808,.425-.858,.881l-.765,6.916c-.1,.911,.214,1.804,.864,2.453l7.416,7.353c.944,.945,2.199,1.464,3.534,1.464h.017c1.342-.004,2.6-.532,3.543-1.487l3.167-3.208c.927-.939,1.393-2.159,1.423-3.388l.577-.576c1.925-1.95,1.914-5.112-.032-7.057Zm-15.526,1.716c-.552,0-1-.448-1-1,.006-1.308,1.994-1.307,2,0,0,.552-.448,1-1,1Z"/>'
+                  resultsHtml+='</svg>'
+                    resultsHtml+='<h4 class="  font-bold">'
+                  resultsHtml += categoria;
+                  resultsHtml+='</h4>'
+                  resultsHtml += '</li>';
+                  resultsHtml+='</a>';
+                  resultsHtml+='</ul>';
+                  // Agregar la categoría al conjunto para evitar repeticiones
+                  categoriesSet.add(categoria);
+                }
+              });
+
+
+
+
+              resultsHtml+='<h1 class="mx-3  font-bold mt-2 mb-2" >';
+                    resultsHtml+= 'Productos'
+                    resultsHtml+='</h1>'
+
+              resultsHtml += '<ul class="max-w-md divide-y divide-gray-200 dark:divide-gray-700">';
               datos.slice(0, 5).forEach(function (product) {
+
                 resultsHtml += '<li class="pb-3 sm:pb-4">';
                 resultsHtml += '<a href=" /store/product/' + product.item + '/">';
                 resultsHtml += '<div class="flex items-center space-x-4">';
@@ -898,22 +945,29 @@
                 resultsHtml += '</p>';
                 resultsHtml += '</div>';
                 resultsHtml += '<div class="flex items-baseline mb-1 space-x-2">'
-                  if(product.flagoferta==1){
+                if (product.flagoferta == 1) {
                   resultsHtml += `        <p class="text-sm text-red-700  font-roboto line-through">$ ${product.precioRegular}</p>`
                   resultsHtml += `        <p class="text-xl  text-gray-900 font-roboto font-semibold">$ ${product.precio}</p>`
-                  }else{
-                    resultsHtml += `        <p class="text-xl  text-gray-900 font-roboto font-semibold">$ ${product.precioRegular}</p>`
-               
-                  }
-                 resultsHtml += '    </div>'
-                
- 
+                } else {
+                  resultsHtml += `        <p class="text-xl  text-gray-900 font-roboto font-semibold">$ ${product.precioRegular}</p>`
+
+                }
+                resultsHtml += '    </div>'
+
+
                 resultsHtml += '</div>';
                 resultsHtml += '</a>';
                 resultsHtml += '</li>';
               });
 
+
+
+
+
               resultsHtml += '</ul>';
+
+              resultsHtml += '</div>';
+
               // Cierra el contenedor con barra de desplazamiento
               $(resultElement).html(resultsHtml);
             },
@@ -965,17 +1019,18 @@
 
     function showAlert() {
       const storedValue = "{{ request.session.valor_seleccionado }}".trim(); // Elimina espacios en blanco alrededor del valor
+      console.log(storedValue);
       if (storedValue === "") {
-      
+
         boton1.classList.remove("hidden");
         alertElement.classList.remove("hidden");
         overlayElement.classList.remove("hidden");
-      
-      }else{
+        session();
+      } else {
         boton2.classList.remove("hidden");
         alertElement.classList.remove("hidden");
         overlayElement.classList.remove("hidden");
-     
+        session();
       }
 
     }
@@ -988,7 +1043,7 @@
         boton2.classList.add("hidden");
         alertElement.classList.add("hidden");
         overlayElement.classList.add("hidden");
-      }else{
+      } else {
         boton1.classList.add("hidden");
         alertElement.classList.add("hidden");
         overlayElement.classList.add("hidden");
@@ -998,21 +1053,21 @@
   })
 
 
-  function session(){
-        $.ajax({
-      url:"{% url 'verbodega'  %}",
+  function session() {
+    $.ajax({
+      url: "{% url 'verbodega'  %}",
       method: "GET",
-       
+
       // Envía los datos como objeto JSON
       success: function (data) {
         var select = document.getElementById("miSelect12");
-      
-             
+
+
         // Crea un arreglo de opciones que deseas agregar
         var opciones = data['message'];
         // Itera a través del arreglo de opciones y crea elementos <option> para cada una
         opciones.forEach(function (bodega) {
-         
+
           var option = document.createElement("option");
           option.value = bodega.bodega; // Puedes establecer el valor que desees, como el ID
           option.text = bodega.nombodega; // El texto de la opción será el nombre del distrito
@@ -1023,7 +1078,7 @@
 
       }
     })
-      }
+  }
 
 
 </script>
