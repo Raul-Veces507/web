@@ -868,14 +868,81 @@ def checkout(request, total=Decimal("0"),total1=Decimal("0"),total2=Decimal("0")
         # Si la función devuelve una redirección, redirige al usuario a la página de inicio de sesión
         return resultado_redireccion
     
+    if request.method=='POST':
+        Envio=request.POST['Envio']
+        idMetodoPago=request.POST['type']
+        fechad=request.POST['fechad']
+        direccion=request.POST['direccion']
+        productos=request.POST['productos']
+        # print(productos)
+        data2= json.loads(productos)
+        # print(data2)
+
+        # arrayprodct=[]
+        cartItemData=[]
+        # arrayprodct.append(productos)
+        # print(arrayprodct)
+       
+        for cart_item in data2:
+          if cart_item['inventario'] >= 0 and cart_item['item_a_reemplazar'] is not None:
+              cartItemData.append({
+                "product_item": cart_item,
+                "quantity": cart_item,
+                "precio": cart_item,
+                "precioRegular": cart_item
+               })
+          elif cart_item['inventario'] > 0:
+              cartItemData.append({
+                "product_item": cart_item['item'],
+                "quantity": cart_item['quantity'],
+                "precio": cart_item['precio'],
+                "precioRegular": cart_item['precioRegular']
+               })
+
+        session_data = dict(request.session)
+        if "valor_seleccionado" in session_data:
+            bodega = session_data['valor_seleccionado']
+            data ={
+            "userid":session_data['id'],
+            "idDireccion":direccion,
+            "Bodega":bodega,
+            "idDelivery":Envio,
+            "idMetodoPago":idMetodoPago,
+            "Monto":100,
+            "itemSum":50,
+            "itemQty":10,
+            "Flete":3.50,
+            "cclast":None,
+            "cctype":"",
+            "authcode":"",
+            "fechad":fechad,
+            "comentario":"quiero que me atienda alejandro",
+            "cartItemData":cartItemData
+             } 
+           
+            endpoint = 'insertarorden'
+            url = f'{URL_APIS}{endpoint}'
+            # url = f'http://192.168.88.136:3002/ecommer/rs/viewcart'
+    
+            response = requests.post(url, json=data)  # Usar json=data en lugar de data=data
+    
+    
+            if response.status_code == 200:
+                  return redirect('register')
+            else:
+                  return redirect('login')
+              
+           
+
+  
+    
     session_data = dict(request.session)
     if session_data:
         try:
             cart=_cart_id(request)
             if "valor_seleccionado" in session_data:
                 bodega = session_data['valor_seleccionado']
-            else:
-                 bodega=114100500
+
             data ={
              "cart":cart,
              "usuario":session_data['id'],
@@ -987,30 +1054,6 @@ def checkout(request, total=Decimal("0"),total1=Decimal("0"),total2=Decimal("0")
 
 
 
-
-
-    
-    # try:
-    #     cart=Cart.objects.get(cart_id=_cart_id(request))
-    #     cart_items=CartItem.objects.filter(cart=cart,is_active=True)
-    #     for cart_item in cart_items:
-    #         total +=(cart_item.product.precio*cart_item.quantity)
-    #         quantity +=cart_item.quantity
-
-    #     taxt = (Decimal("2") * total) / Decimal("100")
-    #     grand_total = total + taxt + delivery
-    # except ObjectDoesNotExist :
-    #     pass
-  
-    # context={
-    #     'total':total,
-    #     'quantity':quantity,
-    #     'cart_items':cart_items,
-    #     'taxt':taxt.quantize(Decimal("0.00")),
-    #     'grand_total':grand_total.quantize(Decimal("0.00"))
-
-    # }
-    # return render(request, 'store/cart.html',context)
 
 def get_cart_count(request, total=Decimal("0"), quantity=0, cart_items=None, taxt=Decimal("0"), grand_total=Decimal("0"), delivery=Decimal("3.50")):
     cart_count=0

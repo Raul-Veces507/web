@@ -6,8 +6,8 @@
 
 
   <div class="min-w-screen min-h-screen  py-5">
-    <form action="">
-
+    <form action="{% url  'checkout' %}" method="POST">
+      {% csrf_token %}
 
       <div class="w-full bg-white border-t border-b border-gray-200 px-5 py-10 text-gray-800">
         <div class="w-full">
@@ -42,7 +42,8 @@
                     <span class="text-gray-600 font-semibold">Celular:</span>
                   </div>
                   <div class="flex-grow pl-3">
-                    <label for="">{{Direccion.Celular}}</label>
+                  
+                    <input type="text" hidden name="direccion" value="{{Direccion.id}}">
                   </div>
                 </div>
                 <div class="text-center mt-5">
@@ -83,7 +84,7 @@
                             d="M20 4a2 2 0 0 0-2-2h-2V1a1 1 0 0 0-2 0v1h-3V1a1 1 0 0 0-2 0v1H6V1a1 1 0 0 0-2 0v1H2a2 2 0 0 0-2 2v2h20V4ZM0 18a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V8H0v10Zm5-8h10a1 1 0 0 1 0 2H5a1 1 0 0 1 0-2Z" />
                         </svg>
                       </div>
-                      <input datepicker type="text"spellcheck="false"
+                      <input datepicker type="text"spellcheck="false" name="fechad"
                         class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full pl-10 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                         placeholder="Seleccionar Fecha de Entrega" id="test"  required>
             
@@ -104,8 +105,8 @@
                     focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                       required>
                       <option value="">Seleccione una opción</option>
-                      <option value="Rt">Retiro en tienda</option>
-                      <option value="Domicilio">Domicilio</option>
+                      <option value="flatrate_flatrate">Retiro en tienda</option>
+                      <option value="mageworxpickup_mageworxpickup">Domicilio</option>
                     </select>
                   </div>
                 </div>
@@ -113,6 +114,7 @@
 
                 <div class="w-full flex items-center mt-5" id="rt-container" style="display: none;">
                   <span class="text-gray-600 font-semibold mt-5">Tienda de retiro: {{request.session.nombre_tienda}} </span>
+                  
 
 
                 </div>
@@ -124,8 +126,9 @@
               <div class="w-full mx-auto rounded-lg bg-white border border-gray-200 text-gray-800 font-light mb-6 mt-5">
                 <div class="w-full p-3 border-b border-gray-200">
                   <div class="mb-5">
+                    
                     <label for="type1" class="flex items-center cursor-pointer">
-                      <input type="radio" class="form-radio h-5 w-5 text-indigo-500" name="type" id="type1">
+                      <input type="radio" class="form-radio h-5 w-5 text-indigo-500" value="patsatech_networkmerchantsinc" name="type" id="type1">
                       <img src="https://leadershipmemphis.org/wp-content/uploads/2020/08/780370.png" class="h-6 ml-3">
                     </label>
                   </div>
@@ -200,14 +203,14 @@
                 </div>
                 <div class="w-full p-3 border-b border-gray-200">
                   <label for="type2" class="flex items-center cursor-pointer">
-                    <input type="radio" class="form-radio h-5 w-5 text-indigo-500" name="type" id="type2">
-                    <label class="text-gray-600 font-semibold mb-2 ml-1 mt-3">Contra Entrega</label>
+                    <input type="radio" class="form-radio h-5 w-5 text-indigo-500" value="cashondelivery" name="type" id="type2">
+                    <label class="text-gray-600 font-semibold mb-2 ml-1 mt-3">Pago En Efectivo Contra Entrega</label>
                   </label>
                 </div>
                 <div class="w-full p-3">
                   <label for="type3" class="flex items-center cursor-pointer">
-                    <input type="radio" class="form-radio h-5 w-5 text-indigo-500" name="type" id="type3" checked>
-                    <label class="text-gray-600 font-semibold mb-2 ml-1 mt-3">Efectivo</label>
+                    <input type="radio" class="form-radio h-5 w-5 text-indigo-500" value="checkmo" name="type" id="type3" checked>
+                    <label class="text-gray-600 font-semibold mb-2 ml-1 mt-3">Pago Con Visa, MasterCard y Clave Contra Entrega</label>
                   </label>
                 </div>
               </div>
@@ -218,7 +221,11 @@
             <div class="px-3 md:w-5/12">
               <div class="w-full mx-auto text-gray-800 font-light mb-6 border-b border-gray-200 pb-6"
                 style=" max-height: 300px; overflow-y: auto;">
+                <div id="cart-data" data-cart-items="{{ cart_items|safe }}"></div>
+                <input type="hidden" name="productos">
+
                 {% for item in cart_items %}
+
                 {% if item.item_a_reemplazar == None %}
                 {% if item.inventario <= 0 %}
                 <div class="w-full flex items-center mt-5 " style="opacity: 0.5;">
@@ -347,7 +354,7 @@
               </div>
 
               {% if Direccion %}
-              <button
+              <button type="submit"
                 class="block w-full max-w-xs mx-auto bg-indigo-500 hover:bg-indigo-700 focus:bg-indigo-700 text-white rounded-lg px-3 py-2 font-semibold"><i
                   class="mdi mdi-lock-outline mr-1"></i> Realizar Pedido</button>
               {% else %}
@@ -498,6 +505,28 @@
           });
       });
   });
+</script>
+
+
+<script>
+  var productosInput = document.querySelector('input[name="productos"]');
+  // Obtén el elemento con el atributo data-cart-items
+var cartDataElement = document.getElementById('cart-data');
+
+// Obtén el valor del atributo data-cart-items
+var cartItemsJSON = cartDataElement.getAttribute('data-cart-items');
+
+var jsonString = cartItemsJSON
+
+// Reemplaza None (sin comillas) por null en la cadena JSON
+var jsonStringModified = jsonString.replace(/None/g, 'null');
+
+var jsonStringModified2 = jsonStringModified.replace(/'/g, '"');
+
+var jsonObject = JSON.parse(jsonStringModified2);
+productosInput.value = jsonStringModified2;
+// console.log(jsonStringModified2);
+
 </script>
 
 
