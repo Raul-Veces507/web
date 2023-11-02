@@ -1,3 +1,5 @@
+from ctypes import sizeof
+from itertools import count
 from django.shortcuts import get_object_or_404, redirect, render
 from Cart.models import Cart, CartItem
 from store.models import Product
@@ -874,30 +876,46 @@ def checkout(request, total=Decimal("0"),total1=Decimal("0"),total2=Decimal("0")
         fechad=request.POST['fechad']
         direccion=request.POST['direccion']
         productos=request.POST['productos']
-        # print(productos)
-        data2= json.loads(productos)
-        # print(data2)
+        if 'message' in request.POST:
+          Comentario=request.POST['message']
+        else:
+          Comentario=''
 
-        # arrayprodct=[]
+        
+        data2= json.loads(productos)
         cartItemData=[]
-        # arrayprodct.append(productos)
-        # print(arrayprodct)
-       
-        for cart_item in data2:
+        sumaitem1=0
+        sumaitem2=0
+        totalsuma1=0
+        totalsuma2=0
+        for cart_item in data2:       
+          
           if cart_item['inventario'] >= 0 and cart_item['item_a_reemplazar'] is not None:
+              Descuento = cart_item['precio']
               cartItemData.append({
                 "product_item": cart_item,
                 "quantity": cart_item,
                 "precio": cart_item,
                 "precioRegular": cart_item
                })
+              totalsuma1 += (Descuento * cart_item['quantity'])
+              sumaitem1 += (cart_item['quantity'])
+           
+             
           elif cart_item['inventario'] > 0:
+              Descuento = cart_item['precio']
               cartItemData.append({
                 "product_item": cart_item['item'],
                 "quantity": cart_item['quantity'],
                 "precio": cart_item['precio'],
                 "precioRegular": cart_item['precioRegular']
                })
+              totalsuma2 += (Descuento * cart_item['quantity'])
+              sumaitem2 += (cart_item['quantity'])
+          
+        Monto=(totalsuma2+totalsuma1)
+        cantidad_elementos = len(cartItemData)
+        totalitem=(sumaitem1+sumaitem2)
 
         session_data = dict(request.session)
         if "valor_seleccionado" in session_data:
@@ -908,18 +926,17 @@ def checkout(request, total=Decimal("0"),total1=Decimal("0"),total2=Decimal("0")
             "Bodega":bodega,
             "idDelivery":Envio,
             "idMetodoPago":idMetodoPago,
-            "Monto":100,
-            "itemSum":50,
-            "itemQty":10,
+            "Monto":Monto,
+            "itemSum":cantidad_elementos,
+            "itemQty":totalitem,
             "Flete":3.50,
             "cclast":None,
             "cctype":"",
             "authcode":"",
             "fechad":fechad,
-            "comentario":"quiero que me atienda alejandro",
+            "comentario":Comentario,
             "cartItemData":cartItemData
              } 
-           
             endpoint = 'insertarorden'
             url = f'{URL_APIS}{endpoint}'
             # url = f'http://192.168.88.136:3002/ecommer/rs/viewcart'
