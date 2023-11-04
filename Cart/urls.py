@@ -14,7 +14,8 @@ urlpatterns=[
     path('remove_cart/<int:product_id>', views.remove_cart,name="remove_cart"),
     path('remove_cart_item/<int:product_id>', views.remove_cart_item,name="remove_cart_item"),
     path('EliminarCarrtioCompleto/', views.EliminarCarrtioCompleto,name="EliminarCarrtioCompleto"),
-    path('checkout/',views.checkout, name='checkout')
+    path('checkout/',views.checkout, name='checkout'),
+    path('completeorder/<str:Orden>/', views.completarorden, name="completeorder"),
 
     
 ]

@@ -888,6 +888,7 @@ def checkout(request, total=Decimal("0"),total1=Decimal("0"),total2=Decimal("0")
         sumaitem2=0
         totalsuma1=0
         totalsuma2=0
+ 
         for cart_item in data2:       
           
           if cart_item['inventario'] >= 0 and cart_item['item_a_reemplazar'] is not None:
@@ -942,12 +943,15 @@ def checkout(request, total=Decimal("0"),total1=Decimal("0"),total2=Decimal("0")
             # url = f'http://192.168.88.136:3002/ecommer/rs/viewcart'
     
             response = requests.post(url, json=data)  # Usar json=data en lugar de data=data
-    
-    
+                
+
             if response.status_code == 200:
-                  return redirect('register')
+               data_from_express_api = response.json()
+               order = data_from_express_api['orden']
+               return redirect('completeorder', Orden=order)
             else:
-                  return redirect('login')
+                messages.error(request,'Error al realizar el pedido')
+                return redirect('checkout')
               
            
 
@@ -1227,5 +1231,47 @@ def ValidarCarrito(request):
             
               context = None
               return JsonResponse({'status': 'error', 'message': 'Error interno del servidor'})  
+
+def completarorden(request, Orden):
+      session_data = dict(request.session)
+      if session_data:
+            try:
+              data ={
+                "idorden":Orden,
+                 "usuario":session_data['id']
+                 }   
+              
+              # Realizar una nueva solicitud a la API para obtener los detalles del producto
+
+              endpoint = 'obtenerordenesuser'
+              url = f'{URL_APIS}{endpoint}'
+            #   url = f'http://192.168.88.136:3002/ecommer/rs/validarCarrito'
+
+              response = requests.post(url, json=data)  # Usar json=data en lugar de data=data
+           
+              data_from_express_api = response.json()
+              context={
+                  "orden":data_from_express_api['orden'][0],
+                  "product":data_from_express_api['ordenrow']
+              }
+     
+              if response.status_code == 200:
+                      return render(request,'store/orderComplete.html',context)
+              elif response.status_code == 201:
+                  return redirect('home')
+              else:
+                 return redirect('home')
+
+
+            except Exception as e:
+              print(e)
+            
+            
+              context = None
+              return JsonResponse({'status': 'error', 'message': 'Error interno del servidor'})
+            
+      else:
+          return redirect('login')
+    
 
 

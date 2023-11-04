@@ -6,6 +6,7 @@
 
 
   <div class="min-w-screen min-h-screen  py-5">
+    {% include 'includes/alerts.html' %}
     <form action="{% url  'checkout' %}" method="POST">
       {% csrf_token %}
 

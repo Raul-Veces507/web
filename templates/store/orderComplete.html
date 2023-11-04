@@ -1,0 +1,120 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block content %}
+
+
+<div class="container" style="margin-top: 50px;">
+    <center><i class="fas fa-check-circle" style="font-size: 142px;margin-bottom: 20px;color: #28A745;"></i></center>
+    <h2 class="text-center">Su Pedido Se Realizo Con Exito</h2>
+    <br>
+
+</div>
+
+<div class="container" style="margin: 0 auto;width: 50%;">
+    <div class="row invoice row-printable">
+        <div class="col-md-12">
+            <!-- col-lg-12 start here -->
+            <div class="panel panel-default plain" id="dash_0">
+                <!-- Start .panel -->
+                <div class="panel-body p30">
+                    <div class="row">
+                        <!-- Start .row -->
+                        <div class="col-lg-6">
+                            <!-- col-lg-6 start here -->
+                            <div class="invoice-logo"><img
+                                    src=" https://www.ribasmith.com/media/logo/websites/1/logowebx1.png"
+                                    alt="Invoice logo" style="max-height: 40px;"></div>
+                        </div>
+                        <!-- col-lg-6 end here -->
+
+                        <!-- col-lg-6 end here -->
+                        <div class="col-lg-12 mt-10">
+                            <!-- col-lg-12 start here -->
+                            <div class="invoice-details mt25">
+                                <div class="well">
+                                    <ul class="list-unstyled mb0">
+
+                                        <li><strong>Orden</strong> #{{orden.idOrden}}</li>
+                                        <li id="fecha-orden"><strong>Fecha de Orden:</strong> {{orden.fecha}}</li>
+                                        <li><strong>Status:</strong> En Proceso</li>
+                                    </ul>
+                                </div>
+                            </div>
+
+                            <div class="relative overflow-x-auto shadow-md sm:rounded-lg mt-5">
+
+                                <table class="w-full text-sm text-left">
+                                    <thead class="text-xs text-gray-700 uppercase">
+                                        <tr>
+
+                                            <th scope="col" class="px-6 py-3">
+                                                Descripcion
+                                            </th>
+                                            <th scope="col" class="px-6 py-3">
+                                                Cantidad
+                                            </th>
+                                            <th scope="col" class="px-6 py-3">
+                                                Precio
+                                            </th>
+
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        {% for item in product %}
+                                        <tr>
+
+                                            <th scope="row"
+                                                class="flex items-center px-6 py-4 text-gray-900 whitespace-nowrap dark:text-white">
+                                                <img class="w-10 h-10 rounded-full"
+                                                    src="https://riba.app/imgrs/THUMBS 500X500/{{item.item}}.jpg"
+                                                    alt="Jese image">
+                                                <div class="pl-3">
+                                                    <div class="text-base font-semibold">{{item.nombre}}</div>
+
+                                                </div>
+                                            </th>
+                                            <td class="px-6 py-4">
+                                                {{item.Qty}}
+                                            </td>
+                                            <td class="px-6 py-4">
+                                                <div class="flex items-center">
+                                                    <div class="h-2.5 w-2.5 rounded-full bg-green-500 mr-2"></div>
+                                                    ${{item.precio}}
+                                                </div>
+                                            </td>
+
+                                        </tr>
+                                        {% endfor %}
+
+                                    </tbody>
+                                </table>
+
+                            </div>
+
+
+
+                            <div class=" mt-5">
+                                <p class="text-center">Gracias por comprar en ribasmith</p>
+                            </div>
+                        </div>
+                        <!-- col-lg-12 end here -->
+                    </div>
+                    <!-- End .row -->
+                </div>
+            </div>
+            <!-- End .panel -->
+        </div>
+        <!-- col-lg-12 end here -->
+    </div>
+</div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+      var fechaISO8601 = '{{ orden.fecha }}';  // Obtiene la fecha en formato ISO 8601 desde Django
+      var fechaFormateada = new Date(fechaISO8601).toLocaleString();  // Formatea la fecha
+      document.getElementById('fecha-orden').textContent = 'Fecha de Orden: ' + fechaFormateada;  // Actualiza el elemento HTML con la fecha formateada
+    });
+  </script>
+{% endblock %}
