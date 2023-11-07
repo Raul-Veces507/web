@@ -242,11 +242,13 @@ def activate(request,uidb64,token):
 
 def dashboard(request):
     session_data = dict(request.session)
+    
     if session_data:
          try:
               data ={
                 "usuario":session_data['id']
-                 }   
+                 }
+                 
 
               # Realizar una nueva solicitud a la API para obtener los detalles del producto
               endpoint = 'obtenerperfil'
@@ -255,16 +257,20 @@ def dashboard(request):
 
               response = requests.post(url, json=data)  # Usar json=data en lugar de data=data
               data_from_express_api = response.json()
+              print(data_from_express_api)
 
               if response.status_code == 200:
                   info=data_from_express_api['user']
                   info2=data_from_express_api['CarritoDecompra'],
+                  info3=data_from_express_api['ordenes']
                 
                   fecha_obj = datetime.strptime(info['Fecha_nacimiento'], '%Y-%m-%dT%H:%M:%S.%fZ')
 
                   context={
                       'detalle':info,
                       'carrito':info2[0],
+                      'orden':info3,
+                      
                     
                       'Fecha_nacimiento': fecha_obj.strftime('%m/%d/%Y')
                   }
