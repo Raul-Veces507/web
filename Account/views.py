@@ -19,10 +19,6 @@ from django.contrib.auth import logout
 from datetime import datetime
 from ribasmith.settings import GOOGLE_MAPS_API_KEY,URL_APIS
 
-
-
-
-
 def  wishlistProduct(request):
    if request.method =='POST':
    
@@ -59,13 +55,6 @@ def  wishlistProduct(request):
 
    return render('store/cart.html',request) 
   
-
-
-
-
-
-
-
 def register(request):
 
     if request.method == 'POST':
@@ -92,12 +81,34 @@ def register(request):
             url = f'{URL_APIS}{endpoint}'
 
             response = requests.post(url, json=data)
+
+            data_from_express_api = response.json()
+            
             if response.status_code == 200:
-                messages.success(request,'Usuario Creado Con Exito')
-                return redirect('login')
+                current_site=get_current_site(request)
+                userinfo={
+                    'pk':data_from_express_api['userId'][0],
+                    'first_name':first_name,
+                }
+                mail_subject='Por favor activa tu cuenta en ribasmith'
+                body=render_to_string('accounts/account_verification_email.html',{
+                    'user':userinfo,
+                    'domain':current_site,
+                    'uid':urlsafe_base64_encode(force_bytes(userinfo['pk'])),
+                  
+                })
+                to_email=email
+                send_email=EmailMessage(mail_subject,body, to=[to_email])
+                send_email.send()
+                return redirect('/account/login/?command=verification&email='+email)
+                # messages.success(request,'Usuario Creado Con Exito')
+                # return redirect('login')
                 
             elif response.status_code==300:
                 messages.error(request,'Error Usuario Ya Se Ecuentra Registrado ')
+                return render(request, 'accounts/register.html')
+            elif response.status_code==301:
+                messages.error(request,'Error Numero Celular Ya Se Ecuentra Registrado ')
                 return render(request, 'accounts/register.html')
             
             else:
@@ -222,22 +233,32 @@ def logout(request):
     # return redirect('login')
 
 
-def activate(request,uidb64,token):
+def activate(request,uidb64):
     try:
         uid=urlsafe_base64_decode(uidb64).decode()
-        user=Account._default_manager.get(pk=uid)
-    except(TypeError, ValueError, OverflowError,Account.DoesNotExist):
-        user=None
+        data ={
+                "usuario":uid
+              }
+        print(data)
+        endpoint = 'activarCuenta'
+        url = f'{URL_APIS}{endpoint}'
 
-    if user is not None and default_token_generator.check_token(user,token):
-        user.is_active=True
-        user.save()
-        messages.success(request, 'Felicidades tu cuenta esta activa!')
-        return redirect('login')
-    
-    else:
-        messages.error(request,' La activacion es invalida')
-        return redirect('register')
+        response = requests.post(url, json=data)
+        print(response)
+
+
+        if response.status_code == 200:
+            messages.success(request,'Usuario Activo')
+            return redirect('login')
+        else:
+            messages.error(request,'Usuario No Activo, Intente De Nuevo')
+            return redirect('login') 
+    except Exception as e:
+            print(e)
+            messages.error(request,'Usuario No Activo, Intente De Nuevo')
+            return redirect('login')
+       
+        
 
 
 def dashboard(request):
@@ -1202,7 +1223,6 @@ def eliminarProductoListado(request,idlista,item):
       else:
     
            return redirect('login')
-
 
 
 

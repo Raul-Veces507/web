@@ -143,5 +143,51 @@
            
         })
     
+        
     </script>
+    <script>
+        // Obtén referencias a los campos de contraseña y confirmación de contraseña
+        var passwordField = document.getElementById("password");
+        var numChar = document.getElementById("numChar");
+        var numChar = document.getElementById("numChar");
+        var upperChar = document.getElementById("upperChar");
+        var specialChar = document.getElementById("specialChar");
+        
+        // Agrega un evento de escucha para validar las contraseñas cuando el usuario escriba
+        passwordField.addEventListener("input", function () {
+            var password = passwordField.value;
+        
+            // Expresiones regulares para verificar requisitos
+            var hasNum = /\d/.test(password);
+            var hasUpper = /[A-Z]/.test(password);
+            var hasSpecial = /[$@$!%*?&./+-]/.test(password);
+        
+            // Cambia el color del ícono y el texto según los requisitos cumplidos
+            if (hasNum) {
+                numChar.querySelector("svg").classList.remove("text-red-500");
+                numChar.querySelector("svg").classList.add("text-green-500");
+            } else {
+                numChar.querySelector("svg").classList.remove("text-green-500");
+                numChar.querySelector("svg").classList.add("text-red-500");
+            }
+        
+            if (hasUpper) {
+                upperChar.querySelector("svg").classList.remove("text-red-500");
+                upperChar.querySelector("svg").classList.add("text-green-500");
+            } else {
+                upperChar.querySelector("svg").classList.remove("text-green-500");
+                upperChar.querySelector("svg").classList.add("text-red-500");
+            }
+        
+            if (hasSpecial) {
+                specialChar.querySelector("svg").classList.remove("text-red-500");
+                specialChar.querySelector("svg").classList.add("text-green-500");
+            } else {
+                specialChar.querySelector("svg").classList.remove("text-green-500");
+                specialChar.querySelector("svg").classList.add("text-red-500");
+            }
+        });
+        
+        </script>
+        
 {% endblock %}

@@ -59,7 +59,7 @@
                                 <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Sexo</label>
                                 <select name="Sexo"
                                     class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required>
-                                    <option selected>Seleccione Sexo</option>
+                                    <option value=""  selected>Seleccione Sexo</option>
                                     <option value="1">Masculino</option>
                                     <option value="2">Femenino</option>
                                     <option value="3">No especificado</option>
@@ -70,10 +70,42 @@
                         </div>
                         <div class="grid md:grid-cols-2 grid-cols-1 gap-4">
                             <div>
-                                <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Contraseña</label>
+                                <p class="flex items-center text-sm mb-2  font-medium text-gray-900 dark:text-white">Contraseña <button data-popover-target="popover-description" data-popover-placement="bottom-end" type="button"><svg class="w-4 h-4 ml-2 text-gray-400 hover:text-gray-500" aria-hidden="true" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-8-3a1 1 0 00-.867.5 1 1 0 11-1.731-1A3 3 0 0113 8a3.001 3.001 0 01-2 2.83V11a1 1 0 11-2 0v-1a1 1 0 011-1 1 1 0 100-2zm0 8a1 1 0 100-2 1 1 0 000 2z" clip-rule="evenodd"></path></svg><span class="sr-only">Show information</span></button></p>
                                 <input type="password" id="password" name="password" placeholder="Ingrese Contraseña"
-                                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                                    required>
+                                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                required>
+                            
+                                <div data-popover id="popover-description" role="tooltip" class="absolute z-10 invisible inline-block text-sm text-gray-500 transition-opacity duration-300 bg-white border border-gray-200 rounded-lg shadow-sm opacity-0 w-72 dark:bg-gray-800 dark:border-gray-600 dark:text-gray-400">
+                                    <div class="p-3 space-y-2">
+                                        <ul class="max-w-md space-y-1 text-gray-500 list-inside dark:text-gray-400">
+                                            <li class="flex items-center" id="countchar">
+                                                <svg class="w-3.5 h-3.5 mr-2 text-gray-500 dark:text-gray-400 flex-shrink-0" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
+                                                    <path d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5Zm3.707 8.207-4 4a1 1 0 0 1-1.414 0l-2-2a1 1 0 0 1 1.414-1.414L9 10.586l3.293-3.293a1 1 0 0 1 1.414 1.414Z"/>
+                                                </svg>
+                                                Al menos 8 caracteres
+                                            </li>
+                                            <li class="flex items-center" id="numChar">
+                                                <svg class="w-3.5 h-3.5 mr-2 text-gray-500 dark:text-gray-400 flex-shrink-0" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
+                                                    <path d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5Zm3.707 8.207-4 4a1 1 0 0 1-1.414 0l-2-2a1 1 0 0 1 1.414-1.414L9 10.586l3.293-3.293a1 1 0 0 1 1.414 1.414Z"/>
+                                                </svg>
+                                                Al menos un carácter en numerico
+                                            </li>
+                                            <li class="flex items-center" id="upperChar">
+                                                <svg class="w-3.5 h-3.5 mr-2 text-gray-500 dark:text-gray-400 flex-shrink-0" aria-hidden  xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
+                                                    <path d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5Zm3.707 8.207-4 4a1 1 0 0 1-1.414 0l-2-2a1 1 0 0 1 1.414-1.414L9 10.586l3.293-3.293a1 1 0 0 1 1.414 1.414Z"/>
+                                                </svg>
+                                                Al menos un carácter en mayúscula
+                                            </li>
+                                            <li class="flex items-center" id="specialChar">
+                                                <svg class="w-3.5 h-3.5 mr-2 text-gray-500 dark:text-gray-400 flex-shrink-0" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
+                                                    <path d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5Zm3.707 8.207-4 4a1 1 0 0 1-1.414 0l-2-2a1 1 0 0 1 1.414-1.414L9 10.586l3.293-3.293a1 1 0 0 1 1.414 1.414Z"/>
+                                                </svg>
+                                                Al menos un carácter especial, por ejemplo, ! @#?
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                    
                             </div>
                             <div>
                                 <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Repetir Contraseña</label>
@@ -81,7 +113,7 @@
                                     class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                                     required>
                             </div>
-                        </div>
+                        </div>     
 
 
 
@@ -114,19 +146,80 @@
 </div>
 
 <script>
-    // Obtén referencias a los campos de contraseña y confirmación de contraseña
-var passwordField = document.getElementById("password");
+// Obtén referencias a los campos de contraseña y confirmación de contraseña
 var confirmField = document.getElementById("confirm_password");
+
+var passwordField = document.getElementById("password");
+
+var countchar = document.getElementById("countchar");
+    var numChar = document.getElementById("numChar");
+    var numChar = document.getElementById("numChar");
+    var upperChar = document.getElementById("upperChar");
+    var specialChar = document.getElementById("specialChar");
 
 // Agrega un evento de escucha para validar las contraseñas cuando el usuario escriba
 confirmField.addEventListener("input", function () {
-    if (confirmField.value !== passwordField.value) {
+    var password = passwordField.value;
+    var confirm = confirmField.value;
+    // Expresión regular para validar la contraseña
+    var passwordPattern = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[$@$!%*?&./+-]).{8,}/;
+
+    if (confirm !== password) {
         confirmField.setCustomValidity("Las contraseñas no coinciden");
+    } else if (!passwordPattern.test(password)) {
+    
+        confirmField.setCustomValidity("La contraseña no cumple con los requisitos.");
     } else {
+     
         confirmField.setCustomValidity(""); // Restablece el mensaje de error
     }
 });
-</script>
+    
+    // Agrega un evento de escucha para validar las contraseñas cuando el usuario escriba
+    passwordField.addEventListener("input", function () {
+        var password = passwordField.value;
+    
+        // Expresiones regulares para verificar requisitos
+        var count=password.length
+        var hasNum = /\d/.test(password);
+        var hasUpper = /[A-Z]/.test(password);
+        var hasSpecial = /[$@$!%*?&./+-]/.test(password);
+    
+        // Cambia el color del ícono y el texto según los requisitos cumplidos
+        if (count>7) {
+            countchar.querySelector("svg").classList.remove("text-red-500");
+            countchar.querySelector("svg").classList.add("text-green-500");
+        } else {
+            countchar.querySelector("svg").classList.remove("text-green-500");
+            countchar.querySelector("svg").classList.add("text-red-500");
+        }
+        
 
+        if (hasNum) {
+            numChar.querySelector("svg").classList.remove("text-red-500");
+            numChar.querySelector("svg").classList.add("text-green-500");
+        } else {
+            numChar.querySelector("svg").classList.remove("text-green-500");
+            numChar.querySelector("svg").classList.add("text-red-500");
+        }
+    
+        if (hasUpper) {
+            upperChar.querySelector("svg").classList.remove("text-red-500");
+            upperChar.querySelector("svg").classList.add("text-green-500");
+        } else {
+            upperChar.querySelector("svg").classList.remove("text-green-500");
+            upperChar.querySelector("svg").classList.add("text-red-500");
+        }
+    
+        if (hasSpecial) {
+            specialChar.querySelector("svg").classList.remove("text-red-500");
+            specialChar.querySelector("svg").classList.add("text-green-500");
+        } else {
+            specialChar.querySelector("svg").classList.remove("text-green-500");
+            specialChar.querySelector("svg").classList.add("text-red-500");
+        }
+    });
+    
+    </script>
 
 {% endblock %}

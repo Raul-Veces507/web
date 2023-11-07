@@ -28,6 +28,7 @@ urlpatterns=[
     path('AgregaraListaNueva/',views.AgregaraListaNueva,name='AgregaraListaNueva'),
     path('eliminarLista/<str:idlista>',views.eliminarLista,name='eliminarLista'),
     path('eliminarProductoListado/<str:idlista>/<str:item>',views.eliminarProductoListado,name='eliminarProductoListado'),
+    path('activate/<uidb64>/',views.activate, name='activate'),
     
 
     
