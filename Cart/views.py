@@ -162,6 +162,7 @@ def add_cart_comentatario(request):
                 "Comentario":Comentario,
                 "ItemRemplazo":Newproduct
                  }   
+              print(data)
               endpoint = 'carrito'
               url = f'{URL_APIS}{endpoint}'
               
