@@ -890,14 +890,16 @@ def checkout(request, total=Decimal("0"),total1=Decimal("0"),total2=Decimal("0")
         totalsuma2=0
  
         for cart_item in data2:       
-          
+
           if cart_item['inventario'] >= 0 and cart_item['item_a_reemplazar'] is not None:
               Descuento = cart_item['precio']
               cartItemData.append({
-                "product_item": cart_item,
-                "quantity": cart_item,
-                "precio": cart_item,
-                "precioRegular": cart_item
+                "product_item": cart_item['item'],
+                "quantity": cart_item['quantity'],
+                "precio": cart_item['precio'],
+                "precioRegular": cart_item['precioRegular'],
+                "Comentario":cart_item['Comentario'],
+                "item_a_reemplazar":cart_item['item_a_reemplazar']
                })
               totalsuma1 += (Descuento * cart_item['quantity'])
               sumaitem1 += (cart_item['quantity'])
@@ -909,7 +911,9 @@ def checkout(request, total=Decimal("0"),total1=Decimal("0"),total2=Decimal("0")
                 "product_item": cart_item['item'],
                 "quantity": cart_item['quantity'],
                 "precio": cart_item['precio'],
-                "precioRegular": cart_item['precioRegular']
+                "precioRegular": cart_item['precioRegular'],
+                "Comentario":cart_item['Comentario'],
+                
                })
               totalsuma2 += (Descuento * cart_item['quantity'])
               sumaitem2 += (cart_item['quantity'])
@@ -975,7 +979,7 @@ def checkout(request, total=Decimal("0"),total1=Decimal("0"),total2=Decimal("0")
             # url = f'http://192.168.88.136:3002/ecommer/rs/viewcart'
     
             response = requests.post(url, json=data)  # Usar json=data en lugar de data=data
-    
+            print(response)
     
             if response.status_code == 200:
               
@@ -1016,7 +1020,7 @@ def checkout(request, total=Decimal("0"),total1=Decimal("0"),total2=Decimal("0")
         except Exception as e:
             
             context = None
-            return render(request, 'store/checkout.html',context)
+            return redirect('home')
     else:
 
         try:
@@ -1071,7 +1075,7 @@ def checkout(request, total=Decimal("0"),total1=Decimal("0"),total2=Decimal("0")
         except Exception as e:
             
             context = None
-            return render(request, 'store/checkout.html',context)       
+            return redirect('home')      
 
 
 
@@ -1248,7 +1252,7 @@ def completarorden(request, Orden):
             #   url = f'http://192.168.88.136:3002/ecommer/rs/validarCarrito'
 
               response = requests.post(url, json=data)  # Usar json=data en lugar de data=data
-           
+              print(response)
               data_from_express_api = response.json()
               context={
                   "orden":data_from_express_api['orden'][0],
@@ -1268,7 +1272,8 @@ def completarorden(request, Orden):
             
             
               context = None
-              return JsonResponse({'status': 'error', 'message': 'Error interno del servidor'})
+            
+            return redirect('home')
             
       else:
           return redirect('login')

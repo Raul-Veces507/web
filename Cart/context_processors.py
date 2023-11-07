@@ -33,6 +33,9 @@ def counter(request, total=Decimal("0"), quantity=0, cart_items=None, taxt=Decim
                 cart_items = data_from_express_api['carrito']
             
                 for cart_item in cart_items:
+                  
+                    if cart_item['inventario'] >= 0 and cart_item['item_a_reemplazar'] is not None:
+                         cart_count += cart_item['quantity']
                     if cart_item['inventario'] > 0: 
                        cart_count += cart_item['quantity']
 
@@ -80,6 +83,9 @@ def counter(request, total=Decimal("0"), quantity=0, cart_items=None, taxt=Decim
                 
             
                 for cart_item in cart_items:
+               
+                    if cart_item['inventario'] >= 0 and cart_item['item_a_reemplazar'] is not None:
+                         cart_count += cart_item['quantity']
                     if cart_item['inventario'] > 0: 
                        cart_count += cart_item['quantity']
             
